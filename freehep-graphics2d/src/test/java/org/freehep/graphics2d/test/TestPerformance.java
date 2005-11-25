@@ -2,29 +2,35 @@
 // CERN, Geneva, Switzerland, Copyright (c) 2000
 package org.freehep.graphics2d.test;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import javax.swing.*;
-import javax.swing.border.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Insets;
 
-import org.freehep.graphics2d.*;
+import javax.swing.JFrame;
+
+import org.freehep.graphics2d.BufferedPanel;
+import org.freehep.graphics2d.VectorGraphics;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphics2d/src/test/java/org/freehep/graphics2d/test/TestPerformance.java f5b43d67642f 2005/11/25 23:10:27 duns $
+ * @version $Id: freehep-graphics2d/src/test/java/org/freehep/graphics2d/test/TestPerformance.java 7aee336a8992 2005/11/25 23:19:05 duns $
  */
-public class TestPerformance
-    extends BufferedPanel {
+public class TestPerformance extends BufferedPanel {
 
     private static final int n = 100;
+
     private static final int m = 50;
 
     private int[][] xip = new int[n][m];
+
     private int[][] yip = new int[n][m];
+
     private double[][] xdp = new double[n][m];
+
     private double[][] ydp = new double[n][m];
+
     private double[] xs = new double[n];
+
     private double[] ys = new double[n];
 
     public void paintComponent(VectorGraphics g) {
@@ -36,14 +42,14 @@ public class TestPerformance
         int height = dim.height;
 
         for (int i = 0; i < xip.length; i++) {
-            for (int j=0; j < xip[0].length; j++) {
-                xip[i][j] = (int)(Math.random() * width);
-                yip[i][j] = (int)(Math.random() * height);
+            for (int j = 0; j < xip[0].length; j++) {
+                xip[i][j] = (int) (Math.random() * width);
+                yip[i][j] = (int) (Math.random() * height);
             }
         }
 
         for (int i = 0; i < xdp.length; i++) {
-            for (int j=0; j < xdp[0].length; j++) {
+            for (int j = 0; j < xdp[0].length; j++) {
                 xdp[i][j] = Math.random() * width;
                 ydp[i][j] = Math.random() * height;
             }
@@ -55,14 +61,16 @@ public class TestPerformance
         }
 
         System.out.print("Waiting 4 seconds... ");
-        try { Thread.sleep(4000); } catch (InterruptedException e) {}
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+        }
         System.out.println("done");
 
-//        g.setLineWidth(1.5);
+        // g.setLineWidth(1.5);
         g.setColor(Color.black);
-        g.fillRect(insets.left, insets.top,
-                   dim.width-insets.left-insets.right,
-                   dim.height-insets.top-insets.bottom);
+        g.fillRect(insets.left, insets.top, dim.width - insets.left
+                - insets.right, dim.height - insets.top - insets.bottom);
 
         g.setColor(Color.orange);
         drawIntPolylines(g);
@@ -71,14 +79,12 @@ public class TestPerformance
         drawDoublePolylines(g);
 
         g.setColor(Color.red);
-//        drawSymbols(g, VectorGraphicsConstants.SYMBOL_STAR, false);
+        // drawSymbols(g, VectorGraphicsConstants.SYMBOL_STAR, false);
         g.setColor(Color.blue);
-//        drawSymbols(g, VectorGraphicsConstants.SYMBOL_CIRCLE, true);
+        // drawSymbols(g, VectorGraphicsConstants.SYMBOL_CIRCLE, true);
     }
 
-    private void drawIntPolylines(VectorGraphics g) {
-        double lineWidth = 2.0;
-
+    public void drawIntPolylines(VectorGraphics g) {
         long start, end;
 
         start = System.currentTimeMillis();
@@ -86,10 +92,11 @@ public class TestPerformance
             g.drawPolyline(xip[i], yip[i], xip[i].length);
         }
         end = System.currentTimeMillis();
-        System.out.println("VG2D:"+xip.length+" IntPolys[" + xip[0].length + "] " + (end-start) + " ms");
+        System.out.println("VG2D:" + xip.length + " IntPolys[" + xip[0].length
+                + "] " + (end - start) + " ms");
     }
 
-    private void drawDoublePolylines(VectorGraphics g) {
+    public void drawDoublePolylines(VectorGraphics g) {
         long start, end;
 
         start = System.currentTimeMillis();
@@ -97,10 +104,11 @@ public class TestPerformance
             g.drawPolyline(xdp[i], ydp[i], xdp[i].length);
         }
         end = System.currentTimeMillis();
-        System.out.println("VG2D:"+xdp.length+" DoublePolys[" + xdp[0].length + "] " + (end-start) + " ms");
+        System.out.println("VG2D:" + xdp.length + " DoublePolys["
+                + xdp[0].length + "] " + (end - start) + " ms");
     }
 
-    private void drawSymbols(VectorGraphics g, int type, boolean fill) {
+    public void drawSymbols(VectorGraphics g, int type, boolean fill) {
 
         long start = System.currentTimeMillis();
         for (int i = 0; i < xs.length; i++) {
@@ -111,7 +119,8 @@ public class TestPerformance
             }
         }
         long end = System.currentTimeMillis();
-        System.out.println("VG2D:"+xs.length+" symbols[" + type + "] " + (end-start) + " ms");
+        System.out.println("VG2D:" + xs.length + " symbols[" + type + "] "
+                + (end - start) + " ms");
     }
 
     public static void main(String[] args) {
@@ -123,7 +132,7 @@ public class TestPerformance
         frame.getContentPane().add(new TestPerformance());
 
         // Give the frame a size and make it visible.
-        frame.setSize(new Dimension(1024,768));
+        frame.setSize(new Dimension(1024, 768));
         frame.setVisible(true);
     }
 }

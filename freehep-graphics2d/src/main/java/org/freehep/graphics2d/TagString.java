@@ -2,12 +2,10 @@
 package org.freehep.graphics2d;
 
 
-import java.util.*;
-
 /**
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/TagString.java f5b43d67642f 2005/11/25 23:10:27 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/TagString.java 7aee336a8992 2005/11/25 23:19:05 duns $
  */
 public class TagString {
 

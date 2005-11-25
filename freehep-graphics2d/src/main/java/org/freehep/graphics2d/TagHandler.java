@@ -2,37 +2,34 @@
 package org.freehep.graphics2d;
 
 
-import java.util.*;
-
 /**
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/TagHandler.java f5b43d67642f 2005/11/25 23:10:27 duns $
- */ 
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/TagHandler.java 7aee336a8992 2005/11/25 23:19:05 duns $
+ */
 public class TagHandler {
-    
+
     public TagHandler() {
     }
 
     /**
-     * parses string and calls methods for every tag and every not recognized entity
-     * The characters < and > have to be written as &lt; and &gt; while the 
-     * & is written as &amp;
-     *
-     * The following three methods are called:
-     *      defaultEntity(entity)      for &amp; &lt; &gt; &quot; &apos;
-     *      entity(entity)             for all other entities
-     *      openTag(tag)               for all <tags>
-     *      endTag(tag)                for all </tags>
-     *      text(text)                 for all text
+     * parses string and calls methods for every tag and every not recognized
+     * entity The characters < and > have to be written as &lt; and &gt; while
+     * the & is written as &amp;
      * 
-     * The startTag, endTag and text methods returns a string which is added 
-     * to the fully parsed string.
-     *
-     * Strings returned from the entity methods will show up in the text methods parameter.
-     *
-     * It returns the fully parsed string, including any additions made by the three
-     * methods above.
+     * The following three methods are called: defaultEntity(entity) for &amp;
+     * &lt; &gt; &quot; &apos; entity(entity) for all other entities
+     * openTag(tag) for all <tags> endTag(tag) for all </tags> text(text) for
+     * all text
+     * 
+     * The startTag, endTag and text methods returns a string which is added to
+     * the fully parsed string.
+     * 
+     * Strings returned from the entity methods will show up in the text methods
+     * parameter.
+     * 
+     * It returns the fully parsed string, including any additions made by the
+     * three methods above.
      */
     public String parse(TagString string) {
         String src = string.toString();
@@ -43,68 +40,66 @@ public class TagHandler {
         try {
             while (i < src.length()) {
                 switch (src.charAt(i)) {
-                    case '&' :
-                        // handle entities
-                        // look for closing ';'
+                case '&':
+                    // handle entities
+                    // look for closing ';'
+                    i++;
+                    p = i;
+                    while (src.charAt(i) != ';') {
                         i++;
-                        p = i;
-                        while (src.charAt(i) != ';') {
-                            i++;
-                        }
-                        String ent = src.substring(p,i);
-                        if (ent.equals("amp") ||
-                            ent.equals("gt") || 
-                            ent.equals("lt") || 
-                            ent.equals("quot") ||
-                            ent.equals("apos")) {
-                            textString.append(defaultEntity(ent));
-                        } else {
-                            textString.append(entity(ent));
-                        }
-                        break;
-                        
-                    case '<' :
-                        // handle tags
-                        
-                        // handle any outstanding text
-                        if (textString.length() > 0) {
-                            parsedString.append(text(textString.toString()));
-                            textString = new StringBuffer();
-                        }
-                        
-                        // look for closing '>'
-                        i++;
-                        p = i;
-                        while (src.charAt(i) != '>') {
-                            i++;
-                        }
+                    }
+                    String ent = src.substring(p, i);
+                    if (ent.equals("amp") || ent.equals("gt")
+                            || ent.equals("lt") || ent.equals("quot")
+                            || ent.equals("apos")) {
+                        textString.append(defaultEntity(ent));
+                    } else {
+                        textString.append(entity(ent));
+                    }
+                    break;
 
-                        if (src.charAt(p) == '/') {
-                            parsedString.append(closeTag(src.substring(p+1,i)));
-                        } else {
-                            parsedString.append(openTag(src.substring(p,i)));
-                        }                        
-                        break;
-                    default:
-                        // just move the pointer
-                        textString.append(src.charAt(i));
-                        break;
+                case '<':
+                    // handle tags
+
+                    // handle any outstanding text
+                    if (textString.length() > 0) {
+                        parsedString.append(text(textString.toString()));
+                        textString = new StringBuffer();
+                    }
+
+                    // look for closing '>'
+                    i++;
+                    p = i;
+                    while (src.charAt(i) != '>') {
+                        i++;
+                    }
+
+                    if (src.charAt(p) == '/') {
+                        parsedString.append(closeTag(src.substring(p + 1, i)));
+                    } else {
+                        parsedString.append(openTag(src.substring(p, i)));
+                    }
+                    break;
+                default:
+                    // just move the pointer
+                    textString.append(src.charAt(i));
+                    break;
                 } // switch
                 i++;
             } // while
-            
+
         } catch (ArrayIndexOutOfBoundsException aoobe) {
             // just abort, but give most of the string
-            parsedString.append("!PARSEERROR!");          
+            parsedString.append("!PARSEERROR!");
         }
 
         // final part
-        if (textString.length() > 0 ) {
+        if (textString.length() > 0) {
             parsedString.append(text(textString.toString()));
-        }            
+        }
         return parsedString.toString();
     }
-    
+
     protected String defaultEntity(String entity) {
         StringBuffer dst = new StringBuffer();
         if (entity.equals("amp")) {
@@ -128,7 +123,7 @@ public class TagHandler {
         dst.append(';');
         return dst.toString();
     }
-    
+
     protected String openTag(String tag) {
         StringBuffer dst = new StringBuffer();
         dst.append('<');
@@ -144,18 +139,18 @@ public class TagHandler {
         dst.append('>');
         return dst.toString();
     }
-    
+
     protected String text(String text) {
         return text;
     }
-            
+
     public static void main(String[] args) {
-  		String text = "&lt;Vector<sup><b>Graphics</b></sup> &amp; Card<i><sub>Adapter</sub></i>&gt;";
-  		
-  		TagString s = new TagString(text);
-  		TagHandler handler = new TagHandler();
-  		System.out.println("\""+s+"\"");
-  		System.out.println(handler.parse(s));
-    }        
-    
+        String text = "&lt;Vector<sup><b>Graphics</b></sup> &amp; Card<i><sub>Adapter</sub></i>&gt;";
+
+        TagString s = new TagString(text);
+        TagHandler handler = new TagHandler();
+        System.out.println("\"" + s + "\"");
+        System.out.println(handler.parse(s));
+    }
+
 }

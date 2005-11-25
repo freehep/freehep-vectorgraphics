@@ -1,36 +1,54 @@
 // Copyright 2000-2003, FreeHEP
 package org.freehep.graphics2d;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import java.awt.image.renderable.*;
-import java.util.*;
-import java.text.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.Paint;
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.geom.Arc2D;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
+import java.text.AttributedCharacterIterator;
+import java.util.Properties;
 
 import org.freehep.util.UserProperties;
 
 /**
  * This class implements all conversions from integer to double as well as a few
- * other convenience functions. It also handles the different
- * drawSymbol and fillSymbol methods and print colors.
- *
+ * other convenience functions. It also handles the different drawSymbol and
+ * fillSymbol methods and print colors.
+ * 
  * @author Simon Fischer
  * @author Mark Donszelmann
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/AbstractVectorGraphics.java f5b43d67642f 2005/11/25 23:10:27 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/AbstractVectorGraphics.java 7aee336a8992 2005/11/25 23:19:05 duns $
  */
-public abstract class AbstractVectorGraphics
-    extends VectorGraphics {
+public abstract class AbstractVectorGraphics extends VectorGraphics {
 
     private UserProperties properties;
+
     private String creator;
+
     private boolean isDeviceIndependent;
+
     private SymbolShape cachedShape;
+
     private int colorMode;
 
     private Color backgroundColor;
+
     private Color currentColor;
+
     private Paint currentPaint;
+
     private Font currentFont;
 
     public AbstractVectorGraphics() {
@@ -62,7 +80,8 @@ public abstract class AbstractVectorGraphics
     }
 
     public void setProperties(Properties newProperties) {
-        if (newProperties == null) return;
+        if (newProperties == null)
+            return;
         properties.setProperties(newProperties);
     }
 
@@ -125,10 +144,9 @@ public abstract class AbstractVectorGraphics
         this.isDeviceIndependent = isDeviceIndependent;
     }
 
-
     /**
      * Gets the current font.
-     *
+     * 
      * @return current font
      */
     public Font getFont() {
@@ -137,7 +155,7 @@ public abstract class AbstractVectorGraphics
 
     /**
      * Sets the current font.
-     *
+     * 
      * @param font to be set
      */
     public void setFont(Font font) {
@@ -153,73 +171,80 @@ public abstract class AbstractVectorGraphics
         fillSymbol((double) x, (double) y, (double) size, symbol);
     }
 
-    public void fillAndDrawSymbol(int x, int y, int size, int symbol, Color fillColor) {
-        fillAndDrawSymbol((double) x, (double) y, (double) size, symbol, fillColor);
+    public void fillAndDrawSymbol(int x, int y, int size, int symbol,
+            Color fillColor) {
+        fillAndDrawSymbol((double) x, (double) y, (double) size, symbol,
+                fillColor);
     }
 
     public void drawSymbol(double x, double y, double size, int symbol) {
-        if (size <= 0) return;
+        if (size <= 0)
+            return;
         drawSymbol(this, x, y, size, symbol);
     }
 
-    protected void drawSymbol(VectorGraphics g, double x, double y, double size, int symbol) {
+    protected void drawSymbol(VectorGraphics g, double x, double y,
+            double size, int symbol) {
         switch (symbol) {
-            case SYMBOL_VLINE:
-            case SYMBOL_STAR:
-            case SYMBOL_HLINE:
-            case SYMBOL_PLUS:
-            case SYMBOL_CROSS:
-            case SYMBOL_BOX:
-            case SYMBOL_UP_TRIANGLE:
-            case SYMBOL_DN_TRIANGLE:
-            case SYMBOL_DIAMOND:
-                cachedShape.create(symbol, x, y, size);
-                g.draw(cachedShape);
-                break;
+        case SYMBOL_VLINE:
+        case SYMBOL_STAR:
+        case SYMBOL_HLINE:
+        case SYMBOL_PLUS:
+        case SYMBOL_CROSS:
+        case SYMBOL_BOX:
+        case SYMBOL_UP_TRIANGLE:
+        case SYMBOL_DN_TRIANGLE:
+        case SYMBOL_DIAMOND:
+            cachedShape.create(symbol, x, y, size);
+            g.draw(cachedShape);
+            break;
 
-            case SYMBOL_CIRCLE: {
-                double diameter = Math.max(1, size);
-                diameter += (diameter%2);
-                g.drawOval(x-diameter/2,y-diameter/2,diameter,diameter);
-                break;
-            }
+        case SYMBOL_CIRCLE: {
+            double diameter = Math.max(1, size);
+            diameter += (diameter % 2);
+            g.drawOval(x - diameter / 2, y - diameter / 2, diameter, diameter);
+            break;
+        }
         }
     }
 
     public void fillSymbol(double x, double y, double size, int symbol) {
-        if (size <= 0) return;
+        if (size <= 0)
+            return;
         fillSymbol(this, x, y, size, symbol);
     }
 
-    protected void fillSymbol(VectorGraphics g, double x, double y, double size, int symbol) {
+    protected void fillSymbol(VectorGraphics g, double x, double y,
+            double size, int symbol) {
         switch (symbol) {
-            case SYMBOL_VLINE:
-            case SYMBOL_STAR:
-            case SYMBOL_HLINE:
-            case SYMBOL_PLUS:
-            case SYMBOL_CROSS:
-                cachedShape.create(symbol, x, y, size);
-                g.draw(cachedShape);
-                break;
+        case SYMBOL_VLINE:
+        case SYMBOL_STAR:
+        case SYMBOL_HLINE:
+        case SYMBOL_PLUS:
+        case SYMBOL_CROSS:
+            cachedShape.create(symbol, x, y, size);
+            g.draw(cachedShape);
+            break;
 
-            case SYMBOL_BOX:
-            case SYMBOL_UP_TRIANGLE:
-            case SYMBOL_DN_TRIANGLE:
-            case SYMBOL_DIAMOND:
-                cachedShape.create(symbol, x, y, size);
-                g.fill(cachedShape);
-                break;
+        case SYMBOL_BOX:
+        case SYMBOL_UP_TRIANGLE:
+        case SYMBOL_DN_TRIANGLE:
+        case SYMBOL_DIAMOND:
+            cachedShape.create(symbol, x, y, size);
+            g.fill(cachedShape);
+            break;
 
-            case SYMBOL_CIRCLE: {
-                double diameter = Math.max(1, size);
-                diameter += (diameter%2);
-                g.fillOval(x-diameter/2,y-diameter/2,diameter,diameter);
-                break;
-            }
+        case SYMBOL_CIRCLE: {
+            double diameter = Math.max(1, size);
+            diameter += (diameter % 2);
+            g.fillOval(x - diameter / 2, y - diameter / 2, diameter, diameter);
+            break;
+        }
         }
     }
 
-    public void fillAndDrawSymbol(double x, double y, double size, int symbol, Color fillColor) {
+    public void fillAndDrawSymbol(double x, double y, double size, int symbol,
+            Color fillColor) {
         Color color = getColor();
         setColor(fillColor);
         fillSymbol(x, y, size, symbol);
@@ -237,7 +262,7 @@ public abstract class AbstractVectorGraphics
 
     // ---------------------------------------------------------
     // -------------------- WRAPPER METHODS --------------------
-    // --------------------  int -> double  --------------------
+    // -------------------- int -> double --------------------
     // ---------------------------------------------------------
 
     public void clearRect(int x, int y, int width, int height) {
@@ -245,54 +270,52 @@ public abstract class AbstractVectorGraphics
     }
 
     public void drawLine(int x1, int y1, int x2, int y2) {
-        drawLine((double)x1, (double)y1, (double)x2, (double)y2);
+        drawLine((double) x1, (double) y1, (double) x2, (double) y2);
     }
 
     public void drawRect(int x, int y, int width, int height) {
-        drawRect((double)x, (double)y, (double)width, (double)height);
+        drawRect((double) x, (double) y, (double) width, (double) height);
     }
 
     public void fillRect(int x, int y, int width, int height) {
-        fillRect((double)x, (double)y, (double)width, (double)height);
+        fillRect((double) x, (double) y, (double) width, (double) height);
     }
 
-    public void drawArc(int x, int y,
-                        int width, int height,
-                        int startAngle, int arcAngle) {
-        drawArc((double)x, (double)y, (double)width, (double)height,
+    public void drawArc(int x, int y, int width, int height, int startAngle,
+            int arcAngle) {
+        drawArc((double) x, (double) y, (double) width, (double) height,
                 (double) startAngle, (double) arcAngle);
     }
 
-    public void fillArc(int x, int y, int width, int height,
-                        int startAngle, int arcAngle) {
+    public void fillArc(int x, int y, int width, int height, int startAngle,
+            int arcAngle) {
         fillArc((double) x, (double) y, (double) width, (double) height,
                 (double) startAngle, (double) arcAngle);
     }
 
     public void drawOval(int x, int y, int width, int height) {
-        drawOval((double)x, (double)y, (double)width, (double)height);
+        drawOval((double) x, (double) y, (double) width, (double) height);
     }
 
     public void fillOval(int x, int y, int width, int height) {
-        fillOval((double)x, (double)y, (double)width, (double)height);
+        fillOval((double) x, (double) y, (double) width, (double) height);
     }
 
     public void drawRoundRect(int x, int y, int width, int height,
-                              int arcWidth, int arcHeight) {
-        drawRoundRect(x, y, (double)width, (double)height,
-                            (double)arcWidth,   (double)arcHeight);
+            int arcWidth, int arcHeight) {
+        drawRoundRect(x, y, (double) width, (double) height, (double) arcWidth,
+                (double) arcHeight);
     }
 
     public void fillRoundRect(int x, int y, int width, int height,
-                              int arcWidth, int arcHeight) {
-        fillRoundRect((double)x, (double)y, (double)width, (double)height,
-                      (double)arcWidth, (double)arcHeight);
+            int arcWidth, int arcHeight) {
+        fillRoundRect((double) x, (double) y, (double) width, (double) height,
+                (double) arcWidth, (double) arcHeight);
     }
 
     public void translate(int x, int y) {
         translate((double) x, (double) y);
     }
-
 
     /*--------------------------------------------------------------------------------
      | 8.1. stroke/linewidth
@@ -304,39 +327,35 @@ public abstract class AbstractVectorGraphics
     public void setLineWidth(double width) {
         Stroke stroke = getStroke();
         if (stroke instanceof BasicStroke) {
-            BasicStroke cs = (BasicStroke)stroke;
+            BasicStroke cs = (BasicStroke) stroke;
             if (cs.getLineWidth() != width) {
-                stroke = new BasicStroke((float)width,
-                                         cs.getEndCap(),
-                                         cs.getLineJoin(),
-                                         cs.getMiterLimit(),
-                                         cs.getDashArray(),
-                                         cs.getDashPhase());
+                stroke = new BasicStroke((float) width, cs.getEndCap(), cs
+                        .getLineJoin(), cs.getMiterLimit(), cs.getDashArray(),
+                        cs.getDashPhase());
                 setStroke(stroke);
             }
         } else {
-            stroke = new BasicStroke((float)width);
+            stroke = new BasicStroke((float) width);
             setStroke(stroke);
         }
     }
 
     public void drawString(String str, int x, int y) {
-        drawString(str, (double)x, (double)y);
+        drawString(str, (double) x, (double) y);
     }
 
     public void drawString(String s, float x, float y) {
-        drawString(s, (double)x, (double)y);
+        drawString(s, (double) x, (double) y);
     }
 
     public void drawString(AttributedCharacterIterator iterator, int x, int y) {
-        drawString(iterator, (float)x, (float)y);
+        drawString(iterator, (float) x, (float) y);
     }
 
     // ------------------ other wrapper methods ----------------
 
-    public void drawString(String str,
-                           double x, double y,
-                           int horizontal, int vertical) {
+    public void drawString(String str, double x, double y, int horizontal,
+            int vertical) {
         drawString(str, x, y, horizontal, vertical, false, null, 0, false, null);
     }
 
@@ -344,12 +363,10 @@ public abstract class AbstractVectorGraphics
         drawString(str, x, y, TEXT_LEFT, TEXT_BASELINE);
     }
 
-    public void drawString(TagString str,
-                           double x, double y,
-                           int horizontal, int vertical) {
+    public void drawString(TagString str, double x, double y, int horizontal,
+            int vertical) {
         drawString(str, x, y, horizontal, vertical, false, null, 0, false, null);
     }
-
 
     /* 8.2. paint/color */
     public int getColorMode() {
@@ -362,7 +379,7 @@ public abstract class AbstractVectorGraphics
 
     /**
      * Gets the background color.
-     *
+     * 
      * @return background color
      */
     public Color getBackground() {
@@ -371,7 +388,7 @@ public abstract class AbstractVectorGraphics
 
     /**
      * Sets the background color.
-     *
+     * 
      * @param color background color to be set
      */
     public void setBackground(Color color) {
@@ -380,7 +397,7 @@ public abstract class AbstractVectorGraphics
 
     /**
      * Sets the current color and the current paint. Calls writePaint(Color).
-     *
+     * 
      * @param color to be set
      */
     public void setColor(Color color) {
@@ -390,7 +407,7 @@ public abstract class AbstractVectorGraphics
 
     /**
      * Gets the current color.
-     *
+     * 
      * @return the current color
      */
     public Color getColor() {
@@ -399,18 +416,18 @@ public abstract class AbstractVectorGraphics
 
     /**
      * Sets the current paint.
-     *
+     * 
      * @return current paint
      */
     public void setPaint(Paint paint) {
-        if (!(paint instanceof Color)) currentColor = null;
+        if (!(paint instanceof Color))
+            currentColor = null;
         currentPaint = paint;
     }
 
-
     /**
      * Gets the current paint.
-     *
+     * 
      * @return current paint
      */
     public Paint getPaint() {
@@ -418,14 +435,14 @@ public abstract class AbstractVectorGraphics
     }
 
     /**
-     * Returns a printColor created from the original printColor,
-     * based on the ColorMode. If you run getPrintColor on it again
-     * you still get the same color, so that it does not matter
-     * if you convert it more than once.
+     * Returns a printColor created from the original printColor, based on the
+     * ColorMode. If you run getPrintColor on it again you still get the same
+     * color, so that it does not matter if you convert it more than once.
      */
     protected Color getPrintColor(Color color) {
         // shortcut if mode is COLOR for speed
-        if (colorMode == PrintColor.COLOR) return color;
+        if (colorMode == PrintColor.COLOR)
+            return color;
 
         // otherwise...
         PrintColor printColor = PrintColor.createPrintColor(color);
@@ -433,14 +450,15 @@ public abstract class AbstractVectorGraphics
     }
 
     public void rotate(double theta, double x, double y) {
-        translate(x,y);
+        translate(x, y);
         rotate(theta);
-        translate(-x,-y);
+        translate(-x, -y);
     }
 
     public void drawArc(double x, double y, double width, double height,
             double startAngle, double arcAngle) {
-        draw(new Arc2D.Double(x, y, width, height, startAngle, arcAngle, Arc2D.OPEN));
+        draw(new Arc2D.Double(x, y, width, height, startAngle, arcAngle,
+                Arc2D.OPEN));
     }
 
     public void drawLine(double x1, double y1, double x2, double y2) {
@@ -472,13 +490,15 @@ public abstract class AbstractVectorGraphics
     }
 
     public void drawRoundRect(double x, double y, double width, double height,
-                  double arcWidth, double arcHeight) {
-        draw(new RoundRectangle2D.Double(x, y, width, height, arcWidth, arcHeight));
+            double arcWidth, double arcHeight) {
+        draw(new RoundRectangle2D.Double(x, y, width, height, arcWidth,
+                arcHeight));
     }
 
     public void fillArc(double x, double y, double width, double height,
             double startAngle, double arcAngle) {
-        fill(new Arc2D.Double(x, y, width, height, startAngle, arcAngle, Arc2D.PIE));
+        fill(new Arc2D.Double(x, y, width, height, startAngle, arcAngle,
+                Arc2D.PIE));
     }
 
     public void fillOval(double x, double y, double width, double height) {
@@ -498,51 +518,52 @@ public abstract class AbstractVectorGraphics
     }
 
     public void fillRoundRect(double x, double y, double width, double height,
-                  double arcWidth, double arcHeight) {
-        fill(new RoundRectangle2D.Double(x, y, width, height, arcWidth, arcHeight));
+            double arcWidth, double arcHeight) {
+        fill(new RoundRectangle2D.Double(x, y, width, height, arcWidth,
+                arcHeight));
     }
 
     /**
-     * Creates a polyline/polygon shape from a set of points.
-     * Needs to be defined in subclass because its implementations
-     * could be device specific
-     *
+     * Creates a polyline/polygon shape from a set of points. Needs to be
+     * defined in subclass because its implementations could be device specific
+     * 
      * @param xPoints X coordinates of the polyline.
      * @param yPoints Y coordinates of the polyline.
      * @param nPoints number of points of the polyline.
      * @param close is shape closed
      */
-    protected abstract Shape createShape(double[] xPoints, double[] yPoints, int nPoints,
-                    boolean close);
+    protected abstract Shape createShape(double[] xPoints, double[] yPoints,
+            int nPoints, boolean close);
 
     /**
      * Creates a polyline/polygon shape from a set of points.
-     *
+     * 
      * @param xPoints X coordinates of the polyline.
      * @param yPoints Y coordinates of the polyline.
      * @param nPoints number of points of the polyline.
      * @param close is shape closed
      */
     protected Shape createShape(int[] xPoints, int[] yPoints, int nPoints,
-                    boolean close) {
+            boolean close) {
         GeneralPath path = new GeneralPath(GeneralPath.WIND_EVEN_ODD);
         if (nPoints > 0) {
             path.moveTo(xPoints[0], yPoints[0]);
             int lastX = xPoints[0];
             int lastY = yPoints[0];
-            if (close && (Math.abs(xPoints[nPoints-1] - lastX) < 1)
-                      && (Math.abs(yPoints[nPoints-1] - lastY) < 1)) {
+            if (close && (Math.abs(xPoints[nPoints - 1] - lastX) < 1)
+                    && (Math.abs(yPoints[nPoints - 1] - lastY) < 1)) {
                 nPoints--;
             }
             for (int i = 1; i < nPoints; i++) {
                 if ((Math.abs(xPoints[i] - lastX) > 1)
-                ||  (Math.abs(yPoints[i] - lastY) > 1)) {
+                        || (Math.abs(yPoints[i] - lastY) > 1)) {
                     path.lineTo(xPoints[i], yPoints[i]);
                     lastX = xPoints[i];
                     lastY = yPoints[i];
                 }
             }
-            if (close) path.closePath();
+            if (close)
+                path.closePath();
         }
         return path;
     }
