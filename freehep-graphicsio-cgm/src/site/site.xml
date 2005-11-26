@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="freehep-graphicsio-cgm">
+    <bannerLeft>
+        <name>FreeHEP FIXME</name>
+<!--        <src>http://maven.apache.org/images/apache-maven-project.png</src> -->
+<!-- FIXME, should this be substituted by some properties -->
+        <href>http://java.freehep.org/mvn/freehep-graphicsio-cgm</href>
+    </bannerLeft>
+    
+    <bannerRight>
+        <name>FreeHEP</name>
+        <src>http://java.freehep.org/images/sm-freehep.gif</src>
+        <href>http://java.freehep.org/</href>
+    </bannerRight>
+    
+    <body>
+        <links>
+            <item name="FreeHEP" href="http://java.freehep.org/"/>
+            <item name="JAS" href="http://jas.freehep.org/"/>
+            <item name="WIRED" href="http://wired.freehep.org/"/>
+        </links>
+    
+        <menu name="General">
+            <item name="Home" href="index.html"/>
+        </menu>
+        
+        <search/>
+<!--        
+        ${reports}      
+-->
+    </body>
+</project>

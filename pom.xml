@@ -1,0 +1,35 @@
+<project>
+  <parent>
+    <artifactId>freehep</artifactId>
+    <groupId>org.freehep</groupId>
+    <version>2.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.freehep</groupId>
+  <artifactId>vectorgraphics</artifactId>
+  <packaging>pom</packaging>
+  <name>FreeHEP Vector Graphics</name>
+  <version>2.0-SNAPSHOT</version>
+  <description>FreeHEP Vector Graphics Library</description>
+  <repositories>
+    <repository>
+      <id>freehep-maven</id>
+      <name>Maven FreeHEP</name>
+      <url>http://java.freehep.org/maven2</url>
+    </repository>
+  </repositories>
+  <modules>
+    <module>freehep-graphics2d</module>
+    <module>freehep-graphics2d</module>
+    <module>freehep-graphicsio</module>
+    <module>freehep-graphicsio-tests</module>
+    <module>freehep-graphicsio-cgm</module>
+    <module>freehep-graphicsio-emf</module>
+    <module>freehep-graphicsio-java</module>
+    <module>freehep-graphicsio-latex</module>
+    <module>freehep-graphicsio-pdf</module>
+    <module>freehep-graphicsio-ps</module>
+    <module>freehep-graphicsio-svg</module>
+    <module>freehep-graphicsio-swf</module>
+  </modules>
+</project>
