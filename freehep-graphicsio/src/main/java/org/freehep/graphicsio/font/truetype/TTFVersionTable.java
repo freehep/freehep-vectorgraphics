@@ -5,13 +5,14 @@ import java.io.IOException;
 
 /**
  * VERSION Table.
- *
- *  @author Simon Fischer
- *  @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/font/truetype/TTFVersionTable.java 399e20fc1ed9 2005/11/25 23:40:46 duns $
+ * 
+ * @author Simon Fischer
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/font/truetype/TTFVersionTable.java 5641ca92a537 2005/11/26 00:15:35 duns $
  */
 public abstract class TTFVersionTable extends TTFTable {
 
     public int minorVersion;
+
     public int majorVersion;
 
     public void readVersion() throws IOException {
@@ -20,7 +21,7 @@ public abstract class TTFVersionTable extends TTFTable {
     }
 
     public String toString() {
-	    return super.toString()+" v"+majorVersion+"."+minorVersion;
+        return super.toString() + " v" + majorVersion + "." + minorVersion;
     }
 
 }

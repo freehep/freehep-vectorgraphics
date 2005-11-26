@@ -1,108 +1,107 @@
 // Copyright 2000-2003, FreeHEP
 package org.freehep.graphicsio;
 
-import java.awt.*;
-import java.awt.font.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import java.io.*;
-import java.text.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.GraphicsConfiguration;
+import java.awt.Paint;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.TexturePaint;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.RenderedImage;
+import java.io.IOException;
 
 import org.freehep.graphics2d.VectorGraphics;
-import org.freehep.graphics2d.TagString;
 
 /**
- * This class provides a dummy Graphics2D class, which issues warnings
- * for all non implemented methods. It also describes how to implement
- * these methods. It serves as an example to start the implementation
- * for a new output format.
- *
+ * This class provides a dummy Graphics2D class, which issues warnings for all
+ * non implemented methods. It also describes how to implement these methods. It
+ * serves as an example to start the implementation for a new output format.
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/DummyGraphics2D.java 399e20fc1ed9 2005/11/25 23:40:46 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/DummyGraphics2D.java 5641ca92a537 2005/11/26 00:15:35 duns $
  */
-public class DummyGraphics2D
-    extends AbstractVectorGraphicsIO {
-    /*================================================================================
-     * Table of Contents:
-     * ------------------
-     * 1. Constructors & Factory Methods
-     * 2. Document Settings
-     * 3. Header, Trailer, Multipage & Comments
-     *    3.1 Header & Trailer
-     *    3.2 MultipageDocument methods
-     * 4. Create & Dispose
-     * 5. Drawing Methods
-     *    5.1. shapes (draw/fill)
-     *         5.1.1. lines, rectangles, round rectangles
-     *         5.1.2. polylines, polygons
-     *         5.1.3. ovals, arcs
-     *         5.1.4. shapes
-     *    5.2. Images
-     *    5.3. Strings
-     * 6. Transformations
-     * 7. Clipping
-     * 8. Graphics State / Settings
-     *    8.1. stroke/linewidth
-     *    8.2. paint/color
-     *    8.3. font
-     *    8.4. rendering hints
-     * 9. Auxiliary
-     * 10. Private/Utility Methos
-     *================================================================================*/
+public class DummyGraphics2D extends AbstractVectorGraphicsIO {
+    /*
+     * ================================================================================
+     * Table of Contents: ------------------ 1. Constructors & Factory Methods
+     * 2. Document Settings 3. Header, Trailer, Multipage & Comments 3.1 Header &
+     * Trailer 3.2 MultipageDocument methods 4. Create & Dispose 5. Drawing
+     * Methods 5.1. shapes (draw/fill) 5.1.1. lines, rectangles, round
+     * rectangles 5.1.2. polylines, polygons 5.1.3. ovals, arcs 5.1.4. shapes
+     * 5.2. Images 5.3. Strings 6. Transformations 7. Clipping 8. Graphics State /
+     * Settings 8.1. stroke/linewidth 8.2. paint/color 8.3. font 8.4. rendering
+     * hints 9. Auxiliary 10. Private/Utility Methos
+     * ================================================================================
+     */
 
-    /*================================================================================
+    /*
+     * ================================================================================
      * 1. Constructors & Factory Methods
-     *================================================================================*/
+     * ================================================================================
+     */
     public DummyGraphics2D(Dimension size, boolean doRestoreOnDispose) {
         super(size, doRestoreOnDispose);
         // Create a graphics context with given imageBounds.
-        // This constructor is used by the user to create the initial graphics context.
+        // This constructor is used by the user to create the initial graphics
+        // context.
         // doRestoreOnDispose is used to call writeGraphicsRestore(),
         // when the graphics context is being disposed off.
     }
 
-    protected DummyGraphics2D(AbstractVectorGraphicsIO graphics, boolean doRestoreOnDispose) {
+    protected DummyGraphics2D(AbstractVectorGraphicsIO graphics,
+            boolean doRestoreOnDispose) {
         super(graphics, doRestoreOnDispose);
         // Create a graphics context from a given graphics context.
-        // This constructor is used by the system to clone a given graphics context.
+        // This constructor is used by the system to clone a given graphics
+        // context.
         // doRestoreOnDispose is used to call writeGraphicsRestore(),
         // when the graphics context is being disposed off.
     }
 
-    /*================================================================================
-     | 2. Document Settings
-     *================================================================================*/
+    /*
+     * ================================================================================ |
+     * 2. Document Settings
+     * ================================================================================
+     */
 
-    /*================================================================================
-     | 3. Header, Trailer, Multipage & Comments
-     *================================================================================*/
+    /*
+     * ================================================================================ |
+     * 3. Header, Trailer, Multipage & Comments
+     * ================================================================================
+     */
     /* 3.1 Header & Trailer */
     public void writeHeader() throws IOException {
-        writeWarning(getClass()+": writeHeader() not implemented.");
+        writeWarning(getClass() + ": writeHeader() not implemented.");
         // Write out the header to the output stream.
     }
 
     public void writeBackground() throws IOException {
-        writeWarning(getClass()+": writeBackground() not implemented.");
+        writeWarning(getClass() + ": writeBackground() not implemented.");
         // Write out the background to the output stream.
     }
 
     public void writeTrailer() throws IOException {
-        writeWarning(getClass()+": writeTrailer() not implemented.");
+        writeWarning(getClass() + ": writeTrailer() not implemented.");
         // Write out the trailer to the output stream.
     }
 
     public void closeStream() throws IOException {
-        writeWarning(getClass()+": closeStream() not implemented.");
+        writeWarning(getClass() + ": closeStream() not implemented.");
         // Close the output stream.
     }
 
     /* 3.2 MultipageDocument methods */
 
-    /*================================================================================
+    /*
+     * ================================================================================
      * 4. Create & Dispose
-     *================================================================================*/
+     * ================================================================================
+     */
 
     public Graphics create() {
         // Create a new graphics context from the current one.
@@ -129,157 +128,180 @@ public class DummyGraphics2D
     }
 
     protected void writeGraphicsSave() throws IOException {
-        writeWarning(getClass()+": writeGraphicsSave() not implemented.");
+        writeWarning(getClass() + ": writeGraphicsSave() not implemented.");
         // Write a graphics context save.
         // If the output format does not support this, keep a stack yourself.
     }
 
     protected void writeGraphicsRestore() throws IOException {
-        writeWarning(getClass()+": writeGraphicsRestore() not implemented.");
+        writeWarning(getClass() + ": writeGraphicsRestore() not implemented.");
         // Write a graphics context restore.
         // If the output format does not support this, keep a stack yourself.
     }
 
-    /*================================================================================
-     | 5. Drawing Methods
-     *================================================================================*/
+    /*
+     * ================================================================================ |
+     * 5. Drawing Methods
+     * ================================================================================
+     */
     /* 5.1.4. shapes */
 
     public void draw(Shape shape) {
-        writeWarning(getClass()+": draw(Shape) not implemented.");
+        writeWarning(getClass() + ": draw(Shape) not implemented.");
         // Write out the stroke of the shape.
     }
 
     public void fill(Shape shape) {
-        writeWarning(getClass()+": fill(Shape) not implemented.");
+        writeWarning(getClass() + ": fill(Shape) not implemented.");
         // Write out the fill of the shape.
     }
 
     public void fillAndDraw(Shape shape, Color fillColor) {
-        writeWarning(getClass()+": fillAndDraw(Shape, Color) not implemented.");
-        // Write out the fill with fillColor and stroke of the shape in getColor().
+        writeWarning(getClass()
+                + ": fillAndDraw(Shape, Color) not implemented.");
+        // Write out the fill with fillColor and stroke of the shape in
+        // getColor().
     }
 
     /* 5.2. Images */
     public void copyArea(int x, int y, int width, int height, int dx, int dy) {
-        writeWarning(getClass()+": copyArea(int, int, int, int, int, int) not implemented.");
+        writeWarning(getClass()
+                + ": copyArea(int, int, int, int, int, int) not implemented.");
         // Mostly unimplemented.
     }
 
-    protected void writeImage(RenderedImage image, AffineTransform xform, Color bkg) throws IOException {
-        writeWarning(getClass()+": writeImage(RenderedImage, AffineTransform, Color) not implemented.");
+    protected void writeImage(RenderedImage image, AffineTransform xform,
+            Color bkg) throws IOException {
+        writeWarning(getClass()
+                + ": writeImage(RenderedImage, AffineTransform, Color) not implemented.");
         // Write out the image.
     }
 
     /* 5.3. Strings */
-    protected void writeString(String string, double x, double y) throws IOException {
-        writeWarning(getClass()+": drawString(String, double, double) not implemented.");
+    protected void writeString(String string, double x, double y)
+            throws IOException {
+        writeWarning(getClass()
+                + ": drawString(String, double, double) not implemented.");
         // Write out the string.
     }
 
-    /*================================================================================
-     | 6. Transformations
-     *================================================================================*/
+    /*
+     * ================================================================================ |
+     * 6. Transformations
+     * ================================================================================
+     */
     protected void writeTransform(AffineTransform t) throws IOException {
-        writeWarning(getClass()+": writeTransform(AffineTransform) not implemented.");
-        // Write out the transform to be applied to the internal transform of the output
+        writeWarning(getClass()
+                + ": writeTransform(AffineTransform) not implemented.");
+        // Write out the transform to be applied to the internal transform of
+        // the output
         // format.
         // You can also use the currentTransform.
     }
 
-    /*================================================================================
-     | 7. Clipping
-     *================================================================================*/
+    /*
+     * ================================================================================ |
+     * 7. Clipping
+     * ================================================================================
+     */
     protected void writeClip(Rectangle2D r2d) throws IOException {
-        writeWarning(getClass()+": writeClip(Rectangle2D) not implemented.");
+        writeWarning(getClass() + ": writeClip(Rectangle2D) not implemented.");
         // Write out the clip rectangle.
     }
 
     protected void writeClip(Shape s) throws IOException {
-        writeWarning(getClass()+": writeClip(Shape) not implemented.");
+        writeWarning(getClass() + ": writeClip(Shape) not implemented.");
         // Write out the clip shape.
     }
 
-    /*================================================================================
-     | 8. Graphics State
-     *================================================================================*/
+    /*
+     * ================================================================================ |
+     * 8. Graphics State
+     * ================================================================================
+     */
     /* 8.1. stroke/linewidth */
     protected void writeWidth(float width) throws IOException {
-        writeWarning(getClass()+": writeWidth(float) not implemented.");
+        writeWarning(getClass() + ": writeWidth(float) not implemented.");
         // Write out the stroke width.
     }
 
     protected void writeCap(int cap) throws IOException {
-        writeWarning(getClass()+": writeCap(int) not implemented.");
+        writeWarning(getClass() + ": writeCap(int) not implemented.");
         // Write out the stroke cap.
     }
 
     protected void writeJoin(int join) throws IOException {
-        writeWarning(getClass()+": writeJoin(int) not implemented.");
+        writeWarning(getClass() + ": writeJoin(int) not implemented.");
         // Write out the stroke join.
     }
 
     protected void writeMiterLimit(float limit) throws IOException {
-        writeWarning(getClass()+": writeMiterLimit(float) not implemented.");
+        writeWarning(getClass() + ": writeMiterLimit(float) not implemented.");
         // Write out the stroke miter limit.
     }
 
     protected void writeDash(double[] dash, double phase) throws IOException {
-        writeWarning(getClass()+": writeDash(double[], double) not implemented.");
+        writeWarning(getClass()
+                + ": writeDash(double[], double) not implemented.");
         // Write out the stroke dash.
     }
 
     /* 8.2. paint/color */
     public void setPaintMode() {
-        writeWarning(getClass()+": setPaintMode() not implemented.");
+        writeWarning(getClass() + ": setPaintMode() not implemented.");
         // Mostly unimplemented.
     }
 
     public void setXORMode(Color c1) {
-        writeWarning(getClass()+": setXORMode(Color) not implemented.");
+        writeWarning(getClass() + ": setXORMode(Color) not implemented.");
         // Mostly unimplemented.
     }
 
     protected void writePaint(Color p) throws IOException {
-        writeWarning(getClass()+": writePaint(Color) not implemented.");
+        writeWarning(getClass() + ": writePaint(Color) not implemented.");
         // Write out the color paint.
     }
 
     protected void writePaint(GradientPaint p) throws IOException {
-        writeWarning(getClass()+": writePaint(GradientPaint) not implemented.");
+        writeWarning(getClass()
+                + ": writePaint(GradientPaint) not implemented.");
         // Write out the gradient paint.
     }
 
     protected void writePaint(TexturePaint p) throws IOException {
-        writeWarning(getClass()+": writePaint(TexturePaint) not implemented.");
+        writeWarning(getClass() + ": writePaint(TexturePaint) not implemented.");
         // Write out the texture paint.
     }
 
     protected void writePaint(Paint p) throws IOException {
-        writeWarning(getClass()+": writePaint(Paint) not implemented for "+p.getClass());
+        writeWarning(getClass() + ": writePaint(Paint) not implemented for "
+                + p.getClass());
         // Write out the paint.
     }
 
     /* 8.3. font */
     /* 8.4. rendering hints */
 
-    /*================================================================================
-     | 9. Auxiliary
-     *================================================================================*/
+    /*
+     * ================================================================================ |
+     * 9. Auxiliary
+     * ================================================================================
+     */
     public GraphicsConfiguration getDeviceConfiguration() {
-        writeWarning(getClass()+": getDeviceConfiguration() not implemented.");
+        writeWarning(getClass() + ": getDeviceConfiguration() not implemented.");
         // Mostly unimplemented
         return null;
     }
 
     public boolean hit(Rectangle rect, Shape s, boolean onStroke) {
-        writeWarning(getClass()+": hit(Rectangle, Shape, boolean) not implemented.");
+        writeWarning(getClass()
+                + ": hit(Rectangle, Shape, boolean) not implemented.");
         // Mostly unimplemented
         return false;
     }
 
     public void writeComment(String comment) throws IOException {
-        writeWarning(getClass()+": writeComment(String) not implemented.");
+        writeWarning(getClass() + ": writeComment(String) not implemented.");
         // Write out the comment.
     }
 

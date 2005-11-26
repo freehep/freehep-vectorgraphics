@@ -1,1 +1,2 @@
 org.freehep.graphicsio.raw.RawImageWriterSpi
+org.freehep.graphicsio.gif.GIFImageWriterSpi

@@ -1,21 +1,18 @@
 // Copyright 2003, FreeHEP.
 package org.freehep.graphicsio.exportchooser;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import java.util.*;
+import java.util.Properties;
 
-import org.freehep.swing.layout.TableLayout;
+import javax.swing.JTextField;
 
 /**
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/OptionTextField.java 399e20fc1ed9 2005/11/25 23:40:46 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/OptionTextField.java 5641ca92a537 2005/11/26 00:15:35 duns $
  */
 public class OptionTextField extends JTextField implements Options {
     protected String initialText;
+
     protected String key;
 
     public OptionTextField(Properties options, String key, int columns) {
@@ -32,4 +29,3 @@ public class OptionTextField extends JTextField implements Options {
         return false;
     }
 }
-

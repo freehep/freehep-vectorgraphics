@@ -4,50 +4,59 @@ import java.io.IOException;
 
 /**
  * HHEA Table.
- *
- *  @author Simon Fischer
- *  @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/font/truetype/TTFHHeaTable.java 399e20fc1ed9 2005/11/25 23:40:46 duns $
+ * 
+ * @author Simon Fischer
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/font/truetype/TTFHHeaTable.java 5641ca92a537 2005/11/26 00:15:35 duns $
  */
 public class TTFHHeaTable extends TTFVersionTable {
-    
+
     public short ascender, descender, lineGap;
+
     public int advanceWidthMax;
+
     public short minLeftSideBearing, minRightSideBearing;
+
     public short xMaxExtent;
+
     public short caretSlopeRise, caretSlopeRun;
+
     public short metricDataFormat;
+
     public int numberOfHMetrics;
 
-    public String getTag() { return "hhea"; }
+    public String getTag() {
+        return "hhea";
+    }
 
     public void readTable() throws IOException {
-	readVersion();
+        readVersion();
 
-	ascender = ttf.readFWord();
-	descender = ttf.readFWord();
-	lineGap = ttf.readFWord();
-	
-	advanceWidthMax = ttf.readUFWord();
-	minLeftSideBearing = ttf.readFWord();
-	minRightSideBearing = ttf.readFWord();
+        ascender = ttf.readFWord();
+        descender = ttf.readFWord();
+        lineGap = ttf.readFWord();
 
-	xMaxExtent = ttf.readFWord();
-	
-	caretSlopeRise = ttf.readShort();
-	caretSlopeRun  = ttf.readShort();	
+        advanceWidthMax = ttf.readUFWord();
+        minLeftSideBearing = ttf.readFWord();
+        minRightSideBearing = ttf.readFWord();
 
-	for (int i = 0; i < 5; i++)
-	    ttf.checkShortZero();
+        xMaxExtent = ttf.readFWord();
 
-	metricDataFormat = ttf.readShort();
-	numberOfHMetrics = ttf.readUShort();	
+        caretSlopeRise = ttf.readShort();
+        caretSlopeRun = ttf.readShort();
+
+        for (int i = 0; i < 5; i++)
+            ttf.checkShortZero();
+
+        metricDataFormat = ttf.readShort();
+        numberOfHMetrics = ttf.readUShort();
     }
 
     public String toString() {
-	String str = super.toString();
-	str += "\n  asc:"+ascender+" desc:"+descender+" lineGap:"+lineGap+
-	    " maxAdvance:"+advanceWidthMax;
-	str += "\n  metricDataFormat:"+metricDataFormat+" #HMetrics:"+numberOfHMetrics;
-	return str;
+        String str = super.toString();
+        str += "\n  asc:" + ascender + " desc:" + descender + " lineGap:"
+                + lineGap + " maxAdvance:" + advanceWidthMax;
+        str += "\n  metricDataFormat:" + metricDataFormat + " #HMetrics:"
+                + numberOfHMetrics;
+        return str;
     }
 }

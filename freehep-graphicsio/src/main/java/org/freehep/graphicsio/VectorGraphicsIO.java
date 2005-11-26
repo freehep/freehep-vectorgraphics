@@ -1,22 +1,25 @@
 // Copyright 2000-2002 FreeHEP
 package org.freehep.graphicsio;
 
-import java.awt.*;
-import java.io.*;
-import java.util.*;
+import java.awt.Dimension;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 
 import org.freehep.graphics2d.AbstractVectorGraphics;
 
 /**
- * This class provides specifies added methods for VectorGraphicsIO.
- * All added methods are declared abstract.
- *
+ * This class provides specifies added methods for VectorGraphicsIO. All added
+ * methods are declared abstract.
+ * 
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/VectorGraphicsIO.java 399e20fc1ed9 2005/11/25 23:40:46 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/VectorGraphicsIO.java 5641ca92a537 2005/11/26 00:15:35 duns $
  */
-public abstract class VectorGraphicsIO
-    extends AbstractVectorGraphics {
+public abstract class VectorGraphicsIO extends AbstractVectorGraphics {
 
     public VectorGraphicsIO() {
         super();
@@ -31,22 +34,21 @@ public abstract class VectorGraphicsIO
     public abstract void printComment(String comment);
 
     /**
-     * copies the full file referenced by filenam onto the os (PrintWriter).
-     * The file location is relative to the current class
-     *
+     * copies the full file referenced by filenam onto the os (PrintWriter). The
+     * file location is relative to the current class
+     * 
      * @param object from which to refer to resource file
      * @param fileName name of file to be copied
      * @param os output to copy the file to
      */
-    public static void copyResourceTo(Object object,
-                                      String fileName,
-                                      PrintStream os) {
-        copyResourceTo(object, fileName, new PrintWriter(new OutputStreamWriter(os)));
+    public static void copyResourceTo(Object object, String fileName,
+            PrintStream os) {
+        copyResourceTo(object, fileName, new PrintWriter(
+                new OutputStreamWriter(os)));
     }
 
-    public static void copyResourceTo(Object object,
-                                      String fileName,
-                                      PrintWriter os) {
+    public static void copyResourceTo(Object object, String fileName,
+            PrintWriter os) {
         InputStream is = null;
         BufferedReader br = null;
         try {
@@ -61,8 +63,10 @@ public abstract class VectorGraphicsIO
             e.printStackTrace();
         } finally {
             try {
-                if (br!=null) br.close();
-                if (is!=null) is.close();
+                if (br != null)
+                    br.close();
+                if (is != null)
+                    is.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }

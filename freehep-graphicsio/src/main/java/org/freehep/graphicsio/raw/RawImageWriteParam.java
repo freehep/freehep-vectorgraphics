@@ -1,29 +1,34 @@
 // Copyright 2003, FreeHEP
 package org.freehep.graphicsio.raw;
 
-import java.awt.*;
-import java.io.*;
-import java.util.*;
-import javax.imageio.*;
-import javax.imageio.metadata.*;
-import javax.imageio.spi.*;
+import java.awt.Color;
+import java.util.Locale;
+import java.util.Properties;
+
+import javax.imageio.ImageWriteParam;
 
 import org.freehep.graphicsio.ImageParamConverter;
 import org.freehep.util.UserProperties;
 
 /**
- *
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/raw/RawImageWriteParam.java 399e20fc1ed9 2005/11/25 23:40:46 duns $
+ * 
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/raw/RawImageWriteParam.java 5641ca92a537 2005/11/26 00:15:35 duns $
  */
-public class RawImageWriteParam extends ImageWriteParam implements ImageParamConverter {
+public class RawImageWriteParam extends ImageWriteParam implements
+        ImageParamConverter {
 
     private final static String rootKey = RawImageWriteParam.class.getName();
-    public final static String BACKGROUND   = rootKey+".Background";
-    public final static String CODE         = rootKey+".Code";
-    public final static String PAD          = rootKey+".Pad";
+
+    public final static String BACKGROUND = rootKey + ".Background";
+
+    public final static String CODE = rootKey + ".Code";
+
+    public final static String PAD = rootKey + ".Pad";
 
     private Color bkg;
+
     private String code;
+
     private int pad;
 
     public RawImageWriteParam(Locale locale) {
@@ -65,4 +70,3 @@ public class RawImageWriteParam extends ImageWriteParam implements ImageParamCon
         this.pad = pad;
     }
 }
-                    

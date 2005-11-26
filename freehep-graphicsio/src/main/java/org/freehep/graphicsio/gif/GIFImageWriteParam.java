@@ -1,22 +1,23 @@
 // Copyright 2003, FreeHEP
 package org.freehep.graphicsio.gif;
 
-import java.io.*;
-import java.util.*;
-import javax.imageio.*;
-import javax.imageio.metadata.*;
-import javax.imageio.spi.*;
+import java.util.Locale;
+import java.util.Properties;
+
+import javax.imageio.ImageWriteParam;
 
 import org.freehep.graphicsio.ImageParamConverter;
 import org.freehep.util.UserProperties;
 
 /**
- *
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFImageWriteParam.java 399e20fc1ed9 2005/11/25 23:40:46 duns $
+ * 
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFImageWriteParam.java 5641ca92a537 2005/11/26 00:15:35 duns $
  */
-public class GIFImageWriteParam extends ImageWriteParam implements ImageParamConverter {
+public class GIFImageWriteParam extends ImageWriteParam implements
+        ImageParamConverter {
 
     private boolean quantizeColors;
+
     private String quantizeMode;
 
     public GIFImageWriteParam(Locale locale) {
@@ -24,7 +25,8 @@ public class GIFImageWriteParam extends ImageWriteParam implements ImageParamCon
         canWriteProgressive = true;
         progressiveMode = MODE_DEFAULT;
 
-        UserProperties def = new UserProperties(GIFGraphics2D.getDefaultProperties());
+        UserProperties def = new UserProperties(GIFGraphics2D
+                .getDefaultProperties());
         quantizeColors = def.isProperty(GIFGraphics2D.QUANTIZE_COLORS);
         quantizeMode = def.getProperty(GIFGraphics2D.QUANTIZE_MODE);
     }
@@ -56,4 +58,3 @@ public class GIFImageWriteParam extends ImageWriteParam implements ImageParamCon
         quantizeMode = mode;
     }
 }
-                    

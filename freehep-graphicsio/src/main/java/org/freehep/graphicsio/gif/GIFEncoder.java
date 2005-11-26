@@ -32,10 +32,13 @@ package org.freehep.graphicsio.gif;
 
 //package Acme.JPM.Encoders;
 
-import java.util.*;
-import java.io.*;
 import java.awt.Image;
-import java.awt.image.*;
+import java.awt.image.ImageProducer;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Enumeration;
 
 //import org.freehep.graphicsio.ImageEncoder;
 
@@ -49,56 +52,57 @@ import java.awt.image.*;
 public class GIFEncoder extends ImageEncoder {
 
     private boolean interlace = false;
+
     private String comment = null;
 
-    /// Constructor from Image.
+    // / Constructor from Image.
     // @param img The image to encode.
     // @param out The stream to write the GIF to.
-    public GIFEncoder( Image img, OutputStream out ) throws IOException {
-        this( img, out, false );
+    public GIFEncoder(Image img, OutputStream out) throws IOException {
+        this(img, out, false);
     }
 
-    public GIFEncoder( Image img, DataOutput dos ) throws IOException {
-        this( img, dos, false );
+    public GIFEncoder(Image img, DataOutput dos) throws IOException {
+        this(img, dos, false);
     }
 
-    /// Constructor from Image with interlace setting.
+    // / Constructor from Image with interlace setting.
     // @param img The image to encode.
     // @param out The stream to write the GIF to.
     // @param interlace Whether to interlace.
-    public GIFEncoder( Image img, OutputStream out, boolean interlace )
+    public GIFEncoder(Image img, OutputStream out, boolean interlace)
             throws IOException {
-        this( img, (DataOutput)new DataOutputStream(out), interlace );
+        this(img, (DataOutput) new DataOutputStream(out), interlace);
     }
 
-    public GIFEncoder( Image img, DataOutput dos, boolean interlace )
+    public GIFEncoder(Image img, DataOutput dos, boolean interlace)
             throws IOException {
-        super( img, dos );
+        super(img, dos);
         this.interlace = interlace;
     }
 
-    /// Constructor from ImageProducer.
+    // / Constructor from ImageProducer.
     // @param prod The ImageProducer to encode.
     // @param out The stream to write the GIF to.
-    public GIFEncoder( ImageProducer prod, OutputStream out ) throws IOException {
-        this( prod, out, false );
+    public GIFEncoder(ImageProducer prod, OutputStream out) throws IOException {
+        this(prod, out, false);
     }
 
-    public GIFEncoder( ImageProducer prod, DataOutput dos ) throws IOException {
-        this( prod, dos, false );
+    public GIFEncoder(ImageProducer prod, DataOutput dos) throws IOException {
+        this(prod, dos, false);
     }
 
-    /// Constructor from ImageProducer with interlace setting.
+    // / Constructor from ImageProducer with interlace setting.
     // @param prod The ImageProducer to encode.
     // @param out The stream to write the GIF to.
-    public GIFEncoder( ImageProducer prod, OutputStream out, boolean interlace )
+    public GIFEncoder(ImageProducer prod, OutputStream out, boolean interlace)
             throws IOException {
-        this(prod, (DataOutput)new DataOutputStream(out), interlace);
+        this(prod, (DataOutput) new DataOutputStream(out), interlace);
     }
 
-    public GIFEncoder( ImageProducer prod, DataOutput dos, boolean interlace )
+    public GIFEncoder(ImageProducer prod, DataOutput dos, boolean interlace)
             throws IOException {
-        super( prod, dos );
+        super(prod, dos);
         this.interlace = interlace;
     }
 
@@ -107,21 +111,21 @@ public class GIFEncoder extends ImageEncoder {
     }
 
     int width, height;
+
     int[][] rgbPixels;
 
-    protected void encodeStart( int width, int height ) throws IOException {
+    protected void encodeStart(int width, int height) throws IOException {
         this.width = width;
         this.height = height;
         rgbPixels = new int[height][width];
     }
 
     protected void encodePixels(int x, int y, int w, int h, int[] rgbPixels,
-                      int off, int scansize )
-            throws IOException {
+            int off, int scansize) throws IOException {
         // Save the pixels.
-        for ( int row = 0; row < h; ++row ) {
-            System.arraycopy(rgbPixels, row * scansize + off,
-                             this.rgbPixels[y + row], x, w );
+        for (int row = 0; row < h; ++row) {
+            System.arraycopy(rgbPixels, row * scansize + off, this.rgbPixels[y
+                    + row], x, w);
         }
     }
 
@@ -130,38 +134,40 @@ public class GIFEncoder extends ImageEncoder {
     protected void encodeDone() throws IOException {
         // MD: added quantizer for max color limitation
         int[] palette = Quantize.quantizeImage(rgbPixels, 255);
-       
+
         int transparentIndex = -1;
         int transparentRgb = -1;
         // Put all the pixels into a hash table.
         colorHash = new IntHashtable();
         int index = 0;
-        for ( int row = 0; row < height; ++row ) {
-            int rowOffset = row * width;
-            for ( int col = 0; col < width; ++col ) {
+        for (int row = 0; row < height; ++row) {
+//            int rowOffset = row * width;
+            for (int col = 0; col < width; ++col) {
                 // MD: and convert palette back to RGB
                 rgbPixels[row][col] = palette[rgbPixels[row][col]];
                 int rgb = rgbPixels[row][col];
-                boolean isTransparent = ( ( rgb >>> 24 ) < 0x80 );
-                if ( isTransparent ) {
-                    if ( transparentIndex < 0 ) {
+                boolean isTransparent = ((rgb >>> 24) < 0x80);
+                if (isTransparent) {
+                    if (transparentIndex < 0) {
                         // First transparent color; remember it.
                         transparentIndex = index;
                         transparentRgb = rgb;
-                    } else if ( rgb != transparentRgb ) {
+                    } else if (rgb != transparentRgb) {
                         // A second transparent color; replace it with
                         // the first one.
                         rgbPixels[row][col] = rgb = transparentRgb;
                     }
                 }
-                GifEncoderHashitem item = (GifEncoderHashitem) colorHash.get( rgb );
-                if ( item == null ) {
-                    if ( index >= 256 ) {
-                        throw new IOException( "too many colors for a GIF: "+index+" >= 256.");
+                GifEncoderHashitem item = (GifEncoderHashitem) colorHash
+                        .get(rgb);
+                if (item == null) {
+                    if (index >= 256) {
+                        throw new IOException("too many colors for a GIF: "
+                                + index + " >= 256.");
                     }
-                    item = new GifEncoderHashitem( rgb, 1, index, isTransparent );
+                    item = new GifEncoderHashitem(rgb, 1, index, isTransparent);
                     ++index;
-                    colorHash.put( rgb, item );
+                    colorHash.put(rgb, item);
                 } else {
                     ++item.count;
                 }
@@ -170,11 +176,11 @@ public class GIFEncoder extends ImageEncoder {
 
         // Figure out how many bits to use.
         int logColors;
-        if ( index <= 2 )
+        if (index <= 2)
             logColors = 1;
-        else if ( index <= 4 )
+        else if (index <= 4)
             logColors = 2;
-        else if ( index <= 16 )
+        else if (index <= 16)
             logColors = 4;
         else
             logColors = 8;
@@ -184,44 +190,48 @@ public class GIFEncoder extends ImageEncoder {
         byte[] reds = new byte[mapSize];
         byte[] grns = new byte[mapSize];
         byte[] blus = new byte[mapSize];
-        for ( Enumeration e = colorHash.elements(); e.hasMoreElements(); ) {
+        for (Enumeration e = colorHash.elements(); e.hasMoreElements();) {
             GifEncoderHashitem item = (GifEncoderHashitem) e.nextElement();
-            reds[item.index] = (byte) ( ( item.rgb >> 16 ) & 0xff );
-            grns[item.index] = (byte) ( ( item.rgb >>  8 ) & 0xff );
-            blus[item.index] = (byte) (   item.rgb         & 0xff );
+            reds[item.index] = (byte) ((item.rgb >> 16) & 0xff);
+            grns[item.index] = (byte) ((item.rgb >> 8) & 0xff);
+            blus[item.index] = (byte) (item.rgb & 0xff);
         }
 
         GIFEncode(width, height, interlace, (byte) 0, transparentIndex,
-                  logColors, reds, grns, blus );
+                logColors, reds, grns, blus);
     }
 
-    byte GetPixel( int x, int y ) throws IOException {
-        GifEncoderHashitem item = (GifEncoderHashitem) colorHash.get( rgbPixels[y][x] );
-        if ( item == null ) {
-            throw new IOException( "color not found" );
+    byte GetPixel(int x, int y) throws IOException {
+        GifEncoderHashitem item = (GifEncoderHashitem) colorHash
+                .get(rgbPixels[y][x]);
+        if (item == null) {
+            throw new IOException("color not found");
         }
         return (byte) item.index;
     }
 
-    void writeString(String str ) throws IOException {
+    void writeString(String str) throws IOException {
         byte[] buf = str.getBytes();
-        out.write( buf );
+        out.write(buf);
     }
 
     // Adapted from ppmtogif, which is based on GIFENCOD by David
-    // Rowley <mgardi@watdscu.waterloo.edu>.  Lempel-Zim compression
+    // Rowley <mgardi@watdscu.waterloo.edu>. Lempel-Zim compression
     // based on "compress".
 
     int Width, Height;
+
     boolean Interlace;
+
     int curx, cury;
+
     int CountDown;
+
     int Pass = 0;
 
-    void GIFEncode(int Width, int Height,
-                   boolean Interlace, byte Background, int Transparent,
-                   int BitsPerPixel, byte[] Red, byte[] Green, byte[] Blue )
-            throws IOException {
+    void GIFEncode(int Width, int Height, boolean Interlace, byte Background,
+            int Transparent, int BitsPerPixel, byte[] Red, byte[] Green,
+            byte[] Blue) throws IOException {
 
         byte B;
         int LeftOfs, TopOfs;
@@ -242,7 +252,7 @@ public class GIFEncoder extends ImageEncoder {
         Pass = 0;
 
         // The initial code size
-        if ( BitsPerPixel <= 1 )
+        if (BitsPerPixel <= 1)
             InitCodeSize = 2;
         else
             InitCodeSize = BitsPerPixel;
@@ -252,88 +262,88 @@ public class GIFEncoder extends ImageEncoder {
         cury = 0;
 
         // Write the Magic header
-        writeString("GIF89a" );
+        writeString("GIF89a");
 
         // Write out the screen width and height
-        Putword( Width);
-        Putword( Height);
+        Putword(Width);
+        Putword(Height);
 
         // Indicate that there is a global colour map
-        B = (byte) 0x80;        // Yes, there is a color map
+        B = (byte) 0x80; // Yes, there is a color map
         // OR in the resolution
-        B |= (byte) ( ( 8 - 1 ) << 4 );
+        B |= (byte) ((8 - 1) << 4);
         // Not sorted
         // OR in the Bits per Pixel
-        B |= (byte) ( ( BitsPerPixel - 1 ) );
+        B |= (byte) ((BitsPerPixel - 1));
 
         // Write it out
-        Putbyte( B);
+        Putbyte(B);
 
         // Write out the Background colour
-        Putbyte( Background);
+        Putbyte(Background);
 
         // Pixel aspect ratio - 1:1.
-        //Putbyte( (byte) 49);
+        // Putbyte( (byte) 49);
         // Java's GIF reader currently has a bug, if the aspect ratio byte is
-        // not zero it throws an ImageFormatException.  It doesn't know that
-        // 49 means a 1:1 aspect ratio.  Well, whatever, zero works with all
+        // not zero it throws an ImageFormatException. It doesn't know that
+        // 49 means a 1:1 aspect ratio. Well, whatever, zero works with all
         // the other decoders I've tried so it probably doesn't hurt.
-        Putbyte( (byte) 0);
+        Putbyte((byte) 0);
 
         // Write out the Global Colour Map
-        for ( i = 0; i < ColorMapSize; ++i ) {
-            Putbyte( Red[i]);
-            Putbyte( Green[i]);
-            Putbyte( Blue[i]);
+        for (i = 0; i < ColorMapSize; ++i) {
+            Putbyte(Red[i]);
+            Putbyte(Green[i]);
+            Putbyte(Blue[i]);
         }
 
         // Write out extension for transparent colour index, if necessary.
-        if ( Transparent != -1 ) {
-            Putbyte( (byte) '!');
-            Putbyte( (byte) 0xf9);
-            Putbyte( (byte) 4);
-            Putbyte( (byte) 1);
-            Putbyte( (byte) 0);
-            Putbyte( (byte) 0);
-            Putbyte( (byte) Transparent);
-            Putbyte( (byte) 0);
+        if (Transparent != -1) {
+            Putbyte((byte) '!');
+            Putbyte((byte) 0xf9);
+            Putbyte((byte) 4);
+            Putbyte((byte) 1);
+            Putbyte((byte) 0);
+            Putbyte((byte) 0);
+            Putbyte((byte) Transparent);
+            Putbyte((byte) 0);
         }
 
         // Write an Image separator
-        Putbyte( (byte) ',');
+        Putbyte((byte) ',');
 
         // Write the Image header
-        Putword( LeftOfs);
-        Putword( TopOfs);
-        Putword( Width);
-        Putword( Height);
+        Putword(LeftOfs);
+        Putword(TopOfs);
+        Putword(Width);
+        Putword(Height);
 
         // Write out whether or not the image is interlaced
-        if ( Interlace )
-            Putbyte( (byte) 0x40);
+        if (Interlace)
+            Putbyte((byte) 0x40);
         else
-            Putbyte( (byte) 0x00);
+            Putbyte((byte) 0x00);
 
         // Write out the initial code size
-        Putbyte( (byte) InitCodeSize);
+        Putbyte((byte) InitCodeSize);
 
         // Go and actually compress the data
-        compress( InitCodeSize+1);
+        compress(InitCodeSize + 1);
 
         // Write out a Zero-length packet (to end the series)
-        Putbyte( (byte) 0);
+        Putbyte((byte) 0);
 
         // Write out the comment
         if ((comment != null) && (comment.length() > 0)) {
-            Putbyte( (byte) 0x21);
-            Putbyte( (byte) 0xFE);
-            Putbyte( (byte) comment.length());
+            Putbyte((byte) 0x21);
+            Putbyte((byte) 0xFE);
+            Putbyte((byte) comment.length());
             writeString(comment);
-            Putbyte( (byte) 0);
+            Putbyte((byte) 0);
         }
 
         // Write the GIF file terminator
-        Putbyte( (byte) ';');
+        Putbyte((byte) ';');
     }
 
     // Bump the 'curx' and 'cury' to point to the next pixel
@@ -344,40 +354,40 @@ public class GIFEncoder extends ImageEncoder {
         // If we are at the end of a scan line, set curx back to the beginning
         // If we are interlaced, bump the cury to the appropriate spot,
         // otherwise, just increment it.
-        if ( curx == Width ) {
+        if (curx == Width) {
             curx = 0;
 
-            if ( ! Interlace ) {
+            if (!Interlace) {
                 ++cury;
             } else {
-                switch( Pass ) {
-                    case 0:
-                        cury += 8;
-                        if ( cury >= Height ) {
-                            ++Pass;
-                            cury = 4;
-                        }
-                        break;
+                switch (Pass) {
+                case 0:
+                    cury += 8;
+                    if (cury >= Height) {
+                        ++Pass;
+                        cury = 4;
+                    }
+                    break;
 
-                    case 1:
-                        cury += 8;
-                        if ( cury >= Height ) {
-                            ++Pass;
-                            cury = 2;
-                        }
-                        break;
+                case 1:
+                    cury += 8;
+                    if (cury >= Height) {
+                        ++Pass;
+                        cury = 2;
+                    }
+                    break;
 
-                    case 2:
-                        cury += 4;
-                        if ( cury >= Height ) {
-                            ++Pass;
-                            cury = 1;
-                        }
-                        break;
+                case 2:
+                    cury += 4;
+                    if (cury >= Height) {
+                        ++Pass;
+                        cury = 1;
+                    }
+                    break;
 
-                    case 3:
-                        cury += 2;
-                        break;
+                case 3:
+                    cury += 2;
+                    break;
                 }
             }
         }
@@ -389,12 +399,12 @@ public class GIFEncoder extends ImageEncoder {
     int GIFNextPixel() throws IOException {
         byte r;
 
-        if ( CountDown == 0 )
+        if (CountDown == 0)
             return EOF;
 
         --CountDown;
 
-        r = GetPixel( curx, cury );
+        r = GetPixel(curx, cury);
 
         BumpPixel();
 
@@ -402,248 +412,231 @@ public class GIFEncoder extends ImageEncoder {
     }
 
     // Write out a word to the GIF file
-    void Putword( int w) throws IOException {
-        Putbyte( (byte) ( w & 0xff ));
-        Putbyte( (byte) ( ( w >> 8 ) & 0xff ));
+    void Putword(int w) throws IOException {
+        Putbyte((byte) (w & 0xff));
+        Putbyte((byte) ((w >> 8) & 0xff));
     }
 
     // Write out a byte to the GIF file
-    void Putbyte( byte b) throws IOException {
-        out.write( b );
+    void Putbyte(byte b) throws IOException {
+        out.write(b);
     }
 
-
-    // GIFCOMPR.C       - GIF Image compression routines
+    // GIFCOMPR.C - GIF Image compression routines
     //
-    // Lempel-Ziv compression based on 'compress'.  GIF modifications by
+    // Lempel-Ziv compression based on 'compress'. GIF modifications by
     // David Rowley (mgardi@watdcsu.waterloo.edu)
 
     // General DEFINEs
 
     static final int BITS = 12;
 
-    static final int HSIZE = 5003;      // 80% occupancy
+    static final int HSIZE = 5003; // 80% occupancy
 
     // GIF Image compression - modified 'compress'
     //
     // Based on: compress.c - File compression ala IEEE Computer, June 1984.
     //
-    // By Authors:  Spencer W. Thomas      (decvax!harpo!utah-cs!utah-gr!thomas)
-    //              Jim McKie              (decvax!mcvax!jim)
-    //              Steve Davies           (decvax!vax135!petsd!peora!srd)
-    //              Ken Turkowski          (decvax!decwrl!turtlevax!ken)
-    //              James A. Woods         (decvax!ihnp4!ames!jaw)
-    //              Joe Orost              (decvax!vax135!petsd!joe)
+    // By Authors: Spencer W. Thomas (decvax!harpo!utah-cs!utah-gr!thomas)
+    // Jim McKie (decvax!mcvax!jim)
+    // Steve Davies (decvax!vax135!petsd!peora!srd)
+    // Ken Turkowski (decvax!decwrl!turtlevax!ken)
+    // James A. Woods (decvax!ihnp4!ames!jaw)
+    // Joe Orost (decvax!vax135!petsd!joe)
 
-    int n_bits;             // number of bits/code
-    int maxbits = BITS;         // user settable max # bits/code
-    int maxcode;            // maximum code, given n_bits
+    int n_bits; // number of bits/code
+
+    int maxbits = BITS; // user settable max # bits/code
+
+    int maxcode; // maximum code, given n_bits
+
     int maxmaxcode = 1 << BITS; // should NEVER generate this code
 
-    final int MAXCODE( int n_bits )
-    {
-    return ( 1 << n_bits ) - 1;
+    final int MAXCODE(int n_bits) {
+        return (1 << n_bits) - 1;
     }
 
     int[] htab = new int[HSIZE];
+
     int[] codetab = new int[HSIZE];
 
-    int hsize = HSIZE;      // for dynamic table sizing
+    int hsize = HSIZE; // for dynamic table sizing
 
-    int free_ent = 0;           // first unused entry
+    int free_ent = 0; // first unused entry
 
     // block compression parameters -- after all codes are used up,
     // and compression rate changes, start over.
     boolean clear_flg = false;
 
-    // Algorithm:  use open addressing double hashing (no chaining) on the
-    // prefix code / next character combination.  We do a variant of Knuth's
+    // Algorithm: use open addressing double hashing (no chaining) on the
+    // prefix code / next character combination. We do a variant of Knuth's
     // algorithm D (vol. 3, sec. 6.4) along with G. Knott's relatively-prime
-    // secondary probe.  Here, the modular division first probe is gives way
-    // to a faster exclusive-or manipulation.  Also do block compression with
+    // secondary probe. Here, the modular division first probe is gives way
+    // to a faster exclusive-or manipulation. Also do block compression with
     // an adaptive reset, whereby the code table is cleared when the compression
-    // ratio decreases, but after the table fills.  The variable-length output
+    // ratio decreases, but after the table fills. The variable-length output
     // codes are re-sized at this point, and a special CLEAR code is generated
-    // for the decompressor.  Late addition:  construct the table according to
-    // file size for noticeable speed improvement on small files.  Please direct
+    // for the decompressor. Late addition: construct the table according to
+    // file size for noticeable speed improvement on small files. Please direct
     // questions about this implementation to ames!jaw.
 
     int g_init_bits;
 
     int ClearCode;
+
     int EOFCode;
 
-    void compress( int init_bits) throws IOException
-    {
-    int fcode;
-    int i /* = 0 */;
-    int c;
-    int ent;
-    int disp;
-    int hsize_reg;
-    int hshift;
+    void compress(int init_bits) throws IOException {
+        int fcode;
+        int i /* = 0 */;
+        int c;
+        int ent;
+        int disp;
+        int hsize_reg;
+        int hshift;
 
-    // Set up the globals:  g_init_bits - initial number of bits
-    g_init_bits = init_bits;
+        // Set up the globals: g_init_bits - initial number of bits
+        g_init_bits = init_bits;
 
-    // Set up the necessary values
-    clear_flg = false;
-    n_bits = g_init_bits;
-    maxcode = MAXCODE( n_bits );
+        // Set up the necessary values
+        clear_flg = false;
+        n_bits = g_init_bits;
+        maxcode = MAXCODE(n_bits);
 
-    ClearCode = 1 << ( init_bits - 1 );
-    EOFCode = ClearCode + 1;
-    free_ent = ClearCode + 2;
+        ClearCode = 1 << (init_bits - 1);
+        EOFCode = ClearCode + 1;
+        free_ent = ClearCode + 2;
 
-    char_init();
+        char_init();
 
-    ent = GIFNextPixel();
+        ent = GIFNextPixel();
 
-    hshift = 0;
-    for ( fcode = hsize; fcode < 65536; fcode *= 2 )
-        ++hshift;
-    hshift = 8 - hshift;            // set hash code range bound
+        hshift = 0;
+        for (fcode = hsize; fcode < 65536; fcode *= 2)
+            ++hshift;
+        hshift = 8 - hshift; // set hash code range bound
 
-    hsize_reg = hsize;
-    cl_hash( hsize_reg );   // clear hash table
+        hsize_reg = hsize;
+        cl_hash(hsize_reg); // clear hash table
 
-    output( ClearCode);
+        output(ClearCode);
 
-    outer_loop:
-    while ( (c = GIFNextPixel()) != EOF )
-        {
-        fcode = ( c << maxbits ) + ent;
-        i = ( c << hshift ) ^ ent;      // xor hashing
+        outer_loop: while ((c = GIFNextPixel()) != EOF) {
+            fcode = (c << maxbits) + ent;
+            i = (c << hshift) ^ ent; // xor hashing
 
-        if ( htab[i] == fcode )
-        {
-        ent = codetab[i];
-        continue;
-        }
-        else if ( htab[i] >= 0 )    // non-empty slot
-        {
-        disp = hsize_reg - i;   // secondary hash (after G. Knott)
-        if ( i == 0 )
-            disp = 1;
-        do
+            if (htab[i] == fcode) {
+                ent = codetab[i];
+                continue;
+            } else if (htab[i] >= 0) // non-empty slot
             {
-            if ( (i -= disp) < 0 )
-            i += hsize_reg;
+                disp = hsize_reg - i; // secondary hash (after G. Knott)
+                if (i == 0)
+                    disp = 1;
+                do {
+                    if ((i -= disp) < 0)
+                        i += hsize_reg;
 
-            if ( htab[i] == fcode )
-            {
-            ent = codetab[i];
-            continue outer_loop;
+                    if (htab[i] == fcode) {
+                        ent = codetab[i];
+                        continue outer_loop;
+                    }
+                } while (htab[i] >= 0);
             }
-            }
-        while ( htab[i] >= 0 );
+            output(ent);
+            ent = c;
+            if (free_ent < maxmaxcode) {
+                codetab[i] = free_ent++; // code -> hashtable
+                htab[i] = fcode;
+            } else
+                cl_block();
         }
-        output( ent);
-        ent = c;
-        if ( free_ent < maxmaxcode )
-        {
-        codetab[i] = free_ent++;    // code -> hashtable
-        htab[i] = fcode;
-        }
-        else
-        cl_block( );
-        }
-    // Put out the final code.
-    output( ent);
-    output( EOFCode);
+        // Put out the final code.
+        output(ent);
+        output(EOFCode);
     }
 
     // output
     //
     // Output the given code.
     // Inputs:
-    //      code:   A n_bits-bit integer.  If == -1, then EOF.  This assumes
-    //              that n_bits =< wordsize - 1.
+    // code: A n_bits-bit integer. If == -1, then EOF. This assumes
+    // that n_bits =< wordsize - 1.
     // Outputs:
-    //      Outputs code to the file.
+    // Outputs code to the file.
     // Assumptions:
-    //      Chars are 8 bits long.
+    // Chars are 8 bits long.
     // Algorithm:
-    //      Maintain a BITS character long buffer (so that 8 codes will
-    // fit in it exactly).  Use the VAX insv instruction to insert each
-    // code in turn.  When the buffer fills up empty it and start over.
+    // Maintain a BITS character long buffer (so that 8 codes will
+    // fit in it exactly). Use the VAX insv instruction to insert each
+    // code in turn. When the buffer fills up empty it and start over.
 
     int cur_accum = 0;
+
     int cur_bits = 0;
 
-    int masks[] = { 0x0000, 0x0001, 0x0003, 0x0007, 0x000F,
-            0x001F, 0x003F, 0x007F, 0x00FF,
-            0x01FF, 0x03FF, 0x07FF, 0x0FFF,
-            0x1FFF, 0x3FFF, 0x7FFF, 0xFFFF };
+    int masks[] = { 0x0000, 0x0001, 0x0003, 0x0007, 0x000F, 0x001F, 0x003F,
+            0x007F, 0x00FF, 0x01FF, 0x03FF, 0x07FF, 0x0FFF, 0x1FFF, 0x3FFF,
+            0x7FFF, 0xFFFF };
 
-    void output( int code) throws IOException
-    {
-    cur_accum &= masks[cur_bits];
+    void output(int code) throws IOException {
+        cur_accum &= masks[cur_bits];
 
-    if ( cur_bits > 0 )
-        cur_accum |= ( code << cur_bits );
-    else
-        cur_accum = code;
-
-    cur_bits += n_bits;
-
-    while ( cur_bits >= 8 )
-        {
-        char_out( (byte) ( cur_accum & 0xff ));
-        cur_accum >>= 8;
-        cur_bits -= 8;
-        }
-
-    // If the next entry is going to be too big for the code size,
-    // then increase it, if possible.
-       if ( free_ent > maxcode || clear_flg )
-        {
-        if ( clear_flg )
-        {
-        maxcode = MAXCODE(n_bits = g_init_bits);
-        clear_flg = false;
-        }
+        if (cur_bits > 0)
+            cur_accum |= (code << cur_bits);
         else
-        {
-        ++n_bits;
-        if ( n_bits == maxbits )
-            maxcode = maxmaxcode;
-        else
-            maxcode = MAXCODE(n_bits);
-        }
+            cur_accum = code;
+
+        cur_bits += n_bits;
+
+        while (cur_bits >= 8) {
+            char_out((byte) (cur_accum & 0xff));
+            cur_accum >>= 8;
+            cur_bits -= 8;
         }
 
-    if ( code == EOFCode )
-        {
-        // At EOF, write the rest of the buffer.
-        while ( cur_bits > 0 )
-        {
-        char_out( (byte) ( cur_accum & 0xff ));
-        cur_accum >>= 8;
-        cur_bits -= 8;
+        // If the next entry is going to be too big for the code size,
+        // then increase it, if possible.
+        if (free_ent > maxcode || clear_flg) {
+            if (clear_flg) {
+                maxcode = MAXCODE(n_bits = g_init_bits);
+                clear_flg = false;
+            } else {
+                ++n_bits;
+                if (n_bits == maxbits)
+                    maxcode = maxmaxcode;
+                else
+                    maxcode = MAXCODE(n_bits);
+            }
         }
 
-        flush_char( );
+        if (code == EOFCode) {
+            // At EOF, write the rest of the buffer.
+            while (cur_bits > 0) {
+                char_out((byte) (cur_accum & 0xff));
+                cur_accum >>= 8;
+                cur_bits -= 8;
+            }
+
+            flush_char();
         }
     }
 
     // Clear out the hash table
 
     // table clear for block compress
-    void cl_block() throws IOException
-    {
-    cl_hash( hsize );
-    free_ent = ClearCode + 2;
-    clear_flg = true;
+    void cl_block() throws IOException {
+        cl_hash(hsize);
+        free_ent = ClearCode + 2;
+        clear_flg = true;
 
-    output( ClearCode);
+        output(ClearCode);
     }
 
     // reset code table
-    void cl_hash( int hsize )
-    {
-    for ( int i = 0; i < hsize; ++i )
-        htab[i] = -1;
+    void cl_hash(int hsize) {
+        for (int i = 0; i < hsize; ++i)
+            htab[i] = -1;
     }
 
     // GIF Specific routines
@@ -652,9 +645,8 @@ public class GIFEncoder extends ImageEncoder {
     int a_count;
 
     // Set up the 'byte output' routine
-    void char_init()
-    {
-    a_count = 0;
+    void char_init() {
+        a_count = 0;
     }
 
     // Define the storage for the packet accumulator
@@ -662,40 +654,39 @@ public class GIFEncoder extends ImageEncoder {
 
     // Add a character to the end of the current packet, and if it is 254
     // characters, flush the packet to disk.
-    void char_out( byte c) throws IOException
-    {
-    accum[a_count++] = c;
-    if ( a_count >= 254 )
-        flush_char( );
+    void char_out(byte c) throws IOException {
+        accum[a_count++] = c;
+        if (a_count >= 254)
+            flush_char();
     }
 
     // Flush the packet to disk, and reset the accumulator
-    void flush_char() throws IOException
-    {
-    if ( a_count > 0 )
-        {
-        out.write( a_count );
-        out.write( accum, 0, a_count );
-        a_count = 0;
+    void flush_char() throws IOException {
+        if (a_count > 0) {
+            out.write(a_count);
+            out.write(accum, 0, a_count);
+            a_count = 0;
         }
     }
 
-    }
+}
 
-class GifEncoderHashitem
-    {
+class GifEncoderHashitem {
 
     public int rgb;
+
     public int count;
+
     public int index;
+
     public boolean isTransparent;
 
-    public GifEncoderHashitem( int rgb, int count, int index, boolean isTransparent )
-    {
-    this.rgb = rgb;
-    this.count = count;
-    this.index = index;
-    this.isTransparent = isTransparent;
+    public GifEncoderHashitem(int rgb, int count, int index,
+            boolean isTransparent) {
+        this.rgb = rgb;
+        this.count = count;
+        this.index = index;
+        this.isTransparent = isTransparent;
     }
 
-    }
+}

@@ -4,20 +4,22 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 /**
- * Concrete implementation of the TrueType Input for one Table, read from a TTF File.
- *
+ * Concrete implementation of the TrueType Input for one Table, read from a TTF
+ * File.
+ * 
  * Reads one table from the file.
- *
- *  @author Simon Fischer
- *  @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/font/truetype/TTFFileInput.java 399e20fc1ed9 2005/11/25 23:40:46 duns $
+ * 
+ * @author Simon Fischer
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/font/truetype/TTFFileInput.java 5641ca92a537 2005/11/26 00:15:35 duns $
  */
 public class TTFFileInput extends TTFInput {
 
     private RandomAccessFile ttf;
+
     private long offset, length, checksum;
 
-    public TTFFileInput(RandomAccessFile file, long offset,
-            long length, long checksum) throws IOException {
+    public TTFFileInput(RandomAccessFile file, long offset, long length,
+            long checksum) throws IOException {
         this.ttf = file;
         this.offset = offset;
         this.length = length;
@@ -28,11 +30,11 @@ public class TTFFileInput extends TTFInput {
 
     public void seek(long offset) throws IOException {
         ttf.seek(this.offset + offset);
-        //System.out.println("seek "+(this.offset+offset));
+        // System.out.println("seek "+(this.offset+offset));
     }
 
     long getPointer() throws IOException {
-        return ttf.getFilePointer()-offset;
+        return ttf.getFilePointer() - offset;
     }
 
     // ---------- Simple Data Types --------------
@@ -42,7 +44,7 @@ public class TTFFileInput extends TTFInput {
     }
 
     public int readRawByte() throws IOException {
-        return ttf.readByte()&255;
+        return ttf.readByte() & 255;
     }
 
     public short readShort() throws IOException {
@@ -54,7 +56,7 @@ public class TTFFileInput extends TTFInput {
     }
 
     public int readLong() throws IOException {
-        return ttf.readInt(); 
+        return ttf.readInt();
     }
 
     public long readULong() throws IOException {
@@ -63,8 +65,8 @@ public class TTFFileInput extends TTFInput {
         long l = 0;
         long weight = 1;
         for (int i = 0; i < temp.length; i++) {
-            //l |= (temp[3-i]&255) << (8*i);
-            l += (temp[3-i]&255) * weight;
+            // l |= (temp[3-i]&255) << (8*i);
+            l += (temp[3 - i] & 255) * weight;
             weight *= 256;
         }
         return l;
@@ -81,6 +83,6 @@ public class TTFFileInput extends TTFInput {
     }
 
     public String toString() {
-        return offset+"-"+(offset+length-1);
+        return offset + "-" + (offset + length - 1) + " - " + checksum;
     }
 }

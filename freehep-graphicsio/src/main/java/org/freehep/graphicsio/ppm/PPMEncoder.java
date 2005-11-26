@@ -30,10 +30,15 @@ package org.freehep.graphicsio.ppm;
 
 //package Acme.JPM.Encoders;
 
-import java.util.*;
-import java.io.*;
 import java.awt.Image;
-import java.awt.image.*;
+import java.awt.image.ImageProducer;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 //import org.freehep.graphicsio.ImageEncoder;
 
@@ -50,65 +55,65 @@ public class PPMEncoder extends ImageEncoder {
 
     private List comments = new ArrayList();
 
-    /// Constructor.
+    // / Constructor.
     // @param img The image to encode.
     // @param out The stream to write the PPM to.
-    public PPMEncoder( Image img, OutputStream out ) throws IOException {
-	    super( img, new DataOutputStream(out) );
-	}
+    public PPMEncoder(Image img, OutputStream out) throws IOException {
+        super(img, new DataOutputStream(out));
+    }
 
-    public PPMEncoder( Image img, DataOutput dos ) throws IOException {
-	    super( img, dos );
-	}
+    public PPMEncoder(Image img, DataOutput dos) throws IOException {
+        super(img, dos);
+    }
 
-    /// Constructor.
+    // / Constructor.
     // @param prod The ImageProducer to encode.
     // @param out The stream to write the PPM to.
-    public PPMEncoder( ImageProducer prod, OutputStream out ) throws IOException {
-	    super( prod, new DataOutputStream(out) );
-	}
+    public PPMEncoder(ImageProducer prod, OutputStream out) throws IOException {
+        super(prod, new DataOutputStream(out));
+    }
 
-    public PPMEncoder( ImageProducer prod, DataOutput dos ) throws IOException {
-	    super( prod, dos );
-	}
+    public PPMEncoder(ImageProducer prod, DataOutput dos) throws IOException {
+        super(prod, dos);
+    }
 
     public void addComment(String comment) {
         comments.add(comment);
     }
 
-    protected void encodeStart( int width, int height ) throws IOException {
-    	writeString("P6\n" );
-    	for (Iterator i=comments.iterator(); i.hasNext(); ) {
-    	    String comment = (String)i.next();
-    	    writeString("# "+comment+"\n");
-    	}
-    	writeString(width + " " + height + "\n" );
-    	writeString("255\n" );
-	}
+    protected void encodeStart(int width, int height) throws IOException {
+        writeString("P6\n");
+        for (Iterator i = comments.iterator(); i.hasNext();) {
+            String comment = (String) i.next();
+            writeString("# " + comment + "\n");
+        }
+        writeString(width + " " + height + "\n");
+        writeString("255\n");
+    }
 
-    void writeString(String str ) throws IOException {
-    	byte[] buf = str.getBytes();
-    	out.write( buf );
-	}
+    void writeString(String str) throws IOException {
+        byte[] buf = str.getBytes();
+        out.write(buf);
+    }
 
-    protected void encodePixels(int x, int y, int w, int h, int[] rgbPixels, int off, int scansize )
-    	        throws IOException {
-    	byte[] ppmPixels = new byte[w * 3];
-    	for ( int row = 0; row < h; ++row ) {
-    	    int rowOff = off + row * scansize;
-    	    for ( int col = 0; col < w; ++col ) {
-        		int i = rowOff + col;
-        		int j = col * 3;
-        		ppmPixels[j    ] = (byte) ( ( rgbPixels[i] & 0xff0000 ) >> 16 );
-        		ppmPixels[j + 1] = (byte) ( ( rgbPixels[i] & 0x00ff00 ) >> 8 );
-        		ppmPixels[j + 2] = (byte) (   rgbPixels[i] & 0x0000ff );
-		    }
-	        out.write( ppmPixels );
-	    }
-	}
+    protected void encodePixels(int x, int y, int w, int h, int[] rgbPixels,
+            int off, int scansize) throws IOException {
+        byte[] ppmPixels = new byte[w * 3];
+        for (int row = 0; row < h; ++row) {
+            int rowOff = off + row * scansize;
+            for (int col = 0; col < w; ++col) {
+                int i = rowOff + col;
+                int j = col * 3;
+                ppmPixels[j] = (byte) ((rgbPixels[i] & 0xff0000) >> 16);
+                ppmPixels[j + 1] = (byte) ((rgbPixels[i] & 0x00ff00) >> 8);
+                ppmPixels[j + 2] = (byte) (rgbPixels[i] & 0x0000ff);
+            }
+            out.write(ppmPixels);
+        }
+    }
 
     protected void encodeDone() throws IOException {
         // Nothing
-	}
+    }
 
 }

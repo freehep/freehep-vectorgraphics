@@ -1,24 +1,24 @@
 // Copyright 2003, FreeHEP.
 package org.freehep.graphicsio.exportchooser;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Properties;
 
-import org.freehep.swing.layout.TableLayout;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 
 /**
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/OptionButton.java 399e20fc1ed9 2005/11/25 23:40:46 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/OptionButton.java 5641ca92a537 2005/11/26 00:15:35 duns $
  */
 public class OptionButton extends JButton implements Options {
 
     protected String key;
 
-    public OptionButton(Properties options, String key, String text, final JDialog dialog) {
+    public OptionButton(Properties options, String key, String text,
+            final JDialog dialog) {
         super(text);
         this.key = key;
         addActionListener(new ActionListener() {
@@ -32,6 +32,5 @@ public class OptionButton extends JButton implements Options {
     public boolean applyChangedOptions(Properties options) {
         return false;
     }
-
 
 }

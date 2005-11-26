@@ -1,103 +1,137 @@
 // Copyright 2000-2004, FreeHEP
 package org.freehep.graphicsio;
 
-import java.awt.*;
-import java.awt.font.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import java.awt.image.renderable.*;
-import java.io.*;
-import java.text.*;
-import java.util.*;
+import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Composite;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.GradientPaint;
+import java.awt.GraphicsConfiguration;
+import java.awt.Image;
+import java.awt.MediaTracker;
+import java.awt.Paint;
+import java.awt.Panel;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.TexturePaint;
+import java.awt.Toolkit;
+import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
+import java.awt.font.LineMetrics;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.NoninvertibleTransformException;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.CropImageFilter;
+import java.awt.image.FilteredImageSource;
+import java.awt.image.ImageFilter;
+import java.awt.image.ImageObserver;
+import java.awt.image.RenderedImage;
+import java.awt.image.renderable.RenderContext;
+import java.awt.image.renderable.RenderableImage;
+import java.io.IOException;
+import java.text.AttributedCharacterIterator;
+import java.util.Map;
 
 import org.freehep.graphics2d.GenericTagHandler;
 import org.freehep.graphics2d.TagString;
-import org.freehep.util.UserProperties;
 import org.freehep.util.images.ImageUtilities;
 
 /**
- * This class provides an abstract VectorGraphicsIO class for specific output drivers.
- *
+ * This class provides an abstract VectorGraphicsIO class for specific output
+ * drivers.
+ * 
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 399e20fc1ed9 2005/11/25 23:40:46 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 5641ca92a537 2005/11/26 00:15:35 duns $
  */
-public abstract class AbstractVectorGraphicsIO
-    extends VectorGraphicsIO {
+public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
-    private static final String rootKey = AbstractVectorGraphicsIO.class.getName();
-    public static final String EMIT_WARNINGS     = rootKey+".EMIT_WARNINGS";
-    public static final String EMIT_ERRORS       = rootKey+".EMIT_ERRORS";
+    private static final String rootKey = AbstractVectorGraphicsIO.class
+            .getName();
 
-    /*================================================================================
-     * Table of Contents:
-     * ------------------
-     * 1. Constructors & Factory Methods
-     * 2. Document Settings
-     * 3. Header, Trailer, Multipage & Comments
-     *    3.1 Header & Trailer
-     *    3.2 MultipageDocument methods
-     * 4. Create & Dispose
-     * 5. Drawing Methods
-     *    5.1. shapes (draw/fill)
-     *         5.1.1. lines, rectangles, round rectangles
-     *         5.1.2. polylines, polygons
-     *         5.1.3. ovals, arcs
-     *         5.1.4. shapes
-     *    5.2. Images
-     *    5.3. Strings
-     * 6. Transformations
-     * 7. Clipping
-     * 8. Graphics State / Settings
-     *    8.1. stroke/linewidth
-     *    8.2. paint/color
-     *    8.3. font
-     *    8.4. rendering hints
-     * 9. Auxiliary
-     * 10. Private/Utility Methods
-     *================================================================================*/
+    public static final String EMIT_WARNINGS = rootKey + ".EMIT_WARNINGS";
+
+    public static final String EMIT_ERRORS = rootKey + ".EMIT_ERRORS";
+
+    /*
+     * ================================================================================
+     * Table of Contents: ------------------ 1. Constructors & Factory Methods
+     * 2. Document Settings 3. Header, Trailer, Multipage & Comments 3.1 Header &
+     * Trailer 3.2 MultipageDocument methods 4. Create & Dispose 5. Drawing
+     * Methods 5.1. shapes (draw/fill) 5.1.1. lines, rectangles, round
+     * rectangles 5.1.2. polylines, polygons 5.1.3. ovals, arcs 5.1.4. shapes
+     * 5.2. Images 5.3. Strings 6. Transformations 7. Clipping 8. Graphics State /
+     * Settings 8.1. stroke/linewidth 8.2. paint/color 8.3. font 8.4. rendering
+     * hints 9. Auxiliary 10. Private/Utility Methods
+     * ================================================================================
+     */
 
     private Dimension size;
+
     private Component component;
+
     private boolean doRestoreOnDispose;
+
     private Rectangle deviceClip;
+
     private Area userClip;
+
     private AffineTransform currentTransform;
+
     private Composite currentComposite;
+
     private Stroke currentStroke;
+
     private RenderingHints hints;
 
-    /*================================================================================
+    /*
+     * ================================================================================
      * 1. Constructors & Factory Methods
-     *================================================================================*/
+     * ================================================================================
+     */
 
     /**
      * Constructs a Graphics context with the following graphics state:
      * <UL>
      * <LI>Paint: black
      * <LI>Font: Dailog, Plain, 12pt
-     * <LI>Stroke: Linewidth 1.0; No Dashing; Miter Join Style; Miter Limit 10; Square Endcaps;
+     * <LI>Stroke: Linewidth 1.0; No Dashing; Miter Join Style; Miter Limit 10;
+     * Square Endcaps;
      * <LI>Transform: Identity
      * <LI>Composite: AlphaComposite.SRC_OVER
      * <LI>Clip: Rectangle(0, 0, size.width, size.height)
      * </UL>
-     *
+     * 
      * @param size rectangle specifying the bounds of the image
-     * @param doRestoreOnDispose true if writeGraphicsRestore() should be called when
-     * this graphics context is disposed of.
+     * @param doRestoreOnDispose true if writeGraphicsRestore() should be called
+     *        when this graphics context is disposed of.
      */
-    protected AbstractVectorGraphicsIO(Dimension size, boolean doRestoreOnDispose) {
+    protected AbstractVectorGraphicsIO(Dimension size,
+            boolean doRestoreOnDispose) {
         super();
 
         this.size = size;
         this.component = null;
         this.doRestoreOnDispose = doRestoreOnDispose;
 
-        deviceClip = (size != null ? new Rectangle(0, 0, size.width, size.height) : null);
+        deviceClip = (size != null ? new Rectangle(0, 0, size.width,
+                size.height) : null);
         userClip = null;
         currentTransform = new AffineTransform();
         currentComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER);
-        currentStroke = new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER, 10.0f, null, 0.0f);
+        currentStroke = new BasicStroke(1.0f, BasicStroke.CAP_SQUARE,
+                BasicStroke.JOIN_MITER, 10.0f, null, 0.0f);
 
         super.setColor(Color.BLACK);
         super.setBackground(Color.BLACK);
@@ -112,29 +146,37 @@ public abstract class AbstractVectorGraphicsIO
      * <UL>
      * <LI>Paint: The color of the component.
      * <LI>Font: The font of the component.
-     * <LI>Stroke: Linewidth 1.0; No Dashing; Miter Join Style; Miter Limit 10; Square Endcaps;
-     * <LI>Transform: The getDefaultTransform for the GraphicsConfiguration of the component.
+     * <LI>Stroke: Linewidth 1.0; No Dashing; Miter Join Style; Miter Limit 10;
+     * Square Endcaps;
+     * <LI>Transform: The getDefaultTransform for the GraphicsConfiguration of
+     * the component.
      * <LI>Composite: AlphaComposite.SRC_OVER
-     * <LI>Clip: The size of the component, Rectangle(0, 0, size.width, size.height)
+     * <LI>Clip: The size of the component, Rectangle(0, 0, size.width,
+     * size.height)
      * </UL>
-     *
-     * @param component to be used to initialize the values of the graphics state
-     * @param doRestoreOnDispose true if writeGraphicsRestore() should be called when
-     * this graphics context is disposed of.
+     * 
+     * @param component to be used to initialize the values of the graphics
+     *        state
+     * @param doRestoreOnDispose true if writeGraphicsRestore() should be called
+     *        when this graphics context is disposed of.
      */
-    protected AbstractVectorGraphicsIO(Component component, boolean doRestoreOnDispose) {
+    protected AbstractVectorGraphicsIO(Component component,
+            boolean doRestoreOnDispose) {
         super();
 
         this.size = component.getSize();
         this.component = component;
         this.doRestoreOnDispose = doRestoreOnDispose;
 
-        deviceClip = (size != null ? new Rectangle(0, 0, size.width, size.height) : null);
+        deviceClip = (size != null ? new Rectangle(0, 0, size.width,
+                size.height) : null);
         userClip = null;
         GraphicsConfiguration gc = component.getGraphicsConfiguration();
-        currentTransform = (gc != null) ? gc.getDefaultTransform() : new AffineTransform();
+        currentTransform = (gc != null) ? gc.getDefaultTransform()
+                : new AffineTransform();
         currentComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER);
-        currentStroke = new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER, 10.0f, null, 0.0f);
+        currentStroke = new BasicStroke(1.0f, BasicStroke.CAP_SQUARE,
+                BasicStroke.JOIN_MITER, 10.0f, null, 0.0f);
 
         super.setFont(component.getFont());
         super.setBackground(component.getBackground());
@@ -146,12 +188,13 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Constructs a subgraphics context.
-     *
+     * 
      * @param graphics context to clone from
-     * @param doRestoreOnDispose true if writeGraphicsRestore() should be called when
-     * this graphics context is disposed of.
+     * @param doRestoreOnDispose true if writeGraphicsRestore() should be called
+     *        when this graphics context is disposed of.
      */
-    protected AbstractVectorGraphicsIO(AbstractVectorGraphicsIO graphics, boolean doRestoreOnDispose) {
+    protected AbstractVectorGraphicsIO(AbstractVectorGraphicsIO graphics,
+            boolean doRestoreOnDispose) {
         super(graphics);
         this.doRestoreOnDispose = doRestoreOnDispose;
 
@@ -159,16 +202,19 @@ public abstract class AbstractVectorGraphicsIO
         component = graphics.component;
 
         deviceClip = new Rectangle(graphics.deviceClip);
-        userClip  = (graphics.userClip != null) ? new Area(graphics.userClip) : null;
+        userClip = (graphics.userClip != null) ? new Area(graphics.userClip)
+                : null;
         currentTransform = new AffineTransform(graphics.currentTransform);
         currentComposite = graphics.currentComposite;
         currentStroke = graphics.currentStroke;
         hints = graphics.hints;
     }
 
-    /*================================================================================
-     | 2. Document Settings
-     *================================================================================*/
+    /*
+     * ================================================================================ |
+     * 2. Document Settings
+     * ================================================================================
+     */
     public Dimension getSize() {
         return size;
     }
@@ -177,9 +223,11 @@ public abstract class AbstractVectorGraphicsIO
         return component;
     }
 
-    /*================================================================================
-     | 3. Header, Trailer, Multipage & Comments
-     *================================================================================*/
+    /*
+     * ================================================================================ |
+     * 3. Header, Trailer, Multipage & Comments
+     * ================================================================================
+     */
     /* 3.1 Header & Trailer */
     public void startExport() {
         try {
@@ -260,7 +308,7 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Called to Write out a comment.
-     *
+     * 
      * @param comment to be written
      */
     public abstract void writeComment(String comment) throws IOException;
@@ -271,17 +319,19 @@ public abstract class AbstractVectorGraphicsIO
         userClip = null;
     }
 
-    /*================================================================================
+    /*
+     * ================================================================================
      * 4. Create & Dispose
-     *================================================================================*/
+     * ================================================================================
+     */
     /**
-     * Disposes of the graphics context. If on creation restoreOnDispose was true,
-     * writeGraphicsRestore() will be called.
+     * Disposes of the graphics context. If on creation restoreOnDispose was
+     * true, writeGraphicsRestore() will be called.
      */
     public void dispose() {
         try {
             // Swing sometimes calls dispose several times for a given
-            // graphics object.  Ensure that the grestore is only written
+            // graphics object. Ensure that the grestore is only written
             // once if this happens.
             if (doRestoreOnDispose) {
                 writeGraphicsRestore();
@@ -293,63 +343,66 @@ public abstract class AbstractVectorGraphicsIO
     }
 
     /**
-     * Writes out the save of a graphics context for a later restore.
-     * Some implementations keep track of this by hand if the output
-     * format does not support it.
+     * Writes out the save of a graphics context for a later restore. Some
+     * implementations keep track of this by hand if the output format does not
+     * support it.
      */
     protected abstract void writeGraphicsSave() throws IOException;
 
-
     /**
-     * Writes out the restore of a graphics context.
-     * Some implementations keep track of this by hand if the output
-     * format does not support it.
+     * Writes out the restore of a graphics context. Some implementations keep
+     * track of this by hand if the output format does not support it.
      */
     protected abstract void writeGraphicsRestore() throws IOException;
 
-    /*================================================================================
-     | 5. Drawing Methods
-     *================================================================================*/
+    /*
+     * ================================================================================ |
+     * 5. Drawing Methods
+     * ================================================================================
+     */
 
     /* 5.3. Images */
     public boolean drawImage(Image image, int x, int y, ImageObserver observer) {
         int imageWidth = image.getWidth(observer);
         int imageHeight = image.getHeight(observer);
-        return drawImage(image, x, y, x+imageWidth, y+imageHeight,
-                                0, 0, imageWidth, imageHeight, null, observer);
+        return drawImage(image, x, y, x + imageWidth, y + imageHeight, 0, 0,
+                imageWidth, imageHeight, null, observer);
     }
 
     public boolean drawImage(Image image, int x, int y, int width, int height,
-                 ImageObserver observer) {
+            ImageObserver observer) {
         int imageWidth = image.getWidth(observer);
         int imageHeight = image.getHeight(observer);
-        return drawImage(image, x, y, x+width, y+height,
-                                0, 0, imageWidth, imageHeight, null, observer);
+        return drawImage(image, x, y, x + width, y + height, 0, 0, imageWidth,
+                imageHeight, null, observer);
     }
 
     public boolean drawImage(Image image, int x, int y, int width, int height,
-                 Color bgColor, ImageObserver observer) {
+            Color bgColor, ImageObserver observer) {
         int imageWidth = image.getWidth(observer);
         int imageHeight = image.getHeight(observer);
-        return drawImage(image, x, y, x+width, y+height,
-                                0, 0, imageWidth, imageHeight, bgColor, observer);
+        return drawImage(image, x, y, x + width, y + height, 0, 0, imageWidth,
+                imageHeight, bgColor, observer);
     }
+
     public boolean drawImage(Image image, int x, int y, Color bgColor,
-                 ImageObserver observer) {
+            ImageObserver observer) {
         int imageWidth = image.getWidth(observer);
         int imageHeight = image.getHeight(observer);
-        return drawImage(image, x, y, x+imageWidth, y+imageHeight,
-                                0, 0, imageWidth, imageHeight, bgColor, observer);
+        return drawImage(image, x, y, x + imageWidth, y + imageHeight, 0, 0,
+                imageWidth, imageHeight, bgColor, observer);
     }
 
     public boolean drawImage(Image image, int dx1, int dy1, int dx2, int dy2,
-                 int sx1, int sy1, int sx2, int sy2,
-                 ImageObserver observer) {
-        return drawImage(image, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null, observer);
+            int sx1, int sy1, int sx2, int sy2, ImageObserver observer) {
+        return drawImage(image, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null,
+                observer);
     }
 
-    public boolean drawImage(Image image, AffineTransform xform, ImageObserver observer) {
-        drawRenderedImage(ImageUtilities.createRenderedImage(image, observer, null), xform);
+    public boolean drawImage(Image image, AffineTransform xform,
+            ImageObserver observer) {
+        drawRenderedImage(ImageUtilities.createRenderedImage(image, observer,
+                null), xform);
         return true;
     }
 
@@ -359,13 +412,13 @@ public abstract class AbstractVectorGraphicsIO
 
     // NOTE: not tested yet!!!
     public void drawRenderableImage(RenderableImage image, AffineTransform xform) {
-        drawRenderedImage(image.createRendering(new RenderContext(new AffineTransform(), getRenderingHints())),
-                          xform);
+        drawRenderedImage(image.createRendering(new RenderContext(
+                new AffineTransform(), getRenderingHints())), xform);
     }
 
     /**
      * Draw and resizes (transparent) image. Calls writeImage(...).
-     *
+     * 
      * @param image image to be drawn
      * @param dx1 destination image bounds
      * @param dy1 destination image bounds
@@ -379,24 +432,25 @@ public abstract class AbstractVectorGraphicsIO
      * @param observer for updates if image still incomplete
      * @return true if successful
      */
-    public boolean drawImage(Image image,
-                 int dx1, int dy1, int dx2, int dy2,
-                 int sx1, int sy1, int sx2, int sy2,
-                 Color bgColor, ImageObserver observer) {
+    public boolean drawImage(Image image, int dx1, int dy1, int dx2, int dy2,
+            int sx1, int sy1, int sx2, int sy2, Color bgColor,
+            ImageObserver observer) {
         try {
             int srcX = Math.min(sx1, sx2);
             int srcY = Math.min(sy1, sy2);
-            int srcWidth  = Math.abs(sx2 - sx1);
+            int srcWidth = Math.abs(sx2 - sx1);
             int srcHeight = Math.abs(sy2 - sy1);
-            int width  = Math.abs(dx2 - dx1);
+            int width = Math.abs(dx2 - dx1);
             int height = Math.abs(dy2 - dy1);
 
-            if ((srcX != 0) || (srcY != 0) ||
-                (srcWidth != image.getWidth(observer)) ||
-                (srcHeight != image.getHeight(observer))) {
+            if ((srcX != 0) || (srcY != 0)
+                    || (srcWidth != image.getWidth(observer))
+                    || (srcHeight != image.getHeight(observer))) {
                 // crop the source image
-                ImageFilter crop = new CropImageFilter(srcX, srcY, srcWidth, srcHeight);
-                image = Toolkit.getDefaultToolkit().createImage(new FilteredImageSource(image.getSource(), crop));
+                ImageFilter crop = new CropImageFilter(srcX, srcY, srcWidth,
+                        srcHeight);
+                image = Toolkit.getDefaultToolkit().createImage(
+                        new FilteredImageSource(image.getSource(), crop));
                 MediaTracker mediaTracker = new MediaTracker(new Panel());
                 mediaTracker.addImage(image, 0);
                 try {
@@ -406,75 +460,59 @@ public abstract class AbstractVectorGraphicsIO
                 }
             }
 
-            boolean flipHorizontal = (dx2<dx1) ^ (sx2<sx1); // src flipped and not dest flipped or vice versa
-            boolean flipVertical   = (dy2<dy1) ^ (sy2<sy1); // <=> source flipped XOR dest flipped
+            boolean flipHorizontal = (dx2 < dx1) ^ (sx2 < sx1); // src flipped
+                                                                // and not dest
+                                                                // flipped or
+                                                                // vice versa
+            boolean flipVertical = (dy2 < dy1) ^ (sy2 < sy1); // <=> source
+                                                                // flipped XOR
+                                                                // dest flipped
 
-            double tx = (flipHorizontal) ? (double)dx2 : (double)dx1;
-            double ty = (flipVertical)   ? (double)dy2 : (double)dy1;
+            double tx = (flipHorizontal) ? (double) dx2 : (double) dx1;
+            double ty = (flipVertical) ? (double) dy2 : (double) dy1;
 
-            double sx = (double)width/srcWidth;
-            sx = flipHorizontal ? -1*sx : sx;
-            double sy = (double)height/srcHeight;
-            sy = flipVertical   ? -1*sy : sy;
+            double sx = (double) width / srcWidth;
+            sx = flipHorizontal ? -1 * sx : sx;
+            double sy = (double) height / srcHeight;
+            sy = flipVertical ? -1 * sy : sy;
 
-            writeImage(ImageUtilities.createRenderedImage(image, observer, bgColor),
-                       new AffineTransform(sx, 0, 0, sy, tx, ty),
-                       bgColor);
+            writeImage(ImageUtilities.createRenderedImage(image, observer,
+                    bgColor), new AffineTransform(sx, 0, 0, sy, tx, ty),
+                    bgColor);
             return true;
         } catch (IOException e) {
             return false;
         }
     }
-/*
-        // first use the original orientation
-        int clippingWidth  = Math.abs(sx2 - sx1);
-        int clippingHeight = Math.abs(sy2 - sy1);
-        int sulX = Math.min(sx1, sx2);
-        int sulY = Math.min(sy1, sy2);
-        Image background = null;
-        if (bgColor != null) {
-            // Draw the image on the background color
-            // maybe we could crop it and fill the transparent pixels in one go
-            // by means of a filter.
-            background = new BufferedImage(clippingWidth, clippingHeight,
-                           BufferedImage.TYPE_INT_ARGB);
-            Graphics bgGfx = background.getGraphics();
-            bgGfx.drawImage(image, 0, 0, clippingWidth, clippingWidth,
-                    sulX, sulY, sulX+clippingWidth, sulY+clippingHeight,
-                    getPrintColor(bgColor), observer);
-        } else {
-            // crop the source image
-            ImageFilter crop = new CropImageFilter(sulX, sulY, clippingWidth, clippingHeight);
-            background = Toolkit.getDefaultToolkit().createImage(new FilteredImageSource(image.getSource(), crop));
-            MediaTracker mediaTracker = new MediaTracker(new Panel());
-            mediaTracker.addImage(background, 0);
-            try {
-                mediaTracker.waitForAll();
-            } catch (InterruptedException e) {
-                handleException(e);
-            }
-        }
-        // now flip the image if necessary
-        boolean flipHorizontal = (dx2<dx1) ^ (sx2<sx1); // src flipped and not dest flipped or vice versa
-        boolean flipVertical   = (dy2<dy1) ^ (sy2<sy1); // <=> source flipped XOR dest flipped
-        int destWidth  = Math.abs(dx2-dx1);
-        int destHeight = Math.abs(dy2-dy1);
-        try {
-            return writeImage(background,
-                              flipHorizontal ? dx2         : dx1,
-                              flipVertical   ? dy2         : dy1,
-                              flipHorizontal ? -destWidth  : destWidth,
-                              flipVertical   ? -destHeight : destHeight,
-                              (bgColor == null),
-                              observer);
-        } catch (IOException e) {
-            return false;
-        }
-    }
-*/
+
+    /*
+     * // first use the original orientation int clippingWidth = Math.abs(sx2 -
+     * sx1); int clippingHeight = Math.abs(sy2 - sy1); int sulX = Math.min(sx1,
+     * sx2); int sulY = Math.min(sy1, sy2); Image background = null; if (bgColor !=
+     * null) { // Draw the image on the background color // maybe we could crop
+     * it and fill the transparent pixels in one go // by means of a filter.
+     * background = new BufferedImage(clippingWidth, clippingHeight,
+     * BufferedImage.TYPE_INT_ARGB); Graphics bgGfx = background.getGraphics();
+     * bgGfx.drawImage(image, 0, 0, clippingWidth, clippingWidth, sulX, sulY,
+     * sulX+clippingWidth, sulY+clippingHeight, getPrintColor(bgColor),
+     * observer); } else { // crop the source image ImageFilter crop = new
+     * CropImageFilter(sulX, sulY, clippingWidth, clippingHeight); background =
+     * Toolkit.getDefaultToolkit().createImage(new
+     * FilteredImageSource(image.getSource(), crop)); MediaTracker mediaTracker =
+     * new MediaTracker(new Panel()); mediaTracker.addImage(background, 0); try {
+     * mediaTracker.waitForAll(); } catch (InterruptedException e) {
+     * handleException(e); } } // now flip the image if necessary boolean
+     * flipHorizontal = (dx2<dx1) ^ (sx2<sx1); // src flipped and not dest
+     * flipped or vice versa boolean flipVertical = (dy2<dy1) ^ (sy2<sy1); //
+     * <=> source flipped XOR dest flipped int destWidth = Math.abs(dx2-dx1);
+     * int destHeight = Math.abs(dy2-dy1); try { return writeImage(background,
+     * flipHorizontal ? dx2 : dx1, flipVertical ? dy2 : dy1, flipHorizontal ?
+     * -destWidth : destWidth, flipVertical ? -destHeight : destHeight, (bgColor ==
+     * null), observer); } catch (IOException e) { return false; } }
+     */
     /**
      * Draws a rendered image using a transform.
-     *
+     * 
      * @param image to be drawn
      * @param xform transform to be used on the image
      */
@@ -486,11 +524,12 @@ public abstract class AbstractVectorGraphicsIO
         }
     }
 
-    protected abstract void writeImage(RenderedImage image, AffineTransform xform, Color bkg) throws IOException;
+    protected abstract void writeImage(RenderedImage image,
+            AffineTransform xform, Color bkg) throws IOException;
 
     /**
      * Clears rectangle by painting it with the backgroundColor.
-     *
+     * 
      * @param x rectangle to be cleared.
      * @param y rectangle to be cleared.
      * @param width rectangle to be cleared.
@@ -504,7 +543,8 @@ public abstract class AbstractVectorGraphicsIO
     }
 
     public void drawString(String string, double x, double y) {
-        if (string.equals("")) return;
+        if (string.equals(""))
+            return;
         try {
             writeString(string, x, y);
         } catch (IOException e) {
@@ -513,21 +553,23 @@ public abstract class AbstractVectorGraphicsIO
     }
 
     // FIXME, maybe can move up more
-    public void drawString(String str, double x, double y, int horizontal, int vertical,
-               boolean framed, Color frameColor, double frameWidth,
-               boolean banner, Color bannerColor) {
+    public void drawString(String str, double x, double y, int horizontal,
+            int vertical, boolean framed, Color frameColor, double frameWidth,
+            boolean banner, Color bannerColor) {
         try {
-            LineMetrics metrics = getFont().getLineMetrics(str, getFontRenderContext());
-            double width   = getFont().getStringBounds(str, getFontRenderContext()).getWidth();
-            double height  = metrics.getHeight();
+            LineMetrics metrics = getFont().getLineMetrics(str,
+                    getFontRenderContext());
+            double width = getFont().getStringBounds(str,
+                    getFontRenderContext()).getWidth();
+            double height = metrics.getHeight();
             double descent = metrics.getDescent();
-            Rectangle2D textSize = new Rectangle2D.Double(0, descent-height, width, height);
-            double adjustment = (getFont().getSize2D()*2)/10;
+            Rectangle2D textSize = new Rectangle2D.Double(0, descent - height,
+                    width, height);
+            double adjustment = (getFont().getSize2D() * 2) / 10;
 
             Point2D textUL = drawFrameAndBanner(x, y, textSize, adjustment,
-                            framed, frameColor, frameWidth,
-                            banner, bannerColor,
-                            horizontal, vertical);
+                    framed, frameColor, frameWidth, banner, bannerColor,
+                    horizontal, vertical);
 
             drawString(str, textUL.getX(), textUL.getY());
 
@@ -537,18 +579,17 @@ public abstract class AbstractVectorGraphicsIO
     }
 
     // FIXME, maybe can move up more
-    public void drawString(TagString str, double x, double y, int horizontal, int vertical,
-               boolean framed, Color frameColor, double frameWidth,
-               boolean banner, Color bannerColor) {
+    public void drawString(TagString str, double x, double y, int horizontal,
+            int vertical, boolean framed, Color frameColor, double frameWidth,
+            boolean banner, Color bannerColor) {
         try {
             GenericTagHandler tagHandler = new GenericTagHandler(this);
             Rectangle2D r = tagHandler.stringSize(str);
-            double adjustment = (getFont().getSize2D()*2)/10;
+            double adjustment = (getFont().getSize2D() * 2) / 10;
 
-            Point2D textUL = drawFrameAndBanner(x, y, r, adjustment,
-                            framed, frameColor, frameWidth,
-                            banner, bannerColor,
-                            horizontal, vertical);
+            Point2D textUL = drawFrameAndBanner(x, y, r, adjustment, framed,
+                    frameColor, frameWidth, banner, bannerColor, horizontal,
+                    vertical);
 
             tagHandler.print(str, textUL.getX(), textUL.getY());
         } catch (IOException e) {
@@ -556,29 +597,34 @@ public abstract class AbstractVectorGraphicsIO
         }
     }
 
-    protected abstract void writeString(String string, double x, double y) throws IOException;
+    protected abstract void writeString(String string, double x, double y)
+            throws IOException;
 
     public void drawGlyphVector(GlyphVector g, float x, float y) {
         fill(g.getOutline(x, y));
     }
 
-    public void drawString(AttributedCharacterIterator iterator, float x, float y) {
+    public void drawString(AttributedCharacterIterator iterator, float x,
+            float y) {
         // NOTE: ignores all attributes,
         // a better implementation can be found at:
         // http://cvs.sourceforge.net/viewcvs.py/itext/src/com/lowagie/text/pdf/PdfGraphics2D.java?rev=1.27&view=auto
         StringBuffer sb = new StringBuffer();
-        for(char c = iterator.first(); c != AttributedCharacterIterator.DONE; c = iterator.next()) {
+        for (char c = iterator.first(); c != AttributedCharacterIterator.DONE; c = iterator
+                .next()) {
             sb.append(c);
         }
-        drawString(sb.toString(),x,y);
+        drawString(sb.toString(), x, y);
     }
 
-    /*================================================================================
-     | 6. Transformations
-     *================================================================================*/
+    /*
+     * ================================================================================ |
+     * 6. Transformations
+     * ================================================================================
+     */
     /**
      * Get the current transform.
-     *
+     * 
      * @return current transform
      */
     public AffineTransform getTransform() {
@@ -586,12 +632,11 @@ public abstract class AbstractVectorGraphicsIO
     }
 
     /**
-     * Set the current transform. Since most output formats do not
-     * implement this functionality, the inverse transform of the
-     * currentTransform is calculated and multiplied by the
-     * transform to be set. The result is then forwarded by a call
-     * to writeTransform(Transform).
-     *
+     * Set the current transform. Since most output formats do not implement
+     * this functionality, the inverse transform of the currentTransform is
+     * calculated and multiplied by the transform to be set. The result is then
+     * forwarded by a call to writeTransform(Transform).
+     * 
      * @param transform to be set
      */
     public void setTransform(AffineTransform transform) {
@@ -610,7 +655,7 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Transforms the current transform. Calls writeTransform(Transform)
-     *
+     * 
      * @param transform to be applied
      */
     public void transform(AffineTransform transform) {
@@ -624,7 +669,7 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Translates the current transform. Calls writeTransform(Transform)
-     *
+     * 
      * @param x amount by which to translate
      * @param y amount by which to translate
      */
@@ -638,18 +683,17 @@ public abstract class AbstractVectorGraphicsIO
     }
 
     /**
-     * Rotate the current transform over the Z-axis. Calls writeTransform(Transform).
-     * Rotating with a positive angle theta rotates points on the positive x axis
-     * toward the positive y axis.
-     *
+     * Rotate the current transform over the Z-axis. Calls
+     * writeTransform(Transform). Rotating with a positive angle theta rotates
+     * points on the positive x axis toward the positive y axis.
+     * 
      * @param theta radians over which to rotate
      */
     public void rotate(double theta) {
         currentTransform.rotate(theta);
         try {
-            writeTransform(new AffineTransform(Math.cos(theta),  Math.sin(theta),
-                                               -Math.sin(theta), Math.cos(theta),
-                                               0,                0));
+            writeTransform(new AffineTransform(Math.cos(theta),
+                    Math.sin(theta), -Math.sin(theta), Math.cos(theta), 0, 0));
         } catch (IOException e) {
             handleException(e);
         }
@@ -657,16 +701,14 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Scales the current transform. Calls writeTransform(Transform).
-     *
+     * 
      * @param sx amount used for scaling
      * @param sy amount used for scaling
      */
     public void scale(double sx, double sy) {
         currentTransform.scale(sx, sy);
         try {
-            writeTransform(new AffineTransform(sx, 0,
-                                               0, sy,
-                                               0,  0));
+            writeTransform(new AffineTransform(sx, 0, 0, sy, 0, 0));
         } catch (IOException e) {
             handleException(e);
         }
@@ -674,39 +716,40 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Shears the current transform. Calls writeTransform(Transform).
-     *
+     * 
      * @param shx amount for shearing
      * @param shy amount for shearing
      */
     public void shear(double shx, double shy) {
         currentTransform.shear(shx, shy);
         try {
-            writeTransform(new AffineTransform(1, shy,
-                                               shx, 1,
-                                               0,   0));
+            writeTransform(new AffineTransform(1, shy, shx, 1, 0, 0));
         } catch (IOException e) {
             handleException(e);
         }
     }
 
     /**
-     * Writes out the transform as it needs to be concatenated to the
-     * internal transform of the output format. If there is no implementation
-     * of an internal transform, then this method needs to do nothing, BUT
-     * all coordinates need to be transformed by the currentTransform before
-     * being written out.
-     *
+     * Writes out the transform as it needs to be concatenated to the internal
+     * transform of the output format. If there is no implementation of an
+     * internal transform, then this method needs to do nothing, BUT all
+     * coordinates need to be transformed by the currentTransform before being
+     * written out.
+     * 
      * @param transform to be written
      */
-    protected abstract void writeTransform(AffineTransform transform) throws IOException;
+    protected abstract void writeTransform(AffineTransform transform)
+            throws IOException;
 
-    /*================================================================================
-     | 7. Clipping
-     *================================================================================*/
+    /*
+     * ================================================================================ |
+     * 7. Clipping
+     * ================================================================================
+     */
 
     /**
      * Gets the current clip in form of a Shape (Rectangle).
-     *
+     * 
      * @return current clip
      */
     public Shape getClip() {
@@ -715,7 +758,7 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Gets the current clip in form of a Rectangle.
-     *
+     * 
      * @return current clip
      */
     public Rectangle getClipBounds() {
@@ -725,18 +768,19 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Gets the current clip in form of a Rectangle.
-     *
+     * 
      * @return current clip
      */
     public Rectangle getClipBounds(Rectangle r) {
         Rectangle bounds = getClipBounds();
-        if (bounds != null) r.setBounds(bounds);
+        if (bounds != null)
+            r.setBounds(bounds);
         return r;
     }
 
     /**
      * Clips rectangle. Calls clip(Rectangle).
-     *
+     * 
      * @param x rectangle for clipping
      * @param y rectangle for clipping
      * @param width rectangle for clipping
@@ -748,7 +792,7 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Clips rectangle. Calls clip(Rectangle2D).
-     *
+     * 
      * @param x rectangle for clipping
      * @param y rectangle for clipping
      * @param width rectangle for clipping
@@ -760,7 +804,7 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Clips rectangle. Calls clip(Rectangle).
-     *
+     * 
      * @param x rectangle for clipping
      * @param y rectangle for clipping
      * @param width rectangle for clipping
@@ -772,7 +816,7 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Clips rectangle. Calls clip(Rectangle2D).
-     *
+     * 
      * @param x rectangle for clipping
      * @param y rectangle for clipping
      * @param width rectangle for clipping
@@ -784,7 +828,7 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Clips shape. Sets the userClip to shape and calls clip(Shape).
-     *
+     * 
      * @param shape used for clipping
      */
     public void setClip(Shape shape) {
@@ -797,8 +841,7 @@ public abstract class AbstractVectorGraphicsIO
     }
 
     /**
-     * Called to set a clip, no intersection made.
-     * Calls clip(shape).
+     * Called to set a clip, no intersection made. Calls clip(shape).
      */
     protected void writeSetClip(Shape shape) throws IOException {
         clip(shape);
@@ -807,7 +850,7 @@ public abstract class AbstractVectorGraphicsIO
     /**
      * Clips using given shape. Dispatches to writeClip(Rectangle),
      * writeClip(Rectangle2D) or writeClip(Shape).
-     *
+     * 
      * @param s used for clipping
      */
     public void clip(Shape s) {
@@ -824,9 +867,9 @@ public abstract class AbstractVectorGraphicsIO
 
         try {
             if (s instanceof Rectangle) {
-                writeClip((Rectangle)s);
+                writeClip((Rectangle) s);
             } else if (s instanceof Rectangle2D) {
-                writeClip((Rectangle2D)s);
+                writeClip((Rectangle2D) s);
             } else {
                 writeClip(s);
             }
@@ -837,34 +880,36 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Write out Rectangle clip. Calls writeClip(Rectangle2D).
-     *
+     * 
      * @param rectangle to be used for clipping
      */
     protected void writeClip(Rectangle rectangle) throws IOException {
-        writeClip((Rectangle2D)rectangle);
+        writeClip((Rectangle2D) rectangle);
     }
 
     /**
      * Write out Rectangle2D clip.
-     *
+     * 
      * @param rectangle to be used for clipping
      */
     protected abstract void writeClip(Rectangle2D rectangle) throws IOException;
 
     /**
      * Write out Shape clip.
-     *
+     * 
      * @param shape to be used for clipping
      */
     protected abstract void writeClip(Shape shape) throws IOException;
 
-    /*================================================================================
-     | 8. Graphics State
-     *================================================================================*/
+    /*
+     * ================================================================================ |
+     * 8. Graphics State
+     * ================================================================================
+     */
     /* 8.1. stroke/linewidth */
     /**
      * Get the current stroke.
-     *
+     * 
      * @return current stroke
      */
     public Stroke getStroke() {
@@ -872,9 +917,9 @@ public abstract class AbstractVectorGraphicsIO
     }
 
     /**
-     * Sets the current stroke. 
-     * Calls writeStroke if stroke is unequal to the current stroke.
-     *
+     * Sets the current stroke. Calls writeStroke if stroke is unequal to the
+     * current stroke.
+     * 
      * @param stroke to be set
      */
     public void setStroke(Stroke stroke) {
@@ -890,8 +935,8 @@ public abstract class AbstractVectorGraphicsIO
     }
 
     /**
-     * Writes the current stroke. If stroke is an instance of BasicStroke it will
-     * call writeWidth, writeCap, writeJoin, writeMiterLimit and writeDash,
+     * Writes the current stroke. If stroke is an instance of BasicStroke it
+     * will call writeWidth, writeCap, writeJoin, writeMiterLimit and writeDash,
      * if any were different than the current stroke.
      */
     protected void writeStroke(Stroke stroke) throws IOException {
@@ -903,7 +948,8 @@ public abstract class AbstractVectorGraphicsIO
             int currentCap = -1, currentJoin = -1;
             float currentWidth = -1, currentLimit = -1, currentDashPhase = -1;
             float[] currentDashArray = null;
-            if ((currentStroke != null) && (currentStroke instanceof BasicStroke)) {
+            if ((currentStroke != null)
+                    && (currentStroke instanceof BasicStroke)) {
                 BasicStroke cs = (BasicStroke) currentStroke;
                 currentCap = cs.getEndCap();
                 currentJoin = cs.getLineJoin();
@@ -944,19 +990,20 @@ public abstract class AbstractVectorGraphicsIO
             // Check to see if there are differences in the phase or
             // length of the array.
             boolean different = false;
-            if (currentDashPhase!=phase) different = true;
-            if ((newDashArray==null && currentDashArray!=null) ||
-                (newDashArray!=null && currentDashArray==null))
+            if (currentDashPhase != phase)
                 different = true;
-            if (newDashArray!=null && currentDashArray!=null &&
-                newDashArray.length!=currentDashArray.length)
+            if ((newDashArray == null && currentDashArray != null)
+                    || (newDashArray != null && currentDashArray == null))
+                different = true;
+            if (newDashArray != null && currentDashArray != null
+                    && newDashArray.length != currentDashArray.length)
                 different = true;
 
             // Check the individual dashing entries if necessary.
-            if (!different && newDashArray!=null && currentDashArray!=null) {
-                for (int i=0; i<newDashArray.length; i++) {
-                if (currentDashArray[i]!=newDashArray[i])
-                    different = true;
+            if (!different && newDashArray != null && currentDashArray != null) {
+                for (int i = 0; i < newDashArray.length; i++) {
+                    if (currentDashArray[i] != newDashArray[i])
+                        different = true;
                 }
             }
 
@@ -977,53 +1024,54 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Writes out the width of the stroke.
-     *
+     * 
      * @param width of the stroke
      */
     protected void writeWidth(float width) throws IOException {
-        writeWarning(getClass()+": writeWidth() not implemented.");
+        writeWarning(getClass() + ": writeWidth() not implemented.");
     }
 
     /**
      * Writes out the cap of the stroke.
-     *
+     * 
      * @param cap of the stroke
      */
     protected void writeCap(int cap) throws IOException {
-        writeWarning(getClass()+": writeCap() not implemented.");
+        writeWarning(getClass() + ": writeCap() not implemented.");
     }
 
     /**
      * Writes out the join of the stroke.
-     *
+     * 
      * @param join of the stroke
      */
     protected void writeJoin(int join) throws IOException {
-        writeWarning(getClass()+": writeJoin() not implemented.");
+        writeWarning(getClass() + ": writeJoin() not implemented.");
     }
 
     /**
      * Writes out the miter limit of the stroke.
-     *
+     * 
      * @param limit miter limit of the stroke
      */
     protected void writeMiterLimit(float limit) throws IOException {
-        writeWarning(getClass()+": writeMiterLimit() not implemented.");
+        writeWarning(getClass() + ": writeMiterLimit() not implemented.");
     }
 
     /**
      * Writes out the dash of the stroke.
-     *
+     * 
      * @param dash dash pattern, empty array is solid line
      * @param phase of the dash pattern
      */
     protected void writeDash(double[] dash, double phase) throws IOException {
-        writeWarning(getClass()+": writeDash() not implemented.");
+        writeWarning(getClass() + ": writeDash() not implemented.");
     }
 
     /* 8.2 Paint */
     public void setColor(Color color) {
-        if (color.equals(getColor())) return;
+        if (color.equals(getColor()))
+            return;
 
         try {
             super.setColor(color);
@@ -1034,24 +1082,26 @@ public abstract class AbstractVectorGraphicsIO
     }
 
     /**
-     * Sets the current paint. Dispatches to writePaint(Color), writePaint(GradientPaint),
-     * writePaint(TexturePaint paint) or writePaint(Paint). In the case paint is a Color
-     * the current color is also changed.
-     *
+     * Sets the current paint. Dispatches to writePaint(Color),
+     * writePaint(GradientPaint), writePaint(TexturePaint paint) or
+     * writePaint(Paint). In the case paint is a Color the current color is also
+     * changed.
+     * 
      * @param paint to be set
      */
     public void setPaint(Paint paint) {
-        if (paint.equals(getPaint())) return;
+        if (paint.equals(getPaint()))
+            return;
 
         try {
             if (paint instanceof Color) {
-                setColor((Color)paint);
+                setColor((Color) paint);
             } else if (paint instanceof GradientPaint) {
                 super.setPaint(paint);
-                writePaint((GradientPaint)paint);
+                writePaint((GradientPaint) paint);
             } else if (paint instanceof TexturePaint) {
                 super.setPaint(paint);
-                writePaint((TexturePaint)paint);
+                writePaint((TexturePaint) paint);
             } else {
                 super.setPaint(paint);
                 writePaint(paint);
@@ -1063,49 +1113,50 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Writes out paint as the given color.
-     *
+     * 
      * @param color to be written
      */
     protected abstract void writePaint(Color color) throws IOException;
 
     /**
      * Writes out paint as the given gradient.
-     *
+     * 
      * @param paint to be written
      */
     protected abstract void writePaint(GradientPaint paint) throws IOException;
 
     /**
      * Writes out paint as the given texture.
-     *
+     * 
      * @param paint to be written
      */
     protected abstract void writePaint(TexturePaint paint) throws IOException;
 
     /**
      * Writes out paint.
-     *
+     * 
      * @param paint to be written
      */
     protected abstract void writePaint(Paint paint) throws IOException;
 
-
     /* 8.3. font */
     /**
      * Gets the current font render context. This returns an standard
-     * FontRenderContext with an upside down matrix, anti-aliasing and
-     * uses fractional metrics.
-     *
+     * FontRenderContext with an upside down matrix, anti-aliasing and uses
+     * fractional metrics.
+     * 
      * @return current font render context
      */
     public FontRenderContext getFontRenderContext() {
         // NOTE: not sure?
-        return new FontRenderContext(new AffineTransform(1,0,0,-1,0,0), true, true);
+        return new FontRenderContext(new AffineTransform(1, 0, 0, -1, 0, 0),
+                true, true);
     }
 
     /**
      * Gets the fontmetrics.
-     *
+     * 
+     * @deprecated
      * @param font to be used for retrieving fontmetrics
      * @return fontmetrics for given font
      */
@@ -1116,7 +1167,7 @@ public abstract class AbstractVectorGraphicsIO
     /* 8.4. rendering hints */
     /**
      * Gets a copy of the rendering hints.
-     *
+     * 
      * @return clone of table of rendering hints.
      */
     public RenderingHints getRenderingHints() {
@@ -1125,7 +1176,7 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Adds to table of rendering hints.
-     *
+     * 
      * @param hints table to be added
      */
     public void addRenderingHints(Map hints) {
@@ -1134,7 +1185,7 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Sets table of rendering hints.
-     *
+     * 
      * @param hints table to be set
      */
     public void setRenderingHints(Map hints) {
@@ -1144,7 +1195,7 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Gets a given rendering hint.
-     *
+     * 
      * @param key hint key
      * @return hint associated to key
      */
@@ -1154,22 +1205,25 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Sets a given rendering hint.
-     *
+     * 
      * @param key hint key
      * @param hint to be associated with key
      */
     public void setRenderingHint(RenderingHints.Key key, Object hint) {
         // extra protection, failed on under MacOS X 10.2.6, jdk 1.4.1_01-39/14
-        if ((key == null) || (hint == null)) return;
+        if ((key == null) || (hint == null))
+            return;
         hints.put(key, hint);
     }
 
-    /*================================================================================
-     | 9. Auxiliary
-     *================================================================================*/
+    /*
+     * ================================================================================ |
+     * 9. Auxiliary
+     * ================================================================================
+     */
     /**
      * Gets current composite.
-     *
+     * 
      * @return current composite
      */
     public Composite getComposite() {
@@ -1178,7 +1232,7 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Sets current composite.
-     *
+     * 
      * @param composite to be set
      */
     public void setComposite(Composite composite) {
@@ -1186,10 +1240,9 @@ public abstract class AbstractVectorGraphicsIO
     }
 
     /**
-     * Handles an exception which has been caught. Dispatches
-     * exception to writeWarning for UnsupportedOperationExceptions
-     * and writeError for others
-     *
+     * Handles an exception which has been caught. Dispatches exception to
+     * writeWarning for UnsupportedOperationExceptions and writeError for others
+     * 
      * @param exception to be handled
      */
     protected void handleException(Exception exception) {
@@ -1202,7 +1255,7 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Writes out a warning, by default to System.err.
-     *
+     * 
      * @param exception warning to be written
      */
     protected void writeWarning(Exception exception) {
@@ -1211,7 +1264,7 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Writes out a warning, by default to System.err.
-     *
+     * 
      * @param warning to be written
      */
     protected void writeWarning(String warning) {
@@ -1222,35 +1275,35 @@ public abstract class AbstractVectorGraphicsIO
 
     /**
      * Writes out an error, by default the stack trace is printed.
-     *
+     * 
      * @param exception error to be reported
      */
     protected void writeError(Exception exception) {
         throw new RuntimeException(exception);
-// FIXME decide what we should do
-/*
-        if (isProperty(EMIT_ERRORS)) {
-            System.err.println(exception);
-            exception.printStackTrace(System.err);
-        }
-*/
+        // FIXME decide what we should do
+        /*
+         * if (isProperty(EMIT_ERRORS)) { System.err.println(exception);
+         * exception.printStackTrace(System.err); }
+         */
     }
 
-    protected Shape createShape(double[] xPoints, double[] yPoints, int nPoints,
-                    boolean close) {
+    protected Shape createShape(double[] xPoints, double[] yPoints,
+            int nPoints, boolean close) {
         GeneralPath path = new GeneralPath(GeneralPath.WIND_EVEN_ODD);
         if (nPoints > 0) {
-            path.moveTo((float)xPoints[0], (float)yPoints[0]);
+            path.moveTo((float) xPoints[0], (float) yPoints[0]);
             for (int i = 1; i < nPoints; i++) {
-                path.lineTo((float)xPoints[i], (float)yPoints[i]);
+                path.lineTo((float) xPoints[i], (float) yPoints[i]);
             }
-            if (close) path.closePath();
+            if (close)
+                path.closePath();
         }
         return path;
     }
 
     private Shape transformShape(AffineTransform at, Shape s) {
-        if (s == null) return null;
+        if (s == null)
+            return null;
         return at.createTransformedShape(s);
     }
 
@@ -1259,7 +1312,8 @@ public abstract class AbstractVectorGraphicsIO
     }
 
     private Shape untransformShape(Shape s) {
-        if (s == null) return null;
+        if (s == null)
+            return null;
         try {
             return transformShape(getTransform().createInverse(), s);
         } catch (NoninvertibleTransformException e) {
@@ -1267,10 +1321,10 @@ public abstract class AbstractVectorGraphicsIO
         }
     }
 
-    private Point2D drawFrameAndBanner(double x, double y, Rectangle2D textSize, double adjustment,
-                       boolean framed, Color frameColor, double frameWidth,
-                       boolean banner, Color bannerColor,
-                       int horizontal, int vertical) throws IOException {
+    private Point2D drawFrameAndBanner(double x, double y,
+            Rectangle2D textSize, double adjustment, boolean framed,
+            Color frameColor, double frameWidth, boolean banner,
+            Color bannerColor, int horizontal, int vertical) throws IOException {
 
         double descent = textSize.getY() + textSize.getHeight();
         x = getXalignment(x, textSize.getWidth(), horizontal);
@@ -1278,8 +1332,8 @@ public abstract class AbstractVectorGraphicsIO
 
         double rx = x - adjustment;
         double ry = y - textSize.getHeight() + descent - adjustment;
-        double rw = textSize.getWidth() +  2*adjustment;
-        double rh = textSize.getHeight() + 2*adjustment;
+        double rw = textSize.getWidth() + 2 * adjustment;
+        double rh = textSize.getHeight() + 2 * adjustment;
 
         if (banner) {
             Paint paint = getPaint();

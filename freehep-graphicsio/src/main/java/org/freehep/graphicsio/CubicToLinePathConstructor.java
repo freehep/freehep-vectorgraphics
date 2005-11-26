@@ -5,18 +5,20 @@ import java.awt.geom.Point2D;
 import java.io.IOException;
 
 /**
- * Implements cubics by approximating them using a polyline. Useful class for output
- * formats that do NOT implement bezier curves at all, or if you need only straight
- * lines.
- *
+ * Implements cubics by approximating them using a polyline. Useful class for
+ * output formats that do NOT implement bezier curves at all, or if you need
+ * only straight lines.
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/CubicToLinePathConstructor.java 399e20fc1ed9 2005/11/25 23:40:46 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/CubicToLinePathConstructor.java 5641ca92a537 2005/11/26 00:15:35 duns $
  */
-public abstract class CubicToLinePathConstructor extends QuadToCubicPathConstructor {
+public abstract class CubicToLinePathConstructor extends
+        QuadToCubicPathConstructor {
 
     private double resolution;
-    
+
     private transient ControlSet tempSet[] = new ControlSet[1024];
+
     private transient ControlSet controlSet[] = new ControlSet[1024];
 
     protected CubicToLinePathConstructor() {
@@ -27,8 +29,9 @@ public abstract class CubicToLinePathConstructor extends QuadToCubicPathConstruc
         this.resolution = resolution;
     }
 
-    public void cubic(double x1, double y1, double x2, double y2, double x3, double y3) throws IOException {
-//        System.out.println("Cubic "+x1+" "+y1+" "+x2+" "+y2+" "+x3+" "+y3);
+    public void cubic(double x1, double y1, double x2, double y2, double x3,
+            double y3) throws IOException {
+        // System.out.println("Cubic "+x1+" "+y1+" "+x2+" "+y2+" "+x3+" "+y3);
         int k = 0;
         int l = 0;
         Point2D p0 = new Point2D.Double(currentX, currentY);
@@ -47,20 +50,23 @@ public abstract class CubicToLinePathConstructor extends QuadToCubicPathConstruc
                 controlSet[k++] = control1;
             }
         }
-//        System.out.println(k);
+        // System.out.println(k);
         while (k > 0) {
             ControlSet control2 = controlSet[--k];
             Point2D p = control2.getPoint();
             line(p.getX(), p.getY());
-//            System.out.println(control2.getPoint());
+            // System.out.println(control2.getPoint());
         }
         super.cubic(x1, y1, x2, y2, x3, y3);
     }
 
     class ControlSet {
         private Point2D point0;
+
         private Point2D point1;
+
         private Point2D point2;
+
         private Point2D point3;
 
         public ControlSet(Point2D p0, Point2D p1, Point2D p2, Point2D p3) {
@@ -79,20 +85,20 @@ public abstract class CubicToLinePathConstructor extends QuadToCubicPathConstruc
             double f6 = point2.getY();
             double f3 = point3.getX();
             double f7 = point3.getY();
-            if ((Math.abs(f0 - f3) < resolution) &&
-                (Math.abs(f4 - f7) < resolution)) {
+            if ((Math.abs(f0 - f3) < resolution)
+                    && (Math.abs(f4 - f7) < resolution)) {
 
-                double f8  = Math.abs(f1 - f0) + Math.abs(f5 - f4);
+                double f8 = Math.abs(f1 - f0) + Math.abs(f5 - f4);
                 double f10 = Math.abs(f2 - f0) + Math.abs(f6 - f4);
                 return Math.max(f10, f8);
 
             } else {
 
-                double d0  = f4 - f7;
-                double d1  = f3 - f0;
+                double d0 = f4 - f7;
+                double d1 = f3 - f0;
                 double f12 = Math.sqrt(d0 * d0 + d1 * d1);
-                double d2  = f3 * f4 - f0 * f7;
-                double f9  = Math.abs((d0 * f2 + d1 * f6) - d2) / f12;
+                double d2 = f3 * f4 - f0 * f7;
+                double f9 = Math.abs((d0 * f2 + d1 * f6) - d2) / f12;
                 double f11 = Math.abs((d0 * f1 + d1 * f5) - d2) / f12;
                 return Math.max(f9, f11);
             }
@@ -114,7 +120,7 @@ public abstract class CubicToLinePathConstructor extends QuadToCubicPathConstruc
 
         public Point2D average(Point2D p1, Point2D p2) {
             return new Point2D.Double((p1.getX() + p2.getX()) / 2.0,
-                                      (p1.getY() + p2.getY()) / 2.0);
+                    (p1.getY() + p2.getY()) / 2.0);
         }
 
         public Point2D getPoint() {
@@ -123,4 +129,3 @@ public abstract class CubicToLinePathConstructor extends QuadToCubicPathConstruc
     }
 
 }
-    
