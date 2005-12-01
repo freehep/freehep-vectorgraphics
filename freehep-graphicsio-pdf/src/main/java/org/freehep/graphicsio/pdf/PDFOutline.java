@@ -1,54 +1,54 @@
 package org.freehep.graphicsio.pdf;
 
-import java.io.*;
-import java.text.*;
-import java.util.*;
+import java.io.IOException;
 
 /**
  * Implements the Outline Item Dictionary (see Table 7.4).
  * <p>
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFOutline.java 967bf3619090 2005/12/01 05:41:40 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFOutline.java f493ff6e61b2 2005/12/01 18:46:43 duns $
  */
 public class PDFOutline extends PDFDictionary {
-    
-    PDFOutline(PDF pdf, PDFByteWriter writer, PDFObject object, PDFRef parent, String title, PDFRef prev, PDFRef next) throws IOException {
+
+    PDFOutline(PDF pdf, PDFByteWriter writer, PDFObject object, PDFRef parent,
+            String title, PDFRef prev, PDFRef next) throws IOException {
         super(pdf, writer, object);
         entry("Parent", parent);
         entry("Title", title);
         entry("Prev", prev);
         entry("Next", next);
     }
-    
+
     public void setFirst(String first) throws IOException {
         entry("First", pdf.ref(first));
     }
-    
+
     public void setLast(String last) throws IOException {
         entry("Last", pdf.ref(last));
     }
-    
+
     public void setCount(int count) throws IOException {
         entry("Count", count);
     }
-    
+
     public void setDest(PDFName dest) throws IOException {
         entry("Dest", dest);
     }
-    
+
     public void setDest(String dest) throws IOException {
         entry("Dest", dest);
     }
-    
+
     public void setDest(Object[] dest) throws IOException {
         entry("Dest", dest);
     }
-    
+
     public void setA(String a) throws IOException {
         entry("A", pdf.ref(a));
     }
-    
+
     public void setSE(String se) throws IOException {
         entry("SE", pdf.ref(se));
-    }    
+    }
 }

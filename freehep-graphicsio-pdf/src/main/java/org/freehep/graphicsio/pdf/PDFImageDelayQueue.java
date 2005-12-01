@@ -2,20 +2,23 @@
 package org.freehep.graphicsio.pdf;
 
 import java.awt.Color;
-import java.awt.MediaTracker;
 import java.awt.image.RenderedImage;
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import org.freehep.graphicsio.ImageConstants;
 
 /**
  * Delay <tt>Image</tt> objects for writing XObjects to the pdf file when the
  * pageStream is complete. Caches identical images to only write them once.
- *
+ * 
  * @author Simon Fischer
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFImageDelayQueue.java 967bf3619090 2005/12/01 05:41:40 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFImageDelayQueue.java f493ff6e61b2 2005/12/01 18:46:43 duns $
  */
 public class PDFImageDelayQueue {
 
@@ -23,17 +26,22 @@ public class PDFImageDelayQueue {
 
     private class Entry {
         private RenderedImage image;
+
         private String name, maskName;
+
         private Color bkg;
+
         private String writeAs;
+
         private boolean written;
+
         private Entry(RenderedImage image, Color bkg, String writeAs) {
             this.image = image;
             this.bkg = bkg;
             this.writeAs = writeAs;
-            this.name = "Img"+(currentNumber++);
+            this.name = "Img" + (currentNumber++);
             if (image.getColorModel().hasAlpha() && (bkg == null)) {
-                maskName = name+"Mask";
+                maskName = name + "Mask";
             } else {
                 maskName = null;
             }
@@ -41,8 +49,10 @@ public class PDFImageDelayQueue {
         }
     }
 
-    private Map/*<RenderedImage,Entry>*/ imageMap;
-    private List/*<entry>*/ imageList;
+    private Map/* <RenderedImage,Entry> */imageMap;
+
+    private List/* <entry> */imageList;
+
     private PDFWriter pdf;
 
     public PDFImageDelayQueue(PDFWriter pdf) {
@@ -52,10 +62,10 @@ public class PDFImageDelayQueue {
     }
 
     public PDFName delayImage(RenderedImage image, Color bkg, String writeAs) {
-        Entry entry = (Entry)imageMap.get(image);
+        Entry entry = (Entry) imageMap.get(image);
         if (entry == null) {
             entry = new Entry(image, bkg, writeAs);
-            imageMap.put(image,entry);
+            imageMap.put(image, entry);
             imageList.add(entry);
         }
 
@@ -64,25 +74,27 @@ public class PDFImageDelayQueue {
 
     /** Creates a stream for every delayed image that is not written yet. */
     public void processAll() throws IOException {
-        for (Iterator i = imageList.iterator(); i.hasNext(); ) {
-            Entry entry = (Entry)i.next();
+        for (Iterator i = imageList.iterator(); i.hasNext();) {
+            Entry entry = (Entry) i.next();
 
             if (!entry.written) {
                 entry.written = true;
 
-            	String[] encode;
-            	if (entry.writeAs.equals(ImageConstants.ZLIB) || (entry.maskName != null)) {
-            	    encode = new String[] {"Flate", "ASCII85"};
-            	} else if (entry.writeAs.equals(ImageConstants.JPG)) {
-            	    encode = new String[] {"DCT", "ASCII85"};
-            	} else {
-            	    encode = new String[] {null, "ASCII85"};
+                String[] encode;
+                if (entry.writeAs.equals(ImageConstants.ZLIB)
+                        || (entry.maskName != null)) {
+                    encode = new String[] { "Flate", "ASCII85" };
+                } else if (entry.writeAs.equals(ImageConstants.JPG)) {
+                    encode = new String[] { "DCT", "ASCII85" };
+                } else {
+                    encode = new String[] { null, "ASCII85" };
                 }
 
                 PDFStream img = pdf.openStream(entry.name);
                 img.entry("Subtype", pdf.name("Image"));
-                if (entry.maskName != null) img.entry("SMask", pdf.ref(entry.maskName));
-            	img.image(entry.image, entry.bkg, encode);
+                if (entry.maskName != null)
+                    img.entry("SMask", pdf.ref(entry.maskName));
+                img.image(entry.image, entry.bkg, encode);
                 pdf.close(img);
 
                 if (entry.maskName != null) {
@@ -95,15 +107,18 @@ public class PDFImageDelayQueue {
         }
     }
 
-    /** Adds all names to the dictionary which should be the value of
-     *  the resources dicionrary's /XObject entry. */
+    /**
+     * Adds all names to the dictionary which should be the value of the
+     * resources dicionrary's /XObject entry.
+     */
     public int addXObjects() throws IOException {
         if (imageList.size() > 0) {
             PDFDictionary xobj = pdf.openDictionary("XObjects");
-            for (Iterator i = imageList.iterator(); i.hasNext(); ) {
-                Entry entry = (Entry)i.next();
+            for (Iterator i = imageList.iterator(); i.hasNext();) {
+                Entry entry = (Entry) i.next();
                 xobj.entry(entry.name, pdf.ref(entry.name));
-                if (entry.maskName != null) xobj.entry(entry.maskName, pdf.ref(entry.maskName));
+                if (entry.maskName != null)
+                    xobj.entry(entry.maskName, pdf.ref(entry.maskName));
             }
             pdf.close(xobj);
         }

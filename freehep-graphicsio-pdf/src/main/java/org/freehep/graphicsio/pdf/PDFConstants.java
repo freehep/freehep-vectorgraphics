@@ -1,13 +1,13 @@
 package org.freehep.graphicsio.pdf;
 
-import java.text.*;
-import java.util.*;
+import java.text.SimpleDateFormat;
 
 /**
  * Specifies constants for use with the PDFWriter, PDFStream and PDFUtil.
  * <p>
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFConstants.java 967bf3619090 2005/12/01 05:41:40 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFConstants.java f493ff6e61b2 2005/12/01 18:46:43 duns $
  */
 public interface PDFConstants {
 
@@ -16,28 +16,39 @@ public interface PDFConstants {
     //
     // Constants for PDFStream
     //
-    
+
     // Line Cap Styles (see Table 4.4)
     public static final int CAP_BUTT = 0;
+
     public static final int CAP_ROUND = 1;
+
     public static final int CAP_SQUARE = 2;
 
     // Line Join Styles (see Table 4.5)
     public static final int JOIN_MITTER = 0;
+
     public static final int JOIN_ROUND = 1;
+
     public static final int JOIN_BEVEL = 2;
-    
+
     // Rendering Modes (see Table 5.3)
     public static final int MODE_FILL = 0;
+
     public static final int MODE_STROKE = 1;
+
     public static final int MODE_FILL_STROKE = 2;
+
     public static final int MODE_INVISIBLE = 3;
+
     public static final int MODE_FILL_CLIP = 4;
+
     public static final int MODE_STROKE_CLIP = 5;
+
     public static final int MODE_FILL_STROKE_CLIP = 6;
+
     public static final int MODE_CLIP = 7;
 
-    // Date Format for PDF:   (D:YYYYMMDDHHmmSSOHH'mm')
-    public static final SimpleDateFormat dateFormat = 
-        new SimpleDateFormat("yyyyMMddHHmmss");
+    // Date Format for PDF: (D:YYYYMMDDHHmmSSOHH'mm')
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat(
+            "yyyyMMddHHmmss");
 }

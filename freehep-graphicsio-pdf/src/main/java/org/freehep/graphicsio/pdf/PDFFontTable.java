@@ -4,25 +4,30 @@ package org.freehep.graphicsio.pdf;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Properties;
 
-import org.freehep.graphics2d.font.Lookup;
 import org.freehep.graphics2d.font.CharTable;
+import org.freehep.graphics2d.font.Lookup;
 import org.freehep.graphicsio.FontConstants;
 import org.freehep.graphicsio.font.FontIncluder;
 import org.freehep.graphicsio.font.FontTable;
 
 /**
- *  A table to remember which fonts were used while writing a pdf document.
- *  Entries to resource dictionaries and embedding of fonts can be done
- *  when the drawing is finished by calling <tt>addAll()</tt>.
- *  @author Simon Fischer
- *  @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFFontTable.java 967bf3619090 2005/12/01 05:41:40 duns $
+ * A table to remember which fonts were used while writing a pdf document.
+ * Entries to resource dictionaries and embedding of fonts can be done when the
+ * drawing is finished by calling <tt>addAll()</tt>.
+ * 
+ * @author Simon Fischer
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFFontTable.java f493ff6e61b2 2005/12/01 18:46:43 duns $
  */
 public class PDFFontTable extends FontTable {
 
     private int currentFontIndex = 1;
+
     private PDFWriter pdf;
+
     private PDFRedundanceTracker tracker;
 
     public PDFFontTable(PDFWriter pdf) {
@@ -31,14 +36,13 @@ public class PDFFontTable extends FontTable {
         this.tracker = new PDFRedundanceTracker(pdf);
     }
 
-
     /** Adds all fonts to a dictionary named "FontList". */
     public int addFontDictionary() throws IOException {
         Collection fonts = getEntries();
         if (fonts.size() > 0) {
             PDFDictionary fontList = pdf.openDictionary("FontList");
-            for (Iterator i = fonts.iterator(); i.hasNext(); ) {
-                Entry e = (Entry)i.next();
+            for (Iterator i = fonts.iterator(); i.hasNext();) {
+                Entry e = (Entry) i.next();
                 fontList.entry(e.getReference(), pdf.ref(e.getReference()));
             }
             pdf.close(fontList);
@@ -47,11 +51,12 @@ public class PDFFontTable extends FontTable {
     }
 
     /** Embeds all not yet embedded fonts to the file. */
-    public void embedAll(FontRenderContext context, boolean embed, String embedAs) throws IOException {
+    public void embedAll(FontRenderContext context, boolean embed,
+            String embedAs) throws IOException {
         Collection col = getEntries();
         Iterator i = col.iterator();
         while (i.hasNext()) {
-            Entry e = (Entry)i.next();
+            Entry e = (Entry) i.next();
             if (!e.isWritten()) {
                 e.setWritten(true);
 
@@ -62,25 +67,22 @@ public class PDFFontTable extends FontTable {
 
                 if (embed) {
                     if (embedAs.equals(FontConstants.EMBED_FONTS_TYPE3)) {
-                        fontIncluder = new PDFFontEmbedderType3(context,
-                                        pdf,
-                                        e.getReference(),
-                                        tracker);
+                        fontIncluder = new PDFFontEmbedderType3(context, pdf, e
+                                .getReference(), tracker);
                     } else if (embedAs.equals(FontConstants.EMBED_FONTS_TYPE1)) {
                         fontIncluder = PDFFontEmbedderType1.create(context,
-                                           pdf,
-                                           e.getReference(),
-                                           tracker);
+                                pdf, e.getReference(), tracker);
                     } else {
-                        System.out.println("PDFFontTable: invalid value for embedAs: "+embedAs);
+                        System.out
+                                .println("PDFFontTable: invalid value for embedAs: "
+                                        + embedAs);
                     }
                 } else {
-                    fontIncluder = new PDFFontIncluder(context,
-                                           pdf,
-                                           e.getReference(),
-                                           tracker);
+                    fontIncluder = new PDFFontIncluder(context, pdf, e
+                            .getReference(), tracker);
                 }
-                fontIncluder.includeFont(e.getFont(), e.getEncoding(), e.getReference());
+                fontIncluder.includeFont(e.getFont(), e.getEncoding(), e
+                        .getReference());
             }
         }
         tracker.writeAll();
@@ -95,11 +97,11 @@ public class PDFFontTable extends FontTable {
 
     private static final Properties replaceFonts = new Properties();
     static {
-        replaceFonts.setProperty("Dialog",      "Helvetica");
+        replaceFonts.setProperty("Dialog", "Helvetica");
         replaceFonts.setProperty("DialogInput", "Helvetica");
-        replaceFonts.setProperty("Serif",       "TimesRoman");
-        replaceFonts.setProperty("SansSerif",   "Helvetica");
-        replaceFonts.setProperty("Monospaced",  "Courier");
+        replaceFonts.setProperty("Serif", "TimesRoman");
+        replaceFonts.setProperty("SansSerif", "Helvetica");
+        replaceFonts.setProperty("Monospaced", "Courier");
     }
 
     protected Font substituteFont(Font font) {
@@ -111,9 +113,12 @@ public class PDFFontTable extends FontTable {
         return font;
     }
 
-    /** Creates the reference by numbering them.
-     *  @return "F"+currentFontIndex */
+    /**
+     * Creates the reference by numbering them.
+     * 
+     * @return "F"+currentFontIndex
+     */
     protected String createFontReference(Font f) {
-        return "F"+(currentFontIndex++);
+        return "F" + (currentFontIndex++);
     }
 }

@@ -1,21 +1,20 @@
 // Copyright 2000-2005 FreeHEP
 package org.freehep.graphicsio.pdf;
 
-import java.io.*;
-import java.util.*;
-import java.text.*;
+import java.io.IOException;
+import java.io.OutputStream;
 
 /**
- * This class creates a PDF file/stream.
- * It keeps track of all logical PDF objects in the PDF file,
- * will create a cross-reference table and
- * do some error checking while writing the file.
+ * This class creates a PDF file/stream. It keeps track of all logical PDF
+ * objects in the PDF file, will create a cross-reference table and do some
+ * error checking while writing the file.
  * <p>
- * This class takes care of wrapping both PDFStreams and PDFDictionaries
- * into PDFObjects.
+ * This class takes care of wrapping both PDFStreams and PDFDictionaries into
+ * PDFObjects.
  * <p>
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFWriter.java 967bf3619090 2005/12/01 05:41:40 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFWriter.java f493ff6e61b2 2005/12/01 18:46:43 duns $
  */
 public class PDFWriter extends PDF implements PDFConstants {
 
@@ -29,7 +28,7 @@ public class PDFWriter extends PDF implements PDFConstants {
         super(new PDFByteWriter(writer));
 
         // PDF version
-        out.println("%PDF-"+version);
+        out.println("%PDF-" + version);
 
         // Make sure intelligent readers understand that binary may be included
         out.print("%");
@@ -41,7 +40,8 @@ public class PDFWriter extends PDF implements PDFConstants {
         out.println();
     }
 
-    public void close(String catalogName, String docInfoName) throws IOException {
+    public void close(String catalogName, String docInfoName)
+            throws IOException {
         // FIXME, check for dangling references
 
         xref();
@@ -53,7 +53,7 @@ public class PDFWriter extends PDF implements PDFConstants {
     }
 
     public void comment(String comment) throws IOException {
-        out.println("% "+comment);
+        out.println("% " + comment);
     }
 
     public void object(String name, Object[] objs) throws IOException {
@@ -68,22 +68,25 @@ public class PDFWriter extends PDF implements PDFConstants {
         close(object);
     }
 
-//      public void object(String name, String string) throws IOException {
-//          PDFObject object = openObject(name);
-//          object.entry(string);
-//          close(object);
-//      }
+    // public void object(String name, String string) throws IOException {
+    // PDFObject object = openObject(name);
+    // object.entry(string);
+    // close(object);
+    // }
 
     public PDFObject openObject(String name) throws IOException {
         // FIXME: check if name was already written!
-        if (open != null) System.err.println("PDFWriter error: '"+open+"' was not closed");
-        open = "PDFObject: "+name;
+        if (open != null)
+            System.err
+                    .println("PDFWriter error: '" + open + "' was not closed");
+        open = "PDFObject: " + name;
 
         PDFRef ref = ref(name);
         int objectNumber = ref.getObjectNumber();
 
         setXRef(objectNumber, out.getCount());
-        PDFObject obj = new PDFObject(this, out, objectNumber, ref.getGenerationNumber());
+        PDFObject obj = new PDFObject(this, out, objectNumber, ref
+                .getGenerationNumber());
         return obj;
     }
 
@@ -109,23 +112,25 @@ public class PDFWriter extends PDF implements PDFConstants {
         return openStream(name, null);
     }
 
-    public PDFStream openStream(String name, String[] encode) throws IOException {
+    public PDFStream openStream(String name, String[] encode)
+            throws IOException {
         PDFObject object = openObject(name);
         PDFStream stream = object.openStream(name, encode);
-        stream.entry("Length", ref(name+lengthSuffix));
+        stream.entry("Length", ref(name + lengthSuffix));
         return stream;
     }
 
     public void close(PDFStream stream) throws IOException {
         stream.close();
         open = null;
-        object(stream.getName()+lengthSuffix, stream.getLength());
+        object(stream.getName() + lengthSuffix, stream.getLength());
     }
 
     //
     // high level interface
     //
     private String catalogName;
+
     private String docInfoName;
 
     public void close() throws IOException {
@@ -144,7 +149,8 @@ public class PDFWriter extends PDF implements PDFConstants {
         open = null;
     }
 
-    public PDFCatalog openCatalog(String name, String pageTree) throws IOException {
+    public PDFCatalog openCatalog(String name, String pageTree)
+            throws IOException {
         catalogName = name;
         PDFObject object = openObject(name);
         PDFCatalog catalog = object.openCatalog(this, ref(pageTree));
@@ -156,7 +162,8 @@ public class PDFWriter extends PDF implements PDFConstants {
         open = null;
     }
 
-    public PDFPageTree openPageTree(String name, String parent) throws IOException {
+    public PDFPageTree openPageTree(String name, String parent)
+            throws IOException {
         PDFObject object = openObject(name);
         PDFPageTree tree = object.openPageTree(this, ref(parent));
         return tree;
@@ -178,7 +185,8 @@ public class PDFWriter extends PDF implements PDFConstants {
         open = null;
     }
 
-    public PDFViewerPreferences openViewerPreferences(String name) throws IOException {
+    public PDFViewerPreferences openViewerPreferences(String name)
+            throws IOException {
         PDFObject object = openObject(name);
         PDFViewerPreferences prefs = object.openViewerPreferences(this);
         return prefs;
@@ -189,9 +197,11 @@ public class PDFWriter extends PDF implements PDFConstants {
         open = null;
     }
 
-    public PDFOutlineList openOutlineList(String name, String first, String next) throws IOException {
+    public PDFOutlineList openOutlineList(String name, String first, String next)
+            throws IOException {
         PDFObject object = openObject(name);
-        PDFOutlineList list = object.openOutlineList(this, ref(first), ref(next));
+        PDFOutlineList list = object.openOutlineList(this, ref(first),
+                ref(next));
         return list;
     }
 
@@ -200,9 +210,11 @@ public class PDFWriter extends PDF implements PDFConstants {
         open = null;
     }
 
-    public PDFOutline openOutline(String name, String title, String parent, String prev, String next) throws IOException {
+    public PDFOutline openOutline(String name, String title, String parent,
+            String prev, String next) throws IOException {
         PDFObject object = openObject(name);
-        PDFOutline outline = object.openOutline(this, ref(parent), title, ref(prev), ref(next));
+        PDFOutline outline = object.openOutline(this, ref(parent), title,
+                ref(prev), ref(next));
         return outline;
     }
 

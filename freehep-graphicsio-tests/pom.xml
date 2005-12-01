@@ -10,5 +10,23 @@
   <version>2.0-SNAPSHOT</version>
   <name>FreeHEP GraphicsIO Tests</name>
   <description>FreeHEP GraphicsIO Test Library</description>
-  <dependencies/>
+    <dependencies>
+        <dependency>
+            <groupId>org.freehep</groupId>
+            <artifactId>freehep-graphicsio</artifactId>
+            <version>2.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.freehep</groupId>
+            <artifactId>freehep-export</artifactId>
+            <version>2.0-SNAPSHOT</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>

@@ -3,21 +3,23 @@ package org.freehep.graphicsio.pdf;
 
 import java.io.IOException;
 
-import org.freehep.graphicsio.font.FontEmbedder;
 import org.freehep.graphics2d.font.CharTable;
+import org.freehep.graphicsio.font.FontEmbedder;
 
 public class PDFCharTableWriter implements PDFRedundanceTracker.Writer {
 
     private static PDFCharTableWriter ctw;
 
     public static PDFCharTableWriter getInstance() {
-        if (ctw == null) ctw = new PDFCharTableWriter();
+        if (ctw == null)
+            ctw = new PDFCharTableWriter();
         return ctw;
     }
 
-    public void writeObject(Object object, PDFRef ref, PDFWriter pdf) throws IOException {
+    public void writeObject(Object object, PDFRef ref, PDFWriter pdf)
+            throws IOException {
 
-        CharTable charTable = (CharTable)object;
+        CharTable charTable = (CharTable) object;
 
         PDFDictionary encoding = pdf.openDictionary(ref.getName());
         encoding.entry("Type", pdf.name("Encoding"));
@@ -26,10 +28,8 @@ public class PDFCharTableWriter implements PDFRedundanceTracker.Writer {
         differences[0] = new Integer(0);
         for (int i = 0; i < 256; i++) {
             String charName = charTable.toName(i);
-            differences[i+1] =
-                (charName != null) ?
-                pdf.name(charName) :
-                pdf.name(FontEmbedder.NOTDEF);
+            differences[i + 1] = (charName != null) ? pdf.name(charName) : pdf
+                    .name(FontEmbedder.NOTDEF);
         }
         encoding.entry("Differences", differences);
 

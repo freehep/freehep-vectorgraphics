@@ -1,16 +1,13 @@
 // Copyright 2002 FreeHEP.
 package org.freehep.graphicsio.pdf;
 
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import org.freehep.graphicsio.QuadToCubicPathConstructor;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFPathConstructor.java 967bf3619090 2005/12/01 05:41:40 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFPathConstructor.java f493ff6e61b2 2005/12/01 18:46:43 duns $
  */
 public class PDFPathConstructor extends QuadToCubicPathConstructor {
     private PDFStream stream;
@@ -21,7 +18,7 @@ public class PDFPathConstructor extends QuadToCubicPathConstructor {
     }
 
     public void move(double x, double y) throws IOException {
-        stream.move(x,y);
+        stream.move(x, y);
         super.move(x, y);
     }
 
@@ -30,9 +27,8 @@ public class PDFPathConstructor extends QuadToCubicPathConstructor {
         super.line(x, y);
     }
 
-
-    public void cubic(double x1, double y1, double x2, double y2, double x3, double y3)
-             throws IOException {
+    public void cubic(double x1, double y1, double x2, double y2, double x3,
+            double y3) throws IOException {
         stream.cubic(x1, y1, x2, y2, x3, y3);
         super.cubic(x1, y1, x2, y2, x3, y3);
     }
@@ -42,4 +38,3 @@ public class PDFPathConstructor extends QuadToCubicPathConstructor {
         super.closePath(x0, y0);
     }
 }
-    
