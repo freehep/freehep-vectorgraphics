@@ -20,7 +20,7 @@
   </repositories>
   <modules>
     <module>freehep-graphics2d</module>
-    <module>freehep-graphics2d</module>
+    <module>freehep-graphics3d</module>
     <module>freehep-graphicsio</module>
     <module>freehep-graphicsio-tests</module>
     <module>freehep-graphicsio-cgm</module>
