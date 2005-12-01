@@ -5,13 +5,13 @@ import org.freehep.graphicsio.test.TestSuite;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/test/java/org/freehep/graphicsio/ps/test/PSTestSuite.java 2689041eec29 2005/12/01 22:37:27 duns $
+ * @version $Id: freehep-graphicsio-ps/src/test/java/org/freehep/graphicsio/ps/test/PSTestSuite.java 8af7d1b1e4d0 2005/12/01 22:46:17 duns $
  */
 public class PSTestSuite extends TestSuite {
 
     protected void addTests(String fmt, String dir, String ext, boolean compare) {
         super.addTests(fmt, dir, ext, compare);
-        addTest(new TestCase("org.freehep.graphicsio.ps.PSTestPreviewThumbnail", fmt, dir, ext, compare, null));      
+        addTest(new TestCase("org.freehep.graphicsio.ps.test.PSTestPreviewThumbnail", fmt, dir, ext, compare, null));      
     }
 
     public static TestSuite suite() {
