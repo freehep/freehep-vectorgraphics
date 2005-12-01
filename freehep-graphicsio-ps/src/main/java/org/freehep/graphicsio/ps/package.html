@@ -1,0 +1,34 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft FrontPage 4.0">
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+
+<p>PS, EPS (PostScript and Encapsulated PostScript) Output Format.</p>
+<p>Allows writing of single page encapsulated or multi page postscript format
+using</p>
+<ul>
+  <li>PSGraphics2D</li>
+</ul>
+<p>The following Limitations exist:</p>
+<ul>
+  <li>Implementation of transparent images is missing (probably cannot be supported).</li>
+  <li>FontMetrics is implemented using the JDK fonts rather than the PostScript fonts.</li>
+  <li>Previews are in a portable format (EPSI), not visible in Windows (e.g. Power Point, Adobe,
+    FrameMaker).</li>
+  <li>drawString(attributedCharIter) is unimplemented.</li>
+  <li>FrameColor in drawString is ignored</li>
+  <li>TrueType (Type42) embedding in PS is not included.</li>
+  <li>JPEG compression on PS is not supported.</li>
+  <li>TestShapes zapfdingbats-bold and zapfdingbats-italic do not work</li>
+  <li>TestFonts no monotype corsiva</li>
+  <li>TestImages not transparent.</li>
+  <li>TestImage2D not transparent.</li>
+  <li>TestAll no text in banner (or some error here).</li>
+  <li>TestAll no impact font.</li>
+  <li>TestAll no sky.</li>
+</ul>
+<p>@status Stable.</p>
+</BODY>
+</HTML>
