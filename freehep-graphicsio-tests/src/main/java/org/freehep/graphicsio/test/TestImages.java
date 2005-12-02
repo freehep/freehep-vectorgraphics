@@ -13,7 +13,7 @@ import org.freehep.util.images.ImageHandler;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestImages.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestImages.java a54392c5862b 2005/12/02 23:35:06 duns $
  */
 public class TestImages extends TestingPanel {
 
@@ -26,6 +26,7 @@ public class TestImages extends TestingPanel {
         setName("Images");
 
         setBackground(bg);
+        
         MediaTracker t = new MediaTracker(this);
         image = ImageHandler.getImage("images/transparent-image.gif",
                 TestImages.class);
