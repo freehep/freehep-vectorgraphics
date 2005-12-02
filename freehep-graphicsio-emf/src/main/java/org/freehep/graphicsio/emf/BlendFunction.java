@@ -5,19 +5,24 @@ import java.io.IOException;
 
 /**
  * EMF BitmapInfoHeader
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/BlendFunction.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/BlendFunction.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
 public class BlendFunction implements EMFConstants {
 
     public static final int size = 4;
+
     private int blendOp;
+
     private int blendFlags;
+
     private int sourceConstantAlpha;
+
     private int alphaFormat;
 
-    public BlendFunction(int blendOp, int blendFlags, int sourceConstantAlpha, int alphaFormat) {
+    public BlendFunction(int blendOp, int blendFlags, int sourceConstantAlpha,
+            int alphaFormat) {
         this.blendOp = blendOp;
         this.blendFlags = blendFlags;
         this.sourceConstantAlpha = sourceConstantAlpha;
@@ -42,5 +47,3 @@ public class BlendFunction implements EMFConstants {
         return "BlendFunction";
     }
 }
-
-

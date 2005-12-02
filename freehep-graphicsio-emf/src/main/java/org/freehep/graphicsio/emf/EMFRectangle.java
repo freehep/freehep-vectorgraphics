@@ -4,16 +4,13 @@ package org.freehep.graphicsio.emf;
 import java.awt.Rectangle;
 import java.io.IOException;
 
-import org.freehep.util.io.Tag;
-
 /**
  * Rectangle TAG.
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFRectangle.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFRectangle.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
-public class EMFRectangle
-    extends EMFTag {
+public class EMFRectangle extends EMFTag {
 
     private Rectangle bounds;
 
@@ -27,7 +24,7 @@ public class EMFRectangle
     }
 
     public EMFTag read(int tagID, EMFInputStream emf, int len)
-        throws IOException {
+            throws IOException {
 
         EMFRectangle tag = new EMFRectangle(emf.readRECTL());
         return tag;
@@ -38,7 +35,6 @@ public class EMFRectangle
     }
 
     public String toString() {
-        return super.toString()+"\n"+
-            "  bounds: "+bounds;
+        return super.toString() + "\n" + "  bounds: " + bounds;
     }
 }

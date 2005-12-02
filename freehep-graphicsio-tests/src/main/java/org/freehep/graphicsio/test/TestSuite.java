@@ -2,6 +2,7 @@
 package org.freehep.graphicsio.test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java f493ff6e61b2 2005/12/01 18:46:43 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -43,7 +44,11 @@ public class TestSuite extends junit.framework.TestSuite {
         }
 
         protected void runTest() throws Throwable {
-            String base = "src/ref/";
+            String base = "src/test/resources/";
+            
+            String baseDir = System.getProperty("basedir");
+            if (baseDir != null) base = baseDir + "/" + base;
+            
             String out = "target/test-output/" + dir + "/";
             (new File(out)).mkdirs();
 
@@ -84,13 +89,17 @@ public class TestSuite extends junit.framework.TestSuite {
                     .getMethod("main", new Class[] { args.getClass() });
             main.invoke(null, new Object[] { args });
 
-            if (!compare)
+            if (!compare) {
                 return;
+            }
             File refFile = new File(refGZIPName);
             if (!refFile.exists()) {
                 refFile = new File(refName);
             }
-
+            if (!refFile.exists()) {
+                throw new FileNotFoundException("Cannot find reference file '"+refName+"' or '"+refGZIPName+"'.");
+            }
+            
             boolean isBinary = !fmt.equals("PS");
             Assert.assertEquals(refFile, new File(targetName), isBinary);
         }

@@ -1,38 +1,49 @@
 // Copyright 2002, FreeHEP.
 package org.freehep.graphicsio.emf;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
-import java.util.Properties;
 
 /**
  * EMF LogFontW
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/LogFontW.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/LogFontW.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
 public class LogFontW implements EMFConstants {
 
     private int height;
+
     private int width;
+
     private int escapement;
+
     private int orientation;
+
     private int weight;
+
     private boolean italic;
+
     private boolean underline;
+
     private boolean strikeout;
+
     private int charSet;
+
     private int outPrecision;
+
     private int clipPrecision;
+
     private int quality;
+
     private int pitchAndFamily;
+
     private String faceFamily;
 
-    public LogFontW(int height, int width, int escapement, int orientation, int weight,
-                    boolean italic, boolean underline, boolean strikeout,
-                    int charSet, int outPrecision, int clipPrecision, int quality,
-                    int pitchAndFamily, String faceFamily) {
+    public LogFontW(int height, int width, int escapement, int orientation,
+            int weight, boolean italic, boolean underline, boolean strikeout,
+            int charSet, int outPrecision, int clipPrecision, int quality,
+            int pitchAndFamily, String faceFamily) {
         this.height = height;
         this.width = width;
         this.escapement = escapement;
@@ -48,8 +59,8 @@ public class LogFontW implements EMFConstants {
         this.pitchAndFamily = pitchAndFamily;
         this.faceFamily = faceFamily;
     }
-    public LogFontW(Font font)
-    {
+
+    public LogFontW(Font font) {
         this.height = -font.getSize();
         this.width = 0;
         this.escapement = 0;
@@ -65,6 +76,7 @@ public class LogFontW implements EMFConstants {
         this.pitchAndFamily = 0;
         this.faceFamily = font.getName();
     }
+
     LogFontW(EMFInputStream emf) throws IOException {
         height = emf.readLONG();
         width = emf.readLONG();
@@ -100,20 +112,14 @@ public class LogFontW implements EMFConstants {
     }
 
     public String toString() {
-        return "  LogFontW\n"+
-               "    height: "+height+"\n"+
-               "    width: "+width+"\n"+
-               "    orientation: "+orientation+"\n"+
-               "    weight: "+weight+"\n"+
-               "    italic: "+italic+"\n"+
-               "    underline: "+underline+"\n"+
-               "    strikeout: "+strikeout+"\n"+
-               "    charSet: "+charSet+"\n"+
-               "    outPrecision: "+outPrecision+"\n"+
-               "    clipPrecision: "+clipPrecision+"\n"+
-               "    quality: "+quality+"\n"+
-               "    pitchAndFamily: "+pitchAndFamily+"\n"+
-               "    faceFamily: "+faceFamily;
+        return "  LogFontW\n" + "    height: " + height + "\n" + "    width: "
+                + width + "\n" + "    orientation: " + orientation + "\n"
+                + "    weight: " + weight + "\n" + "    italic: " + italic
+                + "\n" + "    underline: " + underline + "\n"
+                + "    strikeout: " + strikeout + "\n" + "    charSet: "
+                + charSet + "\n" + "    outPrecision: " + outPrecision + "\n"
+                + "    clipPrecision: " + clipPrecision + "\n"
+                + "    quality: " + quality + "\n" + "    pitchAndFamily: "
+                + pitchAndFamily + "\n" + "    faceFamily: " + faceFamily;
     }
 }
-

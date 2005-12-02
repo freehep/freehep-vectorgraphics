@@ -5,10 +5,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
-import java.io.OutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import org.freehep.util.io.ActionHeader;
 import org.freehep.util.io.Tag;
@@ -16,27 +15,31 @@ import org.freehep.util.io.TagHeader;
 import org.freehep.util.io.TaggedOutputStream;
 
 /**
- * EMF Binary Output Stream. Tags written with this OutputStream will
- * produce a binary EMF file.
- *
+ * EMF Binary Output Stream. Tags written with this OutputStream will produce a
+ * binary EMF file.
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFOutputStream.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFOutputStream.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
 public class EMFOutputStream extends TaggedOutputStream {
 
     private String application;
+
     private String name;
+
     private int recordCount;
+
     private Rectangle imageBounds;
+
     private int version;
+
     private EMFHandleManager handles;
+
     private Dimension device;
 
     public EMFOutputStream(OutputStream os, Rectangle imageBounds,
-                           EMFHandleManager handles,
-                           String application, String name,
-                           Dimension device, int version)
-        throws IOException {
+            EMFHandleManager handles, String application, String name,
+            Dimension device, int version) throws IOException {
 
         // EMF is little-endian
         super(os, new EMFTagSet(version), null, true);
@@ -53,9 +56,8 @@ public class EMFOutputStream extends TaggedOutputStream {
     }
 
     public EMFOutputStream(OutputStream os, Rectangle imageBounds,
-                           EMFHandleManager handles,
-                           String application, String name, Dimension device)
-        throws IOException {
+            EMFHandleManager handles, String application, String name,
+            Dimension device) throws IOException {
 
         this(os, imageBounds, handles, application, name, device, 1);
     }
@@ -63,8 +65,9 @@ public class EMFOutputStream extends TaggedOutputStream {
     public void close() throws IOException {
         int len = popBuffer();
         recordCount++;
-        EMFHeader header = new EMFHeader(imageBounds, getVersion(), 0, len, recordCount,
-                                         handles.maxHandlesUsed(), application, name, device);
+        EMFHeader header = new EMFHeader(imageBounds, getVersion(), 0, len,
+                recordCount, handles.maxHandlesUsed(), application, name,
+                device);
         writeHeader(header);
         append();
 
@@ -78,7 +81,7 @@ public class EMFOutputStream extends TaggedOutputStream {
 
     // DWORD []
     public void writeDWORD(int[] w) throws IOException {
-        for (int i=0; i<w.length; i++) {
+        for (int i = 0; i < w.length; i++) {
             writeDWORD(w[i]);
         }
     }
@@ -108,12 +111,12 @@ public class EMFOutputStream extends TaggedOutputStream {
     }
 
     public void writeXFORM(AffineTransform t) throws IOException {
-        writeFLOAT((float)t.getScaleX());
-        writeFLOAT((float)t.getShearY());
-        writeFLOAT((float)t.getShearX());
-        writeFLOAT((float)t.getScaleY());
-        writeFLOAT((float)t.getTranslateX());
-        writeFLOAT((float)t.getTranslateY());
+        writeFLOAT((float) t.getScaleX());
+        writeFLOAT((float) t.getShearY());
+        writeFLOAT((float) t.getShearX());
+        writeFLOAT((float) t.getScaleY());
+        writeFLOAT((float) t.getTranslateX());
+        writeFLOAT((float) t.getTranslateY());
     }
 
     // POINTS []
@@ -122,14 +125,14 @@ public class EMFOutputStream extends TaggedOutputStream {
     }
 
     public void writePOINTS(int n, Point[] p) throws IOException {
-        for (int i=0; i<n; i++) {
+        for (int i = 0; i < n; i++) {
             writePOINTS(p[i]);
         }
     }
 
     public void writePOINTS(Point p) throws IOException {
-        writeSHORT((short)p.x);
-        writeSHORT((short)p.y);
+        writeSHORT((short) p.x);
+        writeSHORT((short) p.y);
     }
 
     // POINTL []
@@ -138,7 +141,7 @@ public class EMFOutputStream extends TaggedOutputStream {
     }
 
     public void writePOINTL(int n, Point[] p) throws IOException {
-        for (int i=0; i<n; i++) {
+        for (int i = 0; i < n; i++) {
             writePOINTL(p[i]);
         }
     }
@@ -153,8 +156,8 @@ public class EMFOutputStream extends TaggedOutputStream {
     public void writeRECTL(Rectangle r) throws IOException {
         writeLONG(r.x);
         writeLONG(r.y);
-        writeLONG(r.x+r.width);
-        writeLONG(r.y+r.height);
+        writeLONG(r.x + r.width);
+        writeLONG(r.y + r.height);
     }
 
     // SIZEL
@@ -232,15 +235,13 @@ public class EMFOutputStream extends TaggedOutputStream {
         writeUnsignedInt(length + 8);
     }
 
-    public void writeTag(Tag tag)
-        throws IOException {
+    public void writeTag(Tag tag) throws IOException {
 
         recordCount++;
         super.writeTag(tag);
     }
 
-    protected void writeActionHeader(ActionHeader header)
-        throws IOException {
+    protected void writeActionHeader(ActionHeader header) throws IOException {
         // empty
     }
 
@@ -252,4 +253,3 @@ public class EMFOutputStream extends TaggedOutputStream {
         return version;
     }
 }
-

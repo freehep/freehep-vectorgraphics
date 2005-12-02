@@ -18,18 +18,61 @@
       <url>http://java.freehep.org/maven2</url>
     </repository>
   </repositories>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <testFailureIgnore>true</testFailureIgnore>
+          <includes>
+            <include>**/*TestSuite.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.freehep</groupId>
+        <artifactId>freehep-graphicsio</artifactId>
+        <version>2.0-SNAPSHOT</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.freehep</groupId>
+        <artifactId>freehep-graphicsio-tests</artifactId>
+        <version>2.0-SNAPSHOT</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>hep.aida</groupId>
+        <artifactId>aida</artifactId>
+        <version>3.3</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <modules>
     <module>freehep-graphics2d</module>
+<!--
     <module>freehep-graphics3d</module>
+-->
     <module>freehep-graphicsio</module>
     <module>freehep-graphicsio-tests</module>
+<!--
     <module>freehep-graphicsio-cgm</module>
+-->
     <module>freehep-graphicsio-emf</module>
+<!--
     <module>freehep-graphicsio-java</module>
     <module>freehep-graphicsio-latex</module>
+-->
     <module>freehep-graphicsio-pdf</module>
     <module>freehep-graphicsio-ps</module>
+<!--
     <module>freehep-graphicsio-svg</module>
     <module>freehep-graphicsio-swf</module>
+-->
   </modules>
 </project>

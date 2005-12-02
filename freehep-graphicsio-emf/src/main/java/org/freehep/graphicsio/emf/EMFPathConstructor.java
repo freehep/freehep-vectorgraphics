@@ -4,20 +4,25 @@ package org.freehep.graphicsio.emf;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import org.freehep.graphicsio.QuadToCubicPathConstructor;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFPathConstructor.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFPathConstructor.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
-public class EMFPathConstructor extends QuadToCubicPathConstructor implements EMFConstants {
+public class EMFPathConstructor extends QuadToCubicPathConstructor implements
+        EMFConstants {
     private EMFOutputStream os;
+
     private Rectangle imageBounds;
+
     private boolean curved;
+
     private int pointIndex = 0;
+
     private boolean wide = false;
+
     private Point[] points = new Point[4];
 
     public EMFPathConstructor(EMFOutputStream os, Rectangle imageBounds) {
@@ -43,8 +48,8 @@ public class EMFPathConstructor extends QuadToCubicPathConstructor implements EM
         int ix = toUnit(x);
         int iy = toUnit(y);
 
-        if (wide || (ix < Short.MIN_VALUE) || (ix > Short.MAX_VALUE) ||
-                    (iy < Short.MIN_VALUE) || (iy > Short.MAX_VALUE)) {
+        if (wide || (ix < Short.MIN_VALUE) || (ix > Short.MAX_VALUE)
+                || (iy < Short.MIN_VALUE) || (iy > Short.MAX_VALUE)) {
             wide = true;
         }
 
@@ -57,16 +62,17 @@ public class EMFPathConstructor extends QuadToCubicPathConstructor implements EM
     }
 
     public void line(double x, double y) throws IOException {
-        if (curved && (pointIndex > 0)) flush();
+        if (curved && (pointIndex > 0))
+            flush();
         curved = false;
         addPoint(pointIndex++, x, y);
         super.line(x, y);
     }
 
-
-    public void cubic(double x1, double y1, double x2, double y2, double x3, double y3)
-             throws IOException {
-        if (!curved && (pointIndex > 0)) flush();
+    public void cubic(double x1, double y1, double x2, double y2, double x3,
+            double y3) throws IOException {
+        if (!curved && (pointIndex > 0))
+            flush();
         curved = true;
         addPoint(pointIndex++, x1, y1);
         addPoint(pointIndex++, x2, y2);
@@ -85,7 +91,9 @@ public class EMFPathConstructor extends QuadToCubicPathConstructor implements EM
             if (wide) {
                 os.writeTag(new PolyBezierTo(imageBounds, pointIndex, points));
             } else {
-                os.writeTag(new PolyBezierTo16(imageBounds, pointIndex, points));
+                os
+                        .writeTag(new PolyBezierTo16(imageBounds, pointIndex,
+                                points));
             }
         } else if (pointIndex == 1) {
             os.writeTag(new LineTo(points[0]));
@@ -102,7 +110,6 @@ public class EMFPathConstructor extends QuadToCubicPathConstructor implements EM
     }
 
     protected int toUnit(double d) {
-        return (int)(d*UNITS_PER_PIXEL*TWIPS);
+        return (int) (d * UNITS_PER_PIXEL * TWIPS);
     }
 }
-    

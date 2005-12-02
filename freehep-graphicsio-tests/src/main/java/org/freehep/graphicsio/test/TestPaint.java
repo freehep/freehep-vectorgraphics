@@ -34,7 +34,7 @@ public class TestPaint extends TestingPanel {
 
         MediaTracker t = new MediaTracker(this);
         Image limage = ImageHandler.getImage("images/BrokenCursor.gif",
-                getClass());
+                TestPaint.class);
         t.addImage(limage, 0);
         try {
             t.waitForAll();

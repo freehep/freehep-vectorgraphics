@@ -91,6 +91,8 @@ public class FontUtilities {
     public static void showString(Font font, String string,
             CharTable latinTable, ShowString device) throws IOException {
 
+        if (latinTable == null) throw new RuntimeException("FontUtilities.showString(...): latinTable cannot be 'null'");
+
         STANDARD_FONT[0] = font;
         STANDARD_FONT[1] = new Font("Symbol", Font.PLAIN, font.getSize());
         STANDARD_FONT[2] = new Font("ZapfDingbats", Font.PLAIN, font.getSize());

@@ -5,19 +5,18 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.IOException;
 
-import org.freehep.util.io.Tag;
-
 /**
  * PolyDraw TAG.
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/PolyDraw.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/PolyDraw.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
-public class PolyDraw
-    extends EMFTag implements EMFConstants {
+public class PolyDraw extends EMFTag implements EMFConstants {
 
     private Rectangle bounds;
+
     private Point[] points;
+
     private byte[] types;
 
     PolyDraw() {
@@ -32,12 +31,11 @@ public class PolyDraw
     }
 
     public EMFTag read(int tagID, EMFInputStream emf, int len)
-        throws IOException {
+            throws IOException {
 
         int n;
-        PolyDraw tag = new PolyDraw(emf.readRECTL(),
-                                    emf.readPOINTL(n = emf.readDWORD()),
-                                    emf.readBYTE(n));
+        PolyDraw tag = new PolyDraw(emf.readRECTL(), emf.readPOINTL(n = emf
+                .readDWORD()), emf.readBYTE(n));
         return tag;
     }
 
@@ -49,8 +47,7 @@ public class PolyDraw
     }
 
     public String toString() {
-        return super.toString()+"\n"+
-            "  bounds: "+bounds+"\n"+
-            "  #points: "+points.length;
+        return super.toString() + "\n" + "  bounds: " + bounds + "\n"
+                + "  #points: " + points.length;
     }
 }

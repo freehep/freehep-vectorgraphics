@@ -19,7 +19,7 @@ import org.freehep.util.images.ImageHandler;
 
 /**
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestImage2D.java f493ff6e61b2 2005/12/01 18:46:43 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestImage2D.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
 public class TestImage2D extends TestingPanel {
 
@@ -34,7 +34,7 @@ public class TestImage2D extends TestingPanel {
 
         MediaTracker t = new MediaTracker(this);
         image = ImageHandler.getImage("images/transparent-image.gif",
-                getClass());
+                TestImage2D.class);
         t.addImage(image, 0);
         try {
             t.waitForAll();

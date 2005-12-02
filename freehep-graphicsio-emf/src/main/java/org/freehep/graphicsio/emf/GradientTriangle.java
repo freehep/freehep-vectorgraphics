@@ -5,9 +5,9 @@ import java.io.IOException;
 
 /**
  * EMF GradientTriangle
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/GradientTriangle.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/GradientTriangle.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
 public class GradientTriangle extends Gradient {
 
@@ -24,7 +24,7 @@ public class GradientTriangle extends Gradient {
         vertex2 = emf.readULONG();
         vertex3 = emf.readULONG();
     }
-    
+
     public void write(EMFOutputStream emf) throws IOException {
         emf.writeULONG(vertex1);
         emf.writeULONG(vertex2);
@@ -32,7 +32,7 @@ public class GradientTriangle extends Gradient {
     }
 
     public String toString() {
-        return "  GradientTriangle: "+vertex1+", "+vertex2+", "+vertex3;
-    }   
+        return "  GradientTriangle: " + vertex1 + ", " + vertex2 + ", "
+                + vertex3;
+    }
 }
-

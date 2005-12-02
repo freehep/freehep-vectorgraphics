@@ -6,15 +6,17 @@ import java.io.IOException;
 
 /**
  * EMF LogBrush32
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/LogBrush32.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
- *see http://msdn.microsoft.com/library/default.asp?url=/library/en-us/gdi/brushes_8yk2.asp
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/LogBrush32.java f24bd43ca24b 2005/12/02 00:39:35 duns $ see
+ *          http://msdn.microsoft.com/library/default.asp?url=/library/en-us/gdi/brushes_8yk2.asp
  */
 public class LogBrush32 implements EMFConstants {
 
     private int style;
+
     private Color color;
+
     private int hatch;
 
     public LogBrush32(int style, Color color, int hatch) {
@@ -36,20 +38,19 @@ public class LogBrush32 implements EMFConstants {
     }
 
     public String toString() {
-        return "  LogBrush32\n"+
-               "    style: "+style+"\n"+
-               "    color: "+color+"\n"+
-               "    hatch: "+hatch;
+        return "  LogBrush32\n" + "    style: " + style + "\n" + "    color: "
+                + color + "\n" + "    hatch: " + hatch;
     }
-    
+
     public int getStyle() {
         return style;
     }
+
     public Color getColor() {
         return color;
     }
+
     public int getHatch() {
         return hatch;
     }
 }
-

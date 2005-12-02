@@ -1,31 +1,36 @@
 package org.freehep.graphicsio.ps.test;
 
-import java.awt.*;
-import java.util.*;
-import java.io.*;
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Properties;
 
-import org.freehep.graphicsio.*;
-import org.freehep.graphicsio.exportchooser.*;
-import org.freehep.graphicsio.ps.*;
-import org.freehep.util.export.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import org.freehep.graphicsio.ps.EPSExportFileType;
+import org.freehep.util.export.ExportFileType;
 
 public class OffsetBug {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame();
 
-        JPanel panel = new JPanel(new GridLayout(2,2));
+        JPanel panel = new JPanel(new GridLayout(2, 2));
         frame.getContentPane().add(panel);
 
-        JPanel first = new SubPanel("First",Color.red);
+        JPanel first = new SubPanel("First", Color.red);
         panel.add(first);
-        JPanel second = new SubPanel("Second",Color.green);
+        JPanel second = new SubPanel("Second", Color.green);
         panel.add(second);
-        JPanel third = new SubPanel("Third",Color.yellow);
+        JPanel third = new SubPanel("Third", Color.yellow);
         panel.add(third);
-        JPanel fourth = new SubPanel("Fourth",Color.cyan);
+        JPanel fourth = new SubPanel("Fourth", Color.cyan);
         panel.add(fourth);
 
         frame.pack();
@@ -40,13 +45,13 @@ public class OffsetBug {
             System.out.println("\nPrinting first...\n");
             file = new File("first.eps");
             fos = new FileOutputStream(file);
-            epsOut.exportToFile(fos,first,frame,new Properties(),null);
+            epsOut.exportToFile(fos, first, frame, new Properties(), null);
             fos.close();
 
             System.out.println("\nPrinting second...\n");
             file = new File("second.eps");
             fos = new FileOutputStream(file);
-            epsOut.exportToFile(fos,second,frame,new Properties(), null);
+            epsOut.exportToFile(fos, second, frame, new Properties(), null);
             fos.close();
 
             System.out.println();
@@ -65,8 +70,7 @@ public class OffsetBug {
         }
     }
 
-    static private class SubPanel
-        extends JPanel {
+    static private class SubPanel extends JPanel {
 
         String label;
 
@@ -78,32 +82,31 @@ public class OffsetBug {
 
             setBorder(BorderFactory.createLineBorder(Color.black, 1));
             JButton button = new TalkativeButton(label);
-            add(button,BorderLayout.CENTER);
+            add(button, BorderLayout.CENTER);
         }
 
         public void paintComponent(Graphics g) {
-            System.out.println("paintComponent called: "+label);
+            System.out.println("paintComponent called: " + label);
             super.paintComponent(g);
-            System.out.println("graphics class: "+g.getClass());
-            System.out.println("Container clip: "+g.getClipBounds());
-            System.out.println("Container bounds: "+getBounds());
+            System.out.println("graphics class: " + g.getClass());
+            System.out.println("Container clip: " + g.getClipBounds());
+            System.out.println("Container bounds: " + getBounds());
         }
 
         public void paintChildren(Graphics g) {
-            System.out.println("clip (child.) "+g.getClipBounds());
+            System.out.println("clip (child.) " + g.getClipBounds());
             super.paintChildren(g);
         }
     }
 
-    static private class TalkativeButton
-        extends JButton {
+    static private class TalkativeButton extends JButton {
 
         public TalkativeButton(String label) {
             super(label);
         }
 
         public void paintComponent(Graphics g) {
-            System.out.println("button: "+getText());
+            System.out.println("button: " + getText());
             super.paintComponent(g);
         }
     }

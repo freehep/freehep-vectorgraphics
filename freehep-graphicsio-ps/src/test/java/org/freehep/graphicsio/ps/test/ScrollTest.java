@@ -1,14 +1,23 @@
 package org.freehep.graphicsio.ps.test;
 
-import java.util.*;
-import java.io.*;
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Properties;
 
-import org.freehep.graphicsio.*;
-import org.freehep.graphicsio.exportchooser.*;
-import org.freehep.graphicsio.ps.*;
-import org.freehep.util.export.*;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+
+import org.freehep.graphicsio.ps.EPSExportFileType;
+import org.freehep.util.export.ExportFileType;
 
 public class ScrollTest {
 
@@ -20,10 +29,9 @@ public class ScrollTest {
 
         JScrollPane scroll = new JScrollPane(jcomponent);
         frame.setContentPane(scroll);
-        scroll.setPreferredSize(new Dimension(300,50));
+        scroll.setPreferredSize(new Dimension(300, 50));
 
         // Make a long row of buttons.
-        int i = 0;
         int xmax = 32;
         for (int x = 0; x < xmax; x++) {
             JPanel button = new TestSubPanel("Test:" + x);
@@ -38,7 +46,7 @@ public class ScrollTest {
         JScrollBar bar = scroll.getHorizontalScrollBar();
         int max = bar.getMaximum();
         int min = bar.getMinimum();
-        bar.setValue((max+min)/2);
+        bar.setValue((max + min) / 2);
 
         ExportFileType epsOut = new EPSExportFileType();
         try {
@@ -49,7 +57,7 @@ public class ScrollTest {
             System.out.println("\nPrinting image...\n");
             file = new File("ScrollTest.eps");
             fos = new FileOutputStream(file);
-            epsOut.exportToFile(fos,scroll,frame,new Properties(),null);
+            epsOut.exportToFile(fos, scroll, frame, new Properties(), null);
             fos.close();
 
             System.out.println();
@@ -81,7 +89,7 @@ public class ScrollTest {
         }
 
         public void paintComponent(Graphics g) {
-            System.out.println("Draw subpanel: "+label+" "+g.getClip());
+            System.out.println("Draw subpanel: " + label + " " + g.getClip());
             super.paintComponent(g);
         }
     }
@@ -89,8 +97,9 @@ public class ScrollTest {
     static class TestPanel extends JPanel {
         public TestPanel() {
         }
+
         public void paintComponent(Graphics g) {
-            System.out.println("Draw panel: "+g.getClip());
+            System.out.println("Draw panel: " + g.getClip());
             super.paintComponent(g);
         }
     }

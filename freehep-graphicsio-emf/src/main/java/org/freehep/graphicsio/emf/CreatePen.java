@@ -5,14 +5,14 @@ import java.io.IOException;
 
 /**
  * CreatePen TAG.
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/CreatePen.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/CreatePen.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
-public class CreatePen
-    extends EMFTag {
+public class CreatePen extends EMFTag {
 
     private int index;
+
     private LogPen pen;
 
     CreatePen() {
@@ -25,29 +25,29 @@ public class CreatePen
         this.pen = pen;
     }
 
-    public EMFTag read(int tagID, EMFInputStream emf, int len) 
-        throws IOException {
-    
+    public EMFTag read(int tagID, EMFInputStream emf, int len)
+            throws IOException {
+
         CreatePen tag = new CreatePen(emf.readDWORD(), new LogPen(emf));
         return tag;
     }
-    
+
     public void write(int tagID, EMFOutputStream emf) throws IOException {
         emf.writeDWORD(index);
         pen.write(emf);
     }
-    
+
     public String toString() {
-        return super.toString()+"\n"+
-            "  index: 0x"+Integer.toHexString(index)+"\n"+
-            pen.toString();
-    }       
+        return super.toString() + "\n" + "  index: 0x"
+                + Integer.toHexString(index) + "\n" + pen.toString();
+    }
+
     public int getIndex() {
         return index;
     }
+
     public LogPen getPen() {
         return pen;
     }
-    
-       
+
 }

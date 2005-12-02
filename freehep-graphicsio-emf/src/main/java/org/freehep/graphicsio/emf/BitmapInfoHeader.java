@@ -5,28 +5,37 @@ import java.io.IOException;
 
 /**
  * EMF BitmapInfoHeader
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/BitmapInfoHeader.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/BitmapInfoHeader.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
 public class BitmapInfoHeader implements EMFConstants {
 
     public static final int size = 40;
+
     private int width;
+
     private int height;
+
     private int planes;
+
     private int bitCount;
+
     private int compression;
+
     private int sizeImage;
+
     private int xPelsPerMeter;
+
     private int yPelsPerMeter;
+
     private int clrUsed;
+
     private int clrImportant;
 
     public BitmapInfoHeader(int width, int height, int bitCount,
-                            int compression, int sizeImage,
-                            int xPelsPerMeter, int yPelsPerMeter,
-                            int clrUsed, int clrImportant) {
+            int compression, int sizeImage, int xPelsPerMeter,
+            int yPelsPerMeter, int clrUsed, int clrImportant) {
         this.width = width;
         this.height = height;
         this.planes = 1;
@@ -40,7 +49,7 @@ public class BitmapInfoHeader implements EMFConstants {
     }
 
     public BitmapInfoHeader(EMFInputStream emf) throws IOException {
-        int len = emf.readDWORD();        // seems fixed
+        int len = emf.readDWORD(); // seems fixed
         System.out.println(len);
         width = emf.readLONG();
         height = emf.readLONG();
@@ -69,18 +78,13 @@ public class BitmapInfoHeader implements EMFConstants {
     }
 
     public String toString() {
-        return "    size: "+size+"\n"+
-               "    width: "+width+"\n"+
-               "    height: "+height+"\n"+
-               "    planes: "+planes+"\n"+
-               "    bitCount: "+bitCount+"\n"+
-               "    compression: "+compression+"\n"+
-               "    sizeImage: "+sizeImage+"\n"+
-               "    xPelsPerMeter: "+xPelsPerMeter+"\n"+
-               "    yPelsPerMeter: "+yPelsPerMeter+"\n"+
-               "    clrUsed: "+clrUsed+"\n"+
-               "    clrImportant: "+clrImportant;
+        return "    size: " + size + "\n" + "    width: " + width + "\n"
+                + "    height: " + height + "\n" + "    planes: " + planes
+                + "\n" + "    bitCount: " + bitCount + "\n"
+                + "    compression: " + compression + "\n" + "    sizeImage: "
+                + sizeImage + "\n" + "    xPelsPerMeter: " + xPelsPerMeter
+                + "\n" + "    yPelsPerMeter: " + yPelsPerMeter + "\n"
+                + "    clrUsed: " + clrUsed + "\n" + "    clrImportant: "
+                + clrImportant;
     }
 }
-
-

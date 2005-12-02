@@ -21,7 +21,7 @@ import org.freehep.util.images.ImageHandler;
 
 /**
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestAll.java f493ff6e61b2 2005/12/01 18:46:43 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestAll.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
 public class TestAll extends TestingPanel implements VectorGraphicsConstants {
 
@@ -41,7 +41,7 @@ public class TestAll extends TestingPanel implements VectorGraphicsConstants {
 
         if (marble == null) {
             MediaTracker t = new MediaTracker(this);
-            Image skyI = ImageHandler.getImage("images/sky.gif", getClass());
+            Image skyI = ImageHandler.getImage("images/sky.gif", TestAll.class);
             t.addImage(skyI, 0);
             try {
                 t.waitForAll();

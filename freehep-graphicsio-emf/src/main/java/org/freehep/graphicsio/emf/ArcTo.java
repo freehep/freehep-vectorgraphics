@@ -5,18 +5,16 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.IOException;
 
-import org.freehep.util.io.Tag;
-
 /**
  * ArcTo TAG.
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/ArcTo.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/ArcTo.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
-public class ArcTo
-    extends EMFTag {
+public class ArcTo extends EMFTag {
 
     private Rectangle bounds;
+
     private Point start, end;
 
     ArcTo() {
@@ -30,13 +28,14 @@ public class ArcTo
         this.end = end;
     }
 
-    public EMFTag read(int tagID, EMFInputStream emf, int len) 
-        throws IOException {
-    
-        ArcTo tag = new ArcTo(emf.readRECTL(), emf.readPOINTL(), emf.readPOINTL());
+    public EMFTag read(int tagID, EMFInputStream emf, int len)
+            throws IOException {
+
+        ArcTo tag = new ArcTo(emf.readRECTL(), emf.readPOINTL(), emf
+                .readPOINTL());
         return tag;
     }
-    
+
     public void write(int tagID, EMFOutputStream emf) throws IOException {
         emf.writeRECTL(bounds);
         emf.writePOINTL(start);
@@ -44,17 +43,18 @@ public class ArcTo
     }
 
     public String toString() {
-        return super.toString()+"\n"+
-            "  bounds: "+bounds+"\n"+
-            "  start: "+start+"\n"+
-            "  end: "+end;
-    }   
-    public Rectangle getBounds() { 
+        return super.toString() + "\n" + "  bounds: " + bounds + "\n"
+                + "  start: " + start + "\n" + "  end: " + end;
+    }
+
+    public Rectangle getBounds() {
         return bounds;
     }
+
     public Point getStart() {
-            return start;
+        return start;
     }
+
     public Point getEnd() {
         return end;
     }

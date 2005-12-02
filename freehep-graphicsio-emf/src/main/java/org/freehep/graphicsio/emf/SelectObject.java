@@ -3,16 +3,13 @@ package org.freehep.graphicsio.emf;
 
 import java.io.IOException;
 
-import org.freehep.util.io.Tag;
-
 /**
  * SelectObject TAG.
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/SelectObject.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/SelectObject.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
-public class SelectObject
-    extends EMFTag {
+public class SelectObject extends EMFTag {
 
     private int index;
 
@@ -25,22 +22,22 @@ public class SelectObject
         this.index = index;
     }
 
-    public EMFTag read(int tagID, EMFInputStream emf, int len) 
-        throws IOException {
-    
+    public EMFTag read(int tagID, EMFInputStream emf, int len)
+            throws IOException {
+
         SelectObject tag = new SelectObject(emf.readDWORD());
         return tag;
     }
-    
+
     public void write(int tagID, EMFOutputStream emf) throws IOException {
         emf.writeDWORD(index);
     }
 
     public String toString() {
-        return super.toString()+"\n"+
-            "  index: 0x"+Integer.toHexString(index);
-    }   
-    
+        return super.toString() + "\n" + "  index: 0x"
+                + Integer.toHexString(index);
+    }
+
     public int getIndex() {
         return index;
     }

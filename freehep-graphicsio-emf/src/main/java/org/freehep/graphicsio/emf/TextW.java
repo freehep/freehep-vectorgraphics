@@ -7,19 +7,24 @@ import java.io.IOException;
 
 /**
  * EMF Text
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/TextW.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/TextW.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
 public class TextW implements EMFConstants {
 
     private Point pos;
+
     private String string;
+
     private int options;
+
     private int[] widths;
+
     private Rectangle bounds;
-    
-    public TextW(Point pos, String string, int options, Rectangle bounds, int[] widths) {
+
+    public TextW(Point pos, String string, int options, Rectangle bounds,
+            int[] widths) {
         this.pos = pos;
         this.string = string;
         this.options = options;
@@ -30,15 +35,18 @@ public class TextW implements EMFConstants {
     TextW(EMFInputStream emf) throws IOException {
         pos = emf.readPOINTL();
         int sLen = emf.readDWORD();
-        int sOffset = emf.readDWORD();
+        /* int sOffset = */ emf.readDWORD();
         options = emf.readDWORD();
         bounds = emf.readRECTL();
-        int cOffset = emf.readDWORD();
+        /* int cOffset = */ emf.readDWORD();
         // FIXME: nothing done with offsets
-        string = new String(emf.readBYTE(2*sLen),"UTF-16LE");
-        if ((2*sLen)%4 != 0) for (int i=0; i<4-(2*sLen)%4; i++) emf.readBYTE();
+        string = new String(emf.readBYTE(2 * sLen), "UTF-16LE");
+        if ((2 * sLen) % 4 != 0)
+            for (int i = 0; i < 4 - (2 * sLen) % 4; i++)
+                emf.readBYTE();
         widths = new int[sLen];
-        for (int i=0; i<sLen; i++) widths[i] = emf.readDWORD();
+        for (int i = 0; i < sLen; i++)
+            widths[i] = emf.readDWORD();
     }
 
     public void write(EMFOutputStream emf) throws IOException {
@@ -47,24 +55,28 @@ public class TextW implements EMFConstants {
         emf.writeDWORD(8 + 28 + 40); // TagHeader + ExtTextOutA + Text
         emf.writeDWORD(options);
         emf.writeRECTL(bounds);
-        int pad = (2*string.length())%4;
-        if (pad > 0) pad = 4-pad;
-        emf.writeDWORD(8 + 28 + 40 + 2*string.length() + pad); // offset to character spacing array
+        int pad = (2 * string.length()) % 4;
+        if (pad > 0)
+            pad = 4 - pad;
+        emf.writeDWORD(8 + 28 + 40 + 2 * string.length() + pad); // offset to
+                                                                    // character
+                                                                    // spacing
+                                                                    // array
         emf.writeBYTE(string.getBytes("UTF-16LE"));
-        for (int i=0; i<pad; i++) emf.writeBYTE(0);
-        for (int i=0;i<string.length(); i++) emf.writeDWORD(widths[i]);
+        for (int i = 0; i < pad; i++)
+            emf.writeBYTE(0);
+        for (int i = 0; i < string.length(); i++)
+            emf.writeDWORD(widths[i]);
     }
-    
+
     public String toString() {
-       StringBuffer widthsS = new StringBuffer();
-       for (int i=0; i<string.length(); i++) widthsS.append(","+widths[i]);
-       widthsS.append(']');
-       widthsS.setCharAt(0,'[');
-        return "  Text\n"+
-               "    pos: "+pos+"\n"+
-               "    options: "+options+"\n"+
-               "    bounds: "+bounds+"\n"+
-               "    string: "+string+"\n"+
-               "    widths: "+widthsS;
+        StringBuffer widthsS = new StringBuffer();
+        for (int i = 0; i < string.length(); i++)
+            widthsS.append("," + widths[i]);
+        widthsS.append(']');
+        widthsS.setCharAt(0, '[');
+        return "  Text\n" + "    pos: " + pos + "\n" + "    options: "
+                + options + "\n" + "    bounds: " + bounds + "\n"
+                + "    string: " + string + "\n" + "    widths: " + widthsS;
     }
 }

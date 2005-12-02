@@ -4,18 +4,16 @@ package org.freehep.graphicsio.emf;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 
-import org.freehep.util.io.Tag;
-
 /**
  * ModifyWorldTransform TAG.
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/ModifyWorldTransform.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/ModifyWorldTransform.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
-public class ModifyWorldTransform
-    extends EMFTag implements EMFConstants {
+public class ModifyWorldTransform extends EMFTag implements EMFConstants {
 
     private AffineTransform transform;
+
     private int mode;
 
     ModifyWorldTransform() {
@@ -28,21 +26,21 @@ public class ModifyWorldTransform
         this.mode = mode;
     }
 
-    public EMFTag read(int tagID, EMFInputStream emf, int len) 
-        throws IOException {
-    
-        ModifyWorldTransform tag = new ModifyWorldTransform(emf.readXFORM(), emf.readDWORD());
+    public EMFTag read(int tagID, EMFInputStream emf, int len)
+            throws IOException {
+
+        ModifyWorldTransform tag = new ModifyWorldTransform(emf.readXFORM(),
+                emf.readDWORD());
         return tag;
     }
-    
+
     public void write(int tagID, EMFOutputStream emf) throws IOException {
         emf.writeXFORM(transform);
         emf.writeDWORD(mode);
     }
 
     public String toString() {
-        return super.toString()+"\n"+
-            "  transform: "+transform+"\n"+
-            "  mode: "+mode;
-    }   
+        return super.toString() + "\n" + "  transform: " + transform + "\n"
+                + "  mode: " + mode;
+    }
 }

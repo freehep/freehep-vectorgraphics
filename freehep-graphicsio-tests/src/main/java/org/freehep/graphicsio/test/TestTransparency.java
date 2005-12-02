@@ -14,7 +14,7 @@ import org.freehep.util.images.ImageHandler;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestTransparency.java f493ff6e61b2 2005/12/01 18:46:43 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestTransparency.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
 public class TestTransparency extends TestingPanel {
 
@@ -31,7 +31,7 @@ public class TestTransparency extends TestingPanel {
 
         MediaTracker t = new MediaTracker(this);
         image = ImageHandler.getImage("images/transparent-image.gif",
-                getClass());
+                TestTransparency.class);
         t.addImage(image, 0);
         try {
             t.waitForAll();

@@ -4,19 +4,18 @@ package org.freehep.graphicsio.emf;
 import java.awt.Point;
 import java.io.IOException;
 
-import org.freehep.util.io.Tag;
-
 /**
  * AngleArc TAG.
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/AngleArc.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/AngleArc.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
-public class AngleArc
-    extends EMFTag {
+public class AngleArc extends EMFTag {
 
     private Point center;
+
     private int radius;
+
     private float startAngle, sweepAngle;
 
     AngleArc() {
@@ -31,14 +30,14 @@ public class AngleArc
         this.sweepAngle = sweepAngle;
     }
 
-    public EMFTag read(int tagID, EMFInputStream emf, int len) 
-        throws IOException {
-    
-        AngleArc tag = new AngleArc(emf.readPOINTL(), emf.readDWORD(), 
-                                    emf.readFLOAT(), emf.readFLOAT());
+    public EMFTag read(int tagID, EMFInputStream emf, int len)
+            throws IOException {
+
+        AngleArc tag = new AngleArc(emf.readPOINTL(), emf.readDWORD(), emf
+                .readFLOAT(), emf.readFLOAT());
         return tag;
     }
-    
+
     public void write(int tagID, EMFOutputStream emf) throws IOException {
         emf.writePOINTL(center);
         emf.writeDWORD(radius);
@@ -47,10 +46,8 @@ public class AngleArc
     }
 
     public String toString() {
-        return super.toString()+"\n"+
-            "  center: "+center+"\n"+
-            "  radius: "+radius+"\n"+
-            "  startAngle: "+startAngle+"\n"+
-            "  sweepAngle: "+sweepAngle;
-    }   
+        return super.toString() + "\n" + "  center: " + center + "\n"
+                + "  radius: " + radius + "\n" + "  startAngle: " + startAngle
+                + "\n" + "  sweepAngle: " + sweepAngle;
+    }
 }

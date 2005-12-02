@@ -1,26 +1,38 @@
 // Copyright 2000, CERN, Geneva, Switzerland and University of Santa Cruz, California, U.S.A.
 package org.freehep.graphicsio.ps.test;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-import javax.swing.border.*;
+import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+import javax.swing.border.Border;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-
-import org.freehep.util.export.*;
-import org.freehep.graphicsio.ps.*;
+import org.freehep.graphicsio.ps.ColorMap;
+import org.freehep.util.export.ExportDialog;
 
 /**
- *
+ * 
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-ps/src/test/java/org/freehep/graphicsio/ps/test/TestColorMap.java af7f4a47f25d 2005/12/01 22:33:12 duns $
+ * @version $Id: freehep-graphicsio-ps/src/test/java/org/freehep/graphicsio/ps/test/TestColorMap.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
-public class TestColorMap
-    extends JFrame
-    implements ActionListener {
+public class TestColorMap extends JFrame implements ActionListener {
 
     // Create the color map to use.
     ColorMap colorMap = new ColorMap();
@@ -34,157 +46,161 @@ public class TestColorMap
     // Fill this panel with nine panels of different colors.
     public TestColorMap() {
 
-	// Title this frame.
-	super("Color Map Test");
+        // Title this frame.
+        super("Color Map Test");
 
-	// Make this exit when the close button is clicked.
-	setDefaultCloseOperation(WindowConstants.
-				 DO_NOTHING_ON_CLOSE);
+        // Make this exit when the close button is clicked.
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
-		public void windowClosing(WindowEvent e) {quit();}
-	});
+            public void windowClosing(WindowEvent e) {
+                quit();
+            }
+        });
 
-	// Create the Export dialog.
-	dialog = new ExportDialog();
+        // Create the Export dialog.
+        dialog = new ExportDialog();
 
-	// Make a menu bar and menu.
-	JMenuBar menuBar = new JMenuBar();
-	JMenu file = new JMenu("File");
+        // Make a menu bar and menu.
+        JMenuBar menuBar = new JMenuBar();
+        JMenu file = new JMenu("File");
 
-	// Add a menu item which will bring up this dialog.
-	JMenuItem export = new JMenuItem("Export...");
-	export.addActionListener(this);
-	file.add(export);
+        // Add a menu item which will bring up this dialog.
+        JMenuItem export = new JMenuItem("Export...");
+        export.addActionListener(this);
+        file.add(export);
 
-	// Quit menu item.
-	JMenuItem quit = new JMenuItem("Quit");
-	quit.addActionListener(new ActionListener() {
-	  public void actionPerformed(ActionEvent e) {
-	    quit();
-	}});
-	file.add(quit);
+        // Quit menu item.
+        JMenuItem quit = new JMenuItem("Quit");
+        quit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                quit();
+            }
+        });
+        file.add(quit);
 
-	// Add this to the frame.
-	menuBar.add(file);
-	setJMenuBar(menuBar);
+        // Add this to the frame.
+        menuBar.add(file);
+        setJMenuBar(menuBar);
 
-	// Get the content pane.
-	Container content = this.getContentPane();
+        // Get the content pane.
+        Container content = this.getContentPane();
 
-	// Set the layout of this panel.
-	content.setLayout(new BorderLayout());
+        // Set the layout of this panel.
+        content.setLayout(new BorderLayout());
 
-	// Create a combo box with the four color maps in it.
-	String[] chooserTest = {"Display","Print","Grayscale","Black&White"};
-	JComboBox chooser = new JComboBox(chooserTest);
-	chooser.addActionListener(this);
+        // Create a combo box with the four color maps in it.
+        String[] chooserTest = { "Display", "Print", "Grayscale", "Black&White" };
+        JComboBox chooser = new JComboBox(chooserTest);
+        chooser.addActionListener(this);
 
-	// Add this to the top of this container.
-	content.add(chooser, BorderLayout.NORTH);
+        // Add this to the top of this container.
+        content.add(chooser, BorderLayout.NORTH);
 
-	// Create a border of white surrounded by black.
-	Border border = BorderFactory.createCompoundBorder(
-	  BorderFactory.createMatteBorder(1,1,1,1,Color.white),
-	  BorderFactory.createMatteBorder(2,2,2,2,Color.black));
+        // Create a border of white surrounded by black.
+        Border border = BorderFactory.createCompoundBorder(BorderFactory
+                .createMatteBorder(1, 1, 1, 1, Color.white), BorderFactory
+                .createMatteBorder(2, 2, 2, 2, Color.black));
 
-	// Create a subpanel with grid layout to hold the colored tiles.
-	panel = new JPanel();
-	panel.setLayout(new GridLayout(13,3));
+        // Create a subpanel with grid layout to hold the colored tiles.
+        panel = new JPanel();
+        panel.setLayout(new GridLayout(13, 3));
 
-	// Add tiles of colors to this panel.
-	for (int i=0; i<13; i++) {
-	    TestPanel test;
+        // Add tiles of colors to this panel.
+        for (int i = 0; i < 13; i++) {
+            TestPanel test;
 
-	    test = new TestPanel(colorMap, i);
-	    test.setBorder(border);
-	    panel.add(test);
+            test = new TestPanel(colorMap, i);
+            test.setBorder(border);
+            panel.add(test);
 
-	    test = new TestPanel(colorMap, i+13);
-	    test.setBorder(border);
-	    panel.add(test);
+            test = new TestPanel(colorMap, i + 13);
+            test.setBorder(border);
+            panel.add(test);
 
-	    test = new TestPanel(colorMap, i+26);
-	    test.setBorder(border);
-	    panel.add(test);
+            test = new TestPanel(colorMap, i + 26);
+            test.setBorder(border);
+            panel.add(test);
 
-	}
+        }
 
-	// Add this panel to this container.
-	content.add(panel, BorderLayout.CENTER);
+        // Add this panel to this container.
+        content.add(panel, BorderLayout.CENTER);
 
     }
 
     /**
-     * This method brings up a dialog box to ask if the user really
-     * wants to quit.  If the answer is yes, the application is
-     * stopped.  */
+     * This method brings up a dialog box to ask if the user really wants to
+     * quit. If the answer is yes, the application is stopped.
+     */
     public void quit() {
 
-	// Create a dialog box to ask if the user really wants to quit.
-	int n = JOptionPane.showConfirmDialog
-	    (this, "Do you really want to quit?","Confirm Quit",
-	     JOptionPane.YES_NO_OPTION);
+        // Create a dialog box to ask if the user really wants to quit.
+        int n = JOptionPane.showConfirmDialog(this,
+                "Do you really want to quit?", "Confirm Quit",
+                JOptionPane.YES_NO_OPTION);
 
-	if (n==JOptionPane.YES_OPTION) {
-	    System.exit(0);
-	}
+        if (n == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }
 
     // Action performed method used to change color map.
     public void actionPerformed(ActionEvent e) {
-	Object source = e.getSource();
-	if (source instanceof JComboBox) {
-	    JComboBox cb = (JComboBox) e.getSource();
-	    String tag = (String) cb.getSelectedItem();
+        Object source = e.getSource();
+        if (source instanceof JComboBox) {
+            JComboBox cb = (JComboBox) e.getSource();
+            String tag = (String) cb.getSelectedItem();
 
-	    if (tag=="Display") {
-		colorMap.useDisplayColorMap();
-	    } else if (tag=="Print") {
-		colorMap.usePrintColorMap();
-	    } else if (tag=="Grayscale") {
-		colorMap.useGrayscaleColorMap();
-	    } else if (tag=="Black&White") {
-		colorMap.useBlackAndWhiteColorMap();
-	    }
-	    this.repaint();
-	} else if (source instanceof JMenuItem) {
-	    dialog.showExportDialog(this, "Export...", panel, "untitled");
-	}
+            if (tag == "Display") {
+                colorMap.useDisplayColorMap();
+            } else if (tag == "Print") {
+                colorMap.usePrintColorMap();
+            } else if (tag == "Grayscale") {
+                colorMap.useGrayscaleColorMap();
+            } else if (tag == "Black&White") {
+                colorMap.useBlackAndWhiteColorMap();
+            }
+            this.repaint();
+        } else if (source instanceof JMenuItem) {
+            dialog.showExportDialog(this, "Export...", panel, "untitled");
+        }
     }
 
     // Class panel which just paints a given background color.
     class TestPanel extends JPanel {
-	private ColorMap colorMap;
-	private int bkgColorIndex;
+        private ColorMap colorMap;
 
-	public TestPanel(ColorMap colorMap, int bkgColorIndex) {
-	    this.colorMap = colorMap;
-	    this.bkgColorIndex = bkgColorIndex;
-	}
+        private int bkgColorIndex;
 
-	public void paintComponent(Graphics g) {
-	    if (g!=null) {
-		Dimension dim = getSize();
-		Insets insets = getInsets();
+        public TestPanel(ColorMap colorMap, int bkgColorIndex) {
+            this.colorMap = colorMap;
+            this.bkgColorIndex = bkgColorIndex;
+        }
 
-		Color bkgColor = colorMap.getColor(bkgColorIndex);
+        public void paintComponent(Graphics g) {
+            if (g != null) {
+                Dimension dim = getSize();
+                Insets insets = getInsets();
 
-		g.setColor(bkgColor);
-		g.fillRect(insets.left, insets.top,
-			   dim.width-insets.left-insets.right,
-			   dim.height-insets.top-insets.bottom);
-	    }
-	}
+                Color bkgColor = colorMap.getColor(bkgColorIndex);
+
+                g.setColor(bkgColor);
+                g
+                        .fillRect(insets.left, insets.top, dim.width
+                                - insets.left - insets.right, dim.height
+                                - insets.top - insets.bottom);
+            }
+        }
     }
 
     public static void main(String[] args) {
 
-	// Create a new instance of this class and add it to the frame.
+        // Create a new instance of this class and add it to the frame.
         TestColorMap test = new TestColorMap();
 
-	// Give the frame a size and make it visible.
+        // Give the frame a size and make it visible.
         test.pack();
-        test.setSize(new Dimension(350,700));
+        test.setSize(new Dimension(350, 700));
         test.setVisible(true);
 
     }

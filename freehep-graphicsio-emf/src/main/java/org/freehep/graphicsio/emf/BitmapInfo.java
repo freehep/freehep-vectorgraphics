@@ -5,9 +5,9 @@ import java.io.IOException;
 
 /**
  * EMF BitmapInfo
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/BitmapInfo.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/BitmapInfo.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
 public class BitmapInfo {
 
@@ -26,10 +26,8 @@ public class BitmapInfo {
         header.write(emf);
         // colormap not necessary for true color image
     }
-    
+
     public String toString() {
-        return "  BitmapInfo\n"+
-               header.toString();
+        return "  BitmapInfo\n" + header.toString();
     }
 }
-

@@ -5,19 +5,18 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.IOException;
 
-import org.freehep.util.io.Tag;
-
 /**
  * PolylineTo TAG.
- *
+ * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFPolygon.java eabe3cff0ec9 2005/12/01 22:52:56 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFPolygon.java f24bd43ca24b 2005/12/02 00:39:35 duns $
  */
-public class EMFPolygon
-    extends EMFTag {
+public class EMFPolygon extends EMFTag {
 
     private Rectangle bounds;
+
     private int numberOfPoints;
+
     private Point[] points;
 
     EMFPolygon() {
@@ -32,7 +31,7 @@ public class EMFPolygon
     }
 
     public EMFTag read(int tagID, EMFInputStream emf, int len)
-        throws IOException {
+            throws IOException {
 
         Rectangle r = emf.readRECTL();
         int n = emf.readDWORD();
@@ -47,8 +46,7 @@ public class EMFPolygon
     }
 
     public String toString() {
-        return super.toString()+"\n"+
-            "  bounds: "+bounds+"\n"+
-            "  #points: "+numberOfPoints;
+        return super.toString() + "\n" + "  bounds: " + bounds + "\n"
+                + "  #points: " + numberOfPoints;
     }
 }
