@@ -1,0 +1,23 @@
+<!-- Symbols for use with SVGGraphics (exchange format) -->
+<!-- Author: Mark Donszelmann -->
+<!-- Version: $Id$ -->
+
+<symbol id="fdot">
+  <use xlink:href="#dot" stroke="none" fill="currentColor"/>
+</symbol>
+
+<symbol id="fbox">
+  <use xlink:href="#box" stroke="none" fill="currentColor"/>
+</symbol>
+
+<symbol id="ftriup">
+  <use xlink:href="#triup" stroke="none" fill="currentColor"/>
+</symbol>
+
+<symbol id="ftridn">
+  <use xlink:href="#tridn" stroke="none" fill="currentColor"/>
+</symbol>
+
+<symbol id="fdiamond">
+  <use xlink:href="#diamond" stroke="none" fill="currentColor"/>
+</symbol>
