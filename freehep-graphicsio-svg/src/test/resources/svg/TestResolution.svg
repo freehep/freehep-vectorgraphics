@@ -1,0 +1,378 @@
+<?xml version="1.0" standalone="no"?>
+
+<svg 
+     version="1.1"
+     baseProfile="full"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events"
+     x="0px"
+     y="0px"
+     width="600px"
+     height="600px"
+     viewBox="0 0 600 600"
+     stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" 
+     >
+<title>
+
+</title>
+<desc>
+<Title></Title>
+<Creator>FreeHEP Graphics2D Driver</Creator>
+<Producer>org.freehep.graphicsio.svg.SVGGraphics2D</Producer>
+<Source></Source>
+</desc>
+<defs>
+<!-- Symbols for use with SVGGraphics (generic format) -->
+<!-- Author: Mark Donszelmann -->
+<!-- Version: $Id$ -->
+
+<symbol id="hline" viewBox="-50 -50 100 100">
+  <path d="M -50 0 H 50"/>
+</symbol>
+
+<symbol id="vline" viewBox="-50 -50 100 100">
+  <path d="M 0 -50 V 50"/>
+</symbol>
+
+<symbol id="plus" viewBox="-50 -50 100 100">
+  <path d="M -50 0 H 50 M 0 -50 V 50"/>
+</symbol>
+
+<symbol id="cross" viewBox="-50 -50 100 100">
+  <use xlink:href="#plus" transform="rotate(45)translate(-51,-51)"/>
+</symbol>
+
+<symbol id="star" viewBox="-50 -50 100 100">
+  <use xlink:href="#plus" transform="translate(-50,-50)"/>
+  <use xlink:href="#cross" transform="translate(-52,-51)"/>
+</symbol>
+
+<symbol id="dot" viewBox="-50 -50 100 100">
+  <circle cx="0" cy="0" r="50"/>
+</symbol>
+
+<!-- sqrt(2)*s -->
+<symbol id="box" viewBox="-50 -50 100 100">
+  <rect x="-35.5" y="-35.5" width="71" height="71"/>
+</symbol>
+
+<!-- 1/sqrt(3) and sqrt(3)/2 - 1/sqrt(3) -->
+<symbol id="triup" viewBox="-50 -50 100 100">
+  <path d="M -50 36 L 0 -50 L 50 36 z"/> 
+</symbol>
+
+<symbol id="tridn" viewBox="-50 -50 100 100">
+  <use xlink:href="#triup" transform="rotate(180)translate(-50,-50)"/>
+</symbol>
+
+<symbol id="diamond" viewBox="-50 -50 100 100">
+  <use xlink:href="#box" transform="rotate(45)translate(-50,-50)"/>
+</symbol>
+<!-- Symbols for use with SVGGraphics (stylable format) -->
+<!-- Author: Mark Donszelmann -->
+<!-- Version: $Id$ -->
+
+<symbol id="fdot">
+  <use xlink:href="#dot" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="fbox">
+  <use xlink:href="#box" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="ftriup">
+  <use xlink:href="#triup" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="ftridn">
+  <use xlink:href="#tridn" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="fdiamond">
+  <use xlink:href="#diamond" style="stroke:none;fill:currentColor"/>
+</symbol>
+</defs>
+
+<g stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" >
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,0.0000)">
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g stroke-width="1.0000" >
+<g stroke-linecap="square" >
+<g stroke-linejoin="miter" >
+<g stroke-miterlimit="10.000" >
+<g stroke-dasharray="none" stroke-dashoffset="0.0000" >
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<clipPath id="clip0">
+<path d="M 0.0000 0.0000 L 600.00 0.0000 L 600.00 600.00 L 0.0000 600.00 L 0.0000 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip0)">
+<rect stroke="none" fill="#ffffff" fill-opacity="1.0"  x="0.0000" y="0.0000" width="600.00" height="600.00"/>
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,0.0000)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,100.00,60.000)">
+<g transform="matrix(30.000,0.0000,0.0000,30.000,0.0000,0.0000)">
+<g transform="matrix(10000000,0.0000,0.0000,10000000,0.0000,0.0000)">
+<g stroke-width="5.0000E-8" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 1.0000E-7 0.0000 C 1.0000E-7 5.5228E-8 5.5228E-8 1.0000E-7 0.0000 1.0000E-7 C -5.5228E-8 1.0000E-7 -1.0000E-7 5.5228E-8 -1.0000E-7 0.0000 C -1.0000E-7 -5.5228E-8 -5.5228E-8 -1.0000E-7 0.0000 -1.0000E-7 C 5.5228E-8 -1.0000E-7 1.0000E-7 -5.5228E-8 1.0000E-7 0.0000 z "/>
+</g> <!-- draw -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,120.00)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,100.00,60.000)">
+<g transform="matrix(30.000,0.0000,0.0000,30.000,0.0000,0.0000)">
+<g transform="matrix(1000000,0.0000,0.0000,1000000,0.0000,0.0000)">
+<g stroke-width="5.0000E-7" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 1.0000E-6 0.0000 C 1.0000E-6 5.5228E-7 5.5228E-7 1.0000E-6 0.0000 1.0000E-6 C -5.5228E-7 1.0000E-6 -1.0000E-6 5.5228E-7 -1.0000E-6 0.0000 C -1.0000E-6 -5.5228E-7 -5.5228E-7 -1.0000E-6 0.0000 -1.0000E-6 C 5.5228E-7 -1.0000E-6 1.0000E-6 -5.5228E-7 1.0000E-6 0.0000 z "/>
+</g> <!-- draw -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,240.00)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,100.00,60.000)">
+<g transform="matrix(30.000,0.0000,0.0000,30.000,0.0000,0.0000)">
+<g transform="matrix(100000,0.0000,0.0000,100000,0.0000,0.0000)">
+<g stroke-width="5.0000E-6" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 1.0000E-5 0.0000 C 1.0000E-5 5.5228E-6 5.5228E-6 1.0000E-5 0.0000 1.0000E-5 C -5.5228E-6 1.0000E-5 -1.0000E-5 5.5228E-6 -1.0000E-5 0.0000 C -1.0000E-5 -5.5228E-6 -5.5228E-6 -1.0000E-5 0.0000 -1.0000E-5 C 5.5228E-6 -1.0000E-5 1.0000E-5 -5.5228E-6 1.0000E-5 0.0000 z "/>
+</g> <!-- draw -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,360.00)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,100.00,60.000)">
+<g transform="matrix(30.000,0.0000,0.0000,30.000,0.0000,0.0000)">
+<g transform="matrix(10000,0.0000,0.0000,10000,0.0000,0.0000)">
+<g stroke-width="5.0000E-5" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 1.0000E-4 0.0000 C 1.0000E-4 5.5228E-5 5.5228E-5 1.0000E-4 0.0000 1.0000E-4 C -5.5228E-5 1.0000E-4 -1.0000E-4 5.5228E-5 -1.0000E-4 0.0000 C -1.0000E-4 -5.5228E-5 -5.5228E-5 -1.0000E-4 0.0000 -1.0000E-4 C 5.5228E-5 -1.0000E-4 1.0000E-4 -5.5228E-5 1.0000E-4 0.0000 z "/>
+</g> <!-- draw -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,480.00)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,100.00,60.000)">
+<g transform="matrix(30.000,0.0000,0.0000,30.000,0.0000,0.0000)">
+<g transform="matrix(1000.0,0.0000,0.0000,1000.0,0.0000,0.0000)">
+<g stroke-width="5.0000E-4" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M .0010000 0.0000 C .0010000 5.5228E-4 5.5228E-4 .0010000 0.0000 .0010000 C -5.5228E-4 .0010000 -.0010000 5.5228E-4 -.0010000 0.0000 C -.0010000 -5.5228E-4 -5.5228E-4 -.0010000 0.0000 -.0010000 C 5.5228E-4 -.0010000 .0010000 -5.5228E-4 .0010000 0.0000 z "/>
+</g> <!-- draw -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,200.00,0.0000)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,100.00,60.000)">
+<g transform="matrix(30.000,0.0000,0.0000,30.000,0.0000,0.0000)">
+<g transform="matrix(100.00,0.0000,0.0000,100.00,0.0000,0.0000)">
+<g stroke-width=".0050000" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M .010000 0.0000 C .010000 .0055228 .0055228 .010000 0.0000 .010000 C -.0055228 .010000 -.010000 .0055228 -.010000 0.0000 C -.010000 -.0055228 -.0055228 -.010000 0.0000 -.010000 C .0055228 -.010000 .010000 -.0055228 .010000 0.0000 z "/>
+</g> <!-- draw -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,200.00,120.00)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,100.00,60.000)">
+<g transform="matrix(30.000,0.0000,0.0000,30.000,0.0000,0.0000)">
+<g transform="matrix(10.000,0.0000,0.0000,10.000,0.0000,0.0000)">
+<g stroke-width=".050000" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M .10000 0.0000 C .10000 .055228 .055228 .10000 0.0000 .10000 C -.055228 .10000 -.10000 .055228 -.10000 0.0000 C -.10000 -.055228 -.055228 -.10000 0.0000 -.10000 C .055228 -.10000 .10000 -.055228 .10000 0.0000 z "/>
+</g> <!-- draw -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,200.00,240.00)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,100.00,60.000)">
+<g transform="matrix(30.000,0.0000,0.0000,30.000,0.0000,0.0000)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,0.0000)">
+<g stroke-width=".50000" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 1.0000 0.0000 C 1.0000 .55228 .55228 1.0000 0.0000 1.0000 C -.55228 1.0000 -1.0000 .55228 -1.0000 0.0000 C -1.0000 -.55228 -.55228 -1.0000 0.0000 -1.0000 C .55228 -1.0000 1.0000 -.55228 1.0000 0.0000 z "/>
+</g> <!-- draw -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,200.00,360.00)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,100.00,60.000)">
+<g transform="matrix(30.000,0.0000,0.0000,30.000,0.0000,0.0000)">
+<g transform="matrix(.10000,0.0000,0.0000,.10000,0.0000,0.0000)">
+<g stroke-width="5.0000" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 10.000 0.0000 C 10.000 5.5228 5.5228 10.000 0.0000 10.000 C -5.5228 10.000 -10.000 5.5228 -10.000 0.0000 C -10.000 -5.5228 -5.5228 -10.000 0.0000 -10.000 C 5.5228 -10.000 10.000 -5.5228 10.000 0.0000 z "/>
+</g> <!-- draw -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,200.00,480.00)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,100.00,60.000)">
+<g transform="matrix(30.000,0.0000,0.0000,30.000,0.0000,0.0000)">
+<g transform="matrix(.010000,0.0000,0.0000,.010000,0.0000,0.0000)">
+<g stroke-width="50.000" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 100.00 0.0000 C 100.00 55.228 55.228 100.00 0.0000 100.00 C -55.228 100.00 -100.00 55.228 -100.00 0.0000 C -100.00 -55.228 -55.228 -100.00 0.0000 -100.00 C 55.228 -100.00 100.00 -55.228 100.00 0.0000 z "/>
+</g> <!-- draw -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,400.00,0.0000)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,100.00,60.000)">
+<g transform="matrix(30.000,0.0000,0.0000,30.000,0.0000,0.0000)">
+<g transform="matrix(.0010000,0.0000,0.0000,.0010000,0.0000,0.0000)">
+<g stroke-width="500.00" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 1000.0 0.0000 C 1000.0 552.28 552.28 1000.0 0.0000 1000.0 C -552.28 1000.0 -1000.0 552.28 -1000.0 0.0000 C -1000.0 -552.28 -552.28 -1000.0 0.0000 -1000.0 C 552.28 -1000.0 1000.0 -552.28 1000.0 0.0000 z "/>
+</g> <!-- draw -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,400.00,120.00)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,100.00,60.000)">
+<g transform="matrix(30.000,0.0000,0.0000,30.000,0.0000,0.0000)">
+<g transform="matrix(1.0000E-4,0.0000,0.0000,1.0000E-4,0.0000,0.0000)">
+<g stroke-width="5000.0" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 10000 0.0000 C 10000 5522.8 5522.8 10000 0.0000 10000 C -5522.8 10000 -10000 5522.8 -10000 0.0000 C -10000 -5522.8 -5522.8 -10000 0.0000 -10000 C 5522.8 -10000 10000 -5522.8 10000 0.0000 z "/>
+</g> <!-- draw -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,400.00,240.00)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,100.00,60.000)">
+<g transform="matrix(30.000,0.0000,0.0000,30.000,0.0000,0.0000)">
+<g transform="matrix(1.0000E-5,0.0000,0.0000,1.0000E-5,0.0000,0.0000)">
+<g stroke-width="50000" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 100000 0.0000 C 100000 55228 55228 100000 0.0000 100000 C -55228 100000 -100000 55228 -100000 0.0000 C -100000 -55228 -55228 -100000 0.0000 -100000 C 55228 -100000 100000 -55228 100000 0.0000 z "/>
+</g> <!-- draw -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,400.00,360.00)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,100.00,60.000)">
+<g transform="matrix(30.000,0.0000,0.0000,30.000,0.0000,0.0000)">
+<g transform="matrix(1.0000E-6,0.0000,0.0000,1.0000E-6,0.0000,0.0000)">
+<g stroke-width="500000" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 1000000 0.0000 C 1000000 552280 552280 1000000 0.0000 1000000 C -552280 1000000 -1000000 552280 -1000000 0.0000 C -1000000 -552280 -552280 -1000000 0.0000 -1000000 C 552280 -1000000 1000000 -552280 1000000 0.0000 z "/>
+</g> <!-- draw -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,400.00,480.00)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,100.00,60.000)">
+<g transform="matrix(30.000,0.0000,0.0000,30.000,0.0000,0.0000)">
+<g transform="matrix(1.0000E-7,0.0000,0.0000,1.0000E-7,0.0000,0.0000)">
+<g stroke-width="5000000" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 10000000 0.0000 C 10000000 5522800 5522800 10000000 0.0000 10000000 C -5522800 10000000 -10000000 5522800 -10000000 0.0000 C -10000000 -5522800 -5522800 -10000000 0.0000 -10000000 C 5522800 -10000000 10000000 -5522800 10000000 0.0000 z "/>
+</g> <!-- draw -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- clip -->
+</g> <!-- font -->
+</g> <!-- stroke dash -->
+</g> <!-- stroke limit -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- font -->
+</g> <!-- transform -->
+</g> <!-- top-level -->
+</g> <!-- font -->
+</svg> <!-- bounding box -->

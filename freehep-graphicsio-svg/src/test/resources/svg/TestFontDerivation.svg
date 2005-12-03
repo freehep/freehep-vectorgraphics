@@ -1,0 +1,377 @@
+<?xml version="1.0" standalone="no"?>
+
+<svg 
+     version="1.1"
+     baseProfile="full"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events"
+     x="0px"
+     y="0px"
+     width="600px"
+     height="600px"
+     viewBox="0 0 600 600"
+     stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" 
+     >
+<title>
+
+</title>
+<desc>
+<Title></Title>
+<Creator>FreeHEP Graphics2D Driver</Creator>
+<Producer>org.freehep.graphicsio.svg.SVGGraphics2D</Producer>
+<Source></Source>
+</desc>
+<defs>
+<!-- Symbols for use with SVGGraphics (generic format) -->
+<!-- Author: Mark Donszelmann -->
+<!-- Version: $Id$ -->
+
+<symbol id="hline" viewBox="-50 -50 100 100">
+  <path d="M -50 0 H 50"/>
+</symbol>
+
+<symbol id="vline" viewBox="-50 -50 100 100">
+  <path d="M 0 -50 V 50"/>
+</symbol>
+
+<symbol id="plus" viewBox="-50 -50 100 100">
+  <path d="M -50 0 H 50 M 0 -50 V 50"/>
+</symbol>
+
+<symbol id="cross" viewBox="-50 -50 100 100">
+  <use xlink:href="#plus" transform="rotate(45)translate(-51,-51)"/>
+</symbol>
+
+<symbol id="star" viewBox="-50 -50 100 100">
+  <use xlink:href="#plus" transform="translate(-50,-50)"/>
+  <use xlink:href="#cross" transform="translate(-52,-51)"/>
+</symbol>
+
+<symbol id="dot" viewBox="-50 -50 100 100">
+  <circle cx="0" cy="0" r="50"/>
+</symbol>
+
+<!-- sqrt(2)*s -->
+<symbol id="box" viewBox="-50 -50 100 100">
+  <rect x="-35.5" y="-35.5" width="71" height="71"/>
+</symbol>
+
+<!-- 1/sqrt(3) and sqrt(3)/2 - 1/sqrt(3) -->
+<symbol id="triup" viewBox="-50 -50 100 100">
+  <path d="M -50 36 L 0 -50 L 50 36 z"/> 
+</symbol>
+
+<symbol id="tridn" viewBox="-50 -50 100 100">
+  <use xlink:href="#triup" transform="rotate(180)translate(-50,-50)"/>
+</symbol>
+
+<symbol id="diamond" viewBox="-50 -50 100 100">
+  <use xlink:href="#box" transform="rotate(45)translate(-50,-50)"/>
+</symbol>
+<!-- Symbols for use with SVGGraphics (stylable format) -->
+<!-- Author: Mark Donszelmann -->
+<!-- Version: $Id$ -->
+
+<symbol id="fdot">
+  <use xlink:href="#dot" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="fbox">
+  <use xlink:href="#box" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="ftriup">
+  <use xlink:href="#triup" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="ftridn">
+  <use xlink:href="#tridn" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="fdiamond">
+  <use xlink:href="#diamond" style="stroke:none;fill:currentColor"/>
+</symbol>
+</defs>
+
+<g stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" >
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,0.0000)">
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g stroke-width="1.0000" >
+<g stroke-linecap="square" >
+<g stroke-linejoin="miter" >
+<g stroke-miterlimit="10.000" >
+<g stroke-dasharray="none" stroke-dashoffset="0.0000" >
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<clipPath id="clip0">
+<path d="M 0.0000 0.0000 L 600.00 0.0000 L 600.00 600.00 L 0.0000 600.00 L 0.0000 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip0)">
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,300.00,300.00)">
+<rect stroke="none" fill="#ffffff" fill-opacity="1.0"  x="-300.00" y="-300.00" width="600.00" height="600.00"/>
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(4.6896, .82690, -.82690, 4.6896, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(4.2713, 1.5546, -1.5546, 4.2713, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(3.7653, 2.1739, -2.1739, 3.7653, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(3.1919, 2.6783, -2.6783, 3.1919, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(2.5712, 3.0642, -3.0642, 2.5712, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(1.9231, 3.3309, -3.3309, 1.9231, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(1.2667, 3.4803, -3.4803, 1.2667, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(.62017, 3.5172, -3.5172, .62017, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(0.0000, 3.4483, -3.4483, 0.0000, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-.57883, 3.2827, -3.2827, -.57883, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-1.1033, 3.0313, -3.0313, -1.1033, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-1.5625, 2.7063, -2.7063, -1.5625, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-1.9478, 2.3213, -2.3213, -1.9478, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-2.2531, 1.8906, -1.8906, -2.2531, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-2.4744, 1.4286, -1.4286, -2.4744, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-2.6103, .95006, -.95006, -2.6103, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-2.6616, .46932, -.46932, -2.6616, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-2.6316, 0.0000, 0.0000, -2.6316, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-2.5251, -.44525, .44525, -2.5251, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-2.3492, -.85505, .85505, -2.3492, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-2.1123, -1.2195, 1.2195, -2.1123, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-1.8239, -1.5304, 1.5304, -1.8239, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-1.4949, -1.7815, 1.7815, -1.4949, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-1.1364, -1.9682, 1.9682, -1.1364, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-.76004, -2.0882, 2.0882, -.76004, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(-.37750, -2.1409, 2.1409, -.37750, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(0.0000, -2.1277, 2.1277, 0.0000, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(.36177, -2.0517, 2.0517, .36177, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(.69800, -1.9177, 1.9177, .69800, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(1.0000, -1.7321, 1.7321, 1.0000, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(1.2604, -1.5020, 1.5020, 1.2604, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(1.4732, -1.2361, 1.2361, 1.4732, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(1.6340, -.94340, .94340, 1.6340, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(1.7402, -.63337, .63337, 1.7402, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(1.7906, -.31572, .31572, 1.7906, 0.0000, 0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(5.0000, 0.0000, 0.0000, 5.0000, 0.0000, 0.0000)">
+<text stroke="none" fill="#0000ff" fill-opacity="1.0"  x="0.0000" y="0.0000">
+FreeHEP
+</text>
+</g> <!-- transform -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- transform -->
+</g> <!-- clip -->
+</g> <!-- font -->
+</g> <!-- stroke dash -->
+</g> <!-- stroke limit -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- font -->
+</g> <!-- transform -->
+</g> <!-- top-level -->
+</g> <!-- font -->
+</svg> <!-- bounding box -->

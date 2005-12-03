@@ -1,0 +1,391 @@
+<?xml version="1.0" standalone="no"?>
+
+<svg 
+     version="1.1"
+     baseProfile="full"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events"
+     x="0px"
+     y="0px"
+     width="600px"
+     height="600px"
+     viewBox="0 0 600 600"
+     stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" 
+     >
+<title>
+
+</title>
+<desc>
+<Title></Title>
+<Creator>FreeHEP Graphics2D Driver</Creator>
+<Producer>org.freehep.graphicsio.svg.SVGGraphics2D</Producer>
+<Source></Source>
+</desc>
+<defs>
+<!-- Symbols for use with SVGGraphics (generic format) -->
+<!-- Author: Mark Donszelmann -->
+<!-- Version: $Id$ -->
+
+<symbol id="hline" viewBox="-50 -50 100 100">
+  <path d="M -50 0 H 50"/>
+</symbol>
+
+<symbol id="vline" viewBox="-50 -50 100 100">
+  <path d="M 0 -50 V 50"/>
+</symbol>
+
+<symbol id="plus" viewBox="-50 -50 100 100">
+  <path d="M -50 0 H 50 M 0 -50 V 50"/>
+</symbol>
+
+<symbol id="cross" viewBox="-50 -50 100 100">
+  <use xlink:href="#plus" transform="rotate(45)translate(-51,-51)"/>
+</symbol>
+
+<symbol id="star" viewBox="-50 -50 100 100">
+  <use xlink:href="#plus" transform="translate(-50,-50)"/>
+  <use xlink:href="#cross" transform="translate(-52,-51)"/>
+</symbol>
+
+<symbol id="dot" viewBox="-50 -50 100 100">
+  <circle cx="0" cy="0" r="50"/>
+</symbol>
+
+<!-- sqrt(2)*s -->
+<symbol id="box" viewBox="-50 -50 100 100">
+  <rect x="-35.5" y="-35.5" width="71" height="71"/>
+</symbol>
+
+<!-- 1/sqrt(3) and sqrt(3)/2 - 1/sqrt(3) -->
+<symbol id="triup" viewBox="-50 -50 100 100">
+  <path d="M -50 36 L 0 -50 L 50 36 z"/> 
+</symbol>
+
+<symbol id="tridn" viewBox="-50 -50 100 100">
+  <use xlink:href="#triup" transform="rotate(180)translate(-50,-50)"/>
+</symbol>
+
+<symbol id="diamond" viewBox="-50 -50 100 100">
+  <use xlink:href="#box" transform="rotate(45)translate(-50,-50)"/>
+</symbol>
+<!-- Symbols for use with SVGGraphics (stylable format) -->
+<!-- Author: Mark Donszelmann -->
+<!-- Version: $Id$ -->
+
+<symbol id="fdot">
+  <use xlink:href="#dot" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="fbox">
+  <use xlink:href="#box" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="ftriup">
+  <use xlink:href="#triup" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="ftridn">
+  <use xlink:href="#tridn" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="fdiamond">
+  <use xlink:href="#diamond" style="stroke:none;fill:currentColor"/>
+</symbol>
+</defs>
+
+<g stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" >
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,0.0000)">
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g stroke-width="1.0000" >
+<g stroke-linecap="square" >
+<g stroke-linejoin="miter" >
+<g stroke-miterlimit="10.000" >
+<g stroke-dasharray="none" stroke-dashoffset="0.0000" >
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<clipPath id="clip0">
+<path d="M 0.0000 0.0000 L 600.00 0.0000 L 600.00 600.00 L 0.0000 600.00 L 0.0000 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip0)">
+<rect stroke="none" fill="#ffffff" fill-opacity="1.0"  x="0.0000" y="0.0000" width="600.00" height="600.00"/>
+<defs>
+  <linearGradient id="gradient-0" x1="0.0000" y1="10.000" x2="600.00" y2="10.000" gradientUnits="userSpaceOnUse" spreadMethod="pad" >
+    <stop offset="0" stop-color="#0000ff" opacity-stop="1.0" />
+    <stop offset="1" stop-color="#ffffff" opacity-stop="1.0" />
+  </linearGradient>
+</defs>
+<g stroke="url(#gradient-0)" >
+<rect stroke="none" fill="url(#gradient-0)" fill-opacity="1.0"  x="0.0000" y="10.000" width="600.00" height="30.000"/>
+<g font-family="sans-serif" font-weight="bold" font-style="normal" font-size="18" >
+<defs>
+  <linearGradient id="gradient-1" x1="0.0000" y1="10.000" x2="600.00" y2="10.000" gradientUnits="userSpaceOnUse" spreadMethod="pad" >
+    <stop offset="0" stop-color="#000000" opacity-stop="1.0" />
+    <stop offset="1" stop-color="#0000ff" opacity-stop="1.0" />
+  </linearGradient>
+</defs>
+<g stroke="url(#gradient-1)" >
+<text stroke="none" fill="url(#gradient-1)" fill-opacity="1.0"  x="10.000" y="30.000">
+Testing org.freehep.graphicsio.svg.SVGGraphics2D
+</text>
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="37.500" y="112.50" width="150.00" height="150.00"/>
+<ellipse stroke="none" fill="#ffffff" fill-opacity="1.0"  cx="112.50" cy="187.50" rx="75.000" ry="75.000" />
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="59.467" y="134.47" width="106.07" height="106.07"/>
+<ellipse stroke="none" fill="#ffffff" fill-opacity="1.0"  cx="112.50" cy="187.50" rx="53.033" ry="53.033" />
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="75.000" y="150.00" width="75.000" height="75.000"/>
+<ellipse stroke="none" fill="#ffffff" fill-opacity="1.0"  cx="112.50" cy="187.50" rx="37.500" ry="37.500" />
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="85.983" y="160.98" width="53.033" height="53.033"/>
+<ellipse stroke="none" fill="#ffffff" fill-opacity="1.0"  cx="112.50" cy="187.50" rx="26.517" ry="26.517" />
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="93.750" y="168.75" width="37.500" height="37.500"/>
+<ellipse stroke="none" fill="#ffffff" fill-opacity="1.0"  cx="112.50" cy="187.50" rx="18.750" ry="18.750" />
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="99.242" y="174.24" width="26.517" height="26.517"/>
+<ellipse stroke="none" fill="#ffffff" fill-opacity="1.0"  cx="112.50" cy="187.50" rx="13.258" ry="13.258" />
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="103.12" y="178.12" width="18.750" height="18.750"/>
+<ellipse stroke="none" fill="#ffffff" fill-opacity="1.0"  cx="112.50" cy="187.50" rx="9.3750" ry="9.3750" />
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="105.87" y="180.87" width="13.258" height="13.258"/>
+<ellipse stroke="none" fill="#ffffff" fill-opacity="1.0"  cx="112.50" cy="187.50" rx="6.6291" ry="6.6291" />
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="107.81" y="182.81" width="9.3750" height="9.3750"/>
+<ellipse stroke="none" fill="#ffffff" fill-opacity="1.0"  cx="112.50" cy="187.50" rx="4.6875" ry="4.6875" />
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="109.19" y="184.19" width="6.6291" height="6.6291"/>
+<ellipse stroke="none" fill="#ffffff" fill-opacity="1.0"  cx="112.50" cy="187.50" rx="3.3146" ry="3.3146" />
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="110.16" y="185.16" width="4.6875" height="4.6875"/>
+<ellipse stroke="none" fill="#ffffff" fill-opacity="1.0"  cx="112.50" cy="187.50" rx="2.3437" ry="2.3437" />
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="110.84" y="185.84" width="3.3146" height="3.3146"/>
+<ellipse stroke="none" fill="#ffffff" fill-opacity="1.0"  cx="112.50" cy="187.50" rx="1.6573" ry="1.6573" />
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="111.33" y="186.33" width="2.3437" height="2.3437"/>
+<ellipse stroke="none" fill="#ffffff" fill-opacity="1.0"  cx="112.50" cy="187.50" rx="1.1719" ry="1.1719" />
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="111.67" y="186.67" width="1.6573" height="1.6573"/>
+<ellipse stroke="none" fill="#ffffff" fill-opacity="1.0"  cx="112.50" cy="187.50" rx=".82864" ry=".82864" />
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="111.91" y="186.91" width="1.1719" height="1.1719"/>
+<ellipse stroke="none" fill="#ffffff" fill-opacity="1.0"  cx="112.50" cy="187.50" rx=".58594" ry=".58594" />
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="11" >
+<text stroke="none" fill="#000000" fill-opacity="1.0" text-anchor="start" baseline-shift="0.0000%"  x="225.00" y="122.50">
+The <tspan font-style="italic" >drawString</tspan> methods in <tspan font-style="italic" >VectorGraphics</tspan> support
+</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" text-anchor="start" baseline-shift="0.0000%"  x="225.00" y="136.50">
+output of strings using a subset of the <tspan font-weight="bold" >HTML language</tspan>.
+</text>
+<g stroke="#ff0000" stroke-opacity="1.0" fill="none" >
+<path d="M 300.00 181.50 L 300.00 193.50 "/>
+</g> <!-- draw -->
+<g stroke="#ff0000" stroke-opacity="1.0" fill="none" >
+<path d="M 300.00 197.50 L 300.00 207.50 "/>
+</g> <!-- draw -->
+<g stroke="#ff0000" stroke-opacity="1.0" fill="none" >
+<path d="M 309.00 187.50 L 321.00 187.50 "/>
+</g> <!-- draw -->
+<g stroke="#ff0000" stroke-opacity="1.0" fill="none" >
+<path d="M 310.00 202.50 L 320.00 202.50 "/>
+</g> <!-- draw -->
+<g stroke="#ff0000" stroke-opacity="1.0" fill="none" >
+<path d="M 336.00 187.50 L 324.00 187.50 M 330.00 193.50 L 330.00 181.50 "/>
+</g> <!-- draw -->
+<g stroke="#ff0000" stroke-opacity="1.0" fill="none" >
+<path d="M 335.00 202.50 L 325.00 202.50 M 330.00 207.50 L 330.00 197.50 "/>
+</g> <!-- draw -->
+<g stroke="#ff0000" stroke-opacity="1.0" fill="none" >
+<path d="M 340.76 183.26 L 349.24 191.74 M 349.24 183.26 L 340.76 191.74 "/>
+</g> <!-- draw -->
+<g stroke="#ff0000" stroke-opacity="1.0" fill="none" >
+<path d="M 341.46 198.96 L 348.54 206.04 M 348.54 198.96 L 341.46 206.04 "/>
+</g> <!-- draw -->
+<g stroke="#ff0000" stroke-opacity="1.0" fill="none" >
+<path d="M 360.00 181.50 L 360.00 193.50 M 354.00 187.50 L 366.00 187.50 M 355.76 183.26 L 364.24 191.74 M 364.24 183.26 L 355.76 191.74 "/>
+</g> <!-- draw -->
+<g stroke="#ff0000" stroke-opacity="1.0" fill="none" >
+<path d="M 360.00 197.50 L 360.00 207.50 M 355.00 202.50 L 365.00 202.50 M 356.46 198.96 L 363.54 206.04 M 363.54 198.96 L 356.46 206.04 "/>
+</g> <!-- draw -->
+<ellipse stroke="#ff0000" stroke-opacity="1.0" fill="none"  cx="375.50" cy="188.00" rx="6.0000" ry="6.0000" />
+<ellipse stroke="none" fill="#ff0000" fill-opacity="1.0"  cx="375.00" cy="202.50" rx="5.0000" ry="5.0000" />
+<g stroke="#ff0000" stroke-opacity="1.0" fill="none" >
+<path d="M 385.76 183.26 L 395.24 183.26 L 395.24 192.74 L 385.76 192.74 z "/>
+</g> <!-- draw -->
+<g stroke="none" fill="#ff0000" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 386.46 198.96 L 394.54 198.96 L 394.54 207.04 L 386.46 207.04 z "/>
+</g> <!-- fill -->
+<g stroke="#ff0000" stroke-opacity="1.0" fill="none" >
+<path d="M 405.00 180.57 L 399.00 190.96 L 411.00 190.96 z "/>
+</g> <!-- draw -->
+<g stroke="none" fill="#ff0000" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 405.00 196.73 L 400.00 205.39 L 410.00 205.39 z "/>
+</g> <!-- fill -->
+<g stroke="#ff0000" stroke-opacity="1.0" fill="none" >
+<path d="M 420.00 194.43 L 414.00 184.04 L 426.00 184.04 z "/>
+</g> <!-- draw -->
+<g stroke="none" fill="#ff0000" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 420.00 208.27 L 415.00 199.61 L 425.00 199.61 z "/>
+</g> <!-- fill -->
+<g stroke="#ff0000" stroke-opacity="1.0" fill="none" >
+<path d="M 441.00 187.50 L 435.00 193.50 L 429.00 187.50 L 435.00 181.50 z "/>
+</g> <!-- draw -->
+<g stroke="none" fill="#ff0000" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 440.00 202.50 L 435.00 207.50 L 430.00 202.50 L 435.00 197.50 z "/>
+</g> <!-- fill -->
+<defs>
+  <pattern id="texture-0" x="0" y="0" width="200.00" height="200.00" patternUnits="userSpaceOnUse" patternTransform="matrix(1.0000,0.0,0.0,1.0000,0.0000,0.0000)" >
+<image x="0" y="0" width="200" height="200" xlink:href="data:image/jpg;base64,
+/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0a
+HBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIy
+MjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCADIAMgDASIA
+AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD04fdp
+4oxS8LXqnmCEDdTgKBTxSZQ9KkCUiCnk4Ws2Wh4+VaN46VXMuKBJuo5R3JiRtqF89aU5NROTTSE2
+McmmGlyaQmtDIrXg3RZrn5c7mrp3TelUJdPD100aijozCrTb2MHnbTxwuavyWyxcVTkI6V1KV9jm
+cbFZzSImWpHHzVagStW7IhK7JI02rS5NTCP5akjgrnczZIij3LVoE7eaekHy1J5W2snJM1UWRAFm
+qwIqVEw1WAN1ZSkaJDY4/loqYUVk27mqWgAZoIpyClKVNxgn3alTmmIAamQBaTY0OA21HI+OKeXA
+Wq0kgqUrjbGO43VLGfmqEFanjxtq2Sh5J21XdzUxI21BIaUUNiA7mppB3UsYzUuKtuxAAbVqGWQB
+amJ2rVOUbqIasJbGVdyEuazJCVata4jy1UZIN3SvRptJHDUTuV4wWq9bRfNzTYoNtaVvFU1ag6cR
+RBup/l4qyiYXFDp2rm5zp5SMfdpcfLRs2tUoFS2OwwJUiCjNOT71Q2UhedtFPNFSWOApd4biojJ8
+tR7/AJqVguWSwC0zz8VA8lV3kq1TuS5WLhl31BI9VxKVpry5q1TsQ53LCHNWUciqEb7asCSiUQTJ
+y9MJz1pgOeacaixVx4+WnF/lqDzBimF6OULljO5agf7tN82gndVJWJbK7x71qHyv9mr8cfrUpt+9
+V7S2gvZ3M6OKrkUe1alEW2n7KUp3GoWG9KB81I/FKhqCiXy/lpfL2rUsfzU/Has+Y0sVRHmnY21Z
+2Uhjo5g5SLiionOGop2FcqmSmeZVZ5C1Jv210qBg5E7y7ahL0wnNIM1aRLYhJNOTO6nYpcbaLiHg
+VLnFQg0FytTYq5ZEoFP37l4qh5lOSfbSdMFItEgVXkkNBkDfWonJ3U0gbHoSatxiqcfzNxWlEPlq
+KmhUNSWNKkNIPlWlPK1zs3GdaR6kRN1MkjxTTFYj2bqPL205B81S9adwsNR9tWB81RCKp04rNlok
+AHeiQDZSZzQ5+RqzKMuV8O1FQ3L/AD0V2xjocsnqZuaM0wfepxFdJiAPy1In3aYg+aptmKliQZpC
+TUiJuodDUXLsR78NTXfNNx82KTB3VZIdKM0Yph+WqAdv20u/fUBO6noStOxNy1HhavRSDbWaHG7F
+TxmsZK5rBmqj7qsIlUYHrRgGa5Kmh0w1FCBajlFW9gC1VnrKL1La0K2KkA203ftppkrWzILPmBaY
+Xy1Qb6kTFFrBcnj+7T5cCImmpSXbgQms+qL6MwLuTdKRRVeU7nNFelHRHBLVjRT5KiQ06R91VbUX
+QfH96rCJuqrDVyPpUSLiPRMNRJTxTH96y6l9CuYt3NIYz2qcc8VJsquYmxRcVWkNX5Uqm6bWrSDM
+5IrjIpd9NkPzUg+atrGdydHDNVlH2tVAHFSiUmocS1I27eTdWjA+FrCtpNrZrVilBriqxOqlI0d4
+PWq85oR/lqKWQCsFHU3b0ITTM0x5/mpnmbmroUWYNkhfFPSSqrvSI53VXJoTzamskny1DeSZhNQR
+y0lwd6VkoWkjVyujKcfLminS/KportWxyPcTyCPemSRkc1dIFI6ArUqRTiV4AGaryJVeNNtWENRJ
+lRQ/FRPU38NRvUIpjY+tWMVXGKUyFaHqwQ2cVnSn5quSS9qpSctW1NGVRlU/M1OpHG2mh+K6TnBz
+RGfmpcA9akRMUugF2A1oREBc1lxPjirSS7VrlqK5002aXm/LVaeeqb3OP4qqyXJLUoUtSpVS0Zc0
+glK1R8/mnCWtvZmXtDQB3LUoqnE9Tg5asmi0ywDUg+ZeaYifLUuNq1kzRFWe3R2+9iilOWaitE2l
+uS0m9hpp3FNxlqcflWgY3PpT0BakFIXxSAleQLULyUwnNQuTTUSWywJPlzTXfdzVdHNOd6vl1FcR
++ahfin5ppxVozZA431XIxVl+Khf561RkxEcVKHzUGz5qeMDpQ0CJy+KkEtVi9N8wBqXIVzk0sny1
+UMh3VI5BqLAq4qxDYqfM1TJ8rVGmKcXoYItI/wA3FWY3qghxUwkrGUTZSNeN/l4qf7y1m28tX0O5
+a5ZRszog7kLj5qKfIaKpbEvcZjbTDVl46jMdSmNoYPlWmOaU0wjNWiWJmq8hqV+KhJzxWiRLGhzQ
+TUbnZUJnrVRuZNk5fFGQaq+YTSpJT5RcxNJ0qD7rUry1AXFWkS2SGTbTDIKid91JjdVqJDZL5lRS
+SYoJqF6aRLY8SmneZVcZp9W0ibssxvUtVI6uRpurOSsaLUfGe1TeWe1CR1ZQBawlI2SCBCrc1pRn
+5apirEWS1c1TU3joSOhNFWRH8vNFY8xrykpSoZEq6UqIpms1I0aM/wAuonTbWi8fy1TlG1q2hK5j
+JWKUlVz96rb4qu4roizBkEuDVQpVmT5agc/LW8DGRDzTx703+KnZrQkaQTUZQrUhfb0o+8tNCZCa
+YX29KfJ8tVnPpVpXJY7eWag53VGgO6rASqehK1GAU8JUyR1MI/mrNyLUSKOPdVqJMURoFqwke5qx
+nI0hEkQUu8Zp4TFJ5fzVlc3JE5q5ZjL4qmgxU9vJslrGezNIbo1ylFCOHWiuPU6h/mDFKADWekh+
+WrSSYWqcbApXHSJVC4FXjIGqrKm5qdPQiWpnEVWlO2r0qYrOmrsp6nJPQqyPlaqyS7adLJtaqMsu
+6u2nE5JyJvPzTxL2qh5mGzThKd1bezM+Yuk0+M1WjctVqKPNZSVjRaiSDdzVR4/m4rRMfy1C8e1e
+KIyBxKoqaM+tMMdKARVvUhaFpCOtTIQ3FUkcrViM1jJGyZdjjq2ibarQP8vNWkf5a55XN42HH0pv
+3WoyN1FZFhQhw1GaSqA07aXtRVKJyrUVzyp6m0ZaE8T+tTl/lqvEhqXBpu1wV7EkZNPc/LUQOygv
+motqO+hUnesu5f71ac4LVmXCV10jnqmRcfeqnJWo8DP/AA1XOnynnbXoRmluzglBszTmhM1Zks5F
+b7tPS2P92tOdWM+R3HW4NacGFWqkcRC1eiTNc9R3OmmrCuN1N8vdVpEoIArBSNeUoPFtamPGGq4+
+2mYUNVqRDiUxGVapoxT3I7UI6rTbbEkiyg281YQ+lURL6VYikrGSZsmiziigHK0Z+asyhelHWigG
+gocPlopR81FSBfjHy07+KiisGbgQKbs9KKKAF8jd1pP7PR+tFFQ5yWxSinuWItPiX+GpfskP9yii
+oc5N7lqEbbFefS4JOdtUn0dA3FFFVCrPuZypx7EUmmbelQfY2SiiumNSTRlKEUJInlKue9VZJBRR
+W8NTCehWkPcUIdy80UVv0MepFICtQhzuooq1sQyzEN1XEwFoorKRtAmQ5qWiisGbIXFGKKKQiWJC
+zUUUVk27mi2P/9k="/>
+  </pattern>
+</defs>
+<g stroke="url(#texture-0)" >
+<rect stroke="none" fill="url(#texture-0)" fill-opacity="1.0"  x="0.0000" y="300.00" width="300.00" height="300.00"/>
+<g font-family="Impact" font-weight="bold" font-style="normal" font-size="60" >
+<text stroke="none" fill="#000000" fill-opacity="1.0" text-anchor="middle" baseline-shift="0.0000%"  x="150.00" y="450.00">
+&#x2729;Impact&#x2729;
+</text>
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,300.00,300.00)">
+<g stroke-width="8.0000" >
+<g stroke-linecap="butt" >
+<g stroke-linejoin="bevel" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 0.0000 0.0000 L 25.000 50.000 L -25.000 50.000 L 25.000 -50.000 L -25.000 -50.000 z "/>
+</g> <!-- draw -->
+<g stroke-width="3.0000" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<g stroke-dasharray="10.000,5.0000,2.0000,5.0000" stroke-dashoffset="0.0000" >
+<g transform="matrix(.80902,.58779,-.58779,.80902,0.0000,0.0000)">
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 0.0000 0.0000 L 25.000 50.000 L -25.000 50.000 L 25.000 -50.000 L -25.000 -50.000 z "/>
+</g> <!-- draw -->
+</g> <!-- transform -->
+</g> <!-- stroke dash -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+<g stroke-width="1.0000" >
+<g transform="matrix(1.0000,.50000,.50000,1.0000,0.0000,0.0000)">
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 0.0000 0.0000 L 25.000 50.000 L -25.000 50.000 L 25.000 -50.000 L -25.000 -50.000 z "/>
+</g> <!-- draw -->
+</g> <!-- transform -->
+</g> <!-- stroke width -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,450.00,450.00)">
+<ellipse stroke="none" fill="#000000" fill-opacity="1.0"  cx="0.0000" cy="0.0000" rx="60.000" ry="60.000" />
+<g stroke-width="4.0000" >
+<g stroke-linecap="round" >
+<g stroke-linejoin="round" >
+<ellipse stroke="#000000" stroke-opacity="1.0" fill="none"  cx=".50000" cy=".50000" rx="84.000" ry="84.000" />
+<g font-family="serif" font-weight="bold" font-style="normal" font-size="16" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="-66.000">
+O
+</text>
+<g transform="matrix(.70711,.70711,-.70711,.70711,0.0000,0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="-66.000">
+R
+</text>
+<g transform="matrix(.70711,.70711,-.70711,.70711,0.0000,0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="-66.000">
+A
+</text>
+<g transform="matrix(.70711,.70711,-.70711,.70711,0.0000,0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="-66.000">
+E
+</text>
+<g transform="matrix(.70711,.70711,-.70711,.70711,0.0000,0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="-66.000">
+T
+</text>
+<g transform="matrix(.70711,.70711,-.70711,.70711,0.0000,0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="-66.000">
+L
+</text>
+<g transform="matrix(.70711,.70711,-.70711,.70711,0.0000,0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="-66.000">
+A
+</text>
+<g transform="matrix(.70711,.70711,-.70711,.70711,0.0000,0.0000)">
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="-66.000">
+B
+</text>
+<g transform="matrix(.70711,.70711,-.70711,.70711,0.0000,0.0000)">
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- transform -->
+</g> <!-- font -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- transform -->
+</g> <!-- font -->
+</g> <!-- color -->
+</g> <!-- font -->
+</g> <!-- color -->
+</g> <!-- font -->
+</g> <!-- color -->
+</g> <!-- clip -->
+</g> <!-- font -->
+</g> <!-- stroke dash -->
+</g> <!-- stroke limit -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- font -->
+</g> <!-- transform -->
+</g> <!-- top-level -->
+</g> <!-- font -->
+</svg> <!-- bounding box -->

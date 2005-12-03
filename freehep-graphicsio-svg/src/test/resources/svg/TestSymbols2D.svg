@@ -1,0 +1,271 @@
+<?xml version="1.0" standalone="no"?>
+
+<svg 
+     version="1.1"
+     baseProfile="full"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events"
+     x="0px"
+     y="0px"
+     width="600px"
+     height="600px"
+     viewBox="0 0 600 600"
+     stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" 
+     >
+<title>
+
+</title>
+<desc>
+<Title></Title>
+<Creator>FreeHEP Graphics2D Driver</Creator>
+<Producer>org.freehep.graphicsio.svg.SVGGraphics2D</Producer>
+<Source></Source>
+</desc>
+<defs>
+<!-- Symbols for use with SVGGraphics (generic format) -->
+<!-- Author: Mark Donszelmann -->
+<!-- Version: $Id$ -->
+
+<symbol id="hline" viewBox="-50 -50 100 100">
+  <path d="M -50 0 H 50"/>
+</symbol>
+
+<symbol id="vline" viewBox="-50 -50 100 100">
+  <path d="M 0 -50 V 50"/>
+</symbol>
+
+<symbol id="plus" viewBox="-50 -50 100 100">
+  <path d="M -50 0 H 50 M 0 -50 V 50"/>
+</symbol>
+
+<symbol id="cross" viewBox="-50 -50 100 100">
+  <use xlink:href="#plus" transform="rotate(45)translate(-51,-51)"/>
+</symbol>
+
+<symbol id="star" viewBox="-50 -50 100 100">
+  <use xlink:href="#plus" transform="translate(-50,-50)"/>
+  <use xlink:href="#cross" transform="translate(-52,-51)"/>
+</symbol>
+
+<symbol id="dot" viewBox="-50 -50 100 100">
+  <circle cx="0" cy="0" r="50"/>
+</symbol>
+
+<!-- sqrt(2)*s -->
+<symbol id="box" viewBox="-50 -50 100 100">
+  <rect x="-35.5" y="-35.5" width="71" height="71"/>
+</symbol>
+
+<!-- 1/sqrt(3) and sqrt(3)/2 - 1/sqrt(3) -->
+<symbol id="triup" viewBox="-50 -50 100 100">
+  <path d="M -50 36 L 0 -50 L 50 36 z"/> 
+</symbol>
+
+<symbol id="tridn" viewBox="-50 -50 100 100">
+  <use xlink:href="#triup" transform="rotate(180)translate(-50,-50)"/>
+</symbol>
+
+<symbol id="diamond" viewBox="-50 -50 100 100">
+  <use xlink:href="#box" transform="rotate(45)translate(-50,-50)"/>
+</symbol>
+<!-- Symbols for use with SVGGraphics (stylable format) -->
+<!-- Author: Mark Donszelmann -->
+<!-- Version: $Id$ -->
+
+<symbol id="fdot">
+  <use xlink:href="#dot" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="fbox">
+  <use xlink:href="#box" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="ftriup">
+  <use xlink:href="#triup" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="ftridn">
+  <use xlink:href="#tridn" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="fdiamond">
+  <use xlink:href="#diamond" style="stroke:none;fill:currentColor"/>
+</symbol>
+</defs>
+
+<g stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" >
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,0.0000)">
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g stroke-width="1.0000" >
+<g stroke-linecap="square" >
+<g stroke-linejoin="miter" >
+<g stroke-miterlimit="10.000" >
+<g stroke-dasharray="none" stroke-dashoffset="0.0000" >
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<clipPath id="clip0">
+<path d="M 0.0000 0.0000 L 600.00 0.0000 L 600.00 600.00 L 0.0000 600.00 L 0.0000 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip0)">
+<rect stroke="none" fill="#ff0000" fill-opacity="1.0"  x="0.0000" y="0.0000" width="600.00" height="600.00"/>
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 60.000 12.000 L 60.000 62.000 "/>
+</g> <!-- draw -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 155.00 37.000 L 205.00 37.000 "/>
+</g> <!-- draw -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 325.00 37.000 L 275.00 37.000 M 300.00 62.000 L 300.00 12.000 "/>
+</g> <!-- draw -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 402.32 19.322 L 437.68 54.678 M 437.68 19.322 L 402.32 54.678 "/>
+</g> <!-- draw -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 540.00 12.000 L 540.00 62.000 M 515.00 37.000 L 565.00 37.000 M 522.32 19.322 L 557.68 54.678 M 557.68 19.322 L 522.32 54.678 "/>
+</g> <!-- draw -->
+<g stroke-width="5.0000" >
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 60.000 87.000 L 60.000 137.00 "/>
+</g> <!-- draw -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 155.00 112.00 L 205.00 112.00 "/>
+</g> <!-- draw -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 325.00 112.00 L 275.00 112.00 M 300.00 137.00 L 300.00 87.000 "/>
+</g> <!-- draw -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 402.32 94.322 L 437.68 129.68 M 437.68 94.322 L 402.32 129.68 "/>
+</g> <!-- draw -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 540.00 87.000 L 540.00 137.00 M 515.00 112.00 L 565.00 112.00 M 522.32 94.322 L 557.68 129.68 M 557.68 94.322 L 522.32 129.68 "/>
+</g> <!-- draw -->
+<g stroke-width="1.0000" >
+<ellipse stroke="#000000" stroke-opacity="1.0" fill="none"  cx="60.500" cy="187.50" rx="25.000" ry="25.000" />
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 162.32 169.32 L 198.68 169.32 L 198.68 205.68 L 162.32 205.68 z "/>
+</g> <!-- draw -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 300.00 158.13 L 275.00 201.43 L 325.00 201.43 z "/>
+</g> <!-- draw -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 420.00 215.87 L 395.00 172.57 L 445.00 172.57 z "/>
+</g> <!-- draw -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 565.00 187.00 L 540.00 212.00 L 515.00 187.00 L 540.00 162.00 z "/>
+</g> <!-- draw -->
+<g stroke-width="5.0000" >
+<ellipse stroke="#000000" stroke-opacity="1.0" fill="none"  cx="60.500" cy="262.50" rx="25.000" ry="25.000" />
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 162.32 244.32 L 198.68 244.32 L 198.68 280.68 L 162.32 280.68 z "/>
+</g> <!-- draw -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 300.00 233.13 L 275.00 276.43 L 325.00 276.43 z "/>
+</g> <!-- draw -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 420.00 290.87 L 395.00 247.57 L 445.00 247.57 z "/>
+</g> <!-- draw -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 565.00 262.00 L 540.00 287.00 L 515.00 262.00 L 540.00 237.00 z "/>
+</g> <!-- draw -->
+<g stroke-width="1.0000" >
+<ellipse stroke="none" fill="#000000" fill-opacity="1.0"  cx="60.000" cy="337.00" rx="25.000" ry="25.000" />
+<g stroke="none" fill="#000000" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 162.32 319.32 L 198.68 319.32 L 198.68 355.68 L 162.32 355.68 z "/>
+</g> <!-- fill -->
+<g stroke="none" fill="#000000" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 300.00 308.13 L 275.00 351.43 L 325.00 351.43 z "/>
+</g> <!-- fill -->
+<g stroke="none" fill="#000000" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 420.00 365.87 L 395.00 322.57 L 445.00 322.57 z "/>
+</g> <!-- fill -->
+<g stroke="none" fill="#000000" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 565.00 337.00 L 540.00 362.00 L 515.00 337.00 L 540.00 312.00 z "/>
+</g> <!-- fill -->
+<g stroke-width="5.0000" >
+<ellipse stroke="none" fill="#000000" fill-opacity="1.0"  cx="60.000" cy="412.00" rx="25.000" ry="25.000" />
+<g stroke="none" fill="#000000" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 162.32 394.32 L 198.68 394.32 L 198.68 430.68 L 162.32 430.68 z "/>
+</g> <!-- fill -->
+<g stroke="none" fill="#000000" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 300.00 383.13 L 275.00 426.43 L 325.00 426.43 z "/>
+</g> <!-- fill -->
+<g stroke="none" fill="#000000" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 420.00 440.87 L 395.00 397.57 L 445.00 397.57 z "/>
+</g> <!-- fill -->
+<g stroke="none" fill="#000000" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 565.00 412.00 L 540.00 437.00 L 515.00 412.00 L 540.00 387.00 z "/>
+</g> <!-- fill -->
+<g stroke-width="1.0000" >
+<ellipse stroke="none" fill="#00ffff" fill-opacity="1.0"  cx="60.000" cy="487.00" rx="25.000" ry="25.000" />
+<ellipse stroke="#000000" stroke-opacity="1.0" fill="none"  cx="60.500" cy="487.50" rx="25.000" ry="25.000" />
+<g stroke="none" fill="#00ffff" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 162.32 469.32 L 198.68 469.32 L 198.68 505.68 L 162.32 505.68 z "/>
+</g> <!-- fill -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 162.32 469.32 L 198.68 469.32 L 198.68 505.68 L 162.32 505.68 z "/>
+</g> <!-- draw -->
+<g stroke="none" fill="#00ffff" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 300.00 458.13 L 275.00 501.43 L 325.00 501.43 z "/>
+</g> <!-- fill -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 300.00 458.13 L 275.00 501.43 L 325.00 501.43 z "/>
+</g> <!-- draw -->
+<g stroke="none" fill="#00ffff" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 420.00 515.87 L 395.00 472.57 L 445.00 472.57 z "/>
+</g> <!-- fill -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 420.00 515.87 L 395.00 472.57 L 445.00 472.57 z "/>
+</g> <!-- draw -->
+<g stroke="none" fill="#00ffff" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 565.00 487.00 L 540.00 512.00 L 515.00 487.00 L 540.00 462.00 z "/>
+</g> <!-- fill -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 565.00 487.00 L 540.00 512.00 L 515.00 487.00 L 540.00 462.00 z "/>
+</g> <!-- draw -->
+<g stroke-width="5.0000" >
+<ellipse stroke="none" fill="#00ffff" fill-opacity="1.0"  cx="60.000" cy="562.00" rx="25.000" ry="25.000" />
+<ellipse stroke="#000000" stroke-opacity="1.0" fill="none"  cx="60.500" cy="562.50" rx="25.000" ry="25.000" />
+<g stroke="none" fill="#00ffff" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 162.32 544.32 L 198.68 544.32 L 198.68 580.68 L 162.32 580.68 z "/>
+</g> <!-- fill -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 162.32 544.32 L 198.68 544.32 L 198.68 580.68 L 162.32 580.68 z "/>
+</g> <!-- draw -->
+<g stroke="none" fill="#00ffff" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 300.00 533.13 L 275.00 576.43 L 325.00 576.43 z "/>
+</g> <!-- fill -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 300.00 533.13 L 275.00 576.43 L 325.00 576.43 z "/>
+</g> <!-- draw -->
+<g stroke="none" fill="#00ffff" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 420.00 590.87 L 395.00 547.57 L 445.00 547.57 z "/>
+</g> <!-- fill -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 420.00 590.87 L 395.00 547.57 L 445.00 547.57 z "/>
+</g> <!-- draw -->
+<g stroke="none" fill="#00ffff" fill-opacity="1.0" fill-rule="nonzero" >
+<path d="M 565.00 562.00 L 540.00 587.00 L 515.00 562.00 L 540.00 537.00 z "/>
+</g> <!-- fill -->
+<g stroke="#000000" stroke-opacity="1.0" fill="none" >
+<path d="M 565.00 562.00 L 540.00 587.00 L 515.00 562.00 L 540.00 537.00 z "/>
+</g> <!-- draw -->
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- clip -->
+</g> <!-- font -->
+</g> <!-- stroke dash -->
+</g> <!-- stroke limit -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- font -->
+</g> <!-- transform -->
+</g> <!-- top-level -->
+</g> <!-- font -->
+</svg> <!-- bounding box -->

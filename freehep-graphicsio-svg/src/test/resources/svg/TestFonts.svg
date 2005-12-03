@@ -1,0 +1,2741 @@
+<?xml version="1.0" standalone="no"?>
+
+<svg 
+     version="1.1"
+     baseProfile="full"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events"
+     x="0px"
+     y="0px"
+     width="600px"
+     height="600px"
+     viewBox="0 0 600 600"
+     stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" 
+     >
+<title>
+
+</title>
+<desc>
+<Title></Title>
+<Creator>FreeHEP Graphics2D Driver</Creator>
+<Producer>org.freehep.graphicsio.svg.SVGGraphics2D</Producer>
+<Source></Source>
+</desc>
+<defs>
+<!-- Symbols for use with SVGGraphics (generic format) -->
+<!-- Author: Mark Donszelmann -->
+<!-- Version: $Id$ -->
+
+<symbol id="hline" viewBox="-50 -50 100 100">
+  <path d="M -50 0 H 50"/>
+</symbol>
+
+<symbol id="vline" viewBox="-50 -50 100 100">
+  <path d="M 0 -50 V 50"/>
+</symbol>
+
+<symbol id="plus" viewBox="-50 -50 100 100">
+  <path d="M -50 0 H 50 M 0 -50 V 50"/>
+</symbol>
+
+<symbol id="cross" viewBox="-50 -50 100 100">
+  <use xlink:href="#plus" transform="rotate(45)translate(-51,-51)"/>
+</symbol>
+
+<symbol id="star" viewBox="-50 -50 100 100">
+  <use xlink:href="#plus" transform="translate(-50,-50)"/>
+  <use xlink:href="#cross" transform="translate(-52,-51)"/>
+</symbol>
+
+<symbol id="dot" viewBox="-50 -50 100 100">
+  <circle cx="0" cy="0" r="50"/>
+</symbol>
+
+<!-- sqrt(2)*s -->
+<symbol id="box" viewBox="-50 -50 100 100">
+  <rect x="-35.5" y="-35.5" width="71" height="71"/>
+</symbol>
+
+<!-- 1/sqrt(3) and sqrt(3)/2 - 1/sqrt(3) -->
+<symbol id="triup" viewBox="-50 -50 100 100">
+  <path d="M -50 36 L 0 -50 L 50 36 z"/> 
+</symbol>
+
+<symbol id="tridn" viewBox="-50 -50 100 100">
+  <use xlink:href="#triup" transform="rotate(180)translate(-50,-50)"/>
+</symbol>
+
+<symbol id="diamond" viewBox="-50 -50 100 100">
+  <use xlink:href="#box" transform="rotate(45)translate(-50,-50)"/>
+</symbol>
+<!-- Symbols for use with SVGGraphics (stylable format) -->
+<!-- Author: Mark Donszelmann -->
+<!-- Version: $Id$ -->
+
+<symbol id="fdot">
+  <use xlink:href="#dot" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="fbox">
+  <use xlink:href="#box" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="ftriup">
+  <use xlink:href="#triup" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="ftridn">
+  <use xlink:href="#tridn" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="fdiamond">
+  <use xlink:href="#diamond" style="stroke:none;fill:currentColor"/>
+</symbol>
+</defs>
+
+<g stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" >
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,0.0000)">
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g stroke-width="1.0000" >
+<g stroke-linecap="square" >
+<g stroke-linejoin="miter" >
+<g stroke-miterlimit="10.000" >
+<g stroke-dasharray="none" stroke-dashoffset="0.0000" >
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<clipPath id="clip0">
+<path d="M 0.0000 0.0000 L 600.00 0.0000 L 600.00 600.00 L 0.0000 600.00 L 0.0000 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip0)">
+<rect stroke="none" fill="#ffffff" fill-opacity="1.0"  x="0.0000" y="0.0000" width="600.00" height="600.00"/>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="20.000">
+[java.awt.Font[family=Serif,name=Serif,style=plain,size=12]]
+</text>
+<line stroke="#000000" stroke-opacity="1.0" fill="none"  x1="10.500" y1="40.500" x2="200.50" y2="40.500" />
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="40.000">
+This font is a standard font: Serif.
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="75.000">
+[java.awt.Font[family=Monotype Corsiva,name=Monotype Corsiva,style=plain,size=12]]
+</text>
+<line stroke="#000000" stroke-opacity="1.0" fill="none"  x1="10.500" y1="95.500" x2="200.50" y2="95.500" />
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="95.000">
+This font is a special font: Monotype Corsiva.
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="25.000" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="25.000" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="40.000" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="40.000" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="55.000" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="55.000" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="70.000" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="70.000" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="85.000" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="85.000" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="100.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="100.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="115.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="115.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="130.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="130.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="145.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="145.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="160.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="160.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="175.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="175.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="190.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="190.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="205.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="205.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="220.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="220.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="235.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="235.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="250.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="250.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="265.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="265.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="280.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="280.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="295.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="295.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="310.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="310.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="325.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="325.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="340.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="340.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="355.00" y="150.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="355.00" y="165.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="370.00" y="150.00">
+ &#x02d8;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="370.00" y="165.00">
+ &#x02d8;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="385.00" y="150.00">
+ &#x02c7;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="385.00" y="165.00">
+ &#x02c7;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="400.00" y="150.00">
+ &#x02c6;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="400.00" y="165.00">
+ &#x02c6;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="415.00" y="150.00">
+ &#x02d9;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="415.00" y="165.00">
+ &#x02d9;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="430.00" y="150.00">
+ &#x02ba;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="430.00" y="165.00">
+ &#x02ba;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="445.00" y="150.00">
+ &#x02db;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="445.00" y="165.00">
+ &#x02db;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="460.00" y="150.00">
+ &#x02da;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="460.00" y="165.00">
+ &#x02da;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="475.00" y="150.00">
+ &#x02dc;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="475.00" y="165.00">
+ &#x02dc;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="185.00">
+  
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="200.00">
+  
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="25.000" y="185.00">
+ !
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="25.000" y="200.00">
+ !
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="40.000" y="185.00">
+ "
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="40.000" y="200.00">
+ "
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="55.000" y="185.00">
+ #
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="55.000" y="200.00">
+ #
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="70.000" y="185.00">
+ $
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="70.000" y="200.00">
+ $
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="85.000" y="185.00">
+ %
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="85.000" y="200.00">
+ %
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="100.00" y="185.00">
+ &amp;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="100.00" y="200.00">
+ &amp;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="115.00" y="185.00">
+ '
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="115.00" y="200.00">
+ '
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="130.00" y="185.00">
+ (
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="130.00" y="200.00">
+ (
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="145.00" y="185.00">
+ )
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="145.00" y="200.00">
+ )
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="160.00" y="185.00">
+ *
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="160.00" y="200.00">
+ *
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="175.00" y="185.00">
+ +
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="175.00" y="200.00">
+ +
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="190.00" y="185.00">
+ ,
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="190.00" y="200.00">
+ ,
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="205.00" y="185.00">
+ -
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="205.00" y="200.00">
+ -
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="220.00" y="185.00">
+ .
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="220.00" y="200.00">
+ .
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="235.00" y="185.00">
+ /
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="235.00" y="200.00">
+ /
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="250.00" y="185.00">
+ 0
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="250.00" y="200.00">
+ 0
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="265.00" y="185.00">
+ 1
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="265.00" y="200.00">
+ 1
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="280.00" y="185.00">
+ 2
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="280.00" y="200.00">
+ 2
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="295.00" y="185.00">
+ 3
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="295.00" y="200.00">
+ 3
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="310.00" y="185.00">
+ 4
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="310.00" y="200.00">
+ 4
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="325.00" y="185.00">
+ 5
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="325.00" y="200.00">
+ 5
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="340.00" y="185.00">
+ 6
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="340.00" y="200.00">
+ 6
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="355.00" y="185.00">
+ 7
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="355.00" y="200.00">
+ 7
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="370.00" y="185.00">
+ 8
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="370.00" y="200.00">
+ 8
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="385.00" y="185.00">
+ 9
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="385.00" y="200.00">
+ 9
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="400.00" y="185.00">
+ :
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="400.00" y="200.00">
+ :
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="415.00" y="185.00">
+ ;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="415.00" y="200.00">
+ ;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="430.00" y="185.00">
+ &lt;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="430.00" y="200.00">
+ &lt;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="445.00" y="185.00">
+ =
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="445.00" y="200.00">
+ =
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="460.00" y="185.00">
+ &gt;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="460.00" y="200.00">
+ &gt;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="475.00" y="185.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="475.00" y="200.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="220.00">
+ @
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="235.00">
+ @
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="25.000" y="220.00">
+ A
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="25.000" y="235.00">
+ A
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="40.000" y="220.00">
+ B
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="40.000" y="235.00">
+ B
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="55.000" y="220.00">
+ C
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="55.000" y="235.00">
+ C
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="70.000" y="220.00">
+ D
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="70.000" y="235.00">
+ D
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="85.000" y="220.00">
+ E
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="85.000" y="235.00">
+ E
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="100.00" y="220.00">
+ F
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="100.00" y="235.00">
+ F
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="115.00" y="220.00">
+ G
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="115.00" y="235.00">
+ G
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="130.00" y="220.00">
+ H
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="130.00" y="235.00">
+ H
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="145.00" y="220.00">
+ I
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="145.00" y="235.00">
+ I
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="160.00" y="220.00">
+ J
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="160.00" y="235.00">
+ J
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="175.00" y="220.00">
+ K
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="175.00" y="235.00">
+ K
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="190.00" y="220.00">
+ L
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="190.00" y="235.00">
+ L
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="205.00" y="220.00">
+ M
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="205.00" y="235.00">
+ M
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="220.00" y="220.00">
+ N
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="220.00" y="235.00">
+ N
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="235.00" y="220.00">
+ O
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="235.00" y="235.00">
+ O
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="250.00" y="220.00">
+ P
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="250.00" y="235.00">
+ P
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="265.00" y="220.00">
+ Q
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="265.00" y="235.00">
+ Q
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="280.00" y="220.00">
+ R
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="280.00" y="235.00">
+ R
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="295.00" y="220.00">
+ S
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="295.00" y="235.00">
+ S
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="310.00" y="220.00">
+ T
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="310.00" y="235.00">
+ T
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="325.00" y="220.00">
+ U
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="325.00" y="235.00">
+ U
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="340.00" y="220.00">
+ V
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="340.00" y="235.00">
+ V
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="355.00" y="220.00">
+ W
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="355.00" y="235.00">
+ W
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="370.00" y="220.00">
+ X
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="370.00" y="235.00">
+ X
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="385.00" y="220.00">
+ Y
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="385.00" y="235.00">
+ Y
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="400.00" y="220.00">
+ Z
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="400.00" y="235.00">
+ Z
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="415.00" y="220.00">
+ [
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="415.00" y="235.00">
+ [
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="430.00" y="220.00">
+ \
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="430.00" y="235.00">
+ \
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="445.00" y="220.00">
+ ]
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="445.00" y="235.00">
+ ]
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="460.00" y="220.00">
+ ^
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="460.00" y="235.00">
+ ^
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="475.00" y="220.00">
+ _
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="475.00" y="235.00">
+ _
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="255.00">
+ `
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="270.00">
+ `
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="25.000" y="255.00">
+ a
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="25.000" y="270.00">
+ a
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="40.000" y="255.00">
+ b
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="40.000" y="270.00">
+ b
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="55.000" y="255.00">
+ c
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="55.000" y="270.00">
+ c
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="70.000" y="255.00">
+ d
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="70.000" y="270.00">
+ d
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="85.000" y="255.00">
+ e
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="85.000" y="270.00">
+ e
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="100.00" y="255.00">
+ f
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="100.00" y="270.00">
+ f
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="115.00" y="255.00">
+ g
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="115.00" y="270.00">
+ g
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="130.00" y="255.00">
+ h
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="130.00" y="270.00">
+ h
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="145.00" y="255.00">
+ i
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="145.00" y="270.00">
+ i
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="160.00" y="255.00">
+ j
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="160.00" y="270.00">
+ j
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="175.00" y="255.00">
+ k
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="175.00" y="270.00">
+ k
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="190.00" y="255.00">
+ l
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="190.00" y="270.00">
+ l
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="205.00" y="255.00">
+ m
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="205.00" y="270.00">
+ m
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="220.00" y="255.00">
+ n
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="220.00" y="270.00">
+ n
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="235.00" y="255.00">
+ o
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="235.00" y="270.00">
+ o
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="250.00" y="255.00">
+ p
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="250.00" y="270.00">
+ p
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="265.00" y="255.00">
+ q
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="265.00" y="270.00">
+ q
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="280.00" y="255.00">
+ r
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="280.00" y="270.00">
+ r
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="295.00" y="255.00">
+ s
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="295.00" y="270.00">
+ s
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="310.00" y="255.00">
+ t
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="310.00" y="270.00">
+ t
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="325.00" y="255.00">
+ u
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="325.00" y="270.00">
+ u
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="340.00" y="255.00">
+ v
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="340.00" y="270.00">
+ v
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="355.00" y="255.00">
+ w
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="355.00" y="270.00">
+ w
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="370.00" y="255.00">
+ x
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="370.00" y="270.00">
+ x
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="385.00" y="255.00">
+ y
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="385.00" y="270.00">
+ y
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="400.00" y="255.00">
+ z
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="400.00" y="270.00">
+ z
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="415.00" y="255.00">
+ {
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="415.00" y="270.00">
+ {
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="430.00" y="255.00">
+ |
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="430.00" y="270.00">
+ |
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="445.00" y="255.00">
+ }
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="445.00" y="270.00">
+ }
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="460.00" y="255.00">
+ ~
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="460.00" y="270.00">
+ ~
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="475.00" y="255.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="475.00" y="270.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="290.00">
+ &#x2022;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="305.00">
+ &#x2022;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="25.000" y="290.00">
+ &#x2020;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="25.000" y="305.00">
+ &#x2020;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="40.000" y="290.00">
+ &#x2021;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="40.000" y="305.00">
+ &#x2021;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="55.000" y="290.00">
+ &#x2026;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="55.000" y="305.00">
+ &#x2026;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="70.000" y="290.00">
+ -
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="70.000" y="305.00">
+ -
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="85.000" y="290.00">
+ -
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="85.000" y="305.00">
+ -
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="100.00" y="290.00">
+ &#x0192;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="100.00" y="305.00">
+ &#x0192;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="115.00" y="290.00">
+ &#x2044;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="115.00" y="305.00">
+ &#x2044;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="130.00" y="290.00">
+ &#x2039;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="130.00" y="305.00">
+ &#x2039;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="145.00" y="290.00">
+ &#x203a;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="145.00" y="305.00">
+ &#x203a;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="160.00" y="290.00">
+ &#x2212;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="160.00" y="305.00">
+ &#x2212;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="175.00" y="290.00">
+ &#x2030;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="175.00" y="305.00">
+ &#x2030;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="190.00" y="290.00">
+ &#x201e;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="190.00" y="305.00">
+ &#x201e;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="205.00" y="290.00">
+ &#x201c;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="205.00" y="305.00">
+ &#x201c;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="220.00" y="290.00">
+ &#x201d;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="220.00" y="305.00">
+ &#x201d;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="235.00" y="290.00">
+ `
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="235.00" y="305.00">
+ `
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="250.00" y="290.00">
+ '
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="250.00" y="305.00">
+ '
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="265.00" y="290.00">
+ &#x201a;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="265.00" y="305.00">
+ &#x201a;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="280.00" y="290.00">
+ &#x2122;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="280.00" y="305.00">
+ &#x2122;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="295.00" y="290.00">
+ &#xfb01;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="295.00" y="305.00">
+ &#xfb01;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="310.00" y="290.00">
+ &#xfb02;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="310.00" y="305.00">
+ &#xfb02;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="325.00" y="290.00">
+ &#x0141;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="325.00" y="305.00">
+ &#x0141;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="340.00" y="290.00">
+ &#x0152;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="340.00" y="305.00">
+ &#x0152;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="355.00" y="290.00">
+ &#x0160;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="355.00" y="305.00">
+ &#x0160;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="370.00" y="290.00">
+ &#x0178;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="370.00" y="305.00">
+ &#x0178;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="385.00" y="290.00">
+ &#x017d;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="385.00" y="305.00">
+ &#x017d;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="400.00" y="290.00">
+ &#x0131;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="400.00" y="305.00">
+ &#x0131;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="415.00" y="290.00">
+ &#x0142;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="415.00" y="305.00">
+ &#x0142;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="430.00" y="290.00">
+ &#x0153;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="430.00" y="305.00">
+ &#x0153;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="445.00" y="290.00">
+ &#x0161;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="445.00" y="305.00">
+ &#x0161;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="460.00" y="290.00">
+ &#x017e;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="460.00" y="305.00">
+ &#x017e;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="475.00" y="290.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="475.00" y="305.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="325.00">
+ &#x20ac;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="340.00">
+ &#x20ac;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="25.000" y="325.00">
+ &#x00a1;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="25.000" y="340.00">
+ &#x00a1;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="40.000" y="325.00">
+ &#x00a2;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="40.000" y="340.00">
+ &#x00a2;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="55.000" y="325.00">
+ &#x00a3;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="55.000" y="340.00">
+ &#x00a3;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="70.000" y="325.00">
+ &#x00a4;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="70.000" y="340.00">
+ &#x00a4;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="85.000" y="325.00">
+ &#x00a5;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="85.000" y="340.00">
+ &#x00a5;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="100.00" y="325.00">
+ &#x00a6;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="100.00" y="340.00">
+ &#x00a6;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="115.00" y="325.00">
+ &#x00a7;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="115.00" y="340.00">
+ &#x00a7;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="130.00" y="325.00">
+ &#x00a8;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="130.00" y="340.00">
+ &#x00a8;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="145.00" y="325.00">
+ &#x00a9;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="145.00" y="340.00">
+ &#x00a9;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="160.00" y="325.00">
+ &#x00aa;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="160.00" y="340.00">
+ &#x00aa;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="175.00" y="325.00">
+ &#x00ab;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="175.00" y="340.00">
+ &#x00ab;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="190.00" y="325.00">
+ &#x00ac;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="190.00" y="340.00">
+ &#x00ac;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="205.00" y="325.00">
+ ?
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="205.00" y="340.00">
+ ?
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="220.00" y="325.00">
+ &#x00ae;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="220.00" y="340.00">
+ &#x00ae;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="235.00" y="325.00">
+ &#x00af;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="235.00" y="340.00">
+ &#x00af;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="250.00" y="325.00">
+ &#x00b0;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="250.00" y="340.00">
+ &#x00b0;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="265.00" y="325.00">
+ &#x00b1;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="265.00" y="340.00">
+ &#x00b1;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="280.00" y="325.00">
+ &#x00b2;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="280.00" y="340.00">
+ &#x00b2;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="295.00" y="325.00">
+ &#x00b3;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="295.00" y="340.00">
+ &#x00b3;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="310.00" y="325.00">
+ &#x00b4;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="310.00" y="340.00">
+ &#x00b4;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="325.00" y="325.00">
+ &#x03bc;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="325.00" y="340.00">
+ &#x03bc;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="340.00" y="325.00">
+ &#x00b6;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="340.00" y="340.00">
+ &#x00b6;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="355.00" y="325.00">
+ &#x00b7;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="355.00" y="340.00">
+ &#x00b7;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="370.00" y="325.00">
+ &#x00b8;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="370.00" y="340.00">
+ &#x00b8;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="385.00" y="325.00">
+ &#x00b9;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="385.00" y="340.00">
+ &#x00b9;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="400.00" y="325.00">
+ &#x00ba;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="400.00" y="340.00">
+ &#x00ba;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="415.00" y="325.00">
+ &#x00bb;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="415.00" y="340.00">
+ &#x00bb;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="430.00" y="325.00">
+ &#x00bc;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="430.00" y="340.00">
+ &#x00bc;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="445.00" y="325.00">
+ &#x00bd;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="445.00" y="340.00">
+ &#x00bd;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="460.00" y="325.00">
+ &#x00be;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="460.00" y="340.00">
+ &#x00be;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="475.00" y="325.00">
+ &#x00bf;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="475.00" y="340.00">
+ &#x00bf;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="360.00">
+ &#x00c0;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="375.00">
+ &#x00c0;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="25.000" y="360.00">
+ &#x00c1;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="25.000" y="375.00">
+ &#x00c1;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="40.000" y="360.00">
+ &#x00c2;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="40.000" y="375.00">
+ &#x00c2;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="55.000" y="360.00">
+ &#x00c3;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="55.000" y="375.00">
+ &#x00c3;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="70.000" y="360.00">
+ &#x00c4;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="70.000" y="375.00">
+ &#x00c4;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="85.000" y="360.00">
+ &#x00c5;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="85.000" y="375.00">
+ &#x00c5;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="100.00" y="360.00">
+ &#x00c6;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="100.00" y="375.00">
+ &#x00c6;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="115.00" y="360.00">
+ &#x00c7;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="115.00" y="375.00">
+ &#x00c7;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="130.00" y="360.00">
+ &#x00c8;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="130.00" y="375.00">
+ &#x00c8;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="145.00" y="360.00">
+ &#x00c9;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="145.00" y="375.00">
+ &#x00c9;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="160.00" y="360.00">
+ &#x00ca;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="160.00" y="375.00">
+ &#x00ca;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="175.00" y="360.00">
+ &#x00cb;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="175.00" y="375.00">
+ &#x00cb;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="190.00" y="360.00">
+ &#x00cc;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="190.00" y="375.00">
+ &#x00cc;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="205.00" y="360.00">
+ &#x00cd;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="205.00" y="375.00">
+ &#x00cd;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="220.00" y="360.00">
+ &#x00ce;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="220.00" y="375.00">
+ &#x00ce;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="235.00" y="360.00">
+ &#x00cf;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="235.00" y="375.00">
+ &#x00cf;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="250.00" y="360.00">
+ &#x00d0;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="250.00" y="375.00">
+ &#x00d0;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="265.00" y="360.00">
+ &#x00d1;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="265.00" y="375.00">
+ &#x00d1;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="280.00" y="360.00">
+ &#x00d3;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="280.00" y="375.00">
+ &#x00d3;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="295.00" y="360.00">
+ &#x00d2;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="295.00" y="375.00">
+ &#x00d2;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="310.00" y="360.00">
+ &#x00d4;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="310.00" y="375.00">
+ &#x00d4;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="325.00" y="360.00">
+ &#x00d5;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="325.00" y="375.00">
+ &#x00d5;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="340.00" y="360.00">
+ &#x00d6;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="340.00" y="375.00">
+ &#x00d6;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="355.00" y="360.00">
+ &#x00d7;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="355.00" y="375.00">
+ &#x00d7;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="370.00" y="360.00">
+ &#x00d8;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="370.00" y="375.00">
+ &#x00d8;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="385.00" y="360.00">
+ &#x00d9;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="385.00" y="375.00">
+ &#x00d9;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="400.00" y="360.00">
+ &#x00da;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="400.00" y="375.00">
+ &#x00da;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="415.00" y="360.00">
+ &#x00db;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="415.00" y="375.00">
+ &#x00db;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="430.00" y="360.00">
+ &#x00dc;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="430.00" y="375.00">
+ &#x00dc;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="445.00" y="360.00">
+ &#x00dd;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="445.00" y="375.00">
+ &#x00dd;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="460.00" y="360.00">
+ &#x00de;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="460.00" y="375.00">
+ &#x00de;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="475.00" y="360.00">
+ &#x00df;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="475.00" y="375.00">
+ &#x00df;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="395.00">
+ &#x00e0;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="10.000" y="410.00">
+ &#x00e0;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="25.000" y="395.00">
+ &#x00e1;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="25.000" y="410.00">
+ &#x00e1;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="40.000" y="395.00">
+ &#x00e2;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="40.000" y="410.00">
+ &#x00e2;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="55.000" y="395.00">
+ &#x00e3;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="55.000" y="410.00">
+ &#x00e3;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="70.000" y="395.00">
+ &#x00e4;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="70.000" y="410.00">
+ &#x00e4;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="85.000" y="395.00">
+ &#x00e5;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="85.000" y="410.00">
+ &#x00e5;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="100.00" y="395.00">
+ &#x00e6;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="100.00" y="410.00">
+ &#x00e6;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="115.00" y="395.00">
+ &#x00e7;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="115.00" y="410.00">
+ &#x00e7;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="130.00" y="395.00">
+ &#x00e8;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="130.00" y="410.00">
+ &#x00e8;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="145.00" y="395.00">
+ &#x00e9;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="145.00" y="410.00">
+ &#x00e9;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="160.00" y="395.00">
+ &#x00ea;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="160.00" y="410.00">
+ &#x00ea;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="175.00" y="395.00">
+ &#x00eb;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="175.00" y="410.00">
+ &#x00eb;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="190.00" y="395.00">
+ &#x00ec;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="190.00" y="410.00">
+ &#x00ec;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="205.00" y="395.00">
+ &#x00ed;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="205.00" y="410.00">
+ &#x00ed;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="220.00" y="395.00">
+ &#x00ee;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="220.00" y="410.00">
+ &#x00ee;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="235.00" y="395.00">
+ &#x00ef;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="235.00" y="410.00">
+ &#x00ef;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="250.00" y="395.00">
+ &#x00f0;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="250.00" y="410.00">
+ &#x00f0;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="265.00" y="395.00">
+ &#x00f1;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="265.00" y="410.00">
+ &#x00f1;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="280.00" y="395.00">
+ &#x00f2;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="280.00" y="410.00">
+ &#x00f2;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="295.00" y="395.00">
+ &#x00f3;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="295.00" y="410.00">
+ &#x00f3;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="310.00" y="395.00">
+ &#x00f4;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="310.00" y="410.00">
+ &#x00f4;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="325.00" y="395.00">
+ &#x00f5;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="325.00" y="410.00">
+ &#x00f5;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="340.00" y="395.00">
+ &#x00f6;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="340.00" y="410.00">
+ &#x00f6;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="355.00" y="395.00">
+ &#x00f7;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="355.00" y="410.00">
+ &#x00f7;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="370.00" y="395.00">
+ &#x00f8;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="370.00" y="410.00">
+ &#x00f8;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="385.00" y="395.00">
+ &#x00f9;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="385.00" y="410.00">
+ &#x00f9;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="400.00" y="395.00">
+ &#x00fa;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="400.00" y="410.00">
+ &#x00fa;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="415.00" y="395.00">
+ &#x00fb;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="415.00" y="410.00">
+ &#x00fb;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="430.00" y="395.00">
+ &#x00fc;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="430.00" y="410.00">
+ &#x00fc;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="445.00" y="395.00">
+ &#x00fd;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="445.00" y="410.00">
+ &#x00fd;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="460.00" y="395.00">
+ &#x00fe;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="460.00" y="410.00">
+ &#x00fe;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="475.00" y="395.00">
+ &#x00ff;
+</text>
+<g font-family="Monotype Corsiva" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="475.00" y="410.00">
+ &#x00ff;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="20.000" y="485.00">
+Symbol Font:
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="200.00" y="485.00">
+&#x0391;&#x0392;&#x03a7; &#x03b1;&#x03b2;&#x03c7; 123 .,!
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="20.000" y="505.00">
+Dingbats:
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="200.00" y="505.00">
+&#x2721;&#x2722;&#x2723; &#x2741;&#x2742;&#x2743; &#x2711;&#x2712;&#x2713; &#x270e;&#x270c;&#x2701;
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="20.000" y="525.00">
+Unicode chars (greek, dingbats): &#x03b1; &#x03b2; &#x03b3; &#x263a; &#x2665; &#x2729; &#x270c; in Serif
+</text>
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="20.000" y="545.00">
+Unicode chars (greek, dingbats): &#x03b1; &#x03b2; &#x03b3; &#x263a; &#x2665; &#x2729; &#x270c; in SansSerif
+</text>
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="20.000" y="565.00">
+Unicode chars (greek, dingbats): &#x03b1; &#x03b2; &#x03b3; &#x263a; &#x2665; &#x2729; &#x270c; in Dialog
+</text>
+<g font-family="monospace" font-weight="normal" font-style="normal" font-size="12" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="20.000" y="585.00">
+Unicode chars (greek, dingbats): &#x03b1; &#x03b2; &#x03b3; &#x263a; &#x2665; &#x2729; &#x270c; in Monospaced
+</text>
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- clip -->
+</g> <!-- font -->
+</g> <!-- stroke dash -->
+</g> <!-- stroke limit -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- font -->
+</g> <!-- transform -->
+</g> <!-- top-level -->
+</g> <!-- font -->
+</svg> <!-- bounding box -->

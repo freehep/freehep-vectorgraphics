@@ -1,0 +1,233 @@
+<?xml version="1.0" standalone="no"?>
+
+<svg 
+     version="1.1"
+     baseProfile="full"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events"
+     x="0px"
+     y="0px"
+     width="600px"
+     height="600px"
+     viewBox="0 0 600 600"
+     stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" 
+     >
+<title>
+
+</title>
+<desc>
+<Title></Title>
+<Creator>FreeHEP Graphics2D Driver</Creator>
+<Producer>org.freehep.graphicsio.svg.SVGGraphics2D</Producer>
+<Source></Source>
+</desc>
+<defs>
+<!-- Symbols for use with SVGGraphics (generic format) -->
+<!-- Author: Mark Donszelmann -->
+<!-- Version: $Id$ -->
+
+<symbol id="hline" viewBox="-50 -50 100 100">
+  <path d="M -50 0 H 50"/>
+</symbol>
+
+<symbol id="vline" viewBox="-50 -50 100 100">
+  <path d="M 0 -50 V 50"/>
+</symbol>
+
+<symbol id="plus" viewBox="-50 -50 100 100">
+  <path d="M -50 0 H 50 M 0 -50 V 50"/>
+</symbol>
+
+<symbol id="cross" viewBox="-50 -50 100 100">
+  <use xlink:href="#plus" transform="rotate(45)translate(-51,-51)"/>
+</symbol>
+
+<symbol id="star" viewBox="-50 -50 100 100">
+  <use xlink:href="#plus" transform="translate(-50,-50)"/>
+  <use xlink:href="#cross" transform="translate(-52,-51)"/>
+</symbol>
+
+<symbol id="dot" viewBox="-50 -50 100 100">
+  <circle cx="0" cy="0" r="50"/>
+</symbol>
+
+<!-- sqrt(2)*s -->
+<symbol id="box" viewBox="-50 -50 100 100">
+  <rect x="-35.5" y="-35.5" width="71" height="71"/>
+</symbol>
+
+<!-- 1/sqrt(3) and sqrt(3)/2 - 1/sqrt(3) -->
+<symbol id="triup" viewBox="-50 -50 100 100">
+  <path d="M -50 36 L 0 -50 L 50 36 z"/> 
+</symbol>
+
+<symbol id="tridn" viewBox="-50 -50 100 100">
+  <use xlink:href="#triup" transform="rotate(180)translate(-50,-50)"/>
+</symbol>
+
+<symbol id="diamond" viewBox="-50 -50 100 100">
+  <use xlink:href="#box" transform="rotate(45)translate(-50,-50)"/>
+</symbol>
+<!-- Symbols for use with SVGGraphics (stylable format) -->
+<!-- Author: Mark Donszelmann -->
+<!-- Version: $Id$ -->
+
+<symbol id="fdot">
+  <use xlink:href="#dot" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="fbox">
+  <use xlink:href="#box" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="ftriup">
+  <use xlink:href="#triup" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="ftridn">
+  <use xlink:href="#tridn" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="fdiamond">
+  <use xlink:href="#diamond" style="stroke:none;fill:currentColor"/>
+</symbol>
+</defs>
+
+<g stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" >
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,0.0000)">
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g stroke-width="1.0000" >
+<g stroke-linecap="square" >
+<g stroke-linejoin="miter" >
+<g stroke-miterlimit="10.000" >
+<g stroke-dasharray="none" stroke-dashoffset="0.0000" >
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<clipPath id="clip0">
+<path d="M 0.0000 0.0000 L 600.00 0.0000 L 600.00 600.00 L 0.0000 600.00 L 0.0000 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip0)">
+<rect stroke="none" fill="#ffffff" fill-opacity="1.0"  x="0.0000" y="0.0000" width="600.00" height="600.00"/>
+<line stroke="#ff0000" stroke-opacity="1.0" fill="none"  x1="5.5000" y1="67.500" x2="95.500" y2="7.5000" />
+<rect stroke="#00ff00" stroke-opacity="1.0" fill="none"  x="105.50" y="7.5000" width="90.000" height="61.000"/>
+<rect stroke="#0000ff" stroke-opacity="1.0" fill="none"  x="205.00" y="7.0000" width="90.000" height="61.000" rx="25.000" ry="25.000" />
+<path stroke="#00ffff" stroke-opacity="1.0" fill="none"  d="M 350.50 7.5000 A 45.000,30.500 0 0 0 318.68,59.567"/>
+<ellipse stroke="#ff00ff" stroke-opacity="1.0" fill="none"  cx="450.50" cy="38.000" rx="45.000" ry="30.500" />
+<polygon stroke="#ffff00" stroke-opacity="1.0" fill="none"  points="505.5,7.5 595.5,68.5 505.5,68.5 595.5,7.5 " />
+<polyline stroke="#ff0000" stroke-opacity="1.0" fill="none"  points="5.5,82.5 95.5,143.5 5.5,143.5 95.5,82.5 " />
+<rect stroke="none" fill="#00ff00" fill-opacity="1.0"  x="105.00" y="82.000" width="90.000" height="61.000"/>
+<rect stroke="#000000" stroke-opacity="1.0" fill="none"  x="105.50" y="82.500" width="90.000" height="61.000"/>
+<rect stroke="none" fill="#0000ff" fill-opacity="1.0"  x="205.00" y="82.000" width="90.000" height="61.000" rx="25.000" ry="25.000" />
+<path stroke="none" fill="#00ffff" fill-opacity="1.0"  d="M 350.00 82.000 A 45.000,30.500 0 0 0 318.18,134.07 L 350.00 112.50 z"/>
+<ellipse stroke="none" fill="#ff00ff" fill-opacity="1.0"  cx="450.00" cy="112.50" rx="45.000" ry="30.500" />
+<polygon stroke="none" fill="#ffff00" fill-opacity="1.0" fill-rule="evenodd"  points="505,82 595,143 505,143 595,82 " />
+<polygon stroke="#000000" stroke-opacity="1.0" fill="none"  points="505.5,82.5 595.5,143.5 505.5,143.5 595.5,82.5 " />
+<g stroke-width="5.0000" >
+<line stroke="#ff0000" stroke-opacity="1.0" fill="none"  x1="5.5000" y1="217.50" x2="95.500" y2="157.50" />
+<rect stroke="#00ff00" stroke-opacity="1.0" fill="none"  x="105.50" y="157.50" width="90.000" height="61.000"/>
+<rect stroke="#0000ff" stroke-opacity="1.0" fill="none"  x="205.00" y="157.00" width="90.000" height="61.000" rx="25.000" ry="25.000" />
+<path stroke="#00ffff" stroke-opacity="1.0" fill="none"  d="M 350.50 157.50 A 45.000,30.500 0 0 0 318.68,209.57"/>
+<ellipse stroke="#ff00ff" stroke-opacity="1.0" fill="none"  cx="450.50" cy="188.00" rx="45.000" ry="30.500" />
+<polygon stroke="#ffff00" stroke-opacity="1.0" fill="none"  points="505.5,157.5 595.5,218.5 505.5,218.5 595.5,157.5 " />
+<polyline stroke="#ff0000" stroke-opacity="1.0" fill="none"  points="5.5,232.5 95.5,293.5 5.5,293.5 95.5,232.5 " />
+<rect stroke="none" fill="#00ff00" fill-opacity="1.0"  x="105.00" y="232.00" width="90.000" height="61.000"/>
+<rect stroke="#000000" stroke-opacity="1.0" fill="none"  x="105.50" y="232.50" width="90.000" height="61.000"/>
+<rect stroke="none" fill="#0000ff" fill-opacity="1.0"  x="205.00" y="232.00" width="90.000" height="61.000" rx="25.000" ry="25.000" />
+<path stroke="none" fill="#00ffff" fill-opacity="1.0"  d="M 350.00 232.00 A 45.000,30.500 0 0 0 318.18,284.07 L 350.00 262.50 z"/>
+<ellipse stroke="none" fill="#ff00ff" fill-opacity="1.0"  cx="450.00" cy="262.50" rx="45.000" ry="30.500" />
+<polygon stroke="none" fill="#ffff00" fill-opacity="1.0" fill-rule="evenodd"  points="505,232 595,293 505,293 595,232 " />
+<polygon stroke="#000000" stroke-opacity="1.0" fill="none"  points="505.5,232.5 595.5,293.5 505.5,293.5 595.5,232.5 " />
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="14" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="5.0000" y="307.00">
+SansSerif: The quick brown fox jumped over the lazy dog.
+</text>
+<g font-family="sans-serif" font-weight="bold" font-style="normal" font-size="14" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="5.0000" y="323.00">
+SansSerif (bold): The quick brown fox jumped over the lazy dog.
+</text>
+<g font-family="sans-serif" font-weight="normal" font-style="italic" font-size="14" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="5.0000" y="339.00">
+SansSerif (italic): The quick brown fox jumped over the lazy dog.
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="14" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="5.0000" y="355.00">
+Serif: The quick brown fox jumped over the lazy dog.
+</text>
+<g font-family="serif" font-weight="bold" font-style="normal" font-size="14" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="5.0000" y="371.00">
+Serif (bold): The quick brown fox jumped over the lazy dog.
+</text>
+<g font-family="serif" font-weight="normal" font-style="italic" font-size="14" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="5.0000" y="387.00">
+Serif (italic): The quick brown fox jumped over the lazy dog.
+</text>
+<g font-family="monospace" font-weight="normal" font-style="normal" font-size="14" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="5.0000" y="403.00">
+Monospaced: The quick brown fox jumped over the lazy dog.
+</text>
+<g font-family="monospace" font-weight="bold" font-style="normal" font-size="14" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="5.0000" y="419.00">
+Monospaced (bold): The quick brown fox jumped over the lazy dog.
+</text>
+<g font-family="monospace" font-weight="normal" font-style="italic" font-size="14" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="5.0000" y="435.00">
+Monospaced (italic): The quick brown fox jumped over the lazy dog.
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="14" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="5.0000" y="451.00">
+&#x03a3;&#x03c8;&#x03bc;&#x03b2;&#x03bf;&#x03bb;: &#x03a4;&#x03b7;&#x03b5; &#x03b8;&#x03c5;&#x03b9;&#x03c7;&#x03ba; &#x03b2;&#x03c1;&#x03bf;&#x03c9;&#x03bd; &#x03d5;&#x03bf;&#x03be; &#x03c6;&#x03c5;&#x03bc;&#x03c0;&#x03b5;&#x03b4; &#x03bf;&#x03d6;&#x03b5;&#x03c1; &#x03c4;&#x03b7;&#x03b5; &#x03bb;&#x03b1;&#x03b6;&#x03c8; &#x03b4;&#x03bf;&#x03b3;.
+</text>
+<g font-family="serif" font-weight="bold" font-style="normal" font-size="14" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="5.0000" y="467.00">
+&#x03a3;&#x03c8;&#x03bc;&#x03b2;&#x03bf;&#x03bb; (&#x03b2;&#x03bf;&#x03bb;&#x03b4;): &#x03a4;&#x03b7;&#x03b5; &#x03b8;&#x03c5;&#x03b9;&#x03c7;&#x03ba; &#x03b2;&#x03c1;&#x03bf;&#x03c9;&#x03bd; &#x03d5;&#x03bf;&#x03be; &#x03c6;&#x03c5;&#x03bc;&#x03c0;&#x03b5;&#x03b4; &#x03bf;&#x03d6;&#x03b5;&#x03c1; &#x03c4;&#x03b7;&#x03b5; &#x03bb;&#x03b1;&#x03b6;&#x03c8; &#x03b4;&#x03bf;&#x03b3;.
+</text>
+<g font-family="serif" font-weight="normal" font-style="italic" font-size="14" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="5.0000" y="483.00">
+&#x03a3;&#x03c8;&#x03bc;&#x03b2;&#x03bf;&#x03bb; (&#x03b9;&#x03c4;&#x03b1;&#x03bb;&#x03b9;&#x03c7;): &#x03a4;&#x03b7;&#x03b5; &#x03b8;&#x03c5;&#x03b9;&#x03c7;&#x03ba; &#x03b2;&#x03c1;&#x03bf;&#x03c9;&#x03bd; &#x03d5;&#x03bf;&#x03be; &#x03c6;&#x03c5;&#x03bc;&#x03c0;&#x03b5;&#x03b4; &#x03bf;&#x03d6;&#x03b5;&#x03c1; &#x03c4;&#x03b7;&#x03b5; &#x03bb;&#x03b1;&#x03b6;&#x03c8; &#x03b4;&#x03bf;&#x03b3;.
+</text>
+<g font-family="serif" font-weight="normal" font-style="normal" font-size="14" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="5.0000" y="499.00">
+&#x273a;&#x2741;&#x2750;&#x2746;&#x2724;&#x2749;&#x25a0;&#x2747;&#x2742;&#x2741;&#x25bc;&#x25b2;&#x271a; &#x2734;&#x2748;&#x2745; &#x2751;&#x25c6;&#x2749;&#x2743;&#x274b; &#x2742;&#x2752;&#x274f;&#x25d7;&#x25a0; &#x2746;&#x274f;&#x2758; &#x274a;&#x25c6;&#x274d;&#x2750;&#x2745;&#x2744; &#x274f;&#x2756;&#x2745;&#x2752; &#x25bc;&#x2748;&#x2745; &#x25cf;&#x2741;&#x275a;&#x2759; &#x2744;&#x274f;&#x2747;&#x270e;
+</text>
+<g font-family="serif" font-weight="bold" font-style="normal" font-size="14" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="5.0000" y="515.00">
+&#x273a;&#x2741;&#x2750;&#x2746;&#x2724;&#x2749;&#x25a0;&#x2747;&#x2742;&#x2741;&#x25bc;&#x25b2; &#x2708;&#x2742;&#x274f;&#x25cf;&#x2744;&#x2709;&#x271a; &#x2734;&#x2748;&#x2745; &#x2751;&#x25c6;&#x2749;&#x2743;&#x274b; &#x2742;&#x2752;&#x274f;&#x25d7;&#x25a0; &#x2746;&#x274f;&#x2758; &#x274a;&#x25c6;&#x274d;&#x2750;&#x2745;&#x2744; &#x274f;&#x2756;&#x2745;&#x2752; &#x25bc;&#x2748;&#x2745; &#x25cf;&#x2741;&#x275a;&#x2759; &#x2744;&#x274f;&#x2747;&#x270e;
+</text>
+<g font-family="serif" font-weight="normal" font-style="italic" font-size="14" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="5.0000" y="531.00">
+&#x273a;&#x2741;&#x2750;&#x2746;&#x2724;&#x2749;&#x25a0;&#x2747;&#x2742;&#x2741;&#x25bc;&#x25b2; &#x2708;&#x2749;&#x25bc;&#x2741;&#x25cf;&#x2749;&#x2743;&#x2709;&#x271a; &#x2734;&#x2748;&#x2745; &#x2751;&#x25c6;&#x2749;&#x2743;&#x274b; &#x2742;&#x2752;&#x274f;&#x25d7;&#x25a0; &#x2746;&#x274f;&#x2758; &#x274a;&#x25c6;&#x274d;&#x2750;&#x2745;&#x2744; &#x274f;&#x2756;&#x2745;&#x2752; &#x25bc;&#x2748;&#x2745; &#x25cf;&#x2741;&#x275a;&#x2759; &#x2744;&#x274f;&#x2747;&#x270e;
+</text>
+<g font-family="monospace" font-weight="normal" font-style="normal" font-size="14" >
+<text stroke="none" fill="#000000" fill-opacity="1.0"  x="5.0000" y="547.00">
+Unbalanced (( )) ))) ((( TEST! )T( (T)
+</text>
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- font -->
+</g> <!-- stroke width -->
+</g> <!-- clip -->
+</g> <!-- font -->
+</g> <!-- stroke dash -->
+</g> <!-- stroke limit -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- font -->
+</g> <!-- transform -->
+</g> <!-- top-level -->
+</g> <!-- font -->
+</svg> <!-- bounding box -->

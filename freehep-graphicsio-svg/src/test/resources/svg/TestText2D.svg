@@ -1,0 +1,244 @@
+<?xml version="1.0" standalone="no"?>
+
+<svg 
+     version="1.1"
+     baseProfile="full"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events"
+     x="0px"
+     y="0px"
+     width="600px"
+     height="600px"
+     viewBox="0 0 600 600"
+     stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" 
+     >
+<title>
+
+</title>
+<desc>
+<Title></Title>
+<Creator>FreeHEP Graphics2D Driver</Creator>
+<Producer>org.freehep.graphicsio.svg.SVGGraphics2D</Producer>
+<Source></Source>
+</desc>
+<defs>
+<!-- Symbols for use with SVGGraphics (generic format) -->
+<!-- Author: Mark Donszelmann -->
+<!-- Version: $Id$ -->
+
+<symbol id="hline" viewBox="-50 -50 100 100">
+  <path d="M -50 0 H 50"/>
+</symbol>
+
+<symbol id="vline" viewBox="-50 -50 100 100">
+  <path d="M 0 -50 V 50"/>
+</symbol>
+
+<symbol id="plus" viewBox="-50 -50 100 100">
+  <path d="M -50 0 H 50 M 0 -50 V 50"/>
+</symbol>
+
+<symbol id="cross" viewBox="-50 -50 100 100">
+  <use xlink:href="#plus" transform="rotate(45)translate(-51,-51)"/>
+</symbol>
+
+<symbol id="star" viewBox="-50 -50 100 100">
+  <use xlink:href="#plus" transform="translate(-50,-50)"/>
+  <use xlink:href="#cross" transform="translate(-52,-51)"/>
+</symbol>
+
+<symbol id="dot" viewBox="-50 -50 100 100">
+  <circle cx="0" cy="0" r="50"/>
+</symbol>
+
+<!-- sqrt(2)*s -->
+<symbol id="box" viewBox="-50 -50 100 100">
+  <rect x="-35.5" y="-35.5" width="71" height="71"/>
+</symbol>
+
+<!-- 1/sqrt(3) and sqrt(3)/2 - 1/sqrt(3) -->
+<symbol id="triup" viewBox="-50 -50 100 100">
+  <path d="M -50 36 L 0 -50 L 50 36 z"/> 
+</symbol>
+
+<symbol id="tridn" viewBox="-50 -50 100 100">
+  <use xlink:href="#triup" transform="rotate(180)translate(-50,-50)"/>
+</symbol>
+
+<symbol id="diamond" viewBox="-50 -50 100 100">
+  <use xlink:href="#box" transform="rotate(45)translate(-50,-50)"/>
+</symbol>
+<!-- Symbols for use with SVGGraphics (stylable format) -->
+<!-- Author: Mark Donszelmann -->
+<!-- Version: $Id$ -->
+
+<symbol id="fdot">
+  <use xlink:href="#dot" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="fbox">
+  <use xlink:href="#box" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="ftriup">
+  <use xlink:href="#triup" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="ftridn">
+  <use xlink:href="#tridn" style="stroke:none;fill:currentColor"/>
+</symbol>
+
+<symbol id="fdiamond">
+  <use xlink:href="#diamond" style="stroke:none;fill:currentColor"/>
+</symbol>
+</defs>
+
+<g stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" >
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,0.0000)">
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g stroke-width="1.0000" >
+<g stroke-linecap="square" >
+<g stroke-linejoin="miter" >
+<g stroke-miterlimit="10.000" >
+<g stroke-dasharray="none" stroke-dashoffset="0.0000" >
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<clipPath id="clip0">
+<path d="M 0.0000 0.0000 L 600.00 0.0000 L 600.00 600.00 L 0.0000 600.00 L 0.0000 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip0)">
+<rect stroke="none" fill="#ffffff" fill-opacity="1.0"  x="0.0000" y="0.0000" width="600.00" height="600.00"/>
+<line stroke="#00ff00" stroke-opacity="1.0" fill="none"  x1=".50000" y1="30.500" x2="600.50" y2="30.500" />
+<line stroke="#00ff00" stroke-opacity="1.0" fill="none"  x1=".50000" y1="90.500" x2="600.50" y2="90.500" />
+<line stroke="#00ff00" stroke-opacity="1.0" fill="none"  x1=".50000" y1="150.50" x2="600.50" y2="150.50" />
+<line stroke="#00ff00" stroke-opacity="1.0" fill="none"  x1=".50000" y1="210.50" x2="600.50" y2="210.50" />
+<line stroke="#00ff00" stroke-opacity="1.0" fill="none"  x1=".50000" y1="270.50" x2="600.50" y2="270.50" />
+<line stroke="#00ff00" stroke-opacity="1.0" fill="none"  x1=".50000" y1="330.50" x2="600.50" y2="330.50" />
+<line stroke="#00ff00" stroke-opacity="1.0" fill="none"  x1=".50000" y1="390.50" x2="600.50" y2="390.50" />
+<line stroke="#00ff00" stroke-opacity="1.0" fill="none"  x1=".50000" y1="450.50" x2="600.50" y2="450.50" />
+<line stroke="#00ff00" stroke-opacity="1.0" fill="none"  x1="100.50" y1=".50000" x2="100.50" y2="600.50" />
+<line stroke="#00ff00" stroke-opacity="1.0" fill="none"  x1="300.50" y1=".50000" x2="300.50" y2="600.50" />
+<line stroke="#00ff00" stroke-opacity="1.0" fill="none"  x1="500.50" y1=".50000" x2="500.50" y2="600.50" />
+<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="10" >
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="end" baseline-shift="0.0000%"  x="100.00" y="30.000">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="middle" baseline-shift="0.0000%"  x="300.00" y="30.000">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="start" baseline-shift="0.0000%"  x="500.00" y="30.000">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="end" baseline-shift="-82.531%"  x="100.00" y="90.000">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="middle" baseline-shift="-82.531%"  x="300.00" y="90.000">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="start" baseline-shift="-82.531%"  x="500.00" y="90.000">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="end" baseline-shift="-39.965%"  x="100.00" y="150.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="middle" baseline-shift="-39.965%"  x="300.00" y="150.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="start" baseline-shift="-39.965%"  x="500.00" y="150.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="end" baseline-shift=".17469%"  x="100.00" y="210.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="middle" baseline-shift=".17469%"  x="300.00" y="210.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="start" baseline-shift=".17469%"  x="500.00" y="210.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="-38.000" y="257.62" width="140.00" height="16.578"/>
+<g stroke-width="2.0000" >
+<rect stroke="#00ffff" stroke-opacity="1.0" fill="none"  x="-37.500" y="258.12" width="140.00" height="16.578"/>
+<g stroke-width="1.0000" >
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="end" baseline-shift="0.0000%"  x="100.00" y="270.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="230.00" y="257.62" width="140.00" height="16.578"/>
+<g stroke-width="2.0000" >
+<rect stroke="#00ffff" stroke-opacity="1.0" fill="none"  x="230.50" y="258.12" width="140.00" height="16.578"/>
+<g stroke-width="1.0000" >
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="middle" baseline-shift="0.0000%"  x="300.00" y="270.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="498.00" y="257.62" width="140.00" height="16.578"/>
+<g stroke-width="2.0000" >
+<rect stroke="#00ffff" stroke-opacity="1.0" fill="none"  x="498.50" y="258.12" width="140.00" height="16.578"/>
+<g stroke-width="1.0000" >
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="start" baseline-shift="0.0000%"  x="500.00" y="270.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="-38.000" y="328.00" width="140.00" height="16.578"/>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="end" baseline-shift="-82.531%"  x="100.00" y="330.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="230.00" y="328.00" width="140.00" height="16.578"/>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="middle" baseline-shift="-82.531%"  x="300.00" y="330.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<rect stroke="none" fill="#000000" fill-opacity="1.0"  x="498.00" y="328.00" width="140.00" height="16.578"/>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="start" baseline-shift="-82.531%"  x="500.00" y="330.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<g stroke-width="2.0000" >
+<rect stroke="#00ffff" stroke-opacity="1.0" fill="none"  x="-37.500" y="383.31" width="140.00" height="16.578"/>
+<g stroke-width="1.0000" >
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="end" baseline-shift="-39.965%"  x="100.00" y="390.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<g stroke-width="2.0000" >
+<rect stroke="#00ffff" stroke-opacity="1.0" fill="none"  x="230.50" y="383.31" width="140.00" height="16.578"/>
+<g stroke-width="1.0000" >
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="middle" baseline-shift="-39.965%"  x="300.00" y="390.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<g stroke-width="2.0000" >
+<rect stroke="#00ffff" stroke-opacity="1.0" fill="none"  x="498.50" y="383.31" width="140.00" height="16.578"/>
+<g stroke-width="1.0000" >
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="start" baseline-shift="-39.965%"  x="500.00" y="390.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="end" baseline-shift=".17469%"  x="100.00" y="450.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="middle" baseline-shift=".17469%"  x="300.00" y="450.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+<text stroke="none" fill="#ff0000" fill-opacity="1.0" text-anchor="start" baseline-shift=".17469%"  x="500.00" y="450.00">
+&lt;Vector<tspan baseline-shift="super" font-size="6.666667" ><tspan font-weight="bold" >\Graphics%</tspan></tspan> &amp; Card<tspan font-style="italic" ><tspan baseline-shift="sub" font-size="6.666667" >)Adapter)</tspan></tspan>&gt;
+</text>
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- stroke width -->
+</g> <!-- font -->
+</g> <!-- clip -->
+</g> <!-- font -->
+</g> <!-- stroke dash -->
+</g> <!-- stroke limit -->
+</g> <!-- stroke join -->
+</g> <!-- stroke cap -->
+</g> <!-- stroke width -->
+</g> <!-- font -->
+</g> <!-- transform -->
+</g> <!-- top-level -->
+</g> <!-- font -->
+</svg> <!-- bounding box -->
