@@ -16,7 +16,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java aec2c73c5283 2005/12/03 07:40:25 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -100,7 +100,7 @@ public class TestSuite extends junit.framework.TestSuite {
                 throw new FileNotFoundException("Cannot find reference file '"+refName+"' or '"+refGZIPName+"'.");
             }
             
-            boolean isBinary = !fmt.equals("PS");
+            boolean isBinary = !fmt.equals("PS") && !ext.equals("svg");
             Assert.assertEquals(refFile, new File(targetName), isBinary);
         }
     }
