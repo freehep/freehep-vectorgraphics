@@ -2,13 +2,12 @@
 
 package org.freehep.graphicsio.java.test;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import javax.swing.*;
-import org.freehep.graphics2d.*;
-import org.freehep.graphicsio.java.*;
-import org.freehep.graphicsio.test.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+
+import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsio.test.TestingPanel;
 
 public class TestFontDerivation extends TestingPanel {
 
@@ -27,9 +26,9 @@ public class TestFontDerivation extends TestingPanel {
         public static void paint(VectorGraphics[] vg) {
             vg[0].setColor(new Color(0, 0, 0, 255));
             vg[0].setFont(new Font("Dialog", 0, 12));
-            vg[1] = (VectorGraphics)vg[0].create();
+            vg[1] = (VectorGraphics) vg[0].create();
             vg[1].setClip(0, 0, 600, 600);
-            vg[2] = (VectorGraphics)vg[1].create();
+            vg[2] = (VectorGraphics) vg[1].create();
             vg[2].translate(300, 300);
             vg[2].setColor(new Color(255, 255, 255, 255));
             vg[2].fillRect(-300, -300, 600, 600);

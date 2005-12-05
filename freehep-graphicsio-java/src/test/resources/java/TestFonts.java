@@ -2,13 +2,12 @@
 
 package org.freehep.graphicsio.java.test;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import javax.swing.*;
-import org.freehep.graphics2d.*;
-import org.freehep.graphicsio.java.*;
-import org.freehep.graphicsio.test.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+
+import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsio.test.TestingPanel;
 
 public class TestFonts extends TestingPanel {
 
@@ -27,19 +26,26 @@ public class TestFonts extends TestingPanel {
         public static void paint(VectorGraphics[] vg) {
             vg[0].setColor(new Color(0, 0, 0, 255));
             vg[0].setFont(new Font("Dialog", 0, 12));
-            vg[1] = (VectorGraphics)vg[0].create();
+            vg[1] = (VectorGraphics) vg[0].create();
             vg[1].setClip(0, 0, 600, 600);
             vg[1].setColor(new Color(255, 255, 255, 255));
             vg[1].fillRect(0, 0, 600, 600);
             vg[1].setColor(new Color(0, 0, 0, 255));
             vg[1].setFont(new Font("Serif", 0, 12));
-            vg[1].drawString("[java.awt.Font[family=Serif,name=Serif,style=plain,size=12]]", 10, 20);
+            vg[1]
+                    .drawString(
+                            "[java.awt.Font[family=Serif,name=Serif,style=plain,size=12]]",
+                            10, 20);
             vg[1].drawLine(10, 40, 200, 40);
             vg[1].drawString("This font is a standard font: Serif.", 10, 40);
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
-            vg[1].drawString("[java.awt.Font[family=Monotype Corsiva,name=Monotype Corsiva,style=plain,size=12]]", 10, 75);
+            vg[1]
+                    .drawString(
+                            "[java.awt.Font[family=Monotype Corsiva,name=Monotype Corsiva,style=plain,size=12]]",
+                            10, 75);
             vg[1].drawLine(10, 95, 200, 95);
-            vg[1].drawString("This font is a special font: Monotype Corsiva.", 10, 95);
+            vg[1].drawString("This font is a special font: Monotype Corsiva.",
+                    10, 95);
             vg[1].setFont(new Font("Serif", 0, 12));
             vg[1].drawString(" ?", 10, 150);
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
@@ -1103,13 +1109,25 @@ public class TestFonts extends TestingPanel {
             vg[1].setFont(new Font("ZapfDingbats", 0, 12));
             vg[1].drawString("ABC abc 123 .,!", 200, 505);
             vg[1].setFont(new Font("Serif", 0, 12));
-            vg[1].drawString("Unicode chars (greek, dingbats): \u03b1 \u03b2 \u03b3 \u263a \u2665 \u2729 \u270c in Serif", 20, 525);
+            vg[1]
+                    .drawString(
+                            "Unicode chars (greek, dingbats): \u03b1 \u03b2 \u03b3 \u263a \u2665 \u2729 \u270c in Serif",
+                            20, 525);
             vg[1].setFont(new Font("SansSerif", 0, 12));
-            vg[1].drawString("Unicode chars (greek, dingbats): \u03b1 \u03b2 \u03b3 \u263a \u2665 \u2729 \u270c in SansSerif", 20, 545);
+            vg[1]
+                    .drawString(
+                            "Unicode chars (greek, dingbats): \u03b1 \u03b2 \u03b3 \u263a \u2665 \u2729 \u270c in SansSerif",
+                            20, 545);
             vg[1].setFont(new Font("Dialog", 0, 12));
-            vg[1].drawString("Unicode chars (greek, dingbats): \u03b1 \u03b2 \u03b3 \u263a \u2665 \u2729 \u270c in Dialog", 20, 565);
+            vg[1]
+                    .drawString(
+                            "Unicode chars (greek, dingbats): \u03b1 \u03b2 \u03b3 \u263a \u2665 \u2729 \u270c in Dialog",
+                            20, 565);
             vg[1].setFont(new Font("Monospaced", 0, 12));
-            vg[1].drawString("Unicode chars (greek, dingbats): \u03b1 \u03b2 \u03b3 \u263a \u2665 \u2729 \u270c in Monospaced", 20, 585);
+            vg[1]
+                    .drawString(
+                            "Unicode chars (greek, dingbats): \u03b1 \u03b2 \u03b3 \u263a \u2665 \u2729 \u270c in Monospaced",
+                            20, 585);
             vg[1].dispose();
         } // paint
     } // class Paint0s5

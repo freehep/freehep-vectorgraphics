@@ -2,13 +2,12 @@
 
 package org.freehep.graphicsio.java.test;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import javax.swing.*;
-import org.freehep.graphics2d.*;
-import org.freehep.graphicsio.java.*;
-import org.freehep.graphicsio.test.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+
+import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsio.test.TestingPanel;
 
 public class TestLabels extends TestingPanel {
 
@@ -27,20 +26,20 @@ public class TestLabels extends TestingPanel {
         public static void paint(VectorGraphics[] vg) {
             vg[0].setColor(new Color(0, 0, 0, 255));
             vg[0].setFont(new Font("Dialog", 0, 12));
-            vg[1] = (VectorGraphics)vg[0].create();
+            vg[1] = (VectorGraphics) vg[0].create();
             vg[1].setClip(0, 0, 600, 600);
-            vg[2] = (VectorGraphics)vg[1].create();
+            vg[2] = (VectorGraphics) vg[1].create();
             vg[2].setColor(new Color(204, 204, 204, 255));
             vg[2].fillRect(0, 0, 600, 600);
             vg[2].dispose();
-            vg[3] = (VectorGraphics)vg[1].create();
-            vg[4] = (VectorGraphics)vg[3].create(496, 8, 73, 20);
+            vg[3] = (VectorGraphics) vg[1].create();
+            vg[4] = (VectorGraphics) vg[3].create(496, 8, 73, 20);
             vg[4].setColor(new Color(0, 0, 0, 255));
             vg[4].setFont(new Font("Dialog", 1, 12));
             vg[4].setColor(new Color(0, 0, 0, 255));
             vg[4].setFont(new Font("Dialog", 1, 12));
-            vg[5] = (VectorGraphics)vg[4].create();
-            vg[6] = (VectorGraphics)vg[5].create();
+            vg[5] = (VectorGraphics) vg[4].create();
+            vg[6] = (VectorGraphics) vg[5].create();
             vg[6].setColor(new Color(204, 204, 204, 255));
             vg[6].fillRect(0, 0, 73, 20);
             vg[6].setFont(new Font("Dialog", 1, 12));
@@ -64,13 +63,13 @@ public class TestLabels extends TestingPanel {
             vg[5].setColor(new Color(0, 0, 0, 255));
             vg[5].dispose();
             vg[4].dispose();
-            vg[7] = (VectorGraphics)vg[3].create(418, 8, 73, 20);
+            vg[7] = (VectorGraphics) vg[3].create(418, 8, 73, 20);
             vg[7].setColor(new Color(0, 0, 0, 255));
             vg[7].setFont(new Font("Dialog", 1, 12));
             vg[7].setColor(new Color(0, 0, 0, 255));
             vg[7].setFont(new Font("Dialog", 1, 12));
-            vg[8] = (VectorGraphics)vg[7].create();
-            vg[9] = (VectorGraphics)vg[8].create();
+            vg[8] = (VectorGraphics) vg[7].create();
+            vg[9] = (VectorGraphics) vg[8].create();
             vg[9].setColor(new Color(204, 204, 204, 255));
             vg[9].fillRect(0, 0, 73, 20);
             vg[9].setFont(new Font("Dialog", 1, 12));
@@ -88,13 +87,13 @@ public class TestLabels extends TestingPanel {
             vg[8].translate(0, 0);
             vg[8].dispose();
             vg[7].dispose();
-            vg[10] = (VectorGraphics)vg[3].create(310, 5, 103, 26);
+            vg[10] = (VectorGraphics) vg[3].create(310, 5, 103, 26);
             vg[10].setColor(new Color(0, 0, 0, 255));
             vg[10].setFont(new Font("Dialog", 1, 12));
             vg[10].setColor(new Color(0, 0, 0, 255));
             vg[10].setFont(new Font("Dialog", 1, 12));
-            vg[11] = (VectorGraphics)vg[10].create();
-            vg[12] = (VectorGraphics)vg[11].create();
+            vg[11] = (VectorGraphics) vg[10].create();
+            vg[12] = (VectorGraphics) vg[11].create();
             vg[12].setColor(new Color(204, 204, 204, 255));
             vg[12].fillRect(0, 0, 103, 26);
             vg[12].setFont(new Font("Dialog", 1, 12));
@@ -112,20 +111,20 @@ public class TestLabels extends TestingPanel {
             vg[11].translate(0, 0);
             vg[11].dispose();
             vg[10].dispose();
-            vg[13] = (VectorGraphics)vg[3].create(242, 10, 63, 16);
+            vg[13] = (VectorGraphics) vg[3].create(242, 10, 63, 16);
             vg[13].setColor(new Color(0, 0, 0, 255));
             vg[13].setFont(new Font("Dialog", 1, 12));
             vg[13].setColor(new Color(0, 0, 0, 255));
             vg[13].setFont(new Font("Dialog", 1, 12));
-            vg[14] = (VectorGraphics)vg[13].create();
-            vg[15] = (VectorGraphics)vg[14].create();
-            vg[16] = (VectorGraphics)vg[15].create(0, 0, 63, 16);
+            vg[14] = (VectorGraphics) vg[13].create();
+            vg[15] = (VectorGraphics) vg[14].create();
+            vg[16] = (VectorGraphics) vg[15].create(0, 0, 63, 16);
             vg[16].setColor(new Color(0, 0, 0, 255));
             vg[16].setFont(new Font("Dialog", 1, 12));
             vg[16].setColor(new Color(0, 0, 0, 255));
             vg[16].setFont(new Font("Dialog", 1, 12));
-            vg[17] = (VectorGraphics)vg[16].create();
-            vg[18] = (VectorGraphics)vg[17].create();
+            vg[17] = (VectorGraphics) vg[16].create();
+            vg[18] = (VectorGraphics) vg[17].create();
             vg[18].setColor(new Color(0, 0, 0, 255));
             vg[18].drawString("TestLabel4", 0, 13);
             vg[18].dispose();
@@ -134,13 +133,13 @@ public class TestLabels extends TestingPanel {
             vg[15].dispose();
             vg[14].dispose();
             vg[13].dispose();
-            vg[19] = (VectorGraphics)vg[3].create(170, 8, 67, 20);
+            vg[19] = (VectorGraphics) vg[3].create(170, 8, 67, 20);
             vg[19].setColor(new Color(0, 0, 0, 255));
             vg[19].setFont(new Font("Dialog", 1, 12));
             vg[19].setColor(new Color(0, 0, 0, 255));
             vg[19].setFont(new Font("Dialog", 1, 12));
-            vg[20] = (VectorGraphics)vg[19].create();
-            vg[21] = (VectorGraphics)vg[20].create();
+            vg[20] = (VectorGraphics) vg[19].create();
+            vg[21] = (VectorGraphics) vg[20].create();
             vg[21].setColor(new Color(0, 0, 0, 255));
             vg[21].drawString("TestLabel3", 2, 15);
             vg[21].dispose();
@@ -161,13 +160,13 @@ public class TestLabels extends TestingPanel {
             vg[20].setColor(new Color(0, 0, 0, 255));
             vg[20].dispose();
             vg[19].dispose();
-            vg[22] = (VectorGraphics)vg[3].create(98, 8, 67, 20);
+            vg[22] = (VectorGraphics) vg[3].create(98, 8, 67, 20);
             vg[22].setColor(new Color(0, 0, 0, 255));
             vg[22].setFont(new Font("Dialog", 1, 12));
             vg[22].setColor(new Color(0, 0, 0, 255));
             vg[22].setFont(new Font("Dialog", 1, 12));
-            vg[23] = (VectorGraphics)vg[22].create();
-            vg[24] = (VectorGraphics)vg[23].create();
+            vg[23] = (VectorGraphics) vg[22].create();
+            vg[24] = (VectorGraphics) vg[23].create();
             vg[24].setColor(new Color(0, 0, 0, 255));
             vg[24].drawString("TestLabel2", 2, 15);
             vg[24].dispose();
@@ -182,13 +181,13 @@ public class TestLabels extends TestingPanel {
             vg[23].translate(0, 0);
             vg[23].dispose();
             vg[22].dispose();
-            vg[25] = (VectorGraphics)vg[3].create(30, 10, 63, 16);
+            vg[25] = (VectorGraphics) vg[3].create(30, 10, 63, 16);
             vg[25].setColor(new Color(0, 0, 0, 255));
             vg[25].setFont(new Font("Dialog", 1, 12));
             vg[25].setColor(new Color(0, 0, 0, 255));
             vg[25].setFont(new Font("Dialog", 1, 12));
-            vg[26] = (VectorGraphics)vg[25].create();
-            vg[27] = (VectorGraphics)vg[26].create();
+            vg[26] = (VectorGraphics) vg[25].create();
+            vg[27] = (VectorGraphics) vg[26].create();
             vg[27].setColor(new Color(0, 0, 0, 255));
             vg[27].drawString("TestLabel1", 0, 13);
             vg[27].dispose();

@@ -2,13 +2,12 @@
 
 package org.freehep.graphicsio.java.test;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import javax.swing.*;
-import org.freehep.graphics2d.*;
-import org.freehep.graphicsio.java.*;
-import org.freehep.graphicsio.test.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+
+import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsio.test.TestingPanel;
 
 public class TestShapes extends TestingPanel {
 
@@ -27,7 +26,7 @@ public class TestShapes extends TestingPanel {
         public static void paint(VectorGraphics[] vg) {
             vg[0].setColor(new Color(0, 0, 0, 255));
             vg[0].setFont(new Font("Dialog", 0, 12));
-            vg[1] = (VectorGraphics)vg[0].create();
+            vg[1] = (VectorGraphics) vg[0].create();
             vg[1].setClip(0, 0, 600, 600);
             vg[1].setColor(new Color(255, 255, 255, 255));
             vg[1].fillRect(0, 0, 600, 600);
@@ -42,17 +41,11 @@ public class TestShapes extends TestingPanel {
             vg[1].setColor(new Color(255, 0, 255, 255));
             vg[1].drawOval(405, 7, 90, 61);
             vg[1].setColor(new Color(255, 255, 0, 255));
-            vg[1].drawPolygon(new int[] {
-                505, 595, 505, 595
-            }, new int[] {
-                7, 68, 68, 7
-            }, 4);
+            vg[1].drawPolygon(new int[] { 505, 595, 505, 595 }, new int[] { 7,
+                    68, 68, 7 }, 4);
             vg[1].setColor(new Color(255, 0, 0, 255));
-            vg[1].drawPolyline(new int[] {
-                5, 95, 5, 95
-            }, new int[] {
-                82, 143, 143, 82
-            }, 4);
+            vg[1].drawPolyline(new int[] { 5, 95, 5, 95 }, new int[] { 82, 143,
+                    143, 82 }, 4);
             vg[1].setColor(new Color(0, 255, 0, 255));
             vg[1].fillRect(105, 82, 90, 61);
             vg[1].setColor(new Color(0, 0, 0, 255));
@@ -67,17 +60,11 @@ public class TestShapes extends TestingPanel {
             vg[1].fillOval(405, 82, 90, 61);
             vg[1].setColor(new Color(0, 0, 0, 255));
             vg[1].setColor(new Color(255, 255, 0, 255));
-            vg[1].fillPolygon(new int[] {
-                505, 595, 505, 595
-            }, new int[] {
-                82, 143, 143, 82
-            }, 4);
+            vg[1].fillPolygon(new int[] { 505, 595, 505, 595 }, new int[] { 82,
+                    143, 143, 82 }, 4);
             vg[1].setColor(new Color(0, 0, 0, 255));
-            vg[1].drawPolygon(new int[] {
-                505, 595, 505, 595
-            }, new int[] {
-                82, 143, 143, 82
-            }, 4);
+            vg[1].drawPolygon(new int[] { 505, 595, 505, 595 }, new int[] { 82,
+                    143, 143, 82 }, 4);
             vg[1].setLineWidth(5.0);
             vg[1].setColor(new Color(255, 0, 0, 255));
             vg[1].drawLine(5, 217, 95, 157);
@@ -90,17 +77,11 @@ public class TestShapes extends TestingPanel {
             vg[1].setColor(new Color(255, 0, 255, 255));
             vg[1].drawOval(405, 157, 90, 61);
             vg[1].setColor(new Color(255, 255, 0, 255));
-            vg[1].drawPolygon(new int[] {
-                505, 595, 505, 595
-            }, new int[] {
-                157, 218, 218, 157
-            }, 4);
+            vg[1].drawPolygon(new int[] { 505, 595, 505, 595 }, new int[] {
+                    157, 218, 218, 157 }, 4);
             vg[1].setColor(new Color(255, 0, 0, 255));
-            vg[1].drawPolyline(new int[] {
-                5, 95, 5, 95
-            }, new int[] {
-                232, 293, 293, 232
-            }, 4);
+            vg[1].drawPolyline(new int[] { 5, 95, 5, 95 }, new int[] { 232,
+                    293, 293, 232 }, 4);
             vg[1].setColor(new Color(0, 255, 0, 255));
             vg[1].fillRect(105, 232, 90, 61);
             vg[1].setColor(new Color(0, 0, 0, 255));
@@ -115,47 +96,83 @@ public class TestShapes extends TestingPanel {
             vg[1].fillOval(405, 232, 90, 61);
             vg[1].setColor(new Color(0, 0, 0, 255));
             vg[1].setColor(new Color(255, 255, 0, 255));
-            vg[1].fillPolygon(new int[] {
-                505, 595, 505, 595
-            }, new int[] {
-                232, 293, 293, 232
-            }, 4);
+            vg[1].fillPolygon(new int[] { 505, 595, 505, 595 }, new int[] {
+                    232, 293, 293, 232 }, 4);
             vg[1].setColor(new Color(0, 0, 0, 255));
-            vg[1].drawPolygon(new int[] {
-                505, 595, 505, 595
-            }, new int[] {
-                232, 293, 293, 232
-            }, 4);
+            vg[1].drawPolygon(new int[] { 505, 595, 505, 595 }, new int[] {
+                    232, 293, 293, 232 }, 4);
             vg[1].setFont(new Font("SansSerif", 0, 14));
-            vg[1].drawString("SansSerif: The quick brown fox jumped over the lazy dog.", 5, 307);
+            vg[1].drawString(
+                    "SansSerif: The quick brown fox jumped over the lazy dog.",
+                    5, 307);
             vg[1].setFont(new Font("SansSerif", 1, 14));
-            vg[1].drawString("SansSerif (bold): The quick brown fox jumped over the lazy dog.", 5, 323);
+            vg[1]
+                    .drawString(
+                            "SansSerif (bold): The quick brown fox jumped over the lazy dog.",
+                            5, 323);
             vg[1].setFont(new Font("SansSerif", 2, 14));
-            vg[1].drawString("SansSerif (italic): The quick brown fox jumped over the lazy dog.", 5, 339);
+            vg[1]
+                    .drawString(
+                            "SansSerif (italic): The quick brown fox jumped over the lazy dog.",
+                            5, 339);
             vg[1].setFont(new Font("Serif", 0, 14));
-            vg[1].drawString("Serif: The quick brown fox jumped over the lazy dog.", 5, 355);
+            vg[1].drawString(
+                    "Serif: The quick brown fox jumped over the lazy dog.", 5,
+                    355);
             vg[1].setFont(new Font("Serif", 1, 14));
-            vg[1].drawString("Serif (bold): The quick brown fox jumped over the lazy dog.", 5, 371);
+            vg[1]
+                    .drawString(
+                            "Serif (bold): The quick brown fox jumped over the lazy dog.",
+                            5, 371);
             vg[1].setFont(new Font("Serif", 2, 14));
-            vg[1].drawString("Serif (italic): The quick brown fox jumped over the lazy dog.", 5, 387);
+            vg[1]
+                    .drawString(
+                            "Serif (italic): The quick brown fox jumped over the lazy dog.",
+                            5, 387);
             vg[1].setFont(new Font("Monospaced", 0, 14));
-            vg[1].drawString("Monospaced: The quick brown fox jumped over the lazy dog.", 5, 403);
+            vg[1]
+                    .drawString(
+                            "Monospaced: The quick brown fox jumped over the lazy dog.",
+                            5, 403);
             vg[1].setFont(new Font("Monospaced", 1, 14));
-            vg[1].drawString("Monospaced (bold): The quick brown fox jumped over the lazy dog.", 5, 419);
+            vg[1]
+                    .drawString(
+                            "Monospaced (bold): The quick brown fox jumped over the lazy dog.",
+                            5, 419);
             vg[1].setFont(new Font("Monospaced", 2, 14));
-            vg[1].drawString("Monospaced (italic): The quick brown fox jumped over the lazy dog.", 5, 435);
+            vg[1]
+                    .drawString(
+                            "Monospaced (italic): The quick brown fox jumped over the lazy dog.",
+                            5, 435);
             vg[1].setFont(new Font("Symbol", 0, 14));
-            vg[1].drawString("Symbol: The quick brown fox jumped over the lazy dog.", 5, 451);
+            vg[1].drawString(
+                    "Symbol: The quick brown fox jumped over the lazy dog.", 5,
+                    451);
             vg[1].setFont(new Font("Symbol", 1, 14));
-            vg[1].drawString("Symbol (bold): The quick brown fox jumped over the lazy dog.", 5, 467);
+            vg[1]
+                    .drawString(
+                            "Symbol (bold): The quick brown fox jumped over the lazy dog.",
+                            5, 467);
             vg[1].setFont(new Font("Symbol", 2, 14));
-            vg[1].drawString("Symbol (italic): The quick brown fox jumped over the lazy dog.", 5, 483);
+            vg[1]
+                    .drawString(
+                            "Symbol (italic): The quick brown fox jumped over the lazy dog.",
+                            5, 483);
             vg[1].setFont(new Font("ZapfDingbats", 0, 14));
-            vg[1].drawString("ZapfDingbats: The quick brown fox jumped over the lazy dog.", 5, 499);
+            vg[1]
+                    .drawString(
+                            "ZapfDingbats: The quick brown fox jumped over the lazy dog.",
+                            5, 499);
             vg[1].setFont(new Font("ZapfDingbats", 1, 14));
-            vg[1].drawString("ZapfDingbats (bold): The quick brown fox jumped over the lazy dog.", 5, 515);
+            vg[1]
+                    .drawString(
+                            "ZapfDingbats (bold): The quick brown fox jumped over the lazy dog.",
+                            5, 515);
             vg[1].setFont(new Font("ZapfDingbats", 2, 14));
-            vg[1].drawString("ZapfDingbats (italic): The quick brown fox jumped over the lazy dog.", 5, 531);
+            vg[1]
+                    .drawString(
+                            "ZapfDingbats (italic): The quick brown fox jumped over the lazy dog.",
+                            5, 531);
             vg[1].setFont(new Font("Monospaced", 0, 14));
             vg[1].drawString("Unbalanced (( )) ))) ((( TEST! )T( (T)", 5, 547);
             vg[1].dispose();
