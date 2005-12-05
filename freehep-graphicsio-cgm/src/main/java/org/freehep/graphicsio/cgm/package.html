@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft FrontPage 6.0">
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+
+<p> CGM (Computer Graphics Metafile) Output Format.</p>
+<p>CGM is a Vector Graphics format, defined by the ISO-IEC-8632-x-1999 standard.</p>
+<p>This package provides two low-level writers for CGM files:</p>
+<ul>
+  <li>CGMOutputStream for binary .cgm files</li>
+  <li>CGMWriter for clear text .cgm files</li>
+</ul>
+<p>and a VectorGraphics implementation:</p>
+<ul>
+  <li>CGMGraphics2D</li>
+</ul>
+<p>The current implementation supports Version 1 CGM.</p>
+<p>CGM files can be imported by the following applications:</p>
+<ul>
+  <li>Adobe Illustrator</li>
+  <li>Adobe FrameMaker</li>
+  <li>Microsoft PowerPoint</li>
+  <li>Microsoft Word</li>
+  <li>Micrografx ActiveCGM plugin for Netscape and Internet Explorer</li>
+	<li><a href="http://www.cgmcentral.com/web_view_cgm_plugin_download.htm">
+	Larson WebCGM Viewer</a></li>
+</ul>
+<p>In all these applications both online viewing and printing are supported.</p>
+
+<p>The following limitations exist:</p>
+
+<ul>
+  <li>drawFrameAndBanner not implemented.</li>
+  <li>images not implemented.</li>
+  <li>text sizes seems to be not perfect</li>
+  <li>TestClipping, clipping only works on straight rectangles</li>
+  <li>TestPrintColors is wrong</li>
+  <li>TestPaint GradientPaint is not supported</li>
+  <li>TestPaint TexturePaint is not supported</li>
+  <li>TestLineStyles dashing is approximated</li>
+  <li>TestImages images not shown</li>
+  <li>TestImage2D images not shown</li>
+  <li>TestTaggedString same font for all three.</li>
+  <li>TestShapes all text in same font.</li>
+  <li>TestFonts unicode wrong.</li>
+  <li>TestFonts dingbats missing</li>
+  <li>TestFonts no monotype corsiva</li>
+  <li>TestAll font is wrong.</li>
+  <li>TestAll no gradients in banner 2x.</li>
+  <li>TestAll no sky.</li>
+  <li>TestAll impact font missing, special characters not shown.</li>
+</ul>
+
+@status Frozen, Version 1 CGM tags implemented, but format not good enough to
+properly attach a graphics2d context.
+</BODY>
+</HTML>
