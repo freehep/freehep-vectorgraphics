@@ -10,5 +10,23 @@
   <version>2.0-SNAPSHOT</version>
   <name>FreeHEP SWF (Flash) Driver</name>
   <description>FreeHEP SWF (Flash) Driver</description>
-  <dependencies/>
+  <dependencies>
+    <dependency>
+      <groupId>org.freehep</groupId>
+      <artifactId>freehep-graphicsio</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.freehep</groupId>
+      <artifactId>freehep-graphicsio-tests</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>    
+    <dependency>
+      <groupId>hep.aida</groupId>
+      <artifactId>aida</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>

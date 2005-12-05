@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft FrontPage 4.0">
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+
+<p>SWF (Macromedia Flash) Input and Output Format.</p>
+<p>SWF is a Vector Graphics Animation format, defined by MacroMedia, also known
+as the Flash Format.</p>
+<p>This package provides a low-level reader and writer for SWF files:</p>
+<ul>
+  <li>SWFInputStream to read .swf files</li>
+  <li>SWFOutputStream to write .swf files</li>
+</ul>
+<p>and an implementation of VectorGraphics:</p>
+<ul>
+  <li>SWFGraphics2D</li>
+</ul>
+<p>The current implementation supports Version 3 of SWF.</p>
+<p>SWF files can be imported by the following applications:</p>
+<ul>
+  <li>MacroMedia Flash plugin for Netscape and Internet Explorer</li>
+  <li>Other MacroMedia products</li>
+</ul>
+<p>In all these applications both online viewing and printing are supported.</p>
+
+<p>The following Limitations exist:</p>
+
+<ul>
+  <li>TestShapes, no text, long blue horizontal lines.</li>
+  <li>TestImages does not work.</li>
+  <li>TestTransforms, lines too thick.</li>
+  <li>TestTaggedString does not work.</li>
+  <li>TestPrintColors strange.</li>
+  <li>TestPaint no textures.</li>
+  <li>TestLineStyles, line endings, line joins and dashing should be simulated.<br>
+    from the doc:
+    <ol>
+      <li>All lines in Macromedia Flash (SWF) have rounded joins and end-caps.<br>
+    Different join styles and end styles can be simulated with a very narrow<br>
+    shape that looks identical to the desired stroke.</li>
+      <li>Macromedia Flash (SWF) has no native support for dashed or dotted line styles.<br>
+    A dashed line can be simulated by breaking up the path into a series of<br>
+    short lines.</li>
+    </ol>
+  </li>
+  <li>TestLabels strange.</li>
+  <li>TestImage, no images yet</li>
+  <li>TestText2D, no text yet</li>
+  <li>TestFonts, no text yet</li>
+  <li>gradients, cyclic not implemented, transparency not implemented</li>
+  <li>TestAll no gradients in banner, no text</li>
+  <li>TestAll no text at all</li>
+  <li>TestAll no sky</li>
+  <li>TestAll no dashed lines</li>
+  <li>TestAll no ORAETLABORA marker, but other marker displayed twice.</li>
+  <li>TestAll no impact text.</li>
+</ul>
+
+@status Not Ready.
+
+</BODY>
+</HTML>
