@@ -5,15 +5,15 @@ import org.freehep.graphicsio.test.TestSuite;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/test/java/org/freehep/graphicsio/ps/test/PSTestSuite.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-ps/src/test/java/org/freehep/graphicsio/ps/test/PSTestSuite.java e3449d5a3c6c 2005/12/07 22:14:47 duns $
  */
 public class PSTestSuite extends TestSuite {
 
-    protected void addTests(String fmt, String dir, String ext, boolean compare) {
-        super.addTests(fmt, dir, ext, compare);
+    protected void addTests(String fmt, String pkg, String dir, String ext, boolean compare) {
+        super.addTests(fmt, pkg, dir, ext, compare);
         addTest(new TestCase(
                 "org.freehep.graphicsio.ps.test.PSTestPreviewThumbnail", fmt,
-                dir, ext, compare, null));
+                pkg, dir, ext, compare, null));
     }
 
     public static TestSuite suite() {

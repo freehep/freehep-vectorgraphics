@@ -2,14 +2,13 @@
 
 package org.freehep.graphicsio.java.test;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-
-import org.freehep.graphics2d.VectorGraphics;
-import org.freehep.graphicsio.test.TestingPanel;
+import java.awt.*;
+import java.awt.geom.*;
+import java.awt.image.*;
+import javax.swing.*;
+import org.freehep.graphics2d.*;
+import org.freehep.graphicsio.java.*;
+import org.freehep.graphicsio.test.*;
 
 public class TestImage2D extends TestingPanel {
 
@@ -28,24 +27,15 @@ public class TestImage2D extends TestingPanel {
         public static void paint(VectorGraphics[] vg) {
             vg[0].setColor(new Color(0, 0, 0, 255));
             vg[0].setFont(new Font("Dialog", 0, 12));
-            vg[1] = (VectorGraphics) vg[0].create();
+            vg[1] = (VectorGraphics)vg[0].create();
             vg[1].setClip(0, 0, 600, 600);
             vg[1].setColor(new Color(255, 255, 255, 255));
             vg[1].fillRect(0, 0, 600, 600);
-            vg[1].drawImage(new BufferedImage(256, 256,
-                    BufferedImage.TYPE_INT_ARGB), new AffineTransform(1.0, 0.0,
-                    0.0, 1.0, 0.0, 0.0), null);
+            vg[1].drawImage(new BufferedImage(256, 256, BufferedImage.TYPE_INT_ARGB), new AffineTransform(1.0, 0.0, 0.0, 1.0, 0.0, 0.0), null);
             vg[1].shear(0.2, 0.2);
-            vg[1].drawImage(new BufferedImage(256, 256,
-                    BufferedImage.TYPE_INT_ARGB), new AffineTransform(
-                    0.8775825618903728, 0.479425538604203, -0.7427003071713147,
-                    0.7337549003091118, 238.47021987841822, 95.15427810070022),
-                    null);
-            System.err
-                    .println("class org.freehep.graphicsio.java.JAVAGraphics2D: drawImage(BufferedImage, BufferedImageOp, int, int) not implemented.");
-            vg[1]
-                    .setTransform(new AffineTransform(1.0, 0.0, 0.0, 1.0, 0.0,
-                            0.0));
+            vg[1].drawImage(new BufferedImage(256, 256, BufferedImage.TYPE_INT_ARGB), new AffineTransform(0.8775825618903728, 0.479425538604203, -0.7427003071713147, 0.7337549003091118, 238.47021987841822, 95.15427810070022), null);
+            System.err.println("class org.freehep.graphicsio.java.JAVAGraphics2D: drawImage(BufferedImage, BufferedImageOp, int, int) not implemented.");
+            vg[1].setTransform(new AffineTransform(1.0, 0.0, 0.0, 1.0, 0.0, 0.0));
             vg[1].dispose();
         } // paint
     } // class Paint0s0

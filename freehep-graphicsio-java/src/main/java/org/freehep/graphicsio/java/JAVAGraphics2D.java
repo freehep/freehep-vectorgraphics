@@ -1,4 +1,4 @@
-// Copyright 2003, FreeHEP.
+// Copyright 2003-2005, FreeHEP.
 package org.freehep.graphicsio.java;
 
 import java.awt.AlphaComposite;
@@ -71,7 +71,7 @@ import org.freehep.util.io.LineNumberWriter;
  * </ul>
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-java/src/main/java/org/freehep/graphicsio/java/JAVAGraphics2D.java 01c7a0af1b3a 2005/12/05 06:02:47 duns $
+ * @version $Id: freehep-graphicsio-java/src/main/java/org/freehep/graphicsio/java/JAVAGraphics2D.java e3449d5a3c6c 2005/12/07 22:14:47 duns $
  */
 public class JAVAGraphics2D extends VectorGraphics implements
         LineNumberWriter.LineNumberListener {

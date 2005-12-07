@@ -62,10 +62,8 @@
     <module>freehep-graphicsio-tests</module>
     <module>freehep-graphicsio-cgm</module>
     <module>freehep-graphicsio-emf</module>
-<!--
     <module>freehep-graphicsio-java</module>
     <module>freehep-graphicsio-latex</module>
--->
     <module>freehep-graphicsio-pdf</module>
     <module>freehep-graphicsio-ps</module>
     <module>freehep-graphicsio-svg</module>

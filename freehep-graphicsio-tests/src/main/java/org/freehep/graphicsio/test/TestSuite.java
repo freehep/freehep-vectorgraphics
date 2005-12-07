@@ -4,6 +4,7 @@ package org.freehep.graphicsio.test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,27 +17,28 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java aec2c73c5283 2005/12/03 07:40:25 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java e3449d5a3c6c 2005/12/07 22:14:47 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
-    private static final String pkg = "org.freehep.graphicsio.test.";
+    private static final String testPackage = "org.freehep.graphicsio.test.";
 
     public static class TestCase extends junit.framework.TestCase {
 
-        private String name, fullName, fmt, dir, ext;
+        private String name, fullName, fmt, pkg, dir, ext;
 
         private boolean compare;
 
         private Properties properties;
 
-        public TestCase(String fullName, String fmt, String dir, String ext,
+        public TestCase(String fullName, String fmt, String pkg, String dir, String ext,
                 boolean compare, Properties properties) {
             super("GraphicsIO Test for " + fullName + " in " + fmt);
             this.fullName = fullName;
             int dot = fullName.lastIndexOf(".");
             name = dot < 0 ? fullName : fullName.substring(dot + 1);
             this.fmt = fmt;
+            this.pkg = pkg;
             this.dir = dir;
             this.ext = ext;
             this.compare = compare;
@@ -69,25 +71,18 @@ public class TestSuite extends junit.framework.TestSuite {
                 if (fmt.equals("LATEX"))
                     fmt = "Latex";
 
-                Array.set(args, 0, "org.freehep.graphicsio." + dir + "." + fmt
+                Array.set(args, 0, pkg + "." + fmt
                         + "Graphics2D");
                 Array.set(args, 1, targetName);
             }
 
-            // set general properties
-            if (properties != null) {
-                try {
-                    Method setProperties = cls.getMethod("setProperties",
-                            new Class[] { Properties.class });
-                    setProperties.invoke(null, new Object[] { properties });
-                } catch (NoSuchMethodException nsme) {
-                    // ignored
-                }
-            }
+            // Create Test Object
+            Constructor constructor = cls.getConstructor(new Class[] { args.getClass() });
+            Object test = constructor.newInstance(new Object[] { args });
 
-            Method main = cls
-                    .getMethod("main", new Class[] { args.getClass() });
-            main.invoke(null, new Object[] { args });
+            // Call Test.runTest(properties);
+            Method runTest = test.getClass().getMethod("runTest", new Class[] { Properties.class });
+            runTest.invoke(test, new Object[] { properties });
 
             if (!compare) {
                 return;
@@ -114,57 +109,57 @@ public class TestSuite extends junit.framework.TestSuite {
     }
 
     protected void addTests(String fmt, boolean compare) {
-        addTests(fmt, fmt.toLowerCase(), fmt.toLowerCase(), compare);
+        addTests(fmt, "org.freehep.graphicsio."+fmt.toLowerCase(), fmt.toLowerCase(), fmt.toLowerCase(), compare);
     }
 
-    protected void addTests(String fmt, String dir, String ext, boolean compare) {
-        addTests(fmt, dir, ext, compare, null);
+    protected void addTests(String fmt, String pkg, String dir, String ext, boolean compare) {
+        addTests(fmt, pkg, dir, ext, compare, null);
     }
 
-    protected void addTests(String fmt, String dir, String ext,
+    protected void addTests(String fmt, String pkg, String dir, String ext,
             boolean compare, Properties properties) {
         // Alphabetically
-        addTest(new TestCase(pkg + "TestAll", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestAll", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestClip", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestClip", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestColors", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestColors", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestFonts", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestFonts", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestFontDerivation", fmt, dir, ext,
+        addTest(new TestCase(testPackage + "TestFontDerivation", fmt, pkg, dir, ext,
                 compare, properties));
-        addTest(new TestCase(pkg + "TestGraphicsContexts", fmt, dir, ext,
+        addTest(new TestCase(testPackage + "TestGraphicsContexts", fmt, pkg, dir, ext,
                 compare, properties));
-        addTest(new TestCase(pkg + "TestHTML", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestHTML", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestImages", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestImages", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestImage2D", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestImage2D", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestLabels", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestLabels", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestLineStyles", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestLineStyles", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestOffset", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestOffset", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestPaint", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestPaint", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestPrintColors", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestPrintColors", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestResolution", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestResolution", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestShapes", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestShapes", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestSymbols2D", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestSymbols2D", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestTaggedString", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestTaggedString", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestText2D", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestText2D", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestTransforms", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestTransforms", fmt, pkg, dir, ext, compare,
                 properties));
-        addTest(new TestCase(pkg + "TestTransparency", fmt, dir, ext, compare,
+        addTest(new TestCase(testPackage + "TestTransparency", fmt, pkg, dir, ext, compare,
                 properties));
     }
 
@@ -183,7 +178,7 @@ public class TestSuite extends junit.framework.TestSuite {
                     ext = "tex";
                 if (ext.equals("svg"))
                     ext = "svgz";
-                addTests(args[i].toUpperCase(), args[i].toLowerCase(), ext,
+                addTests(args[i].toUpperCase(), "org.freehep.graphicsio."+args[i].toLowerCase(), args[i].toLowerCase(), ext,
                         compare);
             }
         } else {
@@ -191,13 +186,13 @@ public class TestSuite extends junit.framework.TestSuite {
             addTests("EMF", compare);
             addTests("GIF", compare);
             addTests("JPG", compare);
-            addTests("LATEX", "latex", "tex", compare);
+            addTests("LATEX", "org.freehep.graphicsio.latex", "latex", "tex", compare);
             addTests("PDF", compare);
             addTests("PNG", compare);
             addTests("PS", compare);
-            addTests("SVG", "svg", "svgz", compare);
+            addTests("SVG", "org.freehep.graphicsio.svg", "svg", "svgz", compare);
             addTests("SWF", compare);
-            addTests("JAVA", compare);
+            addTests("JAVA", "org.freehep.graphicsio.java", "org/freehep/graphicsio/java/test", "java", compare);
         }
     }
 
