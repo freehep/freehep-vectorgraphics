@@ -2,13 +2,11 @@
 
 package org.freehep.graphicsio.java.test;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import javax.swing.*;
-import org.freehep.graphics2d.*;
-import org.freehep.graphicsio.java.*;
-import org.freehep.graphicsio.test.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsio.test.TestingPanel;
 
 public class TestFonts extends TestingPanel {
 
@@ -197,12 +195,6 @@ public class TestFonts extends TestingPanel {
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
             vg[1].drawString(" &", 100, 200);
             vg[1].setFont(new Font("Serif", 0, 12));
-            Paint0s1.paint(vg);
-        } // paint
-    } // class Paint0s0
-
-    private static class Paint0s1 {
-        public static void paint(VectorGraphics[] vg) {
             vg[1].drawString(" '", 115, 185);
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
             vg[1].drawString(" '", 115, 200);
@@ -215,6 +207,12 @@ public class TestFonts extends TestingPanel {
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
             vg[1].drawString(" )", 145, 200);
             vg[1].setFont(new Font("Serif", 0, 12));
+            Paint0s1.paint(vg);
+        } // paint
+    } // class Paint0s0
+
+    private static class Paint0s1 {
+        public static void paint(VectorGraphics[] vg) {
             vg[1].drawString(" *", 160, 185);
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
             vg[1].drawString(" *", 160, 200);
@@ -396,12 +394,6 @@ public class TestFonts extends TestingPanel {
             vg[1].drawString(" V", 340, 235);
             vg[1].setFont(new Font("Serif", 0, 12));
             vg[1].drawString(" W", 355, 220);
-            Paint0s2.paint(vg);
-        } // paint
-    } // class Paint0s1
-
-    private static class Paint0s2 {
-        public static void paint(VectorGraphics[] vg) {
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
             vg[1].drawString(" W", 355, 235);
             vg[1].setFont(new Font("Serif", 0, 12));
@@ -414,6 +406,12 @@ public class TestFonts extends TestingPanel {
             vg[1].drawString(" Y", 385, 235);
             vg[1].setFont(new Font("Serif", 0, 12));
             vg[1].drawString(" Z", 400, 220);
+            Paint0s2.paint(vg);
+        } // paint
+    } // class Paint0s1
+
+    private static class Paint0s2 {
+        public static void paint(VectorGraphics[] vg) {
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
             vg[1].drawString(" Z", 400, 235);
             vg[1].setFont(new Font("Serif", 0, 12));
@@ -595,12 +593,6 @@ public class TestFonts extends TestingPanel {
             vg[1].setFont(new Font("Serif", 0, 12));
             vg[1].drawString(" \u2044", 115, 290);
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
-            Paint0s3.paint(vg);
-        } // paint
-    } // class Paint0s2
-
-    private static class Paint0s3 {
-        public static void paint(VectorGraphics[] vg) {
             vg[1].drawString(" \u2044", 115, 305);
             vg[1].setFont(new Font("Serif", 0, 12));
             vg[1].drawString(" \u2039", 130, 290);
@@ -613,6 +605,12 @@ public class TestFonts extends TestingPanel {
             vg[1].setFont(new Font("Serif", 0, 12));
             vg[1].drawString(" \u2212", 160, 290);
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
+            Paint0s3.paint(vg);
+        } // paint
+    } // class Paint0s2
+
+    private static class Paint0s3 {
+        public static void paint(VectorGraphics[] vg) {
             vg[1].drawString(" \u2212", 160, 305);
             vg[1].setFont(new Font("Serif", 0, 12));
             vg[1].drawString(" \u2030", 175, 290);
@@ -794,12 +792,6 @@ public class TestFonts extends TestingPanel {
             vg[1].drawString(" \u00b7", 355, 325);
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
             vg[1].drawString(" \u00b7", 355, 340);
-            Paint0s4.paint(vg);
-        } // paint
-    } // class Paint0s3
-
-    private static class Paint0s4 {
-        public static void paint(VectorGraphics[] vg) {
             vg[1].setFont(new Font("Serif", 0, 12));
             vg[1].drawString(" \u00b8", 370, 325);
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
@@ -812,6 +804,12 @@ public class TestFonts extends TestingPanel {
             vg[1].drawString(" \u00ba", 400, 325);
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
             vg[1].drawString(" \u00ba", 400, 340);
+            Paint0s4.paint(vg);
+        } // paint
+    } // class Paint0s3
+
+    private static class Paint0s4 {
+        public static void paint(VectorGraphics[] vg) {
             vg[1].setFont(new Font("Serif", 0, 12));
             vg[1].drawString(" \u00bb", 415, 325);
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
@@ -993,12 +991,6 @@ public class TestFonts extends TestingPanel {
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
             vg[1].drawString(" \u00e7", 115, 410);
             vg[1].setFont(new Font("Serif", 0, 12));
-            Paint0s5.paint(vg);
-        } // paint
-    } // class Paint0s4
-
-    private static class Paint0s5 {
-        public static void paint(VectorGraphics[] vg) {
             vg[1].drawString(" \u00e8", 130, 395);
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
             vg[1].drawString(" \u00e8", 130, 410);
@@ -1011,6 +1003,12 @@ public class TestFonts extends TestingPanel {
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
             vg[1].drawString(" \u00ea", 160, 410);
             vg[1].setFont(new Font("Serif", 0, 12));
+            Paint0s5.paint(vg);
+        } // paint
+    } // class Paint0s4
+
+    private static class Paint0s5 {
+        public static void paint(VectorGraphics[] vg) {
             vg[1].drawString(" \u00eb", 175, 395);
             vg[1].setFont(new Font("Monotype Corsiva", 0, 12));
             vg[1].drawString(" \u00eb", 175, 410);

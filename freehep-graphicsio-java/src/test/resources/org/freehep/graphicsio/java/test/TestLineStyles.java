@@ -2,13 +2,13 @@
 
 package org.freehep.graphicsio.java.test;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import javax.swing.*;
-import org.freehep.graphics2d.*;
-import org.freehep.graphicsio.java.*;
-import org.freehep.graphicsio.test.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsio.java.JAVAGeneralPath;
+import org.freehep.graphicsio.test.TestingPanel;
 
 public class TestLineStyles extends TestingPanel {
 

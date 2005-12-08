@@ -2,13 +2,19 @@
 
 package org.freehep.graphicsio.java.test;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import javax.swing.*;
-import org.freehep.graphics2d.*;
-import org.freehep.graphicsio.java.*;
-import org.freehep.graphicsio.test.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.TexturePaint;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import org.freehep.graphics2d.TagString;
+import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsio.java.JAVAGeneralPath;
+import org.freehep.graphicsio.test.TestingPanel;
 
 public class TestAll extends TestingPanel {
 
@@ -197,12 +203,6 @@ public class TestAll extends TestingPanel {
             vg[4].drawString("A", 0.0, -66.0);
             vg[4].rotate(0.7853981633974483);
             vg[4].drawString("E", 0.0, -66.0);
-            Paint0s1.paint(vg);
-        } // paint
-    } // class Paint0s0
-
-    private static class Paint0s1 {
-        public static void paint(VectorGraphics[] vg) {
             vg[4].rotate(0.7853981633974483);
             vg[4].drawString("T", 0.0, -66.0);
             vg[4].rotate(0.7853981633974483);
@@ -215,7 +215,7 @@ public class TestAll extends TestingPanel {
             vg[4].dispose();
             vg[1].dispose();
         } // paint
-    } // class Paint0s1
+    } // class Paint0s0
 
     private VectorGraphics vg[] = new VectorGraphics[5];
 

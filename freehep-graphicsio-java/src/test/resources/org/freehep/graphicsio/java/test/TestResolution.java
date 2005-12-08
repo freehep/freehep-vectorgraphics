@@ -2,13 +2,13 @@
 
 package org.freehep.graphicsio.java.test;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import javax.swing.*;
-import org.freehep.graphics2d.*;
-import org.freehep.graphicsio.java.*;
-import org.freehep.graphicsio.test.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsio.java.JAVAGeneralPath;
+import org.freehep.graphicsio.test.TestingPanel;
 
 public class TestResolution extends TestingPanel {
 
@@ -201,12 +201,6 @@ public class TestResolution extends TestingPanel {
                 1, 10.0f, 
                 null, 0.0f
             ));
-            Paint0s1.paint(vg);
-        } // paint
-    } // class Paint0s0
-
-    private static class Paint0s1 {
-        public static void paint(VectorGraphics[] vg) {
             vg[10].setColor(new Color(0, 0, 0, 255));
             vg[10].draw(new JAVAGeneralPath(1, new JAVAGeneralPath.PathElement[] {
                 new JAVAGeneralPath.MoveTo(10.0f, 0.0f),
@@ -216,6 +210,12 @@ public class TestResolution extends TestingPanel {
                 new JAVAGeneralPath.CurveTo(5.5228477f, -10.0f, 10.0f, -5.5228477f, 10.0f, 0.0f),
                 new JAVAGeneralPath.ClosePath()
             }));
+            Paint0s1.paint(vg);
+        } // paint
+    } // class Paint0s0
+
+    private static class Paint0s1 {
+        public static void paint(VectorGraphics[] vg) {
             vg[10].dispose();
             vg[11] = (VectorGraphics)vg[1].create();
             vg[11].translate(200.0, 480.0);

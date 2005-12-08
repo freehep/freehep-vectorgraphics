@@ -2,13 +2,11 @@
 
 package org.freehep.graphicsio.java.test;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import javax.swing.*;
-import org.freehep.graphics2d.*;
-import org.freehep.graphicsio.java.*;
-import org.freehep.graphicsio.test.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsio.test.TestingPanel;
 
 public class TestPrintColors extends TestingPanel {
 
@@ -197,12 +195,6 @@ public class TestPrintColors extends TestingPanel {
             vg[18].setColor(new Color(0, 0, 0, 255));
             vg[18].fillRect(0, 0, 196, 2);
             vg[18].fillRect(0, 2, 2, 38);
-            Paint0s1.paint(vg);
-        } // paint
-    } // class Paint0s0
-
-    private static class Paint0s1 {
-        public static void paint(VectorGraphics[] vg) {
             vg[18].fillRect(2, 38, 196, 2);
             vg[18].fillRect(196, 0, 2, 38);
             vg[18].translate(-1, -1);
@@ -215,6 +207,12 @@ public class TestPrintColors extends TestingPanel {
             vg[19].setColor(new Color(0, 0, 0, 255));
             vg[19].setFont(new Font("Dialog", 0, 12));
             vg[20] = (VectorGraphics)vg[19].create();
+            Paint0s1.paint(vg);
+        } // paint
+    } // class Paint0s0
+
+    private static class Paint0s1 {
+        public static void paint(VectorGraphics[] vg) {
             vg[20].setColorMode(2);
             vg[20].setColor(new Color(128, 128, 128, 255));
             vg[20].fillRect(3, 3, 194, 36);
@@ -396,12 +394,6 @@ public class TestPrintColors extends TestingPanel {
             vg[32].fillRect(196, 0, 2, 38);
             vg[32].translate(-1, -1);
             vg[32].setColor(new Color(255, 255, 255, 255));
-            Paint0s2.paint(vg);
-        } // paint
-    } // class Paint0s1
-
-    private static class Paint0s2 {
-        public static void paint(VectorGraphics[] vg) {
             vg[32].dispose();
             vg[31].dispose();
             vg[33] = (VectorGraphics)vg[6].create(200, 378, 200, 42);
@@ -414,6 +406,12 @@ public class TestPrintColors extends TestingPanel {
             vg[34].setColor(new Color(255, 255, 255, 255));
             vg[34].fillRect(3, 3, 194, 36);
             vg[34].translate(0, 0);
+            Paint0s2.paint(vg);
+        } // paint
+    } // class Paint0s1
+
+    private static class Paint0s2 {
+        public static void paint(VectorGraphics[] vg) {
             vg[34].setColor(new Color(255, 255, 255, 255));
             vg[34].fillRect(0, 0, 199, 1);
             vg[34].fillRect(0, 1, 1, 41);
@@ -595,12 +593,6 @@ public class TestPrintColors extends TestingPanel {
             vg[45].dispose();
             vg[47] = (VectorGraphics)vg[6].create(0, 294, 200, 42);
             vg[47].setColor(new Color(0, 0, 0, 255));
-            Paint0s3.paint(vg);
-        } // paint
-    } // class Paint0s2
-
-    private static class Paint0s3 {
-        public static void paint(VectorGraphics[] vg) {
             vg[47].setFont(new Font("Dialog", 0, 12));
             vg[47].setColor(new Color(0, 0, 0, 255));
             vg[47].setFont(new Font("Dialog", 0, 12));
@@ -613,6 +605,12 @@ public class TestPrintColors extends TestingPanel {
             vg[48].fillRect(0, 0, 199, 1);
             vg[48].fillRect(0, 1, 1, 41);
             vg[48].fillRect(1, 41, 199, 1);
+            Paint0s3.paint(vg);
+        } // paint
+    } // class Paint0s2
+
+    private static class Paint0s3 {
+        public static void paint(VectorGraphics[] vg) {
             vg[48].fillRect(199, 0, 1, 41);
             vg[48].translate(0, 0);
             vg[48].setColor(new Color(255, 200, 0, 255));
@@ -794,12 +792,6 @@ public class TestPrintColors extends TestingPanel {
             vg[61].setColor(new Color(0, 0, 0, 255));
             vg[61].setFont(new Font("Dialog", 0, 12));
             vg[62] = (VectorGraphics)vg[61].create();
-            Paint0s4.paint(vg);
-        } // paint
-    } // class Paint0s3
-
-    private static class Paint0s4 {
-        public static void paint(VectorGraphics[] vg) {
             vg[62].setColorMode(2);
             vg[62].setColor(new Color(0, 255, 255, 255));
             vg[62].fillRect(3, 3, 194, 36);
@@ -812,6 +804,12 @@ public class TestPrintColors extends TestingPanel {
             vg[62].translate(0, 0);
             vg[62].setColor(new Color(0, 255, 255, 255));
             vg[62].translate(1, 1);
+            Paint0s4.paint(vg);
+        } // paint
+    } // class Paint0s3
+
+    private static class Paint0s4 {
+        public static void paint(VectorGraphics[] vg) {
             vg[62].setColor(new Color(0, 0, 0, 255));
             vg[62].fillRect(0, 0, 196, 2);
             vg[62].fillRect(0, 2, 2, 38);
@@ -993,12 +991,6 @@ public class TestPrintColors extends TestingPanel {
             vg[76].setColor(new Color(0, 255, 0, 255));
             vg[76].fillRect(3, 3, 194, 36);
             vg[76].translate(0, 0);
-            Paint0s5.paint(vg);
-        } // paint
-    } // class Paint0s4
-
-    private static class Paint0s5 {
-        public static void paint(VectorGraphics[] vg) {
             vg[76].setColor(new Color(255, 255, 255, 255));
             vg[76].fillRect(0, 0, 199, 1);
             vg[76].fillRect(0, 1, 1, 41);
@@ -1011,6 +1003,12 @@ public class TestPrintColors extends TestingPanel {
             vg[76].fillRect(0, 0, 196, 2);
             vg[76].fillRect(0, 2, 2, 38);
             vg[76].fillRect(2, 38, 196, 2);
+            Paint0s5.paint(vg);
+        } // paint
+    } // class Paint0s4
+
+    private static class Paint0s5 {
+        public static void paint(VectorGraphics[] vg) {
             vg[76].fillRect(196, 0, 2, 38);
             vg[76].translate(-1, -1);
             vg[76].setColor(new Color(0, 255, 0, 255));

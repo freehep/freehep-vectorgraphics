@@ -2,13 +2,12 @@
 
 package org.freehep.graphicsio.java.test;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import javax.swing.*;
-import org.freehep.graphics2d.*;
-import org.freehep.graphicsio.java.*;
-import org.freehep.graphicsio.test.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsio.java.JAVAGeneralPath;
+import org.freehep.graphicsio.test.TestingPanel;
 
 public class TestClip extends TestingPanel {
 
@@ -198,12 +197,6 @@ public class TestClip extends TestingPanel {
                 new JAVAGeneralPath.LineTo(1.0f, 1.0f),
                 new JAVAGeneralPath.ClosePath()
             }));
-            Paint0s1.paint(vg);
-        } // paint
-    } // class Paint0s0
-
-    private static class Paint0s1 {
-        public static void paint(VectorGraphics[] vg) {
             vg[4].setColor(new Color(0, 0, 0, 255));
             vg[4].setLineWidth(0.375);
             vg[4].draw(new JAVAGeneralPath(1, new JAVAGeneralPath.PathElement[] {
@@ -218,6 +211,12 @@ public class TestClip extends TestingPanel {
                 new JAVAGeneralPath.LineTo(0.0f, 0.0f),
                 new JAVAGeneralPath.ClosePath()
             }));
+            Paint0s1.paint(vg);
+        } // paint
+    } // class Paint0s0
+
+    private static class Paint0s1 {
+        public static void paint(VectorGraphics[] vg) {
             vg[4].dispose();
             vg[3].translate(10.625, 0.0);
             vg[5] = (VectorGraphics)vg[3].create();
@@ -400,12 +399,6 @@ public class TestClip extends TestingPanel {
                 new JAVAGeneralPath.LineTo(1.0f, 1.0f),
                 new JAVAGeneralPath.ClosePath()
             }));
-            Paint0s2.paint(vg);
-        } // paint
-    } // class Paint0s1
-
-    private static class Paint0s2 {
-        public static void paint(VectorGraphics[] vg) {
             vg[11].setColor(new Color(0, 0, 0, 255));
             vg[11].setLineWidth(0.375);
             vg[11].draw(new JAVAGeneralPath(1, new JAVAGeneralPath.PathElement[] {
@@ -420,6 +413,12 @@ public class TestClip extends TestingPanel {
                 new JAVAGeneralPath.LineTo(7.0f, 1.0f),
                 new JAVAGeneralPath.ClosePath()
             }));
+            Paint0s2.paint(vg);
+        } // paint
+    } // class Paint0s1
+
+    private static class Paint0s2 {
+        public static void paint(VectorGraphics[] vg) {
             vg[11].dispose();
             vg[10].translate(10.625, 0.0);
             vg[12] = (VectorGraphics)vg[10].create();
@@ -602,12 +601,6 @@ public class TestClip extends TestingPanel {
                 new JAVAGeneralPath.LineTo(3.0f, 1.0f),
                 new JAVAGeneralPath.ClosePath()
             }));
-            Paint0s3.paint(vg);
-        } // paint
-    } // class Paint0s2
-
-    private static class Paint0s3 {
-        public static void paint(VectorGraphics[] vg) {
             vg[17].setColor(new Color(0, 0, 0, 255));
             vg[17].setLineWidth(0.375);
             vg[17].fill(new JAVAGeneralPath(1, new JAVAGeneralPath.PathElement[] {
@@ -619,6 +612,12 @@ public class TestClip extends TestingPanel {
                 new JAVAGeneralPath.ClosePath()
             }));
             vg[17].translate(10.625, 0.0);
+            Paint0s3.paint(vg);
+        } // paint
+    } // class Paint0s2
+
+    private static class Paint0s3 {
+        public static void paint(VectorGraphics[] vg) {
             vg[17].setColor(new Color(255, 0, 0, 255));
             vg[17].setLineWidth(0.125);
             vg[17].draw(new JAVAGeneralPath(1, new JAVAGeneralPath.PathElement[] {
@@ -802,12 +801,6 @@ public class TestClip extends TestingPanel {
                 new JAVAGeneralPath.LineTo(1.0f, 1.0f),
                 new JAVAGeneralPath.ClosePath()
             }));
-            Paint0s4.paint(vg);
-        } // paint
-    } // class Paint0s3
-
-    private static class Paint0s4 {
-        public static void paint(VectorGraphics[] vg) {
             vg[21].setColor(new Color(0, 0, 0, 255));
             vg[21].setLineWidth(0.375);
             vg[21].fill(new JAVAGeneralPath(1, new JAVAGeneralPath.PathElement[] {
@@ -821,6 +814,12 @@ public class TestClip extends TestingPanel {
                 new JAVAGeneralPath.LineTo(0.0f, 0.0f),
                 new JAVAGeneralPath.ClosePath()
             }));
+            Paint0s4.paint(vg);
+        } // paint
+    } // class Paint0s3
+
+    private static class Paint0s4 {
+        public static void paint(VectorGraphics[] vg) {
             vg[21].dispose();
             vg[18].translate(10.625, 0.0);
             vg[22] = (VectorGraphics)vg[18].create();
@@ -1004,12 +1003,6 @@ public class TestClip extends TestingPanel {
                 new JAVAGeneralPath.LineTo(7.0f, 1.0f),
                 new JAVAGeneralPath.ClosePath()
             }));
-            Paint0s5.paint(vg);
-        } // paint
-    } // class Paint0s4
-
-    private static class Paint0s5 {
-        public static void paint(VectorGraphics[] vg) {
             vg[28].dispose();
             vg[25].translate(10.625, 0.0);
             vg[29] = (VectorGraphics)vg[25].create();
@@ -1023,6 +1016,12 @@ public class TestClip extends TestingPanel {
                 new JAVAGeneralPath.LineTo(1.0f, 1.0f),
                 new JAVAGeneralPath.ClosePath()
             }));
+            Paint0s5.paint(vg);
+        } // paint
+    } // class Paint0s4
+
+    private static class Paint0s5 {
+        public static void paint(VectorGraphics[] vg) {
             vg[29].setColor(new Color(0, 0, 0, 255));
             vg[29].setLineWidth(0.375);
             vg[29].fill(new JAVAGeneralPath(1, new JAVAGeneralPath.PathElement[] {
