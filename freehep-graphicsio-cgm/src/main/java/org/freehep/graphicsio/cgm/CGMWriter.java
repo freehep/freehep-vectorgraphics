@@ -3,6 +3,7 @@ package org.freehep.graphicsio.cgm;
 
 import java.awt.Color;
 import java.awt.geom.Point2D;
+import java.io.FilterWriter;
 import java.io.IOException;
 import java.io.Writer;
 
@@ -17,9 +18,9 @@ import org.freehep.util.io.TaggedOutput;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-cgm/src/main/java/org/freehep/graphicsio/cgm/CGMWriter.java 278fac7cefaa 2005/12/05 04:00:43 duns $
+ * @version $Id: freehep-graphicsio-cgm/src/main/java/org/freehep/graphicsio/cgm/CGMWriter.java 83dd558e0284 2005/12/11 22:59:37 duns $
  */
-public class CGMWriter extends IndentPrintWriter implements TaggedOutput {
+public class CGMWriter extends FilterWriter implements TaggedOutput {
 
     private int version;
 
@@ -61,7 +62,7 @@ public class CGMWriter extends IndentPrintWriter implements TaggedOutput {
      */
     public CGMWriter(Writer writer, int version) throws IOException {
 
-        super(writer);
+        super(new IndentPrintWriter(writer));
         this.version = version;
     }
 
@@ -390,5 +391,34 @@ public class CGMWriter extends IndentPrintWriter implements TaggedOutput {
      */
     public int getVersion() {
         return version;
+    }
+
+    // Delegations to IndentPrintWriter to avoid "strange" compilation error in jdk 1.5
+    public void indent() {
+        ((IndentPrintWriter)out).indent();
+    }
+    
+    public void outdent() {
+        ((IndentPrintWriter)out).outdent();
+    }
+    
+    public void print(byte b) {
+        ((IndentPrintWriter)out).print(b);
+    }
+    
+    public void print(double d) {
+        ((IndentPrintWriter)out).print(d);
+    }
+    
+    public void print(String s) {
+        ((IndentPrintWriter)out).print(s);
+    }
+    
+    public void println(String s) {
+        ((IndentPrintWriter)out).println(s);
+    }
+
+    public void println() {
+        ((IndentPrintWriter)out).println();
     }
 }
