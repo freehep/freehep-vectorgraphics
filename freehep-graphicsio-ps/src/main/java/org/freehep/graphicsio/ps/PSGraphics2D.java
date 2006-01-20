@@ -56,7 +56,7 @@ import org.freehep.util.io.FlateOutputStream;
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java 2a51f590cc31 2006/01/20 19:52:28 duns $
  */
 public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -1152,8 +1152,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         os.println("     /Decode [0 1 0 1 0 1]");
         os.println("     /ImageMatrix [" + img.getWidth() + " 0 0 "
                 + img.getHeight() + " 0 0]");
-        os
-                .println("     /DataSource ( Z  Z  Z  Z  Z  Z  Z  Z Z ZZ ZZ ZZ ZZ ZZ ZZ ZZ Z)");
+        os.println("     /DataSource ( Z  Z  Z  Z  Z  Z  Z  Z Z ZZ ZZ ZZ ZZ ZZ ZZ ZZ Z)");
         os.println("     >> image");
         os.println("     end");
         os.println("   } bind");
