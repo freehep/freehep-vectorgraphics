@@ -7,24 +7,20 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.freehep</groupId>
   <artifactId>freehep-graphicsio</artifactId>
-  <version>2.0-SNAPSHOT</version>
   <name>FreeHEP GraphicsIO</name>
   <description>FreeHEP GraphicsIO Base Library</description>
   <dependencies>
     <dependency>
       <groupId>org.freehep</groupId>
       <artifactId>freehep-graphics2d</artifactId>
-      <version>2.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.freehep</groupId>
       <artifactId>freehep-export</artifactId>
-      <version>2.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.freehep</groupId>
       <artifactId>freehep-io</artifactId>
-      <version>2.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>

@@ -7,7 +7,6 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.freehep</groupId>
   <artifactId>freehep-graphicsio-latex</artifactId>
-  <version>2.0-SNAPSHOT</version>
   <name>FreeHEP LaTeX Driver</name>
   <description>FreeHEP LaTeX Driver</description>
   <dependencies>
