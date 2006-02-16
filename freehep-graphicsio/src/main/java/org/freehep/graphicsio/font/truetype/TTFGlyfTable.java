@@ -1,4 +1,4 @@
-// Copyright 2001, FreeHEP.
+// Copyright 2001-2006, FreeHEP.
 package org.freehep.graphicsio.font.truetype;
 
 import java.awt.Rectangle;
@@ -10,7 +10,7 @@ import java.io.IOException;
  * GLYPH Table.
  * 
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/font/truetype/TTFGlyfTable.java 5641ca92a537 2005/11/26 00:15:35 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/font/truetype/TTFGlyfTable.java 99d568e4bb45 2006/02/16 21:47:24 duns $
  */
 public class TTFGlyfTable extends TTFVersionTable {
 
@@ -178,78 +178,48 @@ public class TTFGlyfTable extends TTFVersionTable {
         }
 
         public GeneralPath getShape() {
-            if (shape != null)
+            if (shape != null) {
                 return shape;
+            }
 
             shape = new GeneralPath(GeneralPath.WIND_NON_ZERO);
             int p = 0;
-            int x = 0;
-            int y = 0;
             for (int i = 0; i < endPtsOfContours.length; i++) {
-                boolean first = true;
+                int startIndex = p++;
+                shape.moveTo(xCoordinates[startIndex], yCoordinates[startIndex]);
+                boolean lastOnCurve = true;
                 while (p <= endPtsOfContours[i]) {
-                    x = xCoordinates[p];
-                    y = yCoordinates[p];
-                    // System.out.print(p+": ("+x+","+y+")");
-                    if (first) {
-                        shape.moveTo(x, y);
-                        // System.out.println(" m");
-                        if (!onCurve[p])
-                            System.err
-                                    .println("First point of contour not on curve!");
-                    } else if (onCurve[p]) {
-                        shape.lineTo(x, y);
-                        // System.out.println(" l");
-                    } else {
-                        int pIndex = 0;
-                        // when we are at the end of a contour
-                        if (p == endPtsOfContours[i])
-                            // look for the endpoint of the curve at the
-                            // beginning
-                            if (i > 0)
-                                pIndex = endPtsOfContours[i - 1] + 1;
-                            else
-                                pIndex = 0;
-                        else
-                            pIndex = ++p; // else take the next point
-                        int x1 = xCoordinates[pIndex];
-                        int y1 = yCoordinates[pIndex];
-                        // System.out.print("("+x1+","+y1+")");
-                        if (onCurve[p]) {
-                            shape.quadTo(x, y, x1, y1);
-                            // System.out.println(" q");
-                        } else {
-                            if (p == endPtsOfContours[i])
-                                if (i > 0)
-                                    pIndex = endPtsOfContours[i - 1] + 1;
-                                else
-                                    pIndex = 0;
-                            else
-                                pIndex = ++p;
-                            int x2 = xCoordinates[pIndex];
-                            int y2 = yCoordinates[pIndex];
-                            // System.out.println("("+y2+","+y2+") c");
-                            shape.curveTo(x, y, x1, y1, x2, y2);
 
-                            // FIXME: Find out how to construct a cubic or
-                            // quadratic
-                            // Bezier curve from a Bezier spline with an
-                            // arbitrary number
-                            // of off-curve points
-                            if (!onCurve[p])
-                                System.err
-                                        .println("Three points in a row not on curve!");
+                    if (onCurve[p]) {
+                        if (lastOnCurve) {
+                            shape.lineTo(xCoordinates[p], yCoordinates[p]);
+                        } else {
+                            shape.quadTo(xCoordinates[p - 1], yCoordinates[p - 1],
+                                    xCoordinates[p], yCoordinates[p]);
                         }
+                        lastOnCurve = true;
+                    } else {
+                        if (!lastOnCurve) {
+                            int x1 = xCoordinates[p - 1];
+                            int y1 = yCoordinates[p - 1];
+                            int x2 = (int)((x1 + xCoordinates[p])/ 2.0);
+                            int y2 = (int)((y1 + yCoordinates[p])/ 2.0);
+                            shape.quadTo(x1, y1, x2, y2);
+                        }
+                        lastOnCurve = false;
                     }
-                    first = false;
                     p++;
                 }
-                shape.closePath();
-                // System.out.println(".");
+                if (!onCurve[p - 1]) {
+                    shape.quadTo(xCoordinates[p - 1], yCoordinates[p - 1],
+                            xCoordinates[startIndex], yCoordinates[startIndex]);
+                } else if ((xCoordinates[p - 1] != xCoordinates[startIndex]) ||
+                           (yCoordinates[p - 1] != yCoordinates[startIndex])) {
+                    shape.closePath();
+                }
             }
             return shape;
         }
-
     }
 
     // --------------------------------------------------------------------------------
