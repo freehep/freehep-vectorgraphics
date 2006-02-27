@@ -9,6 +9,16 @@
   <artifactId>freehep-graphicsio-tests</artifactId>
   <name>FreeHEP GraphicsIO Tests</name>
   <description>FreeHEP GraphicsIO Test Library</description>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
     <dependencies>
         <dependency>
             <groupId>org.freehep</groupId>

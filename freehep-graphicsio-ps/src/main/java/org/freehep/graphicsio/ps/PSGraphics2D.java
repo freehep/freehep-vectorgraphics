@@ -1,4 +1,4 @@
-// Copyright 2000-2005 FreeHEP
+// Copyright 2000-2006 FreeHEP
 package org.freehep.graphicsio.ps;
 
 import java.awt.BasicStroke;
@@ -56,7 +56,7 @@ import org.freehep.util.io.FlateOutputStream;
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java 2a51f590cc31 2006/01/20 19:52:28 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java 40d86979195e 2006/02/27 19:52:33 duns $
  */
 public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -758,8 +758,13 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
     /* 5.1.4. shapes */
     public void draw(Shape shape) {
         try {
-            writePath(shape);
-            os.println("S");
+            if (getStroke() instanceof BasicStroke) {
+                writePath(shape);
+                os.println("S");
+            } else {
+                boolean eofill = writePath(getStroke().createStrokedShape(shape));
+                os.println(((eofill) ? "f*" : "f"));
+            }     
         } catch (IOException e) {
             handleException(e);
         }

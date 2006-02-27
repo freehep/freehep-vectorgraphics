@@ -1,6 +1,7 @@
 // Copyright 2004, FreeHEP
 package org.freehep.graphicsio.latex;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -27,7 +28,7 @@ import org.freehep.util.ScientificFormat;
 /**
  * @author Andre Bach
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-latex/src/main/java/org/freehep/graphicsio/latex/LatexGraphics2D.java e3449d5a3c6c 2005/12/07 22:14:47 duns $
+ * @version $Id: freehep-graphicsio-latex/src/main/java/org/freehep/graphicsio/latex/LatexGraphics2D.java 40d86979195e 2006/02/27 19:52:33 duns $
  */
 public class LatexGraphics2D extends AbstractVectorGraphicsIO {
     /*
@@ -218,9 +219,15 @@ public class LatexGraphics2D extends AbstractVectorGraphicsIO {
     public void draw(Shape shape) {
         LatexPathConstructor pc = new LatexPathConstructor(ps);
         try {
-            ps.println("\\pscustom[fillstyle=none]{");
-            pc.addPath(shape, getTransform());
-            ps.println("}");
+            if (getStroke() instanceof BasicStroke) {
+                ps.println("\\pscustom[fillstyle=none]{");
+                pc.addPath(shape, getTransform());
+                ps.println("}");
+            } else {
+                ps.println("\\pscustom[linestyle=none]{");
+                pc.addPath(getStroke().createStrokedShape(shape), getTransform());
+                ps.println("}");                
+            }
         } catch (IOException e) {
             handleException(e);
         }

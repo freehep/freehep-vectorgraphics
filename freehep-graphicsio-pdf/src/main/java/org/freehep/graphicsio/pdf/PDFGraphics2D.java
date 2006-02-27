@@ -1,4 +1,4 @@
-// Copyright 2000-2005 FreeHEP
+// Copyright 2000-2006 FreeHEP
 package org.freehep.graphicsio.pdf;
 
 import java.awt.BasicStroke;
@@ -55,7 +55,7 @@ import org.freehep.util.UserProperties;
  * 
  * @author Simon Fischer
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java f493ff6e61b2 2005/12/01 18:46:43 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java 40d86979195e 2006/02/27 19:52:33 duns $
  */
 public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {

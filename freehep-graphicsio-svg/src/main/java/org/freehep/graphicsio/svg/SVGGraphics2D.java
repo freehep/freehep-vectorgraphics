@@ -1,4 +1,4 @@
-// Copyright 2000-2005 FreeHEP
+// Copyright 2000-2006 FreeHEP
 package org.freehep.graphicsio.svg;
 
 import java.awt.BasicStroke;
@@ -58,7 +58,7 @@ import org.freehep.xml.util.XMLWriter;
  * The current implementation is based on REC-SVG11-20030114
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java 1d3bd2a557b2 2005/12/03 07:37:43 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java 40d86979195e 2006/02/27 19:52:33 duns $
  */
 public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
@@ -610,11 +610,15 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
     /* 5.1.4. shapes */
     public void draw(Shape shape) {
-        PathIterator path = shape.getPathIterator(null);
+        if (getStroke() instanceof BasicStroke) {
+            PathIterator path = shape.getPathIterator(null);
 
-        os.println("<g " + style(color(getPaint(), null)) + ">");
-        writePath(path);
-        os.println("</g> <!-- draw -->");
+            os.println("<g " + style(color(getPaint(), null)) + ">");
+            writePath(path);
+            os.println("</g> <!-- draw -->");
+        } else {
+             fill(getStroke().createStrokedShape(shape));
+        }
     }
 
     public void fill(Shape shape) {

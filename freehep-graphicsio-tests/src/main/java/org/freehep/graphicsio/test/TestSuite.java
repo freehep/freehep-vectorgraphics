@@ -1,4 +1,4 @@
-// Copyright 2001-2005, FreeHEP.
+// Copyright 2001-2006, FreeHEP.
 package org.freehep.graphicsio.test;
 
 import java.io.File;
@@ -17,7 +17,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java e3449d5a3c6c 2005/12/07 22:14:47 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 40d86979195e 2006/02/27 19:52:33 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -124,6 +124,8 @@ public class TestSuite extends junit.framework.TestSuite {
         addTest(new TestCase(testPackage + "TestClip", fmt, pkg, dir, ext, compare,
                 properties));
         addTest(new TestCase(testPackage + "TestColors", fmt, pkg, dir, ext, compare,
+                properties));
+        addTest(new TestCase(testPackage + "TestCustomStrokes", fmt, pkg, dir, ext, compare,
                 properties));
         addTest(new TestCase(testPackage + "TestFonts", fmt, pkg, dir, ext, compare,
                 properties));

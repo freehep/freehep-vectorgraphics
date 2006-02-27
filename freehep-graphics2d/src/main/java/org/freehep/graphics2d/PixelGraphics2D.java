@@ -1,4 +1,4 @@
-// Copyright 2000-2005, FreeHEP.
+// Copyright 2000-2006, FreeHEP.
 package org.freehep.graphics2d;
 
 import java.awt.AlphaComposite;
@@ -40,7 +40,7 @@ import org.freehep.graphics2d.font.FontEncoder;
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/PixelGraphics2D.java 7aee336a8992 2005/11/25 23:19:05 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/PixelGraphics2D.java 40d86979195e 2006/02/27 19:52:33 duns $
  */
 public class PixelGraphics2D extends AbstractVectorGraphics {
 

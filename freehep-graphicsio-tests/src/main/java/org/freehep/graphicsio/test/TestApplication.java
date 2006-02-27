@@ -1,11 +1,11 @@
-// Copyright 2001-2005 freehep
+// Copyright 2001-2006 freehep
 package org.freehep.graphicsio.test;
 
 import java.awt.Dimension;
 
 /**
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestApplication.java f493ff6e61b2 2005/12/01 18:46:43 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestApplication.java 40d86979195e 2006/02/27 19:52:33 duns $
  */
 public class TestApplication {
 
@@ -18,6 +18,7 @@ public class TestApplication {
         frame.addPanel("All", new TestAll(null));
         frame.addPanel("Colors", new TestColors(null));
         frame.addPanel("Clip", new TestClip(null));
+        frame.addPanel("Custom Strokes", new TestCustomStrokes(null));
         frame.addPanel("Fonts", new TestFonts(null));
         frame.addPanel("HTML", new TestHTML(null));
         frame.addPanel("Image2D", new TestImage2D(null));
