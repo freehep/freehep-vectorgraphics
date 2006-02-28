@@ -5,12 +5,10 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import java.awt.Paint;
-import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
@@ -29,7 +27,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.DateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Properties;
@@ -58,7 +58,7 @@ import org.freehep.xml.util.XMLWriter;
  * The current implementation is based on REC-SVG11-20030114
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java 07902aaefb18 2006/02/28 00:05:01 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java 9aa3236b257d 2006/02/28 01:14:45 duns $
  */
 public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
@@ -95,6 +95,10 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
     public static final String TITLE = rootKey + "." + InfoConstants.TITLE;
 
+    public static final String DEFS = rootKey + ".Defs";
+
+    private BasicStroke defaultStroke = new BasicStroke();
+
     private static final UserProperties defaultProperties = new UserProperties();
     static {
         defaultProperties.setProperty(TRANSPARENT, true);
@@ -114,7 +118,12 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         defaultProperties.setProperty(FOR, "");
         defaultProperties.setProperty(TITLE, "");
 
-        defaultProperties.setProperty(CLIP,             true);
+        defaultProperties.setProperty(CLIP, true);
+
+        // compressing permits Firefox 1.5 compatibility
+        defaultProperties.setProperty(COMPRESS, false);
+
+        defaultProperties.setProperty(DEFS, true);
     }
 
     public static Properties getDefaultProperties() {
@@ -126,9 +135,6 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
     }
 
     public static final String version = "$Revision$";
-
-    // shift to make draw routines draw in the middle
-    private static final double bias = 0.5;
 
     // current filename including path
     private String filename;
@@ -152,7 +158,6 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
     private int imageNumber = 0;
 
     private Value clipNumber;
-
 
     private int width, height;
 
@@ -280,7 +285,6 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         os.println("     height=\"" + h + "px\"");
         os.println("     viewBox=\"" + bbx + " " + bby + " " + bbw + " " + bbh
                 + "\"");
-        os.println("     " + defaultStyle());
         os.println("     >");
         closeTags.push("</svg> <!-- bounding box -->");
 
@@ -310,10 +314,15 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         os.println("</desc>");
 
         writeDefs();
-        writeSetup();
     }
 
-    private void writeDefs() throws IOException {
+    private void writeDefs() {
+        // Defs permit Firefox 1.5 to show the SVG "prefix 'use' not bound to
+        // namespace"
+        if (!isProperty(DEFS)) {
+            return;
+        }
+
         // The defs are kept in a file SVGDefs.txt in the same area
         // as this class definition. It is simply copied into the
         // output file.
@@ -325,13 +334,6 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             copyResourceTo(this, "SVGDefs-stylable.txt", os);
         }
         os.println("</defs>\n");
-    }
-
-    private void writeSetup() throws IOException {
-        os.println("<g " + defaultStyle() + ">");
-        setFont(getFont());
-
-        closeTags.push("</g> <!-- top-level -->");
     }
 
     public void writeBackground() throws IOException {
@@ -367,9 +369,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         } catch (IOException e) {
             handleException(e);
         }
-        SVGGraphics2D tempGraphics = new SVGGraphics2D(this, true);
-        // os.println("<g "+defaultStyle()+">");
-        return tempGraphics;
+        return new SVGGraphics2D(this, true);
     }
 
     public Graphics create(double x, double y, double width, double height) {
@@ -384,8 +384,13 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
                 + fixedPrecision(y) + "\" " + "width=\""
                 + fixedPrecision(width) + "\" " + "height=\""
                 + fixedPrecision(height) + "\" " + ">");
-        // defaultStyle()+">");
         graphics.closeTags.push("</svg> <!-- graphics context -->");
+
+        // write default stroke
+        os.println("<g style=\""
+                + getStrokeString(graphics.defaultStroke, true) + "\">");
+        graphics.closeTags.push("</g> <!-- default stroke -->");
+
         return graphics;
     }
 
@@ -405,252 +410,57 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
      * ================================================================================
      */
     /* 5.1 shapes */
-    /* 5.1.1. lines, rectangles, round rectangles */
-    public void drawLine(double x1, double y1, double x2, double y2) {
-        os.println("<line " + style(color(getPaint(), null)) + " x1=\""
-                + fixedPrecision(x1 + bias) + "\" y1=\""
-                + fixedPrecision(y1 + bias) + "\" x2=\""
-                + fixedPrecision(x2 + bias) + "\" y2=\""
-                + fixedPrecision(y2 + bias) + "\" />");
-    }
-
-    public void drawRect(double x, double y, double width, double height) {
-        os.println("<rect " + style(color(getPaint(), null)) + " x=\""
-                + fixedPrecision(x + bias) + "\" y=\""
-                + fixedPrecision(y + bias) + "\" width=\""
-                + fixedPrecision(width) + "\" height=\""
-                + fixedPrecision(height) + "\"/>");
-    }
-
-    public void fillRect(double x, double y, double width, double height) {
-        os.println("<rect " + style(color(null, getPaint())) + " x=\""
-                + fixedPrecision(x) + "\" y=\"" + fixedPrecision(y)
-                + "\" width=\"" + fixedPrecision(width) + "\" height=\""
-                + fixedPrecision(height) + "\"/>");
-    }
-
-    public void drawRoundRect(double x, double y, double width, double height,
-            double arcWidth, double arcHeight) {
-        os.println("<rect " + style(color(getPaint(), null)) + " x=\""
-                + fixedPrecision(x) + "\" y=\"" + fixedPrecision(y)
-                + "\" width=\"" + fixedPrecision(width) + "\" height=\""
-                + fixedPrecision(height) + "\" " + "rx=\""
-                + fixedPrecision(arcWidth / 2) + "\" ry=\""
-                + fixedPrecision(arcHeight / 2) + "\" />");
-    }
-
-    public void fillRoundRect(double x, double y, double width, double height,
-            double arcWidth, double arcHeight) {
-        os.println("<rect " + style(color(null, getPaint())) + " x=\""
-                + fixedPrecision(x) + "\" y=\"" + fixedPrecision(y)
-                + "\" width=\"" + fixedPrecision(width) + "\" height=\""
-                + fixedPrecision(height) + "\" " + "rx=\""
-                + fixedPrecision(arcWidth / 2) + "\" ry=\""
-                + fixedPrecision(arcHeight / 2) + "\" />");
-    }
-
-    /* 5.1.2. polylines, polygons */
-    public void drawPolyline(int[] xPoints, int[] yPoints, int nPoints) {
-        if (nPoints > 1) {
-            os.print("<polyline " + style(color(getPaint(), null))
-                    + " points=\"");
-            for (int i = 0; i < nPoints; i++) {
-                os.print((xPoints[i] + bias) + "," + (yPoints[i] + bias) + " ");
-            }
-            os.println("\" />");
-        }
-    }
-
-    public void drawPolyline(double[] xPoints, double[] yPoints, int nPoints) {
-        if (nPoints > 1) {
-            os.print("<polyline " + style(color(getPaint(), null))
-                    + " points=\"");
-            for (int i = 0; i < nPoints; i++) {
-                os.print(fixedPrecision(xPoints[i] + bias) + ","
-                        + fixedPrecision(yPoints[i] + bias) + " ");
-            }
-            os.println("\" />");
-        }
-    }
-
-    public void drawPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-        if (nPoints > 1) {
-            os.print("<polygon " + style(color(getPaint(), null))
-                    + " points=\"");
-            for (int i = 0; i < nPoints; i++) {
-                os.print((xPoints[i] + bias) + "," + (yPoints[i] + bias) + " ");
-            }
-            os.println("\" />");
-        }
-    }
-
-    public void drawPolygon(double[] xPoints, double[] yPoints, int nPoints) {
-        if (nPoints > 1) {
-            os.print("<polygon " + style(color(getPaint(), null))
-                    + " points=\"");
-            for (int i = 0; i < nPoints; i++) {
-                os.print(fixedPrecision(xPoints[i] + bias) + ","
-                        + fixedPrecision(yPoints[i] + bias) + " ");
-            }
-            os.println("\" />");
-        }
-    }
-
-    public void drawPolygon(Polygon p) {
-        drawPolygon(p.xpoints, p.ypoints, p.npoints);
-    }
-
-    public void fillPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-        if (nPoints > 1) {
-            os.print("<polygon "
-                    + style(color(null, getPaint()) + "fill-rule:evenodd")
-                    + " points=\"");
-            for (int i = 0; i < nPoints; i++) {
-                os.print(xPoints[i] + "," + yPoints[i] + " ");
-            }
-            os.println("\" />");
-        }
-    }
-
-    public void fillPolygon(double[] xPoints, double[] yPoints, int nPoints) {
-        if (nPoints > 1) {
-            os.print("<polygon "
-                    + style(color(null, getPaint()) + "fill-rule:evenodd")
-                    + " points=\"");
-            for (int i = 0; i < nPoints; i++) {
-                os.print(fixedPrecision(xPoints[i]) + ","
-                        + fixedPrecision(yPoints[i]) + " ");
-            }
-            os.println("\" />");
-        }
-    }
-
-    public void fillPolygon(Polygon p) {
-        fillPolygon(p.xpoints, p.ypoints, p.npoints);
-    }
-
-    /* 5.1.3. ovals, arcs */
-    public void drawArc(double x, double y, double width, double height,
-            double startAngle, double arcAngle) {
-        double sa = startAngle * Math.PI / 180;
-        double aa = arcAngle * Math.PI / 180;
-        double rx = width / 2;
-        double ry = height / 2;
-        double x1 = x + bias + rx + rx * Math.cos(sa);
-        double y1 = y + bias + ry - ry * Math.sin(sa);
-        double x2 = x + bias + rx + rx * Math.cos(sa + aa);
-        double y2 = y + bias + ry - ry * Math.sin(sa + aa);
-        int large = (Math.abs(arcAngle) <= 180) ? 0 : 1;
-        int sweep = (arcAngle > 0) ? 0 : 1;
-        os.println("<path " + style(color(getPaint(), null)) + " d=\"M "
-                + fixedPrecision(x1) + " " + fixedPrecision(y1) + " A "
-                + fixedPrecision(rx) + "," + fixedPrecision(ry) + " 0 " + large
-                + " " + sweep + " " + fixedPrecision(x2) + ","
-                + fixedPrecision(y2) + "\"/>");
-    }
-
-    public void fillArc(double x, double y, double width, double height,
-            double startAngle, double arcAngle) {
-        double sa = startAngle * Math.PI / 180;
-        double aa = arcAngle * Math.PI / 180;
-        double rx = width / 2;
-        double ry = height / 2;
-        double x1 = x + rx + rx * Math.cos(sa);
-        double y1 = y + ry - ry * Math.sin(sa);
-        double x2 = x + rx + rx * Math.cos(sa + aa);
-        double y2 = y + ry - ry * Math.sin(sa + aa);
-        int large = (Math.abs(arcAngle) <= 180) ? 0 : 1;
-        int sweep = (arcAngle > 0) ? 0 : 1;
-        os.println("<path " + style(color(null, getPaint())) + " d=\"M "
-                + fixedPrecision(x1) + " " + fixedPrecision(y1) + " A "
-                + fixedPrecision(rx) + "," + fixedPrecision(ry) + " 0 " + large
-                + " " + sweep + " " + fixedPrecision(x2) + ","
-                + fixedPrecision(y2) + " L " + fixedPrecision(x + rx) + " "
-                + fixedPrecision(y + ry) + " z\"/>");
-    }
-
-    public void drawOval(double x, double y, double width, double height) {
-        os.println("<ellipse " + style(color(getPaint(), null)) + " cx=\""
-                + fixedPrecision(x + bias + width / 2) + "\" cy=\""
-                + fixedPrecision(y + bias + height / 2) + "\" " + "rx=\""
-                + fixedPrecision(width / 2) + "\" ry=\""
-                + fixedPrecision(height / 2) + "\" />");
-    }
-
-    public void fillOval(double x, double y, double width, double height) {
-        os.println("<ellipse " + style(color(null, getPaint())) + " cx=\""
-                + fixedPrecision(x + width / 2) + "\" cy=\""
-                + fixedPrecision(y + height / 2) + "\" " + "rx=\""
-                + fixedPrecision(width / 2) + "\" ry=\""
-                + fixedPrecision(height / 2) + "\" />");
-    }
-
-    /*
-     * public void drawSymbol(double x, double y, double size, int symbol) { if
-     * (size>0) { // FIXME: the current viewer (Adobe beta2 4/00) ignores the
-     * ViewBox in the symbols // so we go for fixed size (100) symbols and do
-     * the scaling and translation ourselves... // we also leave out any
-     * placement! os.print("<use "+ // "x=\""+fixedPrecision(x+bias)+"\"
-     * y=\""+fixedPrecision(y+bias)+"\" "+
-     * "transform=\"translate("+fixedPrecision(x+bias-size/2)+","+fixedPrecision(y+bias-size/2)+")scale("+fixedPrecision(size/600)+")\" "+
-     * "xlink:href=\"#"); switch (symbol) { case SYMBOL_VLINE:
-     * os.print("vline"); break; case SYMBOL_HLINE: os.print("hline"); break;
-     * case SYMBOL_PLUS: os.print("plus"); break; case SYMBOL_CROSS:
-     * os.print("cross"); break; case SYMBOL_STAR: os.print("star"); break; case
-     * SYMBOL_CIRCLE: os.print("dot"); break; case SYMBOL_FILLED_CIRCLE:
-     * os.print("fdot"); break; case SYMBOL_BOX: os.print("box"); break; case
-     * SYMBOL_FILLED_BOX: os.print("fbox"); break; case SYMBOL_UP_TRIANGLE:
-     * os.print("triup"); break; case SYMBOL_FILLED_UP_TRIANGLE:
-     * os.print("ftriup"); break; case SYMBOL_DN_TRIANGLE: os.print("tridn");
-     * break; case SYMBOL_FILLED_DN_TRIANGLE: os.print("ftridn"); break; case
-     * SYMBOL_DIAMOND: os.print("diamond"); break; case SYMBOL_FILLED_DIAMOND:
-     * os.print("fdiamond"); break; } os.println("\"/>"); } }
-     */
-
     /* 5.1.4. shapes */
     public void draw(Shape shape) {
-        if (getStroke() instanceof BasicStroke) {
-            PathIterator path = shape.getPathIterator(null);
-
-            os.println("<g " + style(color(getPaint(), null)) + ">");
-            writePath(path);
-            os.println("</g> <!-- draw -->");
-        } else {
-             fill(getStroke().createStrokedShape(shape));
-        }
+        draw(shape, false, true);
     }
 
     public void fill(Shape shape) {
-
-        PathIterator path = shape.getPathIterator(null);
-        StringBuffer s = new StringBuffer();
-        s.append(color(null, getPaint()));
-        if (path.getWindingRule() == PathIterator.WIND_EVEN_ODD) {
-            s.append("fill-rule:evenodd;");
-        } else {
-            s.append("fill-rule:nonzero;");
-        }
-
-        os.println("<g " + style(s.toString()) + ">");
-        writePath(path);
-        os.println("</g> <!-- fill -->");
+        draw(shape, true, false);
     }
 
-    public void fillAndDraw(Shape shape, Color fillColor) {
-        PathIterator path = shape.getPathIterator(null);
-        StringBuffer s = new StringBuffer();
-        if (fillColor != null) {
-            s.append(color(getPaint(), fillColor));
-            if (path.getWindingRule() == PathIterator.WIND_EVEN_ODD) {
-                s.append("fill-rule:evenodd;");
-            } else {
-                s.append("fill-rule:nonzero;");
-            }
+    private void draw(Shape s, boolean fill, boolean draw) {
+        StringBuffer result = new StringBuffer();
+
+        if (!(getStroke() instanceof BasicStroke)) {
+            s = getStroke().createStrokedShape(s);
+            draw = false;
+            fill = true;
+        }
+        
+        PathIterator path = s.getPathIterator(null);
+
+        // define style (color and stroke)
+        StringBuffer style = new StringBuffer();
+
+        style.append(getPaintString(
+        // when drawing use paint as "border"
+                draw ? getPaint() : null,
+                // when filling use paint as "filling"
+                fill ? getPaint() : null));
+
+        style.append(getStrokeString(getStroke(), false));
+
+        if (path.getWindingRule() == PathIterator.WIND_EVEN_ODD) {
+            style.append("fill-rule:evenodd;");
+        } else {
+            style.append("fill-rule:nonzero;");
         }
 
-        os.println("<g " + style(s.toString()) + ">");
-        writePath(path);
-        os.println("</g> <!-- fillAndDraw -->");
+        // write style
+        result.append("<g ");
+        result.append(style(style.toString()));
+        result.append(">\n  ");
+
+        // draw shape
+        result.append(getPath(path));
+
+        // close style
+        result.append("\n</g> <!-- drawing style -->");
+
+        // write in a transformed context
+        os.println(getTransformedString(getTransform(), getClippedString(result
+                .toString())));
     }
 
     /* 5.2. Images */
@@ -662,18 +472,13 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
     protected void writeImage(RenderedImage image, AffineTransform xform,
             Color bkg) throws IOException {
 
-        if ((xform != null) && !xform.isIdentity()) {
-            os.println("<g transform=\"matrix("
-                    + fixedPrecision(xform.getScaleX()) + ", "
-                    + fixedPrecision(xform.getShearY()) + ", "
-                    + fixedPrecision(xform.getShearX()) + ", "
-                    + fixedPrecision(xform.getScaleY()) + ", "
-                    + fixedPrecision(xform.getTranslateX()) + ", "
-                    + fixedPrecision(xform.getTranslateY()) + ")\">");
-        }
-        os.print("<image x=\"0\" y=\"0\" " + "width=\"" + image.getWidth()
-                + "\" " + "height=\"" + image.getHeight() + "\" "
-                + "xlink:href=\"");
+        StringBuffer result = new StringBuffer();
+
+        result.append("<image x=\"0\" y=\"0\" " + "width=\"");
+        result.append(image.getWidth());
+        result.append("\" " + "height=\"");
+        result.append(image.getHeight());
+        result.append("\" " + "xlink:href=\"");
 
         String writeAs = getProperty(WRITE_IMAGES_AS);
         boolean isTransparent = image.getColorModel().hasAlpha()
@@ -727,7 +532,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             imageName += "." + getProperty(EXPORT_SUFFIX) + "-" + imageNumber
                     + "." + encode;
 
-            os.print(imageName);
+            result.append(imageName);
 
             // write the image separately
             FileOutputStream imageStream = new FileOutputStream(dirName
@@ -736,39 +541,49 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             imageStream.write(imageBytes);
             imageStream.close();
         } else {
-            os.println("data:image/" + encode + ";base64,");
+            result.append("data:image/");
+            result.append(encode);
+            result.append(";base64,");
+
+            StringWriter writer = new StringWriter();
             Base64OutputStream b64 = new Base64OutputStream(
-                    new WriterOutputStream(os));
+                    new WriterOutputStream(writer));
             b64.write(imageBytes);
             b64.finish();
+
+            result.append(writer.toString());
         }
 
-        os.println("\"/>");
-        if ((xform != null) && !xform.isIdentity()) {
-            os.println("</g> <!-- transform -->");
-        }
+        result.append("\"/>");
+
+        os
+                .println(getTransformedString(getTransform(),
+                        getClippedString(getTransformedString(xform, result
+                                .toString()))));
     }
 
     /* 5.3. Strings */
     protected void writeString(String str, double x, double y)
             throws IOException {
         str = FontEncoder.getEncodedString(str, getFont().getName());
-        AffineTransform t = getFont().getTransform();
-        if (!t.isIdentity()) {
-            os.println("<g transform=\"matrix(" + fixedPrecision(t.getScaleX())
-                    + ", " + fixedPrecision(t.getShearY()) + ", "
-                    + fixedPrecision(t.getShearX()) + ", "
-                    + fixedPrecision(t.getScaleY()) + ", "
-                    + fixedPrecision(t.getTranslateX()) + ", "
-                    + fixedPrecision(t.getTranslateY()) + ")\">");
-        }
-        os.println("<text " + style(color(null, getPaint())) + " x=\""
-                + fixedPrecision(x) + "\" y=\"" + fixedPrecision(y) + "\">");
-        os.println(XMLWriter.normalizeText(str));
-        os.println("</text>");
-        if (!t.isIdentity()) {
-            os.println("</g> <!-- transform -->");
-        }
+
+        os.println(
+        // general transformation
+                getTransformedString(
+                        getTransform(),
+                        // general clip
+                        getClippedString(getTransformedString(
+                                // specific transformation
+                                getFont().getTransform(),
+                                "<text "
+                                        + style(getPaintString(null, getPaint())
+                                                + getFontString()
+                                                + getStrokeString(getStroke(),
+                                                        false)) + " x=\""
+                                        + fixedPrecision(x) + "\" y=\""
+                                        + fixedPrecision(y) + "\">"
+                                        + XMLWriter.normalizeText(str)
+                                        + "</text>"))));
     }
 
     public void drawString(String str, double x, double y, int horizontal,
@@ -811,25 +626,17 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             setStroke(s);
         }
 
-        AffineTransform t = getFont().getTransform();
-        if (!t.isIdentity()) {
-            os.println("<g transform=\"matrix(" + fixedPrecision(t.getScaleX())
-                    + ", " + fixedPrecision(t.getShearY()) + ", "
-                    + fixedPrecision(t.getShearX()) + ", "
-                    + fixedPrecision(t.getScaleY()) + ", "
-                    + fixedPrecision(t.getTranslateX()) + ", "
-                    + fixedPrecision(t.getTranslateY()) + ")\">");
-        }
-        os.println("<text "
-                + style(color(null, getPaint())
-                        + getAlignmentString(horizontal, vertical, metrics))
-                + " x=\"" + fixedPrecision(x) + "\" y=\"" + fixedPrecision(y)
-                + "\">");
-        os.println(XMLWriter.normalizeText(str));
-        os.println("</text>");
-        if (!t.isIdentity()) {
-            os.println("</g> <!-- transform -->");
-        }
+        os.println(getTransformedString(getTransform(),
+                getClippedString(getTransformedString(getFont().getTransform(),
+                        "<text "
+                                + style(getPaintString(null, getPaint())
+                                        + getAlignmentString(horizontal,
+                                                vertical, metrics)
+                                        + getStrokeString(getStroke(), false)
+                                        + getFontString()) + " x=\""
+                                + fixedPrecision(x) + "\" y=\""
+                                + fixedPrecision(y) + "\">"
+                                + XMLWriter.normalizeText(str) + "</text>"))));
     }
 
     public void drawString(TagString str, double x, double y, int horizontal,
@@ -874,25 +681,52 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         String string = tagHandler.parse(str);
         string = FontEncoder.getEncodedString(string, getFont().getName());
 
-        AffineTransform t = getFont().getTransform();
-        if (!t.isIdentity()) {
-            os.println("<g transform=\"matrix(" + fixedPrecision(t.getScaleX())
-                    + ", " + fixedPrecision(t.getShearY()) + ", "
-                    + fixedPrecision(t.getShearX()) + ", "
-                    + fixedPrecision(t.getScaleY()) + ", "
-                    + fixedPrecision(t.getTranslateX()) + ", "
-                    + fixedPrecision(t.getTranslateY()) + ")\">");
+        os.println(
+        // general transformation
+                getTransformedString(
+                        getTransform(),
+                        // general clip
+                        getClippedString(getTransformedString(
+                                // specific transformation
+                                getFont().getTransform(),
+                                "<text "
+                                        + style(getPaintString(null, getPaint())
+                                                + getAlignmentString(
+                                                        horizontal, vertical,
+                                                        metrics)
+                                                + getStrokeString(getStroke(),
+                                                        false)
+                                                + getFontString()) + " x=\""
+                                        + fixedPrecision(x) + "\" y=\""
+                                        + fixedPrecision(y) + "\">"
+                                        + string
+                                        + "</text>"))));
+    }
+
+    private String getFontString() {
+        StringBuffer svgFont = new StringBuffer();
+
+        svgFont.append("font-family:");
+
+        String fontName = getFont().getName();
+        svgFont.append(replaceFonts.getProperty(fontName, fontName));
+
+        if (getFont().isBold()) {
+            svgFont.append(";font-weight:bold");
+        } else {
+            svgFont.append(";font-weight:normal");
         }
-        os.println("<text "
-                + style(color(null, getPaint())
-                        + getAlignmentString(horizontal, vertical, metrics))
-                + " x=\"" + fixedPrecision(x) + "\" y=\"" + fixedPrecision(y)
-                + "\">");
-        os.println(string);
-        os.println("</text>");
-        if (!t.isIdentity()) {
-            os.println("</g> <!-- transform -->");
+
+        if (getFont().isItalic()) {
+            svgFont.append(";font-style:italic");
+        } else {
+            svgFont.append(";font-style:normal");
         }
+
+        int size = getFont().getSize();
+        svgFont.append(";font-size:").append(size).append(";");
+
+        return svgFont.toString();
     }
 
     /*
@@ -901,76 +735,27 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
      * ================================================================================
      */
     protected void writeTransform(AffineTransform transform) throws IOException {
-        os.println("<g transform=\"matrix("
-                + fixedPrecision(transform.getScaleX()) + ","
-                + fixedPrecision(transform.getShearY()) + ","
-                + fixedPrecision(transform.getShearX()) + ","
-                + fixedPrecision(transform.getScaleY()) + ","
-                + fixedPrecision(transform.getTranslateX()) + ","
-                + fixedPrecision(transform.getTranslateY()) + ")\">");
-        closeTags.push("</g> <!-- transform -->");
+        // written when needed
     }
 
-    protected void writeSetTransform(AffineTransform transform) throws IOException {
-        // close all tags except "</svg>"
-        while(!closeTags.empty() && !((String)closeTags.peek()).startsWith("</svg")) {
-            os.println(closeTags.pop());
-        }
-
-        // Write the current Settings
-        writeSetup();
-
-        // Write the Transform
-        writeTransform(transform);
-
-        // write the current (allready by superclass transformed) clip
-        writeClip(getClip());
+    protected void writeSetTransform(AffineTransform transform)
+            throws IOException {
+        // written when needed
     }
-    
+
     /*
      * ================================================================================ |
      * 7. Clipping
      * ================================================================================
      */
     protected void writeClip(Shape s) throws IOException {
-        if (s == null || !isProperty(CLIP)) {
-            return;
-        }
-
-        PathIterator path = s.getPathIterator(null);
-
-        // SVG uses unique clip numbers, do not reset, always increment them
-        clipNumber.set(clipNumber.getInt() + 1);
-        
-        os.println("<clipPath id=\"clip" + clipNumber.getInt() + "\">");
-        writePath(path);
-        os.println("</clipPath>");
-        os.println("<g clip-path=\"url(#clip" + clipNumber.getInt() + ")\">");
-        closeTags.push("</g> <!-- clip" + clipNumber.getInt() + " -->");
+        // written when needed
     }
 
     protected void writeSetClip(Shape s) throws IOException {
-        if (!isProperty(CLIP)) {
-            return;
-        }
-
-        // close all tags except "<svg>"
-        while(!closeTags.empty() && !((String)closeTags.peek()).startsWith("</svg")) {
-            os.println(closeTags.pop());
-        }
-
-        // Write the current Settings
-        writeSetup();
-
-        // Write the current Transform
-        writeTransform(getTransform());
-
-        // write new clip
-        writeClip(s);
+        // written when needed
     }
 
-    
-    
     /*
      * ================================================================================ |
      * 8. Graphics State
@@ -978,74 +763,123 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
      */
     /* 8.1. stroke/linewidth */
     protected void writeWidth(float width) throws IOException {
-        // width of 0 means thinnest line, which does not exist in SVG
-        if (width == 0)
-            width = 0.000001f;
-        os
-                .println("<g " + style("stroke-width:" + fixedPrecision(width))
-                        + ">");
-        closeTags.push("</g> <!-- stroke width -->");
+        // written when needed
     }
 
     protected void writeCap(int cap) throws IOException {
-        os.print("<g ");
-        switch (cap) {
-        default:
-        case BasicStroke.CAP_BUTT:
-            os.print(style("stroke-linecap:butt"));
-            break;
-        case BasicStroke.CAP_ROUND:
-            os.print(style("stroke-linecap:round"));
-            break;
-        case BasicStroke.CAP_SQUARE:
-            os.print(style("stroke-linecap:square"));
-            break;
-        }
-        os.println(">");
-        closeTags.push("</g> <!-- stroke cap -->");
+        // Written when needed
     }
 
     protected void writeJoin(int join) throws IOException {
-        os.print("<g ");
-        switch (join) {
-        default:
-        case BasicStroke.JOIN_MITER:
-            os.print(style("stroke-linejoin:miter"));
-            break;
-        case BasicStroke.JOIN_ROUND:
-            os.print(style("stroke-linejoin:round"));
-            break;
-        case BasicStroke.JOIN_BEVEL:
-            os.print(style("stroke-linejoin:bevel"));
-            break;
-        }
-        os.println(">");
-        closeTags.push("</g> <!-- stroke join -->");
+        // written when needed
     }
 
     protected void writeMiterLimit(float limit) throws IOException {
-        os.println("<g " + style("stroke-miterlimit:" + fixedPrecision(limit))
-                + ">");
-        closeTags.push("</g> <!-- stroke limit -->");
+        // written when needed
     }
 
     protected void writeDash(double[] dash, double phase) throws IOException {
-        os.print("<g ");
-        StringBuffer s = new StringBuffer();
-        s.append("stroke-dasharray:");
-        if (dash.length > 0) {
-            for (int i = 0; i < dash.length; i++) {
-                if (i > 0)
-                    s.append(",");
-                s.append(fixedPrecision(dash[i]));
-            }
-            s.append(";");
-        } else {
-            s.append("none;");
+        // written when needed
+    }
+
+    /**
+     * return the style tag for the stroke
+     * 
+     * @param s
+     *            Stroke to convert
+     * @param all
+     *            all attributes (not only the differences to defaultStroke) are
+     *            handled
+     * @return corresponding style string
+     */
+    private String getStrokeString(Stroke s, boolean all) {
+        // only BasisStrokes are written
+        if (!(s instanceof BasicStroke)) {
+            return "";
         }
-        s.append("stroke-dashoffset:" + fixedPrecision(phase));
-        os.println(style(s.toString()) + ">");
-        closeTags.push("</g> <!-- stroke dash -->");
+
+        BasicStroke stroke = (BasicStroke) s;
+        StringBuffer result = new StringBuffer();
+
+        // append linecap
+        if (all || (stroke.getEndCap() != defaultStroke.getEndCap())) {
+            result.append("stroke-linecap:");
+            // append cap
+            switch (stroke.getEndCap()) {
+                default:
+                case BasicStroke.CAP_BUTT:
+                    result.append("butt");
+                    break;
+                case BasicStroke.CAP_ROUND:
+                    result.append("round");
+                    break;
+                case BasicStroke.CAP_SQUARE:
+                    result.append("square");
+                    break;
+            }
+            result.append(";");
+        }
+
+        // append dasharray
+        if (all || !Arrays.equals(stroke.getDashArray(), stroke.getDashArray())) {
+            result.append("stroke-dasharray:");
+            if (stroke.getDashArray() != null
+                    && stroke.getDashArray().length > 0) {
+                for (int i = 0; i < stroke.getDashArray().length; i++) {
+                    if (i > 0)
+                        result.append(",");
+                    result.append(fixedPrecision(stroke.getDashArray()[i]));
+                }
+            } else {
+                result.append("none");
+            }
+            result.append(";");
+        }
+
+        if (all || (stroke.getDashPhase() != defaultStroke.getDashPhase())) {
+            result.append("stroke-dashoffset:");
+            result.append(fixedPrecision(stroke.getDashPhase()));
+            result.append(";");
+        }
+
+        // append meter limit
+        if (all || (stroke.getMiterLimit() != defaultStroke.getMiterLimit())) {
+            result.append("stroke-miterlimit:");
+            result.append(fixedPrecision(stroke.getMiterLimit()));
+            result.append(";");
+        }
+
+        // append join
+        if (all || (stroke.getLineJoin() != defaultStroke.getLineJoin())) {
+            result.append("stroke-linejoin:");
+            switch (stroke.getLineJoin()) {
+                default:
+                case BasicStroke.JOIN_MITER:
+                    result.append("miter");
+                    break;
+                case BasicStroke.JOIN_ROUND:
+                    result.append("round");
+                    break;
+                case BasicStroke.JOIN_BEVEL:
+                    result.append("bevel");
+                    break;
+            }
+            result.append(";");
+        }
+
+        // append linewidth
+        if (all || (stroke.getLineWidth() != defaultStroke.getLineWidth())) {
+            result.append("stroke-width:");
+            // width of 0 means thinnest line, which does not exist in SVG
+            if (stroke.getLineWidth() == 0) {
+                result.append(fixedPrecision(0.000001f));
+            } else {
+                result.append(fixedPrecision(stroke.getLineWidth()));
+            }
+            result.append(";");
+        }
+
+        return result.toString();
     }
 
     /* 8.2. paint/color */
@@ -1140,42 +974,6 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         replaceFonts.setProperty("Courier", "monospace");
     }
 
-    /* 8.3. font */
-    /**
-     * Method sets the current font. This method makes a reasonable guess for
-     * the desired SVG font since the names of the actual SVG fonts is
-     * implementation dependent. Currently, this tries to identify Helvetica,
-     * Times, Courier, Symbol, and ZapfDingbats fonts. If all else fails,
-     * Helvetica is used.
-     */
-    public void setFont(Font font) {
-        super.setFont(font);
-
-        StringBuffer svgFont = new StringBuffer();
-
-        svgFont.append("font-family:");
-
-        String fontName = font.getName();
-        svgFont.append(replaceFonts.getProperty(fontName, fontName));
-
-        if (font.isBold()) {
-            svgFont.append(";font-weight:bold");
-        } else {
-            svgFont.append(";font-weight:normal");
-        }
-
-        if (font.isItalic()) {
-            svgFont.append(";font-style:italic");
-        } else {
-            svgFont.append(";font-style:normal");
-        }
-
-        int size = font.getSize();
-        svgFont.append(";font-size:" + size);
-        os.println("<g " + style(svgFont.toString()) + ">");
-        closeTags.push("</g> <!-- font -->");
-    }
-
     /*
      * ================================================================================ |
      * 9. Auxiliary
@@ -1205,7 +1003,85 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
      * 10. Private/Utility Methos
      * ================================================================================
      */
-    private String color(Paint stroke, Paint fill) {
+
+    /**
+     * Encapsulates a SVG-Tag by the given transformation matrix
+     * 
+     * @param t
+     *            Transformation
+     * @param s
+     *            SVG-Tag
+     */
+    private String getTransformedString(AffineTransform t, String s) {
+        StringBuffer result = new StringBuffer();
+
+        if ((t != null) && !t.isIdentity()) {
+            result.append("<g transform=\"matrix(");
+            result.append(fixedPrecision(t.getScaleX()));
+            result.append(", ");
+            result.append(fixedPrecision(t.getShearY()));
+            result.append(", ");
+            result.append(fixedPrecision(t.getShearX()));
+            result.append(", ");
+            result.append(fixedPrecision(t.getScaleY()));
+            result.append(", ");
+            result.append(fixedPrecision(t.getTranslateX()));
+            result.append(", ");
+            result.append(fixedPrecision(t.getTranslateY()));
+            result.append(")\">\n");
+        }
+
+        result.append(s);
+
+        if ((t != null) && !t.isIdentity()) {
+            result.append("\n</g> <!-- transform -->");
+        }
+
+        return result.toString();
+    }
+
+    /**
+     * Encapsulates a SVG-Tag by the current clipping area matrix
+     * 
+     * @param s
+     *            SVG-Tag
+     */
+    private String getClippedString(String s) {
+        StringBuffer result = new StringBuffer();
+
+        // clipping
+        if (getClip() != null && isProperty(CLIP)) {
+            // SVG uses unique lip numbers, don't reset allways increment them
+            clipNumber.set(clipNumber.getInt() + 1);
+
+            // define clip
+            result.append("<clipPath id=\"clip");
+            result.append(clipNumber.getInt());
+            result.append("\">\n  ");
+            result.append(getPath(getClip().getPathIterator(null)));
+            result.append("\n</clipPath>\n");
+
+            // use clip
+            result.append("<g clip-path=\"url(#clip");
+            result.append(clipNumber.getInt());
+            result.append(")\">\n");
+        }
+
+        // append the string
+        result.append(s);
+
+        // close clipping
+        if (getClip() != null && isProperty(CLIP)) {
+            result.append("\n</g> <!-- clip");
+            result.append(clipNumber.getInt());
+            result.append(" -->");
+        }
+
+        return result.toString();
+    }
+
+    private String getPaintString(Paint stroke, Paint fill) {
+        // stroke color
         StringBuffer s = new StringBuffer();
         s.append("stroke:");
         if (stroke != null) {
@@ -1216,6 +1092,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             s.append("none");
         }
         s.append(";");
+
         s.append("fill:");
         if (fill != null) {
             s.append(hexColor(fill));
@@ -1225,6 +1102,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             s.append("none");
         }
         s.append(";");
+
         return s.toString();
     }
 
@@ -1275,54 +1153,66 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         return "url(#" + textures.get(p) + ")";
     }
 
-    /**
-     * Write the path to the output file.
-     */
-    private void writePath(PathIterator path) {
+    private String getPath(PathIterator path) {
+        StringBuffer result = new StringBuffer();
 
         double[] coords = new double[6];
-        os.print("<path d=\"");
+        result.append("<path d=\"");
         while (!path.isDone()) {
             int segType = path.currentSegment(coords);
 
             switch (segType) {
-            case PathIterator.SEG_MOVETO:
-                os.print("M " + fixedPrecision(coords[0]) + " "
-                        + fixedPrecision(coords[1]) + " ");
-                break;
-            case PathIterator.SEG_LINETO:
-                os.print("L " + fixedPrecision(coords[0]) + " "
-                        + fixedPrecision(coords[1]) + " ");
-                break;
-            case PathIterator.SEG_CUBICTO:
-                os.print("C " + fixedPrecision(coords[0]) + " "
-                        + fixedPrecision(coords[1]) + " "
-                        + fixedPrecision(coords[2]) + " "
-                        + fixedPrecision(coords[3]) + " "
-                        + fixedPrecision(coords[4]) + " "
-                        + fixedPrecision(coords[5]) + " ");
-                break;
-            case PathIterator.SEG_QUADTO:
-                os.print("Q " + fixedPrecision(coords[0]) + " "
-                        + fixedPrecision(coords[1]) + " "
-                        + fixedPrecision(coords[2]) + " "
-                        + fixedPrecision(coords[3]) + " ");
-                break;
-            case PathIterator.SEG_CLOSE:
-                os.print("z ");
-                break;
+                case PathIterator.SEG_MOVETO:
+                    result.append("M ");
+                    result.append(fixedPrecision(coords[0]));
+                    result.append(" ");
+                    result.append(fixedPrecision(coords[1]));
+                    result.append(" ");
+                    break;
+                case PathIterator.SEG_LINETO:
+                    result.append("L ");
+                    result.append(fixedPrecision(coords[0]));
+                    result.append(" ");
+                    result.append(fixedPrecision(coords[1]));
+                    result.append(" ");
+                    break;
+                case PathIterator.SEG_CUBICTO:
+                    result.append("C ");
+                    result.append(fixedPrecision(coords[0]));
+                    result.append(" ");
+                    result.append(fixedPrecision(coords[1]));
+                    result.append(" ");
+                    result.append(fixedPrecision(coords[2]));
+                    result.append(" ");
+                    result.append(fixedPrecision(coords[3]));
+                    result.append(" ");
+                    result.append(fixedPrecision(coords[4]));
+                    result.append(" ");
+                    result.append(fixedPrecision(coords[5]));
+                    result.append(" ");
+                    break;
+                case PathIterator.SEG_QUADTO:
+                    result.append("Q ");
+                    result.append(fixedPrecision(coords[0]));
+                    result.append(" ");
+                    result.append(fixedPrecision(coords[1]));
+                    result.append(" ");
+                    result.append(fixedPrecision(coords[2]));
+                    result.append(" ");
+                    result.append(fixedPrecision(coords[3]));
+                    result.append(" ");
+                    break;
+                case PathIterator.SEG_CLOSE:
+                    result.append("z ");
+                    break;
             }
 
             // Move to the next segment.
             path.next();
         }
-        os.println("\"/>");
-    }
+        result.append("\"/>");
 
-    private String defaultStyle() {
-        // FIXME: should be currentWidth...
-        return style(color(getPaint(), null) + "stroke-width:1;"
-                + "stroke-linecap:square");
+        return result.toString();
     }
 
     private String style(String stylableString) {
@@ -1355,37 +1245,37 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             LineMetrics metrics) {
         String textAnchor;
         switch (horizontal) {
-        case TEXT_CENTER:
-            textAnchor = "middle";
-            break;
-        case TEXT_RIGHT:
-            textAnchor = "end";
-            break;
-        case TEXT_LEFT:
-        default:
-            textAnchor = "start";
-            break;
+            case TEXT_CENTER:
+                textAnchor = "middle";
+                break;
+            case TEXT_RIGHT:
+                textAnchor = "end";
+                break;
+            case TEXT_LEFT:
+            default:
+                textAnchor = "start";
+                break;
         }
 
-        // FIXME not a very good job yet. For tagstrings this does not work very
-        // well.
+        // FIXME not a very good job yet. For tagstrings this does not work very well.
         double alignmentBaseline;
         switch (vertical) {
-        case TEXT_TOP:
-            alignmentBaseline = -100
-                    * (metrics.getAscent() + metrics.getLeading())
-                    / metrics.getHeight();
-            break;
-        case TEXT_CENTER:
-            alignmentBaseline = -50 * metrics.getAscent() / metrics.getHeight();
-            break;
-        case TEXT_BOTTOM:
-            alignmentBaseline = metrics.getDescent() / metrics.getHeight();
-            break;
-        case TEXT_BASELINE:
-        default:
-            alignmentBaseline = 0;
-            break;
+            case TEXT_TOP:
+                alignmentBaseline = -100
+                        * (metrics.getAscent() + metrics.getLeading())
+                        / metrics.getHeight();
+                break;
+            case TEXT_CENTER:
+                alignmentBaseline = -50 * metrics.getAscent()
+                        / metrics.getHeight();
+                break;
+            case TEXT_BOTTOM:
+                alignmentBaseline = metrics.getDescent() / metrics.getHeight();
+                break;
+            case TEXT_BASELINE:
+            default:
+                alignmentBaseline = 0;
+                break;
         }
         return "text-anchor:" + textAnchor + ";" + "baseline-shift:"
                 + fixedPrecision(alignmentBaseline) + "%";
