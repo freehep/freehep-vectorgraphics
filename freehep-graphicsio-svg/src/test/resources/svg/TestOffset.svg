@@ -11,7 +11,6 @@
      width="600px"
      height="600px"
      viewBox="0 0 600 600"
-     stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" 
      >
 <title>
 
@@ -94,37 +93,42 @@
 </symbol>
 </defs>
 
-<g stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" >
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,0.0000)">
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<g stroke-width="1.0000" >
-<g stroke-linecap="square" >
-<g stroke-linejoin="miter" >
-<g stroke-miterlimit="10.000" >
-<g stroke-dasharray="none" stroke-dashoffset="0.0000" >
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<clipPath id="clip0">
-<path d="M 0.0000 0.0000 L 600.00 0.0000 L 600.00 600.00 L 0.0000 600.00 L 0.0000 0.0000 z "/>
+<clipPath id="clip1">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
 </clipPath>
-<g clip-path="url(#clip0)">
-<rect stroke="none" fill="#ffffff" fill-opacity="1.0"  x="0.0000" y="0.0000" width="600.00" height="600.00"/>
-<g stroke-width="4.0000" >
-<g transform="matrix(1.0000,0.0000,0.0000,1.0000,300.00,300.00)">
-<line stroke="#000000" stroke-opacity="1.0" fill="none"  x1="-289.50" y1="-289.50" x2="290.50" y2="290.50" />
-<line stroke="#000000" stroke-opacity="1.0" fill="none"  x1="-289.50" y1="290.50" x2="290.50" y2="-289.50" />
-<rect stroke="#000000" stroke-opacity="1.0" fill="none"  x="-289.50" y="-289.50" width="580.00" height="580.00"/>
+<g clip-path="url(#clip1)">
+<g stroke="none" fill="#ffffff" fill-opacity="1.0" fill-rule="nonzero" >
+  <path d="M 0.0000 0.0000 L 600.00 0.0000 L 600.00 600.00 L 0.0000 600.00 L 0.0000 0.0000 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip1 -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip2">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip2)">
+<g stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="4.0000" fill-rule="nonzero" >
+  <path d="M -290.00 -290.00 L 290.00 290.00 "/>
+</g> <!-- drawing style -->
+</g> <!-- clip2 -->
 </g> <!-- transform -->
-</g> <!-- stroke width -->
-</g> <!-- clip -->
-</g> <!-- font -->
-</g> <!-- stroke dash -->
-</g> <!-- stroke limit -->
-</g> <!-- stroke join -->
-</g> <!-- stroke cap -->
-</g> <!-- stroke width -->
-</g> <!-- font -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip3">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip3)">
+<g stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="4.0000" fill-rule="nonzero" >
+  <path d="M -290.00 290.00 L 290.00 -290.00 "/>
+</g> <!-- drawing style -->
+</g> <!-- clip3 -->
 </g> <!-- transform -->
-</g> <!-- top-level -->
-</g> <!-- font -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip4">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip4)">
+<g stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="4.0000" fill-rule="nonzero" >
+  <path d="M -290.00 -290.00 L 290.00 -290.00 L 290.00 290.00 L -290.00 290.00 L -290.00 -290.00 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip4 -->
+</g> <!-- transform -->
 </svg> <!-- bounding box -->

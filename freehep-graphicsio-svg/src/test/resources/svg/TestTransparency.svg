@@ -11,7 +11,6 @@
      width="600px"
      height="600px"
      viewBox="0 0 600 600"
-     stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" 
      >
 <title>
 
@@ -94,24 +93,20 @@
 </symbol>
 </defs>
 
-<g stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" >
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,0.0000)">
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<g stroke-width="1.0000" >
-<g stroke-linecap="square" >
-<g stroke-linejoin="miter" >
-<g stroke-miterlimit="10.000" >
-<g stroke-dasharray="none" stroke-dashoffset="0.0000" >
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<clipPath id="clip0">
-<path d="M 0.0000 0.0000 L 600.00 0.0000 L 600.00 600.00 L 0.0000 600.00 L 0.0000 0.0000 z "/>
+<clipPath id="clip1">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
 </clipPath>
-<g clip-path="url(#clip0)">
-<rect stroke="none" fill="#ffc800" fill-opacity="1.0"  x="0.0000" y="0.0000" width="600.00" height="600.00"/>
+<g clip-path="url(#clip1)">
+<g stroke="none" fill="#ffc800" fill-opacity="1.0" fill-rule="nonzero" >
+  <path d="M 0.0000 0.0000 L 600.00 0.0000 L 600.00 600.00 L 0.0000 600.00 L 0.0000 0.0000 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip1 -->
+<clipPath id="clip2">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip2)">
 <g transform="matrix(.56641, 0.0000, 0.0000, .56641, 10.000, 10.000)">
-<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2UlEQVR42u2dv2sdWZbH+49ZFIhl
+<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2UlEQVR42u2dv2sdWZbH+49ZFIhl
 o2WDxUxgjAMjFAijwDQOhOnAmA6EUdAIMzSDA2Fe8Bg6MIsDYxwMiwMzOFCgQIEDBx046MDBBPuP
 aKfGutJ5p84591a9qnpV9T7Blyvbsp6kV+d7vufn/eGHP//5BwDAloJfAgAQAAAAAgAAQAAAAAgA
 AAABAAAgAAAABAAAgAAAABAAAAACAABAAAAACAAAAAEAACAAAMBsCeC/d/9+BQDYDCAAACAACAAA
@@ -234,9 +229,13 @@ AaRfNCfnmE4UAAoAgPnlAKbeSQUAOYCJd1L1LbMAGFseAAVgKACIAKAAtlABADBmr9+HY0IBkAMA
 I5X3QypRFEDwZnByDl3iG8r4UQAoADDjRh8UAAqAcwKef1OGjwIAAPwAAQAAIAAAAAQAAIAAAAAQ
 AAAAAgAAQAAAAIX/B3J9a/5YSt7hAAAAAElFTkSuQmCC"/>
 </g> <!-- transform -->
+</g> <!-- clip2 -->
+<clipPath id="clip3">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip3)">
 <g transform="matrix(.56641, 0.0000, 0.0000, .56641, 155.00, 10.000)">
-<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa20lEQVR42u2dP2sdW5bF+yv0dxgU
+<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa20lEQVR42u2dP2sdW5bF+yv0dxgU
 iGGiYYLBdGCMAyMUCKPAPBwI8wJjXiCMgocwzaNxIMwNLs0LzODAGAfN4MA0DhQoUODAwQscvMBB
 B/NFNF1tHWnfXXvvc6puVd2qur9gcWRb1pV0a6+99t/zhz/8+c9/BABsKfglAAABAAAgAAAABAAA
 gAAAABAAAAACAABAAAAACAAAAAEAACAAAAAEAACAAAAAEAAAAAIAAMyWAP579+9XAIDNAAIAAAKA
@@ -359,9 +358,13 @@ AI0UQPpFc3KO6UQBoAAAmF8OYOqdVACQA5h4J1XfMguAseUBUACGAoAIAApgCxUAAGP2+n04JhQA
 OQAwUnk/pBJFAQRvBifn0CW+oYwfBYACADNu9EEBoAA4J+D5N2X4KAAAwB8hAAAABAAAgAAAABAA
 AAACAABAAAAACAAAoPD/HeBmFvOgpWQAAAAASUVORK5CYII="/>
 </g> <!-- transform -->
+</g> <!-- clip3 -->
+<clipPath id="clip4">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip4)">
 <g transform="matrix(.56641, 0.0000, 0.0000, .56641, 300.00, 10.000)">
-<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH528ZFgVi
+<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH528ZFgVi
 2WjZYDETGOPACAXCKDAPB8K8wJgXCKPgIczwGBwIc4PL8AKzODDGwbA4MIMDBQoUOHDwAgcvcDDB
 /iPa6bGOVLe6qs7pvt19u/t+gi9HtmVdSbfrW9/6ef7whz//+Y8AgC0FvwQAIAAAAAQAAIAAAAAQ
 AAAAAgAAQAAAAAgAAAABAAAgAAAABAAAgAAAABAAAAACAABAAACA2RLAf+/+/QoAsBlAAABAABAA
@@ -484,9 +487,13 @@ kQJIv2hOzjGdKAAUAADzywFMvZMKAHIAE++k6ltmATC2PAAKwFAAEAFAAWyhAgBgzF6/D8eEAiAH
 AEYq74dUoiiA4M3g5By6xDeU8aMAUABgxo0+KAAUAOcEPP+mDB8FAAD4IwQAAIAAAAAQAAAAAgAA
 QAAAAAgAAAABAAAU/h/JNGAulKzC3wAAAABJRU5ErkJggg=="/>
 </g> <!-- transform -->
+</g> <!-- clip4 -->
+<clipPath id="clip5">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip5)">
 <g transform="matrix(.56641, 0.0000, 0.0000, .56641, 445.00, 10.000)">
-<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH549ZFIhl
+<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH549ZFIhl
 k1k2WMwExjgwQoEwCszDgTAvMOYFwih4CDM8BgfC3OAyvMAsDoxxMCwOzOBAgQIFDhy8wMELHEyw
 /4h2eqwj1a2uqnO6b3ff7r6f4MuRbVlX0u361rd+nj/84c9//iMAYEvBLwEACAAAAAEAACAAAAAE
 AACAAAAAEAAAAAIAAEAAAAAIAAAAAQAAIAAAAAQAAIAAAAAQAABgtgTw37t/vwIAbAYQAAAQAAQA
@@ -609,9 +616,13 @@ pADSL5qTc0wnCgAFAMD8cgBT76QCgBzAxDup+pZZAIwtD4ACMBQARABQAFuoAAAYs9fvwzGhAMgB
 gJHK+yGVKAogeDM4OYcu8Q1l/CgAFACYcaMPCgAFwDkBz78pw0cBAAD+CAEAACAAAAAEAACAAAAA
 EAAAAAIAAEAAAACF/wd0l1pGFcuaewAAAABJRU5ErkJggg=="/>
 </g> <!-- transform -->
+</g> <!-- clip5 -->
+<clipPath id="clip6">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip6)">
 <g transform="matrix(.56641, 0.0000, 0.0000, .56641, 10.000, 155.00)">
-<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa60lEQVR42u2dv2sd2ZLH549ZFIhl
+<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa60lEQVR42u2dv2sd2ZLH549ZFIhl
 o2WDxUxgzARGKBBGgRkcCDOBMRMIo2AQ5jE8HAhzg8tjArM4MMbBY3FgHg4UKFDgwMEEDiZw8IL9
 R7SvxzpS3eqqOqf7dvft7vsJvhzZlnUl3a5vfevn+e67v/zlHgBgS8EvAQAIAAAAAQAAIAAAAAQA
 AIAAAAAQAAAAAgAAQAAAAAgAAAABAAAgAAAABAAAgAAAABAAAGC2BPDfu/+4AgBsBhAAABAABAAA
@@ -734,9 +745,13 @@ bJlRowBQAACQA0ABALw+CqCRAki/aE7OMZ0oABQAAPPLAUy9kwoAcgAT76TqW2YBMLY8AArAUAAQ
 AUABbKECAGDMXr8Px4QCIAcARirvh1SiKIDgzeDkHLrEN5TxowBQAGDGjT4oABQA5wQ8/6YMHwUA
 ALgHAQAAIAAAAAQAAIAAAAAQAAAAAgAAQAAAAIX/Bx/6VF7+T4iGAAAAAElFTkSuQmCC"/>
 </g> <!-- transform -->
+</g> <!-- clip6 -->
+<clipPath id="clip7">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip7)">
 <g transform="matrix(.56641, 0.0000, 0.0000, .56641, 155.00, 155.00)">
-<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH549ZFIhl
+<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH549ZFIhl
 o2WDxUxgjAMjFAiPAvNwIMwLjHmBMAoewgyPwYEwN7gMLzCLA2McDIsDMzhQoECBAwcvcPACBxPs
 P6KdHutIdaur6pzu2923u+8n+HJkW9aVdLu+9a2f5w9/+POf/wQA2FLwSwAAAgAAQAAAAAgAAAAB
 AAAgAAAABAAAgAAAABAAAAACAABAAAAACAAAAAEAACAAAAAEAACYLQH89+7frwAAmwEEAAAEAAEA
@@ -859,9 +874,13 @@ KYD0i+bkHNOJAkABADC/HMDUO6kAIAcw8U6qvmUWAGPLA6AADAUAEQAUwBYqAADG7PX7cEwoAHIA
 YKTyfkgligII3gxOzqFLfEMZPwoABQBm3OiDAkABcE7A82/K8FEAAIA/QQAAAAgAAAABAAAgAAAA
 BAAAgAAAABAAAEDh/wHLTk52RWKa4AAAAABJRU5ErkJggg=="/>
 </g> <!-- transform -->
+</g> <!-- clip7 -->
+<clipPath id="clip8">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip8)">
 <g transform="matrix(.56641, 0.0000, 0.0000, .56641, 300.00, 155.00)">
-<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2UlEQVR42u2dv2sdWbLH9495KBDL
+<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2UlEQVR42u2dv2sdWbLH9495KBDL
 ix4veJgNjHEwCAXCKDCDA2EcGDOBMAoGYZZhcSDMDS7LBGZxYIyD5eHALA4UKFDgwMEEDiZwsMH7
 R/S21zpS3eqqOqf7dvft7vsJvhzZlnUl3a5vfevn+cMf/vznJwCALQW/BAAgAAAABAAAgAAAABAA
 AAACAABAAAAACAAAAAEAACAAAAAEAACAAAAAEAAAAAIAAEAAAIDZEsD/7P7jCgCwGUAAAEAAEAAA
@@ -984,9 +1003,13 @@ AaRfNCfnmE4UAAoAgPnlAKbeSQUAOYCJd1L1LbMAGFseAAVgKACIAKAAtlABADBmr9+HY0IBkAMA
 I5X3QypRFEDwZnByDl3iG8r4UQAoADDjRh8UAAqAcwKef1OGjwIAADyBAAAAEAAAAAIAAEAAAAAI
 AAAAAQAAIAAAgML/A3axSI73xeqyAAAAAElFTkSuQmCC"/>
 </g> <!-- transform -->
+</g> <!-- clip8 -->
+<clipPath id="clip9">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip9)">
 <g transform="matrix(.56641, 0.0000, 0.0000, .56641, 445.00, 155.00)">
-<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH549ZFIhl
+<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH549ZFIhl
 o2WDxUxgjAMjFAijwDwcCPMCY14gjAYewgyPwYEwN7gMLzCLA2McDIsDMzhQoECBAwcvcPACBxPs
 P6KdHutIdaur6pzu2923u+8n+HJkW9aVdLu+9a2f5w9/+POf/wQA2FLwSwAAAgAAQAAAAAgAAAAB
 AAAgAAAABAAAgAAAABAAAAACAABAAAAACAAAAAEAACAAAAAEAACYLQH89+7frwAAmwEEAAAEAAEA
@@ -1109,9 +1132,13 @@ KYD0i+bkHNOJAkABADC/HMDUO6kAIAcw8U6qvmUWAGPLA6AADAUAEQAUwBYqAADG7PX7cEwoAHIA
 YKTyfkgligII3gxOzqFLfEMZPwoABQBm3OiDAkABcE7A82/K8FEAAIA/QQAAAAgAAAABAAAgAAAA
 BAAAgAAAABAAAEDh/wEiFEKmh6k3hgAAAABJRU5ErkJggg=="/>
 </g> <!-- transform -->
+</g> <!-- clip9 -->
+<clipPath id="clip10">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip10)">
 <g transform="matrix(.56641, 0.0000, 0.0000, .56641, 10.000, 300.00)">
-<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH549ZFIhl
+<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH549ZFIhl
 o2WDxUxgjAMjFAijwDwcCPMCY14gjIKHMMNjMIMwN7gMLzCLA2McDIsDMzhQoECBAwcvcPACBxPs
 P6KdHutIdaur6pzu2923u+8n+HJkW9aVdLu+9a2f5w9/+NOf/gIA2FLwSwAAAgAAQAAAAAgAAAAB
 AAAgAAAABAAAgAAAABAAAAACAABAAAAACAAAAAEAACAAAAAEAACYLQH89+7frwAAmwEEAAAEAAEA
@@ -1234,9 +1261,13 @@ KYD0i+bkHNOJAkABADC/HMDUO6kAIAcw8U6qvmUWAGPLA6AADAUAEQAUwBYqAADG7PX7cEwoAHIA
 YKTyfkgligII3gxOzqFLfEMZPwoABQBm3OiDAkABcE7A82/K8FEAAIC/QAAAAAgAAAABAAAgAAAA
 BAAAgAAAABAAAEDh/wHNaDy+k0bFQQAAAABJRU5ErkJggg=="/>
 </g> <!-- transform -->
+</g> <!-- clip10 -->
+<clipPath id="clip11">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip11)">
 <g transform="matrix(.56641, 0.0000, 0.0000, .56641, 155.00, 300.00)">
-<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH549ZFIhl
+<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH549ZFIhl
 o2WDxUxgjAMjFAijwDwcCPMCY14gjIKHMMNjcCDMDS7DgzGLA2McDIsDMzhQoECBAwcvcPACBxPs
 P6KdHutIdaur6pzu2923u+8n+HJkW9aVdLu+9a2f5w9/+NOf/goA2FLwSwAAAgAAQAAAAAgAAAAB
 AAAgAAAABAAAgAAAABAAAAACAABAAAAACAAAAAEAACAAAAAEAACYLQH89+7frwAAmwEEAAAEAAEA
@@ -1359,9 +1390,13 @@ KYD0i+bkHNOJAkABADC/HMDUO6kAIAcw8U6qvmUWAGPLA6AADAUAEQAUwBYqAADG7PX7cEwoAHIA
 YKTyfkgligII3gxOzqFLfEMZPwoABQBm3OiDAkABcE7A82/K8FEAAIC/QgAAAAgAAAABAAAgAAAA
 BAAAgAAAABAAAEDh/wF4yzbW1HHz7gAAAABJRU5ErkJggg=="/>
 </g> <!-- transform -->
+</g> <!-- clip11 -->
+<clipPath id="clip12">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip12)">
 <g transform="matrix(.56641, 0.0000, 0.0000, .56641, 300.00, 300.00)">
-<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2UlEQVR42u2dv2sdWZbH549ZFIhl
+<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2UlEQVR42u2dv2sdWZbH549ZFIhl
 o2WDxUxgjAMjFAijwDQOhOnAmA6EUdAIMzSDA2Fe8Bg6MIsDYxw0iwMzOFCgQIEDBx046MDBBPuP
 aKfGutJ5p84591a9qnpV9T7Blyvbsp6kV+d7vufn/dOf/vKX3wAAWwp+CQBAAAAACAAAAAEAACAA
 AAAEAACAAAAAEAAAAAIAAEAAAAAIAAAAAQAAIAAAAAQAAIAAAACzJYD/3v37FQBgM4AAAIAAIAAA
@@ -1484,9 +1519,13 @@ AaRfNCfnmE4UAAoAgPnlAKbeSQUAOYCJd1L1LbMAGFseAAVgKACIAKAAtlABADBmr9+HY0IBkAMA
 I5X3QypRFEDwZnByDl3iG8r4UQAoADDjRh8UAAqAcwKef1OGjwIAAPwGAQAAIAAAAAQAAIAAAAAQ
 AAAAAgAAQAAAAIX/ByQuMO5rXvLHAAAAAElFTkSuQmCC"/>
 </g> <!-- transform -->
+</g> <!-- clip12 -->
+<clipPath id="clip13">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip13)">
 <g transform="matrix(.56641, 0.0000, 0.0000, .56641, 445.00, 300.00)">
-<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH549ZFIhl
+<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH549ZFIhl
 o2WDxUxgjAMjFAijwDwcCPMCY14gjIKHMMNjcCDMDS7DC8ziwBgHw+LADA40oECBAwcvcPACBxPs
 P6KdHutIdaur6pzu2923u+8n+HJkW9aVdLu+9a2f5w9/+NOf/g4A2FLwSwAAAgAAQAAAAAgAAAAB
 AAAgAAAABAAAgAAAABAAAAACAABAAAAACAAAAAEAACAAAAAEAACYLQH89+7frgAAmwEEAAAEAAEA
@@ -1609,9 +1648,13 @@ KYD0i+bkHNOJAkABADC/HMDUO6kAIAcw8U6qvmUWAGPLA6AADAUAEQAUwBYqAADG7PX7cEwoAHIA
 YKTyfkgligII3gxOzqFLfEMZPwoABQBm3OiDAkABcE7A82/K8FEAAIC/QwAAAAgAAAABAAAgAAAA
 BAAAgAAAABAAAEDh/wHPgisGlCArHAAAAABJRU5ErkJggg=="/>
 </g> <!-- transform -->
+</g> <!-- clip13 -->
+<clipPath id="clip14">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip14)">
 <g transform="matrix(.56641, 0.0000, 0.0000, .56641, 10.000, 445.00)">
-<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH549ZFIhl
+<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH549ZFIhl
 o2WDxUxgjAMjFAijwDwcCPMCY14gjIKHMMNjcCDMDS7DC8ziwBgHw+LADA4UKFDgwAwvcPACBxPs
 P6KdHutIdaur6pzu2923u+8n+HJkW9aVdLu+9a2f5w9/+NOf/g4A2FLwSwAAAgAAQAAAAAgAAAAB
 AAAgAAAABAAAgAAAABAAAAACAABAAAAACAAAAAEAACAAAAAEAACYLQH89+7frgAAmwEEAAAEAAEA
@@ -1734,9 +1777,13 @@ KYD0i+bkHNOJAkABADC/HMDUO6kAIAcw8U6qvmUWAGPLA6AADAUAEQAUwBYqAADG7PX7cEwoAHIA
 YKTyfkgligII3gxOzqFLfEMZPwoABQBm3OiDAkABcE7A82/K8FEAAIC/QwAAAAgAAAABAAAgAAAA
 BAAAgAAAABAAAEDh/wF65SUecFx+UgAAAABJRU5ErkJggg=="/>
 </g> <!-- transform -->
+</g> <!-- clip14 -->
+<clipPath id="clip15">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip15)">
 <g transform="matrix(.56641, 0.0000, 0.0000, .56641, 155.00, 445.00)">
-<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH549ZFIhl
+<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa2klEQVR42u2dv2sdW5LH549ZFIhl
 o2WDxUxgjAMjFAijwDwcCPMCY14gjIKHMMNjcCDMDS7DC8ziwBgHw+LADA4UKFDgwMELHLzAMBPs
 P6KdHutIdaur6pzu2923u+8n+HJkW9aVdLu+9a2f5w9/+NOf/g4A2FLwSwAAAgAAQAAAAAgAAAAB
 AAAgAAAABAAAgAAAABAAAAACAABAAAAACAAAAAEAACAAAAAEAACYLQH89+7frgAAmwEEAAAEAAEA
@@ -1859,9 +1906,13 @@ KYD0i+bkHNOJAkABADC/HMDUO6kAIAcw8U6qvmUWAGPLA6AADAUAEQAUwBYqAADG7PX7cEwoAHIA
 YKTyfkgligII3gxOzqFLfEMZPwoABQBm3OiDAkABcE7A82/K8FEAAIC/QwAAAAgAAAABAAAgAAAA
 BAAAgAAAABAAAEDh/wEmSB82uwjZkAAAAABJRU5ErkJggg=="/>
 </g> <!-- transform -->
+</g> <!-- clip15 -->
+<clipPath id="clip16">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip16)">
 <g transform="matrix(.56641, 0.0000, 0.0000, .56641, 300.00, 445.00)">
-<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa20lEQVR42u2dP2sdW5bF+8MMCsQw
+<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAa20lEQVR42u2dP2sdW5bF+8MMCsQw
 0TDBYDowxoERCoRRYB4OhHmBMS8QRsFDmObROBDmBpfmBWZwYIyDZnBgGgcKFChw4OAFDl7goIP5
 AP0VNF1tHWnfXXvvc6puVd2qur9gcWRb1pV0a6+99t/zhz/86U//AABsKfglAAABAAAgAAAABAAA
 gAAAABAAAAACAABAAAAACAAAAAEAACAAAAAEAACAAAAAEAAAAAIAAMyWAP57929XAIDNAAIAAAKA
@@ -1984,9 +2035,13 @@ AI0UQPpFc3KO6UQBoAAAmF8OYOqdVACQA5h4J1XfMguAseUBUACGAoAIAApgCxUAAGP2+n04JhQA
 OQAwUnk/pBJFAQRvBifn0CW+oYwfBYACADNu9EEBoAA4J+D5N2X4KAAAwD8gAAAABAAAgAAAABAA
 AAACAABAAAAACAAAoPD/0ZwZTpmKWOEAAAAASUVORK5CYII="/>
 </g> <!-- transform -->
+</g> <!-- clip16 -->
+<clipPath id="clip17">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip17)">
 <g transform="matrix(.56641, 0.0000, 0.0000, .56641, 445.00, 445.00)">
-<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAazUlEQVR42u2dv2sdWbLH9495KBDL
+<image x="0" y="0" width="256" height="256" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAazUlEQVR42u2dv2sdWbLH9495KBDL
 ix4veJgNjHFghAJhFJjBgTATGDOBMAoGYZZhcSDMDS7LBGZxYIyD5eHALA4UKFCgwMEEDiZwsMH+
 I+9t2zpS3eqqOqf7dvft7vsJvhzZlnUl3a5vfevn+cMf/vzn/wMAbCn4JQAAAQAAIAAAAAQAAIAA
 AAAQAAAAAgAAQAAAAAgAAAABAAAgAAAABAAAgAAAABAAAAACAADMlgD+Z/cfAIANAQIAAAKAAACA
@@ -2109,15 +2164,5 @@ AADzywFMvZMKAHIAE++k6ltmATC2PAAKwFAAEAFAAWyhAgBgzF6/D8eEAiAHAEYq74dUoiiA4M3g
 5By6xDeU8aMAUABgxo0+KAAUAOcEPP+mDB8FAACAAAAAEAAAAAIAAEAAAAAIAAAAAQAAIAAAgMb/
 A3z/E2a6dkFfAAAAAElFTkSuQmCC"/>
 </g> <!-- transform -->
-</g> <!-- clip -->
-</g> <!-- font -->
-</g> <!-- stroke dash -->
-</g> <!-- stroke limit -->
-</g> <!-- stroke join -->
-</g> <!-- stroke cap -->
-</g> <!-- stroke width -->
-</g> <!-- font -->
-</g> <!-- transform -->
-</g> <!-- top-level -->
-</g> <!-- font -->
+</g> <!-- clip17 -->
 </svg> <!-- bounding box -->

@@ -11,7 +11,6 @@
      width="600px"
      height="600px"
      viewBox="0 0 600 600"
-     stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" 
      >
 <title>
 
@@ -94,284 +93,374 @@
 </symbol>
 </defs>
 
-<g stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" >
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,0.0000)">
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<g stroke-width="1.0000" >
-<g stroke-linecap="square" >
-<g stroke-linejoin="miter" >
-<g stroke-miterlimit="10.000" >
-<g stroke-dasharray="none" stroke-dashoffset="0.0000" >
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<clipPath id="clip0">
-<path d="M 0.0000 0.0000 L 600.00 0.0000 L 600.00 600.00 L 0.0000 600.00 L 0.0000 0.0000 z "/>
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip1">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
 </clipPath>
-<g clip-path="url(#clip0)">
-<g transform="matrix(1.0000,0.0000,0.0000,1.0000,300.00,300.00)">
-<rect stroke="none" fill="#ffffff" fill-opacity="1.0"  x="-300.00" y="-300.00" width="600.00" height="600.00"/>
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+<g clip-path="url(#clip1)">
+<g stroke="none" fill="#ffffff" fill-opacity="1.0" fill-rule="nonzero" >
+  <path d="M -300.00 -300.00 L 300.00 -300.00 L 300.00 300.00 L -300.00 300.00 L -300.00 -300.00 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip1 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip2">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip2)">
 <g transform="matrix(4.6896, .82690, -.82690, 4.6896, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip2 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip3">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip3)">
 <g transform="matrix(4.2713, 1.5546, -1.5546, 4.2713, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip3 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip4">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip4)">
 <g transform="matrix(3.7653, 2.1739, -2.1739, 3.7653, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip4 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip5">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip5)">
 <g transform="matrix(3.1919, 2.6783, -2.6783, 3.1919, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip5 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip6">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip6)">
 <g transform="matrix(2.5712, 3.0642, -3.0642, 2.5712, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip6 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip7">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip7)">
 <g transform="matrix(1.9231, 3.3309, -3.3309, 1.9231, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip7 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip8">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip8)">
 <g transform="matrix(1.2667, 3.4803, -3.4803, 1.2667, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip8 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip9">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip9)">
 <g transform="matrix(.62017, 3.5172, -3.5172, .62017, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip9 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip10">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip10)">
 <g transform="matrix(0.0000, 3.4483, -3.4483, 0.0000, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip10 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip11">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip11)">
 <g transform="matrix(-.57883, 3.2827, -3.2827, -.57883, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip11 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip12">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip12)">
 <g transform="matrix(-1.1033, 3.0313, -3.0313, -1.1033, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip12 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip13">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip13)">
 <g transform="matrix(-1.5625, 2.7063, -2.7063, -1.5625, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip13 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip14">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip14)">
 <g transform="matrix(-1.9478, 2.3213, -2.3213, -1.9478, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip14 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip15">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip15)">
 <g transform="matrix(-2.2531, 1.8906, -1.8906, -2.2531, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip15 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip16">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip16)">
 <g transform="matrix(-2.4744, 1.4286, -1.4286, -2.4744, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip16 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip17">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip17)">
 <g transform="matrix(-2.6103, .95006, -.95006, -2.6103, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip17 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip18">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip18)">
 <g transform="matrix(-2.6616, .46932, -.46932, -2.6616, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip18 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip19">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip19)">
 <g transform="matrix(-2.6316, 0.0000, 0.0000, -2.6316, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip19 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip20">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip20)">
 <g transform="matrix(-2.5251, -.44525, .44525, -2.5251, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip20 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip21">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip21)">
 <g transform="matrix(-2.3492, -.85505, .85505, -2.3492, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip21 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip22">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip22)">
 <g transform="matrix(-2.1123, -1.2195, 1.2195, -2.1123, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip22 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip23">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip23)">
 <g transform="matrix(-1.8239, -1.5304, 1.5304, -1.8239, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip23 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip24">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip24)">
 <g transform="matrix(-1.4949, -1.7815, 1.7815, -1.4949, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip24 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip25">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip25)">
 <g transform="matrix(-1.1364, -1.9682, 1.9682, -1.1364, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip25 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip26">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip26)">
 <g transform="matrix(-.76004, -2.0882, 2.0882, -.76004, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip26 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip27">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip27)">
 <g transform="matrix(-.37750, -2.1409, 2.1409, -.37750, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip27 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip28">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip28)">
 <g transform="matrix(0.0000, -2.1277, 2.1277, 0.0000, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip28 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip29">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip29)">
 <g transform="matrix(.36177, -2.0517, 2.0517, .36177, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip29 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip30">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip30)">
 <g transform="matrix(.69800, -1.9177, 1.9177, .69800, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip30 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip31">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip31)">
 <g transform="matrix(1.0000, -1.7321, 1.7321, 1.0000, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip31 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip32">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip32)">
 <g transform="matrix(1.2604, -1.5020, 1.5020, 1.2604, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip32 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip33">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip33)">
 <g transform="matrix(1.4732, -1.2361, 1.2361, 1.4732, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip33 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip34">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip34)">
 <g transform="matrix(1.6340, -.94340, .94340, 1.6340, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip34 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip35">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip35)">
 <g transform="matrix(1.7402, -.63337, .63337, 1.7402, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip35 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip36">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip36)">
 <g transform="matrix(1.7906, -.31572, .31572, 1.7906, 0.0000, 0.0000)">
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
+</g> <!-- clip36 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 300.00, 300.00)">
+<clipPath id="clip37">
+  <path d="M -300.00 -300.00 L -300.00 300.00 L 300.00 300.00 L 300.00 -300.00 z "/>
+</clipPath>
+<g clip-path="url(#clip37)">
 <g transform="matrix(5.0000, 0.0000, 0.0000, 5.0000, 0.0000, 0.0000)">
-<text stroke="none" fill="#0000ff" fill-opacity="1.0"  x="0.0000" y="0.0000">
-FreeHEP
-</text>
+<text stroke="none" fill="#0000ff" fill-opacity="1.0" font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12"  x="0.0000" y="0.0000">FreeHEP</text>
 </g> <!-- transform -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
+</g> <!-- clip37 -->
 </g> <!-- transform -->
-</g> <!-- clip -->
-</g> <!-- font -->
-</g> <!-- stroke dash -->
-</g> <!-- stroke limit -->
-</g> <!-- stroke join -->
-</g> <!-- stroke cap -->
-</g> <!-- stroke width -->
-</g> <!-- font -->
-</g> <!-- transform -->
-</g> <!-- top-level -->
-</g> <!-- font -->
 </svg> <!-- bounding box -->

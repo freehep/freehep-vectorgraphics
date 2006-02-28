@@ -11,7 +11,6 @@
      width="600px"
      height="600px"
      viewBox="0 0 600 600"
-     stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" 
      >
 <title>
 
@@ -94,57 +93,104 @@
 </symbol>
 </defs>
 
-<g stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" >
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,0.0000)">
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<g stroke-width="1.0000" >
-<g stroke-linecap="square" >
-<g stroke-linejoin="miter" >
-<g stroke-miterlimit="10.000" >
-<g stroke-dasharray="none" stroke-dashoffset="0.0000" >
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<clipPath id="clip0">
-<path d="M 0.0000 0.0000 L 600.00 0.0000 L 600.00 600.00 L 0.0000 600.00 L 0.0000 0.0000 z "/>
+<clipPath id="clip1">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
 </clipPath>
-<g clip-path="url(#clip0)">
-<rect stroke="none" fill="#ffffff" fill-opacity="1.0"  x="0.0000" y="0.0000" width="600.00" height="600.00"/>
-<rect stroke="#000000" stroke-opacity="1.0" fill="none"  x=".50000" y="200.50" width="180.00" height="180.00"/>
+<g clip-path="url(#clip1)">
+<g stroke="none" fill="#ffffff" fill-opacity="1.0" fill-rule="nonzero" >
+  <path d="M 0.0000 0.0000 L 600.00 0.0000 L 600.00 600.00 L 0.0000 600.00 L 0.0000 0.0000 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip1 -->
+<clipPath id="clip2">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip2)">
+<g stroke="#000000" stroke-opacity="1.0" fill="none" fill-rule="nonzero" >
+  <path d="M 0.0000 200.00 L 180.00 200.00 L 180.00 380.00 L 0.0000 380.00 L 0.0000 200.00 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip2 -->
 <defs>
   <pattern id="texture-0" x="0" y="0" width="32.000" height="32.000" patternUnits="userSpaceOnUse" patternTransform="matrix(1.0000,0.0,0.0,1.0000,0.0000,0.0000)" >
-<image x="0" y="0" width="32" height="32" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAiUlEQVR42t2WwQ6AIAxD9+n+ecUQ
+<clipPath id="clip3">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip3)">
+<image x="0" y="0" width="32" height="32" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAiUlEQVR42t2WwQ6AIAxD9+n+ecUQ
 DOhMTOjjQA8GL3up3SYRO0gSDmAZasIBFEOjcICfoUw4wMlYlAE4EH3RRUO3xebY2oT+aQp/jGIA
 5RBRnhSgVhcHwB28M3i8mrfvZamZqgwA0GJxAvrv43dQk6Yy6PpIaSPNdtFd/YvhbNN0YfgvCfi/
 PdUJowtSkHS+J5IAAAAASUVORK5CYII="/>
+</g> <!-- clip3 -->
   </pattern>
 </defs>
 <g stroke="url(#texture-0)" >
-<rect stroke="none" fill="url(#texture-0)" fill-opacity="1.0"  x="0.0000" y="200.00" width="180.00" height="180.00"/>
-<rect stroke="#000000" stroke-opacity="1.0" fill="none"  x="200.50" y="200.50" width="180.00" height="180.00"/>
+<clipPath id="clip4">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip4)">
+<g stroke="none" fill="url(#texture-0)" fill-opacity="1.0" fill-rule="nonzero" >
+  <path d="M 0.0000 200.00 L 180.00 200.00 L 180.00 380.00 L 0.0000 380.00 L 0.0000 200.00 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip4 -->
+<clipPath id="clip5">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip5)">
+<g stroke="#000000" stroke-opacity="1.0" fill="none" fill-rule="nonzero" >
+  <path d="M 200.00 200.00 L 380.00 200.00 L 380.00 380.00 L 200.00 380.00 L 200.00 200.00 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip5 -->
 <defs>
   <pattern id="texture-1" x="0" y="0" width="32.000" height="32.000" patternUnits="userSpaceOnUse" patternTransform="matrix(.50000,0.0,0.0,.50000,0.0000,0.0000)" >
-<image x="0" y="0" width="32" height="32" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAiUlEQVR42t2WwQ6AIAxD9+n+ecUQ
+<clipPath id="clip6">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip6)">
+<image x="0" y="0" width="32" height="32" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAiUlEQVR42t2WwQ6AIAxD9+n+ecUQ
 DOhMTOjjQA8GL3up3SYRO0gSDmAZasIBFEOjcICfoUw4wMlYlAE4EH3RRUO3xebY2oT+aQp/jGIA
 5RBRnhSgVhcHwB28M3i8mrfvZamZqgwA0GJxAvrv43dQk6Yy6PpIaSPNdtFd/YvhbNN0YfgvCfi/
 PdUJowtSkHS+J5IAAAAASUVORK5CYII="/>
+</g> <!-- clip6 -->
   </pattern>
 </defs>
 <g stroke="url(#texture-1)" >
-<rect stroke="none" fill="url(#texture-1)" fill-opacity="1.0"  x="200.00" y="200.00" width="180.00" height="180.00"/>
-<rect stroke="#000000" stroke-opacity="1.0" fill="none"  x="400.50" y="200.50" width="180.00" height="180.00"/>
+<clipPath id="clip7">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip7)">
+<g stroke="none" fill="url(#texture-1)" fill-opacity="1.0" fill-rule="nonzero" >
+  <path d="M 200.00 200.00 L 380.00 200.00 L 380.00 380.00 L 200.00 380.00 L 200.00 200.00 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip7 -->
+<clipPath id="clip8">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip8)">
+<g stroke="#000000" stroke-opacity="1.0" fill="none" fill-rule="nonzero" >
+  <path d="M 400.00 200.00 L 580.00 200.00 L 580.00 380.00 L 400.00 380.00 L 400.00 200.00 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip8 -->
 <defs>
   <pattern id="texture-2" x="0" y="0" width="32.000" height="32.000" patternUnits="userSpaceOnUse" patternTransform="matrix(1.0000,0.0,0.0,1.0000,16.000,16.000)" >
-<image x="0" y="0" width="32" height="32" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAiUlEQVR42t2WwQ6AIAxD9+n+ecUQ
+<clipPath id="clip9">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip9)">
+<image x="0" y="0" width="32" height="32" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAiUlEQVR42t2WwQ6AIAxD9+n+ecUQ
 DOhMTOjjQA8GL3up3SYRO0gSDmAZasIBFEOjcICfoUw4wMlYlAE4EH3RRUO3xebY2oT+aQp/jGIA
 5RBRnhSgVhcHwB28M3i8mrfvZamZqgwA0GJxAvrv43dQk6Yy6PpIaSPNdtFd/YvhbNN0YfgvCfi/
 PdUJowtSkHS+J5IAAAAASUVORK5CYII="/>
+</g> <!-- clip9 -->
   </pattern>
 </defs>
 <g stroke="url(#texture-2)" >
-<rect stroke="none" fill="url(#texture-2)" fill-opacity="1.0"  x="400.00" y="200.00" width="180.00" height="180.00"/>
+<clipPath id="clip10">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip10)">
+<g stroke="none" fill="url(#texture-2)" fill-opacity="1.0" fill-rule="nonzero" >
+  <path d="M 400.00 200.00 L 580.00 200.00 L 580.00 380.00 L 400.00 380.00 L 400.00 200.00 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip10 -->
 <defs>
   <linearGradient id="gradient-0" x1="0.0000" y1="400.00" x2="180.00" y2="580.00" gradientUnits="userSpaceOnUse" spreadMethod="pad" >
     <stop offset="0" stop-color="#ff0000" opacity-stop="1.0" />
@@ -152,7 +198,14 @@ PdUJowtSkHS+J5IAAAAASUVORK5CYII="/>
   </linearGradient>
 </defs>
 <g stroke="url(#gradient-0)" >
-<rect stroke="none" fill="url(#gradient-0)" fill-opacity="1.0"  x="0.0000" y="400.00" width="180.00" height="180.00"/>
+<clipPath id="clip11">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip11)">
+<g stroke="none" fill="url(#gradient-0)" fill-opacity="1.0" fill-rule="nonzero" >
+  <path d="M 0.0000 400.00 L 180.00 400.00 L 180.00 580.00 L 0.0000 580.00 L 0.0000 400.00 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip11 -->
 <defs>
   <linearGradient id="gradient-1" x1="250.00" y1="450.00" x2="320.00" y2="520.00" gradientUnits="userSpaceOnUse" spreadMethod="pad" >
     <stop offset="0" stop-color="#00ff00" opacity-stop="1.0" />
@@ -160,7 +213,14 @@ PdUJowtSkHS+J5IAAAAASUVORK5CYII="/>
   </linearGradient>
 </defs>
 <g stroke="url(#gradient-1)" >
-<rect stroke="none" fill="url(#gradient-1)" fill-opacity="1.0"  x="200.00" y="400.00" width="180.00" height="180.00"/>
+<clipPath id="clip12">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip12)">
+<g stroke="none" fill="url(#gradient-1)" fill-opacity="1.0" fill-rule="nonzero" >
+  <path d="M 200.00 400.00 L 380.00 400.00 L 380.00 580.00 L 200.00 580.00 L 200.00 400.00 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip12 -->
 <defs>
   <linearGradient id="gradient-2" x1="400.00" y1="400.00" x2="440.00" y2="440.00" gradientUnits="userSpaceOnUse" spreadMethod="reflect" >
     <stop offset="0" stop-color="#ff0000" opacity-stop="1.0" />
@@ -168,8 +228,14 @@ PdUJowtSkHS+J5IAAAAASUVORK5CYII="/>
   </linearGradient>
 </defs>
 <g stroke="url(#gradient-2)" >
-<rect stroke="none" fill="url(#gradient-2)" fill-opacity="1.0"  x="400.00" y="400.00" width="180.00" height="180.00"/>
-<g transform="matrix(1.0000,.50000,.50000,1.0000,0.0000,0.0000)">
+<clipPath id="clip13">
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip13)">
+<g stroke="none" fill="url(#gradient-2)" fill-opacity="1.0" fill-rule="nonzero" >
+  <path d="M 400.00 400.00 L 580.00 400.00 L 580.00 580.00 L 400.00 580.00 L 400.00 400.00 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip13 -->
 <defs>
   <linearGradient id="gradient-3" x1="0.0000" y1="0.0000" x2="120.00" y2="120.00" gradientUnits="userSpaceOnUse" spreadMethod="pad" >
     <stop offset="0" stop-color="#ff0000" opacity-stop="1.0" />
@@ -177,20 +243,41 @@ PdUJowtSkHS+J5IAAAAASUVORK5CYII="/>
   </linearGradient>
 </defs>
 <g stroke="url(#gradient-3)" >
-<rect stroke="none" fill="url(#gradient-3)" fill-opacity="1.0"  x="0.0000" y="0.0000" width="120.00" height="120.00"/>
+<g transform="matrix(1.0000, .50000, .50000, 1.0000, 0.0000, 0.0000)">
+<clipPath id="clip14">
+  <path d="M 800.00 -400.00 L 0.0000 0.0000 L -400.00 800.00 L 400.00 400.00 L 800.00 -400.00 z "/>
+</clipPath>
+<g clip-path="url(#clip14)">
+<g stroke="none" fill="url(#gradient-3)" fill-opacity="1.0" fill-rule="nonzero" >
+  <path d="M 0.0000 0.0000 L 120.00 0.0000 L 120.00 120.00 L 0.0000 120.00 L 0.0000 0.0000 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip14 -->
+</g> <!-- transform -->
 <defs>
   <pattern id="texture-3" x="0" y="0" width="32.000" height="32.000" patternUnits="userSpaceOnUse" patternTransform="matrix(1.0000,0.0,0.0,1.0000,0.0000,0.0000)" >
-<image x="0" y="0" width="32" height="32" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAiUlEQVR42t2WwQ6AIAxD9+n+ecUQ
+<g transform="matrix(1.0000, .50000, .50000, 1.0000, 0.0000, 0.0000)">
+<clipPath id="clip15">
+  <path d="M 800.00 -400.00 L 0.0000 0.0000 L -400.00 800.00 L 400.00 400.00 L 800.00 -400.00 z "/>
+</clipPath>
+<g clip-path="url(#clip15)">
+<image x="0" y="0" width="32" height="32" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAiUlEQVR42t2WwQ6AIAxD9+n+ecUQ
 DOhMTOjjQA8GL3up3SYRO0gSDmAZasIBFEOjcICfoUw4wMlYlAE4EH3RRUO3xebY2oT+aQp/jGIA
 5RBRnhSgVhcHwB28M3i8mrfvZamZqgwA0GJxAvrv43dQk6Yy6PpIaSPNdtFd/YvhbNN0YfgvCfi/
 PdUJowtSkHS+J5IAAAAASUVORK5CYII="/>
+</g> <!-- clip15 -->
+</g> <!-- transform -->
   </pattern>
 </defs>
 <g stroke="url(#texture-3)" >
-<rect stroke="none" fill="url(#texture-3)" fill-opacity="1.0"  x="200.00" y="-100.00" width="120.00" height="120.00"/>
-</g> <!-- color -->
-</g> <!-- color -->
+<g transform="matrix(1.0000, .50000, .50000, 1.0000, 0.0000, 0.0000)">
+<clipPath id="clip16">
+  <path d="M 800.00 -400.00 L 0.0000 0.0000 L -400.00 800.00 L 400.00 400.00 L 800.00 -400.00 z "/>
+</clipPath>
+<g clip-path="url(#clip16)">
+<g stroke="none" fill="url(#texture-3)" fill-opacity="1.0" fill-rule="nonzero" >
+  <path d="M 200.00 -100.00 L 320.00 -100.00 L 320.00 20.000 L 200.00 20.000 L 200.00 -100.00 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip16 -->
 </g> <!-- transform -->
 </g> <!-- color -->
 </g> <!-- color -->
@@ -198,15 +285,6 @@ PdUJowtSkHS+J5IAAAAASUVORK5CYII="/>
 </g> <!-- color -->
 </g> <!-- color -->
 </g> <!-- color -->
-</g> <!-- clip -->
-</g> <!-- font -->
-</g> <!-- stroke dash -->
-</g> <!-- stroke limit -->
-</g> <!-- stroke join -->
-</g> <!-- stroke cap -->
-</g> <!-- stroke width -->
-</g> <!-- font -->
-</g> <!-- transform -->
-</g> <!-- top-level -->
-</g> <!-- font -->
+</g> <!-- color -->
+</g> <!-- color -->
 </svg> <!-- bounding box -->

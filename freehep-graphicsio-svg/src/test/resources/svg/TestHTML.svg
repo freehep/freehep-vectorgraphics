@@ -11,7 +11,6 @@
      width="600px"
      height="600px"
      viewBox="0 0 600 600"
-     stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" 
      >
 <title>
 
@@ -94,94 +93,102 @@
 </symbol>
 </defs>
 
-<g stroke="#000000" stroke-opacity="1.0" fill="none" stroke-width="1" stroke-linecap="square" >
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<g transform="matrix(1.0000,0.0000,0.0000,1.0000,0.0000,0.0000)">
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<g stroke-width="1.0000" >
-<g stroke-linecap="square" >
-<g stroke-linejoin="miter" >
-<g stroke-miterlimit="10.000" >
-<g stroke-dasharray="none" stroke-dashoffset="0.0000" >
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<clipPath id="clip0">
-<path d="M 0.0000 0.0000 L 600.00 0.0000 L 600.00 600.00 L 0.0000 600.00 L 0.0000 0.0000 z "/>
-</clipPath>
-<g clip-path="url(#clip0)">
-<rect stroke="none" fill="#cccccc" fill-opacity="1.0"  x="0.0000" y="0.0000" width="600.00" height="600.00"/>
-<g transform="matrix(1.0000,0.0000,0.0000,1.0000,179.00,5.0000)">
 <clipPath id="clip1">
-<path d="M 0.0000 0.0000 L 242.00 0.0000 L 242.00 38.000 L 0.0000 38.000 L 0.0000 0.0000 z "/>
+  <path d="M 0.0000 0.0000 L 0.0000 600.00 L 600.00 600.00 L 600.00 0.0000 z "/>
 </clipPath>
 <g clip-path="url(#clip1)">
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<g font-family="sans-serif" font-weight="normal" font-style="normal" font-size="12" >
-<rect stroke="none" fill="#ffffff" fill-opacity="1.0"  x="0.0000" y="0.0000" width="242.00" height="38.000"/>
-<g font-family="serif" font-weight="normal" font-style="normal" font-size="14" >
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="3.0000" y="25.000">
-&lt;Vector
-</text>
-<g font-family="serif" font-weight="bold" font-style="normal" font-size="12" >
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="49.000" y="17.000">
-Graphics
-</text>
-<g font-family="serif" font-weight="normal" font-style="normal" font-size="14" >
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="96.000" y="25.000">
- &amp; Adapter
-</text>
-<g font-family="serif" font-weight="normal" font-style="italic" font-size="12" >
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="159.00" y="32.000">
-Card
-</text>
-<g font-family="serif" font-weight="normal" font-style="normal" font-size="14" >
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="184.00" y="25.000">
- = e
-</text>
-<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="206.00" y="17.000">
-x
-</text>
-<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="211.00" y="17.000">
-2
-</text>
-<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="217.00" y="17.000">
-y
-</text>
-<g font-family="serif" font-weight="normal" font-style="normal" font-size="12" >
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="224.00" y="17.000">
-3
-</text>
-<g font-family="serif" font-weight="normal" font-style="normal" font-size="14" >
-<text stroke="none" fill="#000000" fill-opacity="1.0"  x="230.00" y="25.000">
-&gt;
-</text>
-<g font-family="serif" font-weight="normal" font-style="normal" font-size="14" >
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- font -->
-</g> <!-- clip -->
+<g stroke="none" fill="#eeeeee" fill-opacity="1.0" fill-rule="nonzero" >
+  <path d="M 0.0000 0.0000 L 600.00 0.0000 L 600.00 600.00 L 0.0000 600.00 L 0.0000 0.0000 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip1 -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 179.00, 5.0000)">
+<clipPath id="clip2">
+  <path d="M 0.0000 0.0000 L 0.0000 38.000 L 241.00 38.000 L 241.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip2)">
+<g stroke="none" fill="#ffffff" fill-opacity="1.0" fill-rule="nonzero" >
+  <path d="M 0.0000 0.0000 L 241.00 0.0000 L 241.00 38.000 L 0.0000 38.000 L 0.0000 0.0000 z "/>
+</g> <!-- drawing style -->
+</g> <!-- clip2 -->
 </g> <!-- transform -->
-</g> <!-- clip -->
-</g> <!-- font -->
-</g> <!-- stroke dash -->
-</g> <!-- stroke limit -->
-</g> <!-- stroke join -->
-</g> <!-- stroke cap -->
-</g> <!-- stroke width -->
-</g> <!-- font -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 179.00, 5.0000)">
+<clipPath id="clip3">
+  <path d="M 0.0000 0.0000 L 0.0000 38.000 L 241.00 38.000 L 241.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip3)">
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="serif" font-weight="normal" font-style="normal" font-size="14"  x="3.0000" y="25.000">&lt;Vector</text>
+</g> <!-- clip3 -->
 </g> <!-- transform -->
-</g> <!-- top-level -->
-</g> <!-- font -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 179.00, 5.0000)">
+<clipPath id="clip4">
+  <path d="M 0.0000 0.0000 L 0.0000 38.000 L 241.00 38.000 L 241.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip4)">
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="serif" font-weight="bold" font-style="normal" font-size="12"  x="49.000" y="17.000">Graphics</text>
+</g> <!-- clip4 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 179.00, 5.0000)">
+<clipPath id="clip5">
+  <path d="M 0.0000 0.0000 L 0.0000 38.000 L 241.00 38.000 L 241.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip5)">
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="serif" font-weight="normal" font-style="normal" font-size="14"  x="96.000" y="25.000"> &amp; Adapter</text>
+</g> <!-- clip5 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 179.00, 5.0000)">
+<clipPath id="clip6">
+  <path d="M 0.0000 0.0000 L 0.0000 38.000 L 241.00 38.000 L 241.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip6)">
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="serif" font-weight="normal" font-style="italic" font-size="12"  x="159.00" y="32.000">Card</text>
+</g> <!-- clip6 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 179.00, 5.0000)">
+<clipPath id="clip7">
+  <path d="M 0.0000 0.0000 L 0.0000 38.000 L 241.00 38.000 L 241.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip7)">
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="serif" font-weight="normal" font-style="normal" font-size="14"  x="184.00" y="25.000"> = e</text>
+</g> <!-- clip7 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 179.00, 5.0000)">
+<clipPath id="clip8">
+  <path d="M 0.0000 0.0000 L 0.0000 38.000 L 241.00 38.000 L 241.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip8)">
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="serif" font-weight="normal" font-style="normal" font-size="12"  x="206.00" y="17.000">x</text>
+</g> <!-- clip8 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 179.00, 5.0000)">
+<clipPath id="clip9">
+  <path d="M 0.0000 0.0000 L 0.0000 38.000 L 241.00 38.000 L 241.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip9)">
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="serif" font-weight="normal" font-style="normal" font-size="12"  x="211.00" y="17.000">2</text>
+</g> <!-- clip9 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 179.00, 5.0000)">
+<clipPath id="clip10">
+  <path d="M 0.0000 0.0000 L 0.0000 38.000 L 241.00 38.000 L 241.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip10)">
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="serif" font-weight="normal" font-style="normal" font-size="12"  x="217.00" y="17.000">y</text>
+</g> <!-- clip10 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 179.00, 5.0000)">
+<clipPath id="clip11">
+  <path d="M 0.0000 0.0000 L 0.0000 38.000 L 241.00 38.000 L 241.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip11)">
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="serif" font-weight="normal" font-style="normal" font-size="12"  x="224.00" y="17.000">3</text>
+</g> <!-- clip11 -->
+</g> <!-- transform -->
+<g transform="matrix(1.0000, 0.0000, 0.0000, 1.0000, 179.00, 5.0000)">
+<clipPath id="clip12">
+  <path d="M 0.0000 0.0000 L 0.0000 38.000 L 241.00 38.000 L 241.00 0.0000 z "/>
+</clipPath>
+<g clip-path="url(#clip12)">
+<text stroke="none" fill="#000000" fill-opacity="1.0" font-family="serif" font-weight="normal" font-style="normal" font-size="14"  x="230.00" y="25.000">&gt;</text>
+</g> <!-- clip12 -->
+</g> <!-- transform -->
 </svg> <!-- bounding box -->
