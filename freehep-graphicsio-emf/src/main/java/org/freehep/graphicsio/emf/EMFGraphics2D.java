@@ -1,4 +1,4 @@
-// Copyright 2000-2005 FreeHEP
+// Copyright 2000-2006 FreeHEP
 package org.freehep.graphicsio.emf;
 
 import java.awt.BasicStroke;
@@ -22,9 +22,7 @@ import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.RectangularShape;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.RenderedImage;
 import java.io.BufferedOutputStream;
@@ -50,7 +48,7 @@ import org.freehep.util.UserProperties;
  * Enhanced Metafile Format Graphics 2D driver.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java 40d86979195e 2006/02/27 19:52:33 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java 07902aaefb18 2006/02/28 00:05:01 duns $
  */
 public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         EMFConstants {
@@ -119,6 +117,7 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         defaultProperties.setProperty(BACKGROUND, false);
         defaultProperties.setProperty(BACKGROUND_COLOR, Color.GRAY);
         defaultProperties.setProperty(COMPRESS, false);
+        defaultProperties.setProperty(CLIP, true);
     }
 
     public static Properties getDefaultProperties() {
@@ -186,7 +185,6 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         brushColor = graphics.brushColor;
         parentGraphics = graphics;
     }
-
     /*
      * ================================================================================ |
      * 2. Document Settings
@@ -233,7 +231,7 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         // factor of TWIPS
         AffineTransform n = AffineTransform.getScaleInstance(1.0 / TWIPS,
                 1.0 / TWIPS);
-        os.writeTag(new ModifyWorldTransform(n, EMFConstants.MWT_LEFTMULTIPLY));
+        os.writeTag(new SetWorldTransform(n));
     }
 
     public void writeBackground() throws IOException {
@@ -696,53 +694,29 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         os.writeTag(new ModifyWorldTransform(n, EMFConstants.MWT_LEFTMULTIPLY));
     }
 
+    protected void writeSetTransform(AffineTransform t) throws IOException {
+        // write a special matrix here to scale all written coordinates by a factor of TWIPS
+        AffineTransform n = AffineTransform.getScaleInstance(1.0/TWIPS, 1.0/TWIPS);
+        os.writeTag(new SetWorldTransform(n));
+        // apply transform
+        writeTransform(t);
+    }
+
     /*
      * ================================================================================ |
      * 7. Clipping
      * ================================================================================
      */
     protected void writeSetClip(Shape s) throws IOException {
-        if (s instanceof RectangularShape) {
-            RectangularShape r = (RectangularShape) s;
-            AffineTransform currentTransform = getTransform();
-            Point2D xy = currentTransform.transform(new Point2D.Double(r
-                    .getMinX(), r.getMinY()), null);
-            Point2D wh = currentTransform.deltaTransform(new Point2D.Double(r
-                    .getWidth(), r.getHeight()), null);
-            // FIXME Check this, FREEHEP-194
-            // nws: this method should be consistent with writeClip(Rectangle2D
-            // r2D with respect to
-            // to scaling of the clip region. Should the rectangle be adjusted
-            // by UNITS_PER_PIXEL ?
-            //
-            // Rectangle rgn = new Rectangle(toUnit(xy.getX()),
-            // toUnit(xy.getY()), toUnit(wh.getX()), toUnit(wh.getY()));
-            Rectangle rgn = new Rectangle((int) xy.getX(), (int) xy.getY(),
-                    (int) wh.getX(), (int) wh.getY());
-            os.writeTag(new ExtSelectClipRgn(EMFConstants.RGN_COPY, new Region(
-                    imageBounds, rgn)));
-        } else {
-            // FIXME: no other way for now.
-            clip(s);
-        }
-    }
-
-    protected void writeClip(Rectangle2D r2d) throws IOException {
-        if (r2d == null)
+        if ((s == null) || !isProperty(CLIP))
             return;
-        AffineTransform currentTransform = getTransform();
-        Point2D xy = currentTransform.transform(new Point2D.Double(r2d.getX(),
-                r2d.getY()), null);
-        Point2D wh = currentTransform.deltaTransform(new Point2D.Double(r2d
-                .getWidth(), r2d.getHeight()), null);
-        Rectangle rgn = new Rectangle((int) xy.getX(), (int) xy.getY(),
-                (int) wh.getX(), (int) wh.getY());
-        os.writeTag(new ExtSelectClipRgn(EMFConstants.RGN_AND, new Region(
-                imageBounds, rgn)));
+        // Write out the clip shape.
+        writePath(s);
+        os.writeTag(new SelectClipPath(EMFConstants.RGN_COPY));
     }
 
     protected void writeClip(Shape s) throws IOException {
-        if (s == null)
+        if ((s == null) || !isProperty(CLIP))
             return;
         // Write out the clip shape.
         writePath(s);

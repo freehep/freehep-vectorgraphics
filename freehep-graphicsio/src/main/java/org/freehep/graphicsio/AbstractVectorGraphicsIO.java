@@ -1,4 +1,4 @@
-// Copyright 2000-2004, FreeHEP
+// Copyright 2000-2006, FreeHEP
 package org.freehep.graphicsio;
 
 import java.awt.AlphaComposite;
@@ -53,7 +53,7 @@ import org.freehep.util.images.ImageUtilities;
  * 
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 5641ca92a537 2005/11/26 00:15:35 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 07902aaefb18 2006/02/28 00:05:01 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -63,6 +63,8 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
     public static final String EMIT_WARNINGS = rootKey + ".EMIT_WARNINGS";
 
     public static final String EMIT_ERRORS = rootKey + ".EMIT_ERRORS";
+
+    public static final String CLIP              = rootKey+".Clip";
 
     /*
      * ================================================================================
@@ -85,6 +87,9 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     private Rectangle deviceClip;
 
+    /**
+     * Untransformed clipping Area defined by the user
+     */
     private Area userClip;
 
     private AffineTransform currentTransform;
@@ -481,6 +486,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
                     bgColor);
             return true;
         } catch (IOException e) {
+            handleException(e);
             return false;
         }
     }
@@ -632,25 +638,18 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
     }
 
     /**
-     * Set the current transform. Since most output formats do not implement
-     * this functionality, the inverse transform of the currentTransform is
-     * calculated and multiplied by the transform to be set. The result is then
-     * forwarded by a call to writeTransform(Transform).
+     * Set the current transform. Calls writeSetTransform(Transform).
      * 
      * @param transform to be set
      */
     public void setTransform(AffineTransform transform) {
+        // Fix for FREEHEP-569
+        currentTransform.setTransform(transform);
         try {
-            AffineTransform difference = currentTransform.createInverse();
-            difference.concatenate(transform);
-            writeTransform(difference);
-        } catch (NoninvertibleTransformException e) {
-            writeWarning("VectorGraphics2D.setTransform(AffineTransform): current transformation matrix not invertible");
+            writeSetTransform(transform);
         } catch (IOException e) {
             handleException(e);
         }
-        // Fix for FREEHEP-569
-        currentTransform.setTransform(transform);
     }
 
     /**
@@ -741,6 +740,14 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
     protected abstract void writeTransform(AffineTransform transform)
             throws IOException;
 
+    /**
+     * Clears any existing transformation and sets the new one normally using
+     * writeTransform(AffineTransform transform)
+     *
+     * @param transform to be written
+     */
+    protected abstract void writeSetTransform(AffineTransform transform) throws IOException;
+
     /*
      * ================================================================================ |
      * 7. Clipping
@@ -827,24 +834,20 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
     }
 
     /**
-     * Clips shape. Sets the userClip to shape and calls clip(Shape).
+     * Clips shape. Clears userClip and calls clip(Shape).
      * 
-     * @param shape used for clipping
+     * @param s used for clipping
      */
-    public void setClip(Shape shape) {
-        userClip = (shape != null) ? new Area(transformShape(shape)) : null;
+    public void setClip(Shape s) {
+
+        Shape ts = transformShape(s);
+        userClip = (ts != null) ? new Area(ts) : null;
+
         try {
-            writeSetClip(shape);
+            writeSetClip(s);
         } catch (IOException e) {
             handleException(e);
         }
-    }
-
-    /**
-     * Called to set a clip, no intersection made. Calls clip(shape).
-     */
-    protected void writeSetClip(Shape shape) throws IOException {
-        clip(shape);
     }
 
     /**
@@ -866,33 +869,11 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
         }
 
         try {
-            if (s instanceof Rectangle) {
-                writeClip((Rectangle) s);
-            } else if (s instanceof Rectangle2D) {
-                writeClip((Rectangle2D) s);
-            } else {
-                writeClip(s);
-            }
+            writeClip(s);
         } catch (IOException e) {
             handleException(e);
         }
     }
-
-    /**
-     * Write out Rectangle clip. Calls writeClip(Rectangle2D).
-     * 
-     * @param rectangle to be used for clipping
-     */
-    protected void writeClip(Rectangle rectangle) throws IOException {
-        writeClip((Rectangle2D) rectangle);
-    }
-
-    /**
-     * Write out Rectangle2D clip.
-     * 
-     * @param rectangle to be used for clipping
-     */
-    protected abstract void writeClip(Rectangle2D rectangle) throws IOException;
 
     /**
      * Write out Shape clip.
@@ -900,6 +881,13 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
      * @param shape to be used for clipping
      */
     protected abstract void writeClip(Shape shape) throws IOException;
+
+    /**
+     * Write out Shape clip.
+     * 
+     * @param shape to be used for clipping
+     */
+    protected abstract void writeSetClip(Shape shape) throws IOException;
 
     /*
      * ================================================================================ |

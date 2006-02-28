@@ -1,4 +1,4 @@
-// Copyright 2000-2005 FreeHEP
+// Copyright 2000-2006 FreeHEP
 package org.freehep.graphicsio.swf;
 
 import java.awt.BasicStroke;
@@ -42,7 +42,7 @@ import org.freehep.util.Value;
  * SWF Graphics 2D driver.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFGraphics2D.java db861da05344 2005/12/05 00:59:43 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFGraphics2D.java 07902aaefb18 2006/02/28 00:05:01 duns $
  */
 public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
         SWFConstants {
@@ -498,13 +498,17 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
         // Transforms written when needed
     }
 
+    protected void writeSetTransform(AffineTransform t) throws IOException {
+        // Transforms written when needed
+    }
+
     /*
      * ================================================================================ |
      * 7. Clipping
      * ================================================================================
      */
-    protected void writeClip(Rectangle2D r2d) throws IOException {
-        writeClip((Shape) r2d);
+    protected void writeSetClip(Shape s) throws IOException {
+        writeClip(s);
     }
 
     protected void writeClip(Shape s) throws IOException {

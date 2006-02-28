@@ -1,4 +1,4 @@
-// Copyright 2000-2003, FreeHEP
+// Copyright 2000-2006, FreeHEP
 package org.freehep.graphicsio;
 
 import java.awt.Color;
@@ -11,7 +11,6 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.TexturePaint;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.RenderedImage;
 import java.io.IOException;
 
@@ -23,7 +22,7 @@ import org.freehep.graphics2d.VectorGraphics;
  * serves as an example to start the implementation for a new output format.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/DummyGraphics2D.java 5641ca92a537 2005/11/26 00:15:35 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/DummyGraphics2D.java 07902aaefb18 2006/02/28 00:05:01 duns $
  */
 public class DummyGraphics2D extends AbstractVectorGraphicsIO {
     /*
@@ -199,18 +198,24 @@ public class DummyGraphics2D extends AbstractVectorGraphicsIO {
         // You can also use the currentTransform.
     }
 
+    protected void writeSetTransform(AffineTransform t) throws IOException {
+        writeWarning(getClass()+": writeTransform(AffineTransform) not implemented.");
+        // Clear the currentTransform and write out the transform to
+        // be applied to the internal transform of the output format.
+    }
+
     /*
      * ================================================================================ |
      * 7. Clipping
      * ================================================================================
      */
-    protected void writeClip(Rectangle2D r2d) throws IOException {
-        writeWarning(getClass() + ": writeClip(Rectangle2D) not implemented.");
-        // Write out the clip rectangle.
-    }
-
     protected void writeClip(Shape s) throws IOException {
         writeWarning(getClass() + ": writeClip(Shape) not implemented.");
+        // Write out the clip shape.
+    }
+
+    protected void writeSetClip(Shape s) throws IOException {
+        writeWarning(getClass()+": writeSetClip(Shape) not implemented.");
         // Write out the clip shape.
     }
 

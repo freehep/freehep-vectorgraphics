@@ -58,7 +58,7 @@ import org.freehep.xml.util.XMLWriter;
  * The current implementation is based on REC-SVG11-20030114
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java 40d86979195e 2006/02/27 19:52:33 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java 07902aaefb18 2006/02/28 00:05:01 duns $
  */
 public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
@@ -113,6 +113,8 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
         defaultProperties.setProperty(FOR, "");
         defaultProperties.setProperty(TITLE, "");
+
+        defaultProperties.setProperty(CLIP,             true);
     }
 
     public static Properties getDefaultProperties() {
@@ -151,7 +153,6 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
     private Value clipNumber;
 
-    private int currentClipNumber;
 
     private int width, height;
 
@@ -191,7 +192,6 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         this.filename = null;
 
         this.clipNumber = new Value().set(0);
-        this.currentClipNumber = -1;
     }
 
     protected SVGGraphics2D(SVGGraphics2D graphics, boolean doRestoreOnDispose) {
@@ -206,7 +206,6 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         gradients = graphics.gradients;
         textures = graphics.textures;
         clipNumber = graphics.clipNumber;
-        currentClipNumber = -1;
     }
 
     /*
@@ -912,32 +911,66 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         closeTags.push("</g> <!-- transform -->");
     }
 
+    protected void writeSetTransform(AffineTransform transform) throws IOException {
+        // close all tags except "</svg>"
+        while(!closeTags.empty() && !((String)closeTags.peek()).startsWith("</svg")) {
+            os.println(closeTags.pop());
+        }
+
+        // Write the current Settings
+        writeSetup();
+
+        // Write the Transform
+        writeTransform(transform);
+
+        // write the current (allready by superclass transformed) clip
+        writeClip(getClip());
+    }
+    
     /*
      * ================================================================================ |
      * 7. Clipping
      * ================================================================================
      */
-    protected void writeClip(Rectangle2D r2d) throws IOException {
-        writeClip((Shape) r2d);
-    }
-
     protected void writeClip(Shape s) throws IOException {
-        if (s == null) {
-            currentClipNumber = -1;
+        if (s == null || !isProperty(CLIP)) {
             return;
         }
 
         PathIterator path = s.getPathIterator(null);
 
-        currentClipNumber = clipNumber.getInt();
-        clipNumber.set(currentClipNumber + 1);
-        os.println("<clipPath id=\"clip" + currentClipNumber + "\">");
+        // SVG uses unique clip numbers, do not reset, always increment them
+        clipNumber.set(clipNumber.getInt() + 1);
+        
+        os.println("<clipPath id=\"clip" + clipNumber.getInt() + "\">");
         writePath(path);
         os.println("</clipPath>");
-        os.println("<g clip-path=\"url(#clip" + currentClipNumber + ")\">");
-        closeTags.push("</g> <!-- clip -->");
+        os.println("<g clip-path=\"url(#clip" + clipNumber.getInt() + ")\">");
+        closeTags.push("</g> <!-- clip" + clipNumber.getInt() + " -->");
     }
 
+    protected void writeSetClip(Shape s) throws IOException {
+        if (!isProperty(CLIP)) {
+            return;
+        }
+
+        // close all tags except "<svg>"
+        while(!closeTags.empty() && !((String)closeTags.peek()).startsWith("</svg")) {
+            os.println(closeTags.pop());
+        }
+
+        // Write the current Settings
+        writeSetup();
+
+        // Write the current Transform
+        writeTransform(getTransform());
+
+        // write new clip
+        writeClip(s);
+    }
+
+    
+    
     /*
      * ================================================================================ |
      * 8. Graphics State

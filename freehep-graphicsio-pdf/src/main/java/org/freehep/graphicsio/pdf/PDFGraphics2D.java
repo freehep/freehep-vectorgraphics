@@ -13,6 +13,7 @@ import java.awt.Insets;
 import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.TexturePaint;
 import java.awt.font.LineMetrics;
 import java.awt.geom.AffineTransform;
@@ -55,7 +56,7 @@ import org.freehep.util.UserProperties;
  * 
  * @author Simon Fischer
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java 40d86979195e 2006/02/27 19:52:33 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java 07902aaefb18 2006/02/28 00:05:01 duns $
  */
 public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -184,11 +185,6 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
             new Font("Symbol", Font.PLAIN, 10),
             new Font("ZapfDingbats", Font.PLAIN, 10), };
 */
-    /**
-     * Default flag for allowing clip regions to be written
-     */
-    private static boolean enableClip = true;
-
     // output
     private OutputStream ros;
 
@@ -303,7 +299,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
      * of graphic contexts). A workaround is to simply switch it off.
      */
     public static void setClipEnabled(boolean enabled) {
-        enableClip = enabled;
+        defaultProperties.setProperty(CLIP,      enabled);
     }
 
     /*
@@ -545,6 +541,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
                 / size.height);
         if ((scaleFactor < 1) || isProperty(FIT_TO_PAGE)) {
             pageTrafo.scale(scaleFactor, scaleFactor);
+
         } else {
             scaleFactor = 1;
         }
@@ -555,7 +552,15 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
         pageTrafo.translate(dx, dy);
 
         writeTransform(pageTrafo);
+        
+        // save the graphics context resets before setClip
+        writeGraphicsSave();
+        
         clipRect(0, 0, size.width, size.height);
+        
+        // save the graphics context resets before setClip
+        writeGraphicsSave();
+
         delayPaintQueue.setPageMatrix(pageTrafo);
 
         writeGraphicsState();
@@ -773,46 +778,77 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
         pageStream.matrix(t);
     }
 
+    /** Write the given transformation matrix to the file. */
+    protected void writeSetTransform(AffineTransform t) throws IOException {
+        // clear old transform
+        try {
+            Shape clip = getClip();
+            Stroke stroke = getStroke();
+
+            writeGraphicsRestore();
+            writeGraphicsSave();
+
+            writeClip(clip);
+            writeStroke(stroke);
+
+        } catch (IOException e) {
+            handleException(e);
+        }
+
+        // write clip
+        writeTransform(t);
+    }
+    
+    
     /*
      * ================================================================================ |
      * 7. Clipping
      * ================================================================================
      */
-    /**
-     * Clips shape. PS only allows to intersect the currentClip so this calls
-     * clip(Shape).
-     * 
-     * @param shape used for clipping
-     */
-    public void setClip(Shape shape) {
-        clip(shape);
+    protected void writeSetClip(Shape s) throws IOException {
+        // clear old clip
+        try {
+            AffineTransform at = getTransform();
+            Stroke stroke = getStroke();
+
+            writeGraphicsRestore();
+            writeGraphicsSave();
+
+            writeStroke(stroke);
+            writeTransform(at);
+        } catch (IOException e) {
+            handleException(e);
+        }
+
+        // write clip
+        writeClip(s);
     }
 
-    protected void writeClip(Rectangle2D r2d) throws IOException {
-        if (r2d == null)
+    protected void writeClip(Shape s) throws IOException {
+        if (s == null || !isProperty(CLIP)) {
             return;
-        if (enableClip) {
-            pageStream.move(r2d.getMinX(), r2d.getMinY());
-            pageStream.line(r2d.getMaxX(), r2d.getMinY());
-            pageStream.line(r2d.getMaxX(), r2d.getMaxY());
-            pageStream.line(r2d.getMinX(), r2d.getMaxY());
+        }
+
+        if (s instanceof Rectangle2D) {
+            pageStream.move(((Rectangle2D)s).getMinX(), ((Rectangle2D)s).getMinY());
+            pageStream.line(((Rectangle2D)s).getMaxX(), ((Rectangle2D)s).getMinY());
+            pageStream.line(((Rectangle2D)s).getMaxX(), ((Rectangle2D)s).getMaxY());
+            pageStream.line(((Rectangle2D)s).getMinX(), ((Rectangle2D)s).getMaxY());
             pageStream.closePath();
             pageStream.clip();
+            pageStream.endPath();
+        } else {
+            boolean eoclip = pageStream.drawPath(s);
+            if (eoclip) {
+                pageStream.clipEvenOdd();
+            } else {
+                pageStream.clip();
+            }
+
             pageStream.endPath();
         }
     }
 
-    protected void writeClip(Shape s) throws IOException {
-        if (s == null)
-            return;
-        boolean eoclip = pageStream.drawPath(s);
-        if (eoclip) {
-            pageStream.clipEvenOdd();
-        } else {
-            pageStream.clip();
-        }
-        pageStream.endPath();
-    }
 
     /*
      * ================================================================================ |
@@ -953,7 +989,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
     /**
      * See the comment of VectorGraphicsUtitlies1.
      * 
-     * @see VectorGraphicsUtitlies1#showCharacterCodes
+     * @see FontUtilities#showString(java.awt.Font, String, org.freehep.graphics2d.font.CharTable, org.freehep.graphicsio.font.FontUtilities.ShowString)
      */
     private void showCharacterCodes(String str) throws IOException {
         FontUtilities.showString(getFont(), str, Lookup.getInstance().getTable(

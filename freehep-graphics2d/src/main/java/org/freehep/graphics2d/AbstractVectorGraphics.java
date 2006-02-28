@@ -1,4 +1,4 @@
-// Copyright 2000-2003, FreeHEP
+// Copyright 2000-2006, FreeHEP
 package org.freehep.graphics2d;
 
 import java.awt.BasicStroke;
@@ -29,7 +29,7 @@ import org.freehep.util.UserProperties;
  * 
  * @author Simon Fischer
  * @author Mark Donszelmann
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/AbstractVectorGraphics.java 7aee336a8992 2005/11/25 23:19:05 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/AbstractVectorGraphics.java 07902aaefb18 2006/02/28 00:05:01 duns $
  */
 public abstract class AbstractVectorGraphics extends VectorGraphics {
 
@@ -417,7 +417,7 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
     /**
      * Sets the current paint.
      * 
-     * @return current paint
+     * @param paint to be set
      */
     public void setPaint(Paint paint) {
         if (!(paint instanceof Color))

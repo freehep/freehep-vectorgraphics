@@ -1,4 +1,4 @@
-// Copyright 2001, FreeHEP.
+// Copyright 2001-2006, FreeHEP.
 package org.freehep.graphicsio.emf;
 
 import java.awt.Color;
@@ -19,7 +19,7 @@ import org.freehep.util.io.TaggedOutputStream;
  * binary EMF file.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFOutputStream.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFOutputStream.java 07902aaefb18 2006/02/28 00:05:01 duns $
  */
 public class EMFOutputStream extends TaggedOutputStream {
 
@@ -99,7 +99,7 @@ public class EMFOutputStream extends TaggedOutputStream {
         writeByte(c.getRed());
         writeByte(c.getGreen());
         writeByte(c.getBlue());
-        writeByte(0x00);
+        writeByte(c.getAlpha());
     }
 
     // COLOR16

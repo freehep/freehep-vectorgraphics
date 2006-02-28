@@ -1,4 +1,4 @@
-// Copyright 2004, FreeHEP
+// Copyright 2004-2006, FreeHEP
 package org.freehep.graphicsio.latex;
 
 import java.awt.BasicStroke;
@@ -13,7 +13,6 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.TexturePaint;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,7 +27,7 @@ import org.freehep.util.ScientificFormat;
 /**
  * @author Andre Bach
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-latex/src/main/java/org/freehep/graphicsio/latex/LatexGraphics2D.java 40d86979195e 2006/02/27 19:52:33 duns $
+ * @version $Id: freehep-graphicsio-latex/src/main/java/org/freehep/graphicsio/latex/LatexGraphics2D.java 07902aaefb18 2006/02/28 00:05:01 duns $
  */
 public class LatexGraphics2D extends AbstractVectorGraphicsIO {
     /*
@@ -356,18 +355,17 @@ public class LatexGraphics2D extends AbstractVectorGraphicsIO {
         // Ignored, transforms are pre-calculated before written to LaTeX.
     }
 
+    protected void writeSetTransform(AffineTransform t) throws IOException {
+        // Ignored, transforms are pre-calculated before written to LaTeX.
+    }
+
     /*
      * ================================================================================ |
      * 7. Clipping
      * ================================================================================
      */
-    protected void writeClip(Rectangle2D r2d) throws IOException {
-        Shape s = r2d;
-        writeClip(s);
-    }
-
     protected void writeClip(Shape s) throws IOException {
-        if (s == null)
+        if (s == null || !isProperty(CLIP))
             return;
         ps.println("\\psclip{");
         LatexPathConstructor pc = new LatexPathConstructor(ps);
@@ -381,6 +379,11 @@ public class LatexGraphics2D extends AbstractVectorGraphicsIO {
         ps.println("}");
         numberClips++;
     }
+    protected void writeSetClip(Shape s) throws IOException {
+        writeWarning(getClass()+": writeSetClip(Shape) not implemented.");
+        // Write out the clip shape.
+    }
+
 
     /*
      * ================================================================================ |

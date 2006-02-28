@@ -56,7 +56,7 @@ import org.freehep.util.io.FlateOutputStream;
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java 40d86979195e 2006/02/27 19:52:33 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java 07902aaefb18 2006/02/28 00:05:01 duns $
  */
 public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -119,6 +119,8 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         defaultProperties.setProperty(PREVIEW_BITS, 8);
 
         defaultProperties.setProperty(WRITE_IMAGES_AS, ImageConstants.SMALLEST);
+        
+        defaultProperties.setProperty(CLIP, true);
     }
 
     public static Properties getDefaultProperties() {
@@ -132,11 +134,6 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
     public static final int LEVEL_3 = 3;
 
     private static final double FONTSIZE_CORRECTION = 1.0;
-
-    /**
-     * Default flag for allowing clip regions to be written
-     */
-    private static boolean enableClip = true;
 
     // remember which fonts are used
     private PSFontTable fontTable;
@@ -303,12 +300,10 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
 
     /**
      * Set the clipping enabled flag. This will affect all output operations
-     * after this call completes. In some circumstances the clipping region is
-     * set incorrectly (not yet understood; AWT seems to not correctly dispose
-     * of graphic contexts). A workaround is to simply switch it off.
+     * after this call completes.
      */
     public static void setClipEnabled(boolean enabled) {
-        enableClip = enabled;
+        defaultProperties.setProperty(CLIP, enabled);
     }
 
     /**
@@ -947,7 +942,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
                 + fixedPrecision(tx.getTranslateY())
                 + " ] defaultmatrix matrix concatmatrix setmatrix");
     }
-
+    
     public void transform(AffineTransform transform) {
         super.transform(transform);
         os.println("[ " + fixedPrecision(transform.getScaleX()) + " "
@@ -983,49 +978,42 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         // all written with higher level methods
     }
 
+    protected void writeSetTransform(AffineTransform tx) throws IOException {
+        // all written with higher level methods
+    }
+    
     /*
      * ================================================================================ |
      * 7. Clipping
      * ================================================================================
      */
-    /**
-     * Clips shape. PS only allows to intersect the currentClip so this calls
-     * clip(Shape).
-     * 
-     * @param shape used for clipping
-     */
-    public void setClip(Shape shape) {
-        clip(shape);
-    }
-
-    protected void writeClip(Rectangle r) throws IOException {
-        if (r == null)
-            return;
-        if (enableClip) {
-            os
-                    .println(r.x + " " + r.y + " " + r.width + " " + r.height
-                            + " rc");
-        }
-    }
-
-    protected void writeClip(Rectangle2D r2d) throws IOException {
-        if (r2d == null)
-            return;
-        if (enableClip) {
-            os.println(fixedPrecision(r2d.getX()) + " "
-                    + fixedPrecision(r2d.getY()) + " "
-                    + fixedPrecision(r2d.getWidth()) + " "
-                    + fixedPrecision(r2d.getHeight()) + " rc");
-        }
-    }
-
     protected void writeClip(Shape s) throws IOException {
-        if (s == null)
+        if (s == null || !isProperty(CLIP)) {
             return;
-        boolean eofill = writePath(s);
-        os.println(((eofill) ? "W*" : "W"));
+        }
+        if (s instanceof Rectangle) {
+            os.println(
+                    ((Rectangle)s).x+" "+
+                    ((Rectangle)s).y+" "+
+                    ((Rectangle)s).width+" "+
+                    ((Rectangle)s).height+" rc");
+        } else if (s instanceof Rectangle2D) {
+            os.println(
+                    fixedPrecision(((Rectangle2D)s).getX())+" "+
+                    fixedPrecision(((Rectangle2D)s).getY())+" "+
+                    fixedPrecision(((Rectangle2D)s).getWidth())+" "+
+                    fixedPrecision(((Rectangle2D)s).getHeight())+" rc");
+        } else {
+            boolean eofill = writePath(s);
+            os.println(((eofill) ? "W*" : "W"));
+        }
     }
 
+    protected void writeSetClip(Shape s) throws IOException {
+        os.println("cliprestore");
+        writeClip(s);
+    }
+    
     /**
      * Write the path of the current shape to the output file. Return a boolean
      * indicating whether or not the even-odd rule for filling should be used.

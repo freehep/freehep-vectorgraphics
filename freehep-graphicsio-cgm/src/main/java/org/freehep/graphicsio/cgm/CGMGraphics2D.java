@@ -1,4 +1,4 @@
-// Copyright 2000-2003 FreeHEP
+// Copyright 2000-2006 FreeHEP
 package org.freehep.graphicsio.cgm;
 
 import java.awt.BasicStroke;
@@ -50,7 +50,7 @@ import org.freehep.util.io.TaggedOutput;
  * @author Mark Donszelmann
  * @author Ian Graham - fixed constructor bug, added writeImage for raster
  *         support, and refactored for reuse
- * @version $Id: freehep-graphicsio-cgm/src/main/java/org/freehep/graphicsio/cgm/CGMGraphics2D.java 278fac7cefaa 2005/12/05 04:00:43 duns $
+ * @version $Id: freehep-graphicsio-cgm/src/main/java/org/freehep/graphicsio/cgm/CGMGraphics2D.java 07902aaefb18 2006/02/28 00:05:01 duns $
  */
 public class CGMGraphics2D extends AbstractVectorGraphicsIO {
 
@@ -453,24 +453,45 @@ public class CGMGraphics2D extends AbstractVectorGraphicsIO {
         // ignored, coordinates are pre-calculated before written to CGM
     }
 
+    protected void writeSetTransform(AffineTransform t) throws IOException {
+        // ignored, coordinates are pre-calculated before written to CGM
+    }
+    
     /*
      * ================================================================================ |
      * 7. Clipping
      * ================================================================================
      */
-    protected void writeClip(Rectangle2D r2d) throws IOException {
-        AffineTransform currentTransform = getTransform();
-        Point2D xy = currentTransform.transform(new Point2D.Double(r2d.getX(),
-                r2d.getY()), null);
-        Point2D wh = currentTransform.deltaTransform(new Point2D.Double(r2d
-                .getWidth(), r2d.getHeight()), null);
-        r2d = new Rectangle2D.Double(xy.getX(), xy.getY(), wh.getX(), wh.getY());
-        os.writeTag(new ClipRectangle(r2d));
+    protected void writeClip(Shape s) throws IOException {
+        if (s instanceof Rectangle2D) {
+            AffineTransform currentTransform = getTransform();
+            Point2D xy = currentTransform.transform(
+                new Point2D.Double(
+                    ((Rectangle2D)s).getX(),
+                    ((Rectangle2D)s).getY()), null);
+            Point2D wh = currentTransform.deltaTransform(
+                new Point2D.Double(
+                    ((Rectangle2D)s).getWidth(),
+                    ((Rectangle2D)s).getHeight()), null);
+
+            os.writeTag(
+                new ClipRectangle(
+                    new Rectangle2D.Double(
+                        xy.getX(),
+                        xy.getY(),
+                        wh.getX(),
+                        wh.getY())));
+        } else {
+            writeWarning(getClass()+": writeClip(Shape) not implemented.");
+        }
     }
 
-    protected void writeClip(Shape s) throws IOException {
-        writeWarning(getClass() + ": writeClip(Shape) not implemented.");
+
+
+    protected void writeSetClip(Shape s) throws IOException {
+        writeWarning(getClass()+": writeSetClip(Shape) not implemented.");
     }
+
 
     /*
      * ================================================================================ |
