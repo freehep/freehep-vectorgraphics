@@ -21,15 +21,18 @@ import java.awt.Stroke;
 import java.awt.font.GlyphVector;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.PathIterator;
+import java.util.Random;
 
 import org.freehep.graphics2d.VectorGraphics;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestCustomStrokes.java 40d86979195e 2006/02/27 19:52:33 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestCustomStrokes.java 894e8e6de3db 2006/02/28 08:03:14 duns $
  */
 public class TestCustomStrokes extends TestingPanel {
 
+    private Random random;
+    
     // These are the various stroke objects we'll demonstrate
     private Stroke[] strokes = new Stroke[] {
             new BasicStroke(4.0f),          // The standard, predefined stroke
@@ -44,6 +47,7 @@ public class TestCustomStrokes extends TestingPanel {
     public TestCustomStrokes(String[] args) throws Exception {
         super(args);
         setName("Custom Strokes");
+        random = new Random(123456L);
     }
 
     public void paintComponent(Graphics g) {
@@ -206,8 +210,9 @@ public class TestCustomStrokes extends TestingPanel {
         // Randomly modify the specified number of coordinates, by an amount
         // specified by the sloppiness field.
         void perturb(float[] coords, int numCoords) {
-            for(int i = 0; i < numCoords; i++)
-                coords[i] += (float)((Math.random()*2-1.0)*sloppiness);
+            for(int i = 0; i < numCoords; i++) {
+                coords[i] += (float)((random.nextDouble()*2-1.0)*sloppiness);
+            }
         }
     } 
        
