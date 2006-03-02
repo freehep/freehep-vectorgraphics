@@ -24,7 +24,7 @@ public class TestImages extends TestingPanel {
 
     private static class Paint0s0 {
         public static void paint(VectorGraphics[] vg) {
-            vg[0].setColor(new Color(0, 0, 0, 255));
+            vg[0].setColor(new Color(51, 51, 51, 255));
             vg[0].setFont(new Font("Dialog", 0, 12));
             vg[1] = (VectorGraphics)vg[0].create();
             vg[1].setClip(0, 0, 600, 600);

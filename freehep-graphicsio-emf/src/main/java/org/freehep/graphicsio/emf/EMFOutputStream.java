@@ -19,7 +19,7 @@ import org.freehep.util.io.TaggedOutputStream;
  * binary EMF file.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFOutputStream.java 07902aaefb18 2006/02/28 00:05:01 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFOutputStream.java eb6e9c24f3e4 2006/03/02 00:56:03 duns $
  */
 public class EMFOutputStream extends TaggedOutputStream {
 
@@ -99,7 +99,8 @@ public class EMFOutputStream extends TaggedOutputStream {
         writeByte(c.getRed());
         writeByte(c.getGreen());
         writeByte(c.getBlue());
-        writeByte(c.getAlpha());
+        // NOTE: if not 0x00 EMF does not display correctly in full screen mode.
+        writeByte(0x00);
     }
 
     // COLOR16

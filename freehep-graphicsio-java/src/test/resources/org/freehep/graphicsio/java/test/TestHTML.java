@@ -23,24 +23,24 @@ public class TestHTML extends TestingPanel {
 
     private static class Paint0s0 {
         public static void paint(VectorGraphics[] vg) {
-            vg[0].setColor(new Color(0, 0, 0, 255));
+            vg[0].setColor(new Color(51, 51, 51, 255));
             vg[0].setFont(new Font("Dialog", 0, 12));
             vg[1] = (VectorGraphics)vg[0].create();
             vg[1].setClip(0, 0, 600, 600);
             vg[2] = (VectorGraphics)vg[1].create();
-            vg[2].setColor(new Color(204, 204, 204, 255));
+            vg[2].setColor(new Color(238, 238, 238, 255));
             vg[2].fillRect(0, 0, 600, 600);
             vg[2].dispose();
             vg[3] = (VectorGraphics)vg[1].create();
-            vg[4] = (VectorGraphics)vg[3].create(179, 5, 242, 38);
-            vg[4].setColor(new Color(0, 0, 0, 255));
+            vg[4] = (VectorGraphics)vg[3].create(179, 5, 241, 38);
+            vg[4].setColor(new Color(51, 51, 51, 255));
             vg[4].setFont(new Font("Dialog", 0, 12));
-            vg[4].setColor(new Color(0, 0, 0, 255));
+            vg[4].setColor(new Color(51, 51, 51, 255));
             vg[4].setFont(new Font("Dialog", 0, 12));
             vg[5] = (VectorGraphics)vg[4].create();
             vg[6] = (VectorGraphics)vg[5].create();
             vg[6].setColor(new Color(255, 255, 255, 255));
-            vg[6].fillRect(0, 0, 242, 38);
+            vg[6].fillRect(0, 0, 241, 38);
             vg[6].setColor(new Color(0, 0, 0, 255));
             vg[6].setFont(new Font("Serif", 0, 14));
             vg[6].drawChars(new char[] {
@@ -91,8 +91,6 @@ public class TestHTML extends TestingPanel {
             vg[6].drawChars(new char[] {
                 '\n', '<', 'V', 'e', 'c', 't', 'o', 'r', 'G', 'r', 'a', 'p', 'h', 'i', 'c', 's', ' ', '&', ' ', 'A', 'd', 'a', 'p', 't', 'e', 'r', 'C', 'a', 'r', 'd', ' ', '=', ' ', 'e', 'x', '2', 'y', '3', '>'
             }, 38, 1, 230, 25);
-            vg[6].setColor(new Color(0, 0, 0, 255));
-            vg[6].setFont(new Font("Serif", 0, 14));
             vg[6].dispose();
             vg[5].dispose();
             vg[4].dispose();
