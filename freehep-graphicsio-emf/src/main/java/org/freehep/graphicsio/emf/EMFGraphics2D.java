@@ -18,12 +18,7 @@ import java.awt.TexturePaint;
 import java.awt.Toolkit;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.CubicCurve2D;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.RoundRectangle2D;
 import java.awt.image.RenderedImage;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -48,7 +43,7 @@ import org.freehep.util.UserProperties;
  * Enhanced Metafile Format Graphics 2D driver.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java 07902aaefb18 2006/02/28 00:05:01 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java e7c6b553ef3f 2006/03/02 00:03:09 duns $
  */
 public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         EMFConstants {
@@ -333,45 +328,6 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
 
     public void draw(Shape shape) {
         try {
-            // NOTE: we could also do the others: Rectangle2D, RoundRectangle2D,
-            // Arc2D and Ellipse2D
-            // but I am not sure how to ONLY draw those elements without filling
-            // them.
-            if (shape instanceof Line2D) {
-                // faster draw of single line segments
-                Line2D line = (Line2D) shape;
-                drawLine(line.getX1(), line.getY1(), line.getX2(), line.getY2());
-                return;
-            }
-
-            if (shape instanceof Rectangle2D) {
-                Rectangle2D rect = (Rectangle2D) shape;
-                drawRect(rect.getMinX(), rect.getMinY(), rect.getWidth(), rect
-                        .getHeight());
-                return;
-            }
-
-            /*
-             * FREEHEP-379 if (shape instanceof Arc2D) { Arc2D arc =
-             * (Arc2D)shape; drawArc(arc.getMinX(), arc.getMinHeight(),
-             * arc.getWidth(), arc.getHeight(), arc.getAngleStart(),
-             * arc.getAngleExtend()); return; }
-             */
-            if (shape instanceof CubicCurve2D) {
-                CubicCurve2D curve = (CubicCurve2D) shape;
-                writePen((BasicStroke) getStroke(), getColor());
-                points[0].x = toUnit(curve.getX1());
-                points[0].y = toUnit(curve.getY1());
-                points[1].x = toUnit(curve.getCtrlX1());
-                points[1].y = toUnit(curve.getCtrlY1());
-                points[2].x = toUnit(curve.getCtrlX2());
-                points[2].y = toUnit(curve.getCtrlY2());
-                points[3].x = toUnit(curve.getX2());
-                points[4].y = toUnit(curve.getY2());
-                os.writeTag(new PolyBezier(imageBounds, 4, points));
-                return;
-            }
-
             if (getStroke() instanceof BasicStroke) {            
                 writePen((BasicStroke) getStroke(), getColor());
                 writePath(shape);
@@ -387,32 +343,6 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
     }
 
     public void fill(Shape shape) {
-        if (shape instanceof Rectangle2D) {
-            Rectangle2D rect = (Rectangle2D) shape;
-            fillRect(rect.getMinX(), rect.getMinY(), rect.getWidth(), rect
-                    .getHeight());
-            return;
-        }
-
-        if (shape instanceof Ellipse2D) {
-            Ellipse2D ellipse = (Ellipse2D) shape;
-            fillOval(ellipse.getMinX(), ellipse.getMinY(), ellipse.getWidth(),
-                    ellipse.getHeight());
-            return;
-        }
-
-        /*
-         * FREEHEP-379 if (shape instanceof Arc2D) { Arc2D arc = (Arc2D)shape;
-         * fillArc(arc.getMinX(), arc.getMinY(), arc.getWidth(),
-         * arc.getHeight(), arc.getAngleStart(), arc.getAngleExtend()); return; }
-         */
-        if (shape instanceof RoundRectangle2D) {
-            RoundRectangle2D rect = (RoundRectangle2D) shape;
-            fillRoundRect(rect.getMinX(), rect.getMinY(), rect.getWidth(), rect
-                    .getHeight(), rect.getArcWidth(), rect.getArcHeight());
-            return;
-        }
-
         try {
             writeBrush(getColor());
             writePath(shape);
@@ -426,140 +356,8 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         try {
             writePen((BasicStroke) getStroke(), getColor());
             writeBrush(fillColor);
-            if (shape instanceof Rectangle2D) {
-                Rectangle2D rect = (Rectangle2D) shape;
-                Rectangle bounds = new Rectangle(toUnit(rect.getMinX()),
-                        toUnit(rect.getMinY()), toUnit(rect.getWidth()),
-                        toUnit(rect.getHeight()));
-                os.writeTag(new EMFRectangle(bounds));
-                return;
-            }
-
-            if (shape instanceof Ellipse2D) {
-                Ellipse2D ellipse = (Ellipse2D) shape;
-                Rectangle bounds = new Rectangle(toUnit(ellipse.getMinX()),
-                        toUnit(ellipse.getMinY()), toUnit(ellipse.getWidth()),
-                        toUnit(ellipse.getHeight()));
-                os.writeTag(new Ellipse(bounds));
-                return;
-            }
-
-            /*
-             * FREEHEP-379 if (shape instanceof Arc2D) { Arc2D arc =
-             * (Arc2D)shape; fillArc(arc.getMinX(), arc.getMinHeight(),
-             * arc.getWidth(), arc.getHeight(), arc.getAngleStart(),
-             * arc.getAngleExtend()); return; }
-             */
-            if (shape instanceof RoundRectangle2D) {
-                RoundRectangle2D rect = (RoundRectangle2D) shape;
-                Rectangle bounds = new Rectangle(toUnit(rect.getMinX()),
-                        toUnit(rect.getMinY()), toUnit(rect.getWidth()),
-                        toUnit(rect.getHeight()));
-                os.writeTag(new RoundRect(bounds, new Dimension(toUnit(rect
-                        .getArcWidth() * 2), toUnit(rect.getArcHeight() * 2))));
-                return;
-            }
-
             writePath(shape);
             os.writeTag(new StrokeAndFillPath(imageBounds));
-        } catch (IOException e) {
-            handleException(e);
-        }
-    }
-
-    public void drawLine(double x1, double y1, double x2, double y2) {
-        try {
-            writePen((BasicStroke) getStroke(), getColor());
-            points[0].x = toUnit(x1);
-            points[0].y = toUnit(y1);
-            points[1].x = toUnit(x2);
-            points[1].y = toUnit(y2);
-            os.writeTag(new Polyline(imageBounds, 2, points));
-        } catch (IOException e) {
-            handleException(e);
-        }
-    }
-
-    /*
-     * FREEHEP-379 public void drawArc(double x, double y, double width, double
-     * height, double startAngle, double arcAngle) { }
-     */
-
-    public void drawOval(double x, double y, double width, double height) {
-        try {
-            writePen((BasicStroke) getStroke(), getColor());
-            writeBrush(invisible);
-            Rectangle bounds = new Rectangle(toUnit(x), toUnit(y),
-                    toUnit(width), toUnit(height));
-            os.writeTag(new Ellipse(bounds));
-        } catch (IOException e) {
-            handleException(e);
-        }
-    }
-
-    public void drawRect(double x, double y, double width, double height) {
-        try {
-            writePen((BasicStroke) getStroke(), getColor());
-            writeBrush(invisible);
-            Rectangle bounds = new Rectangle(toUnit(x), toUnit(y),
-                    toUnit(width), toUnit(height));
-            os.writeTag(new EMFRectangle(bounds));
-        } catch (IOException e) {
-            handleException(e);
-        }
-    }
-
-    public void drawRoundRect(double x, double y, double width, double height,
-            double arcWidth, double arcHeight) {
-        try {
-            writePen((BasicStroke) getStroke(), getColor());
-            writeBrush(invisible);
-            Rectangle bounds = new Rectangle(toUnit(x), toUnit(y),
-                    toUnit(width), toUnit(height));
-            os.writeTag(new RoundRect(bounds, new Dimension(toUnit(arcWidth),
-                    toUnit(arcHeight))));
-        } catch (IOException e) {
-            handleException(e);
-        }
-    }
-
-    /*
-     * FREEHEP-379 public void fillArc(double x, double y, double width, double
-     * height, double startAngle, double arcAngle) { }
-     */
-    public void fillOval(double x, double y, double width, double height) {
-        try {
-            writePen((BasicStroke) getStroke(), invisible);
-            writeBrush(getColor());
-            Rectangle bounds = new Rectangle(toUnit(x), toUnit(y),
-                    toUnit(width), toUnit(height));
-            os.writeTag(new Ellipse(bounds));
-        } catch (IOException e) {
-            handleException(e);
-        }
-    }
-
-    public void fillRect(double x, double y, double width, double height) {
-        try {
-            writePen((BasicStroke) getStroke(), invisible);
-            writeBrush(getColor());
-            Rectangle bounds = new Rectangle(toUnit(x), toUnit(y),
-                    toUnit(width), toUnit(height));
-            os.writeTag(new EMFRectangle(bounds));
-        } catch (IOException e) {
-            handleException(e);
-        }
-    }
-
-    public void fillRoundRect(double x, double y, double width, double height,
-            double arcWidth, double arcHeight) {
-        try {
-            writePen((BasicStroke) getStroke(), invisible);
-            writeBrush(getColor());
-            Rectangle bounds = new Rectangle(toUnit(x), toUnit(y),
-                    toUnit(width), toUnit(height));
-            os.writeTag(new RoundRect(bounds, new Dimension(toUnit(arcWidth),
-                    toUnit(arcHeight))));
         } catch (IOException e) {
             handleException(e);
         }

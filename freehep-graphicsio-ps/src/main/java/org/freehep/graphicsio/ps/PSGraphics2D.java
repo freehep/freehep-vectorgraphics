@@ -11,7 +11,6 @@ import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import java.awt.Insets;
 import java.awt.Paint;
-import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
@@ -56,7 +55,7 @@ import org.freehep.util.io.FlateOutputStream;
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java 07902aaefb18 2006/02/28 00:05:01 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java e7c6b553ef3f 2006/03/02 00:03:09 duns $
  */
 public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -561,141 +560,6 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
      * 5. Drawing Methods
      * ================================================================================
      */
-    public void drawLine(double x1, double y1, double x2, double y2) {
-        os.println(fixedPrecision(x2) + " " + fixedPrecision(y2) + " "
-                + fixedPrecision(x1) + " " + fixedPrecision(y1) + " L");
-    }
-
-    public void drawRect(double x, double y, double width, double height) {
-        os.println("bias " + fixedPrecision(x) + " " + fixedPrecision(y) + " "
-                + fixedPrecision(width) + " " + fixedPrecision(height)
-                + " rs unbias");
-    }
-
-    public void fillRect(double x, double y, double width, double height) {
-        os.println(fixedPrecision(x) + " " + fixedPrecision(y) + " "
-                + fixedPrecision(width) + " " + fixedPrecision(height) + " rf");
-    }
-
-    public void drawArc(double x, double y, double width, double height,
-            double startAngle, double arcAngle) {
-        os
-                .println(fixedPrecision(startAngle) + " "
-                        + fixedPrecision(startAngle + arcAngle) + " "
-                        + fixedPrecision(x) + " " + fixedPrecision(y) + " "
-                        + fixedPrecision(width) + " " + fixedPrecision(height)
-                        + " OVL");
-    }
-
-    public void fillArc(double x, double y, double width, double height,
-            double startAngle, double arcAngle) {
-        os.println(fixedPrecision(startAngle) + " "
-                + fixedPrecision(startAngle + arcAngle) + " "
-                + fixedPrecision(x) + " " + fixedPrecision(y) + " "
-                + fixedPrecision(width) + " " + fixedPrecision(height)
-                + " FOVL");
-    }
-
-    public void drawOval(double x, double y, double width, double height) {
-        os
-                .println("0 360 " + fixedPrecision(x) + " " + fixedPrecision(y)
-                        + " " + fixedPrecision(width) + " "
-                        + fixedPrecision(height) + " OVL");
-    }
-
-    public void fillOval(double x, double y, double width, double height) {
-        os.println("0 360 " + fixedPrecision(x) + " " + fixedPrecision(y) + " "
-                + fixedPrecision(width) + " " + fixedPrecision(height)
-                + " FOVL");
-    }
-
-    public void drawRoundRect(double x, double y, double width, double height,
-            double arcWidth, double arcHeight) {
-        os.println(fixedPrecision(x) + " " + fixedPrecision(y) + " "
-                + fixedPrecision(width) + " " + fixedPrecision(height) + " "
-                + fixedPrecision(arcWidth) + " " + fixedPrecision(arcHeight)
-                + " RREC");
-    }
-
-    public void fillRoundRect(double x, double y, double width, double height,
-            double arcWidth, double arcHeight) {
-        os.println(fixedPrecision(x) + " " + fixedPrecision(y) + " "
-                + fixedPrecision(width) + " " + fixedPrecision(height) + " "
-                + fixedPrecision(arcWidth) + " " + fixedPrecision(arcHeight)
-                + " FRREC");
-    }
-
-    public void drawPolyline(int[] xPoints, int[] yPoints, int nPoints) {
-        if (nPoints > 1) {
-            os.println((nPoints - 1) + " " + xPoints[0] + " " + yPoints[0]
-                    + " OPL");
-            for (int i = 1; i < nPoints; i++) {
-                os.println(xPoints[i] + " " + yPoints[i]);
-            }
-        }
-    }
-
-    public void drawPolyline(double[] xPoints, double[] yPoints, int nPoints) {
-        if (nPoints > 1) {
-            os.println((nPoints - 1) + " " + xPoints[0] + " " + yPoints[0]
-                    + " OPL");
-            for (int i = 1; i < nPoints; i++) {
-                os.println(fixedPrecision(xPoints[i]) + " "
-                        + fixedPrecision(yPoints[i]));
-            }
-        }
-    }
-
-    public void drawPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-        if (nPoints > 1) {
-            os.println((nPoints - 1) + " " + xPoints[0] + " " + yPoints[0]
-                    + " CPL");
-            for (int i = 1; i < nPoints; i++) {
-                os.println(xPoints[i] + " " + yPoints[i]);
-            }
-        }
-    }
-
-    public void drawPolygon(double[] xPoints, double[] yPoints, int nPoints) {
-        if (nPoints > 1) {
-            os.println((nPoints - 1) + " " + xPoints[0] + " " + yPoints[0]
-                    + " CPL");
-            for (int i = 1; i < nPoints; i++) {
-                os.println(fixedPrecision(xPoints[i]) + " "
-                        + fixedPrecision(yPoints[i]));
-            }
-        }
-    }
-
-    public void drawPolygon(Polygon p) {
-        drawPolygon(p.xpoints, p.ypoints, p.npoints);
-    }
-
-    public void fillPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-        if (nPoints > 1) {
-            os.println((nPoints - 1) + " " + xPoints[0] + " " + yPoints[0]
-                    + " FPL");
-            for (int i = 1; i < nPoints; i++) {
-                os.println(xPoints[i] + " " + yPoints[i]);
-            }
-        }
-    }
-
-    public void fillPolygon(double[] xPoints, double[] yPoints, int nPoints) {
-        if (nPoints > 1) {
-            os.println((nPoints - 1) + " " + xPoints[0] + " " + yPoints[0]
-                    + " FPL");
-            for (int i = 1; i < nPoints; i++) {
-                os.println(fixedPrecision(xPoints[i]) + " "
-                        + fixedPrecision(yPoints[i]));
-            }
-        }
-    }
-
-    public void fillPolygon(Polygon p) {
-        fillPolygon(p.xpoints, p.ypoints, p.npoints);
-    }
-
     private String escapeString(String str) {
 
         // Convert to unicode encoded string first if Font is not embedded
@@ -722,32 +586,6 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
             i++;
         }
         return temp.toString();
-    }
-
-    public void drawSymbol(double x, double y, double size, int symbol) {
-        if (size <= 0)
-            return;
-        os.print(fixedPrecision(x) + " " + fixedPrecision(y) + " "
-                + fixedPrecision(size) + " ");
-        os.println((symbol < 0 || symbol >= NUMBER_OF_SYMBOLS) ? "plus"
-                : psSymbolNames[symbol]);
-    }
-
-    public void fillSymbol(double x, double y, double size, int symbol) {
-        if (size <= 0)
-            return;
-        os.print(fixedPrecision(x) + " " + fixedPrecision(y) + " "
-                + fixedPrecision(size) + " ");
-
-        if (symbol < 0 || symbol >= NUMBER_OF_SYMBOLS) {
-            os.println("plus");
-            return;
-        }
-
-        if (symbol >= SYMBOL_CIRCLE) {
-            os.print("f");
-        }
-        os.println(psSymbolNames[symbol]);
     }
 
     /* 5.1.4. shapes */

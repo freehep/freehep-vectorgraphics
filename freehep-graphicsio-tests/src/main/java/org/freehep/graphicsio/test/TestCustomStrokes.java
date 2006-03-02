@@ -27,7 +27,7 @@ import org.freehep.graphics2d.VectorGraphics;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestCustomStrokes.java 894e8e6de3db 2006/02/28 08:03:14 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestCustomStrokes.java e7c6b553ef3f 2006/03/02 00:03:09 duns $
  */
 public class TestCustomStrokes extends TestingPanel {
 
@@ -70,6 +70,15 @@ public class TestCustomStrokes extends TestingPanel {
             vg.setStroke(strokes[i]);   // set the stroke
             vg.draw(shape);             // draw the shape
             vg.translate(100,0);        // move to the right
+        }
+        
+        vg.translate(-strokes.length*100, 0);
+        vg.translate(10, 100);
+        
+        for (int i=0; i < strokes.length; i++) { 
+            vg.setStroke(strokes[i]);
+            vg.drawRect(10, 10, 80, 50);
+            vg.translate(100, 0);
         }
     }
 
