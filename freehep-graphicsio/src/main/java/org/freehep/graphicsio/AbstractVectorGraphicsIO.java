@@ -54,7 +54,7 @@ import org.freehep.util.images.ImageUtilities;
  *
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 91db8e6f4130 2006/03/03 19:26:00 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -955,19 +955,16 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
             }
 
             // Check to see if there are differences in the phase or dash
-	    if(
-		// does the dash array differ?
-		!Arrays.equals(currentDashArray, ns.getDashArray()) ||
-		// or does the phase differ?
-		(currentDashPhase != ns.getDashPhase())) {
+            if(!Arrays.equals(currentDashArray, ns.getDashArray()) ||
+               (currentDashPhase != ns.getDashPhase())) {
 
-		// write the dashing parameters
-		if (ns.getDashArray() != null) {
-		    writeDash(ns.getDashArray(), ns.getDashPhase());
-		} else {
-		    writeDash(new float[0], ns.getDashPhase());
-		}
-	    }
+                // write the dashing parameters
+                if (ns.getDashArray() != null) {
+                    writeDash(ns.getDashArray(), ns.getDashPhase());
+                } else {
+                    writeDash(new float[0], ns.getDashPhase());
+                }
+            }
         }
     }
 
@@ -1190,12 +1187,12 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
         // FIXME: maybe add delayed setting
         super.setFont(font);
 
-	// write the font
-	try {
-	    writeFont(font);
-	} catch (IOException e) {
-	    handleException(e);
-	}
+        // write the font
+        try {
+            writeFont(font);
+        } catch (IOException e) {
+            handleException(e);
+        }
     }
 
     /**
