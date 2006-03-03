@@ -33,7 +33,7 @@ import org.freehep.graphics2d.font.CharTable;
  * </ul>
  * 
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/font/FontEmbedder.java 5641ca92a537 2005/11/26 00:15:35 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/font/FontEmbedder.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
  */
 public abstract class FontEmbedder extends FontIncluder {
 
@@ -44,9 +44,10 @@ public abstract class FontEmbedder extends FontIncluder {
      * indicates the undefined character. In this case the value of
      * <tt>unicodeName</tt> equals the value of
      * <tt>NOTDEF</TT> (=<tt>.notdef</tt>).
-     *  @param unicodeName the character's name according to the unicode standard
-     *  @param glyph the shape that represents this glyph
-     *  @param glyphMetrics the metrics of this glyph
+     *
+     * @param unicodeName the character's name according to the unicode standard
+     * @param glyph the shape that represents this glyph
+     * @param glyphMetrics the metrics of this glyph
      */
     protected abstract void writeGlyph(String unicodeName, Shape glyph,
             GlyphMetrics glyphMetrics) throws IOException;
@@ -145,7 +146,7 @@ public abstract class FontEmbedder extends FontIncluder {
                     writeGlyph(getCharName(i), getGlyph(i), getGlyphMetrics(i));
                 }
             }
-            writeGlyph(NOTDEF, createUndefined(), null);
+	    writeGlyph(NOTDEF, createUndefined(), null);
 
             closeGlyphs();
             closeEmbedFont();

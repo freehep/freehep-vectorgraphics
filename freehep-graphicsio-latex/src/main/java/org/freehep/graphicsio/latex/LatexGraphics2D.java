@@ -1,17 +1,7 @@
 // Copyright 2004-2006, FreeHEP
 package org.freehep.graphicsio.latex;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.GraphicsConfiguration;
-import java.awt.Paint;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.TexturePaint;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.RenderedImage;
 import java.io.File;
@@ -27,7 +17,7 @@ import org.freehep.util.ScientificFormat;
 /**
  * @author Andre Bach
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-latex/src/main/java/org/freehep/graphicsio/latex/LatexGraphics2D.java 07902aaefb18 2006/02/28 00:05:01 duns $
+ * @version $Id: freehep-graphicsio-latex/src/main/java/org/freehep/graphicsio/latex/LatexGraphics2D.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
  */
 public class LatexGraphics2D extends AbstractVectorGraphicsIO {
     /*
@@ -57,13 +47,13 @@ public class LatexGraphics2D extends AbstractVectorGraphicsIO {
 
     private float width = 1.f;
 
-    private double[] dash;
+    private float[] dash;
 
     private Color savedColor;
 
     private float savedWidth;
 
-    private double[] savedDash;
+    private float[] savedDash;
 
     /*
      * ================================================================================
@@ -165,7 +155,8 @@ public class LatexGraphics2D extends AbstractVectorGraphicsIO {
         try {
             g.writeGraphicsSave(getColor(), width, dash);
         } catch (IOException e) {
-        }
+	    handleException(e);
+	}
         return g;
     }
 
@@ -179,12 +170,13 @@ public class LatexGraphics2D extends AbstractVectorGraphicsIO {
         try {
             g.writeGraphicsSave(getColor(), width, dash);
         } catch (IOException e) {
-        }
+	    handleException(e);
+	}
         g.clipRect(x, y, width, height);
         return g;
     }
 
-    protected void writeGraphicsSave(Color c, double w, double[] d)
+    protected void writeGraphicsSave(Color c, double w, float[] d)
             throws IOException {
         savedColor = c;
         savedWidth = (float) w;
@@ -205,7 +197,7 @@ public class LatexGraphics2D extends AbstractVectorGraphicsIO {
         if (/* savedColor != getColor() && */savedColor != null)
             writePaint(savedColor);
         /* if (savedWidth != width) */writeWidth(savedWidth);
-        /* if (savedDash != dash) */writeDash(savedDash, 0.0);
+        /* if (savedDash != dash) */writeDash(savedDash, 0.0f);
     }
 
     /*
@@ -225,7 +217,7 @@ public class LatexGraphics2D extends AbstractVectorGraphicsIO {
             } else {
                 ps.println("\\pscustom[linestyle=none]{");
                 pc.addPath(getStroke().createStrokedShape(shape), getTransform());
-                ps.println("}");                
+                ps.println("}");
             }
         } catch (IOException e) {
             handleException(e);
@@ -285,11 +277,11 @@ public class LatexGraphics2D extends AbstractVectorGraphicsIO {
                 + fixedPrecision(1.2 * getFont().getSize()) + "}");
         ps.print("\\textcolor{current}{");
 
-        if (getFont().getFamily() == "Serif")
+        if (getFont().getFamily().equals("Serif"))
             ps.print("\\rmfamily ");
-        if (getFont().getFamily() == "SansSerif")
+        if (getFont().getFamily().equals("SansSerif"))
             ps.print("\\sffamily ");
-        if (getFont().getFamily() == "Monospaced")
+        if (getFont().getFamily().equals("Monospaced"))
             ps.print("\\ttfamily ");
 
         switch (getFont().getStyle()) {
@@ -364,10 +356,12 @@ public class LatexGraphics2D extends AbstractVectorGraphicsIO {
      * 7. Clipping
      * ================================================================================
      */
-    protected void writeClip(Shape s) throws IOException {
-        if (s == null || !isProperty(CLIP))
-            return;
-        ps.println("\\psclip{");
+        protected void writeClip(Shape s) throws IOException {
+        if (s == null || !isProperty(CLIP)) {
+	    return;
+	}
+
+	ps.println("\\psclip{");
         LatexPathConstructor pc = new LatexPathConstructor(ps);
         try {
             ps.println("\\pscustom[linestyle=none,fillstyle=none]{");
@@ -379,11 +373,16 @@ public class LatexGraphics2D extends AbstractVectorGraphicsIO {
         ps.println("}");
         numberClips++;
     }
-    protected void writeSetClip(Shape s) throws IOException {
-        writeWarning(getClass()+": writeSetClip(Shape) not implemented.");
-        // Write out the clip shape.
-    }
 
+    protected void writeSetClip(Shape s) throws IOException {
+	// clear existing clips
+	while (numberClips > 0) {
+	    ps.println("\\endpsclip");
+	    numberClips--;
+	}
+
+	writeClip(s);
+    }
 
     /*
      * ================================================================================ |
@@ -416,7 +415,7 @@ public class LatexGraphics2D extends AbstractVectorGraphicsIO {
         ps.println("% writeMiterLimit(float limit) called, not supported");
     }
 
-    protected void writeDash(double[] dash, double phase) throws IOException {
+    protected void writeDash(float[] dash, float phase) throws IOException {
         this.dash = dash;
         if (dash == null || dash.length == 0) {
             ps.println("\\psset{linestyle=solid}");
@@ -490,6 +489,10 @@ public class LatexGraphics2D extends AbstractVectorGraphicsIO {
     }
 
     /* 8.3. font */
+    protected void writeFont(Font font) throws IOException {
+	// written when needed
+    }
+
     /* 8.4. rendering hints */
 
     /*

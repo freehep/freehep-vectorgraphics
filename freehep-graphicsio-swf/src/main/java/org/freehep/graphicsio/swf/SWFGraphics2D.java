@@ -40,9 +40,9 @@ import org.freehep.util.Value;
 
 /**
  * SWF Graphics 2D driver.
- * 
+ *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFGraphics2D.java 07902aaefb18 2006/02/28 00:05:01 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFGraphics2D.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
  */
 public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
         SWFConstants {
@@ -67,6 +67,7 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
         defaultProperties.setProperty(BACKGROUND, false);
         defaultProperties.setProperty(BACKGROUND_COLOR, Color.GRAY);
         defaultProperties.setProperty(WRITE_IMAGES_AS, ImageConstants.SMALLEST);
+	defaultProperties.setProperty(CLIP, true);
     }
 
     public static Properties getDefaultProperties() {
@@ -110,8 +111,6 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 
     // for debugging
     private static final boolean showBounds = false;
-
-    private static final boolean showClip = false;
 
     /*
      * ================================================================================
@@ -172,7 +171,7 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
         depth = graphics.depth;
         lineStyles = new LineStyleArray();
         lineStyles.add(graphics.lineStyles.get(0));
-        if (showBounds || showClip) {
+        if (showBounds || isProperty(CLIP)) {
             lineStyles.add(graphics.lineStyles.get(1));
             lineStyles.add(graphics.lineStyles.get(2));
         }
@@ -241,7 +240,8 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
             // Save the current context for restore later.
             writeGraphicsSave();
         } catch (IOException e) {
-        }
+	    handleException(e);
+	}
         // The correct graphics context should be created.
         return new SWFGraphics2D(this, true);
     }
@@ -252,7 +252,8 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
             // Save the current context for restore later.
             writeGraphicsSave();
         } catch (IOException e) {
-        }
+	    handleException(e);
+	}
         // The correct graphics context should be created.
         VectorGraphics graphics = new SWFGraphics2D(this, true);
         graphics.translate(x, y);
@@ -494,6 +495,7 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
      * 6. Transformations
      * ================================================================================
      */
+
     protected void writeTransform(AffineTransform t) throws IOException {
         // Transforms written when needed
     }
@@ -526,7 +528,7 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
             clipDepthID = depth.getInt();
             depth.set(depth.getInt() + 1);
 
-            if (showClip) {
+            if (isProperty(CLIP)) {
                 showClipID = id.getInt();
                 id.set(id.getInt() + 1);
                 showClipDepthID = depth.getInt();
@@ -538,7 +540,7 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
             clipID = 0;
             clipDepthID = 0;
 
-            if (showClip) {
+            if (isProperty(CLIP)) {
                 showClipID = 0;
                 showClipDepthID = 0;
             }
@@ -625,6 +627,10 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
     }
 
     /* 8.3. font */
+    protected void writeFont(Font font) throws IOException {
+	// written when needed
+    }
+
     /* 8.4. rendering hints */
 
     /*
@@ -676,7 +682,7 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
         lineStyles.add(new LineStyle((int) (stroke.getLineWidth() * TWIPS),
                 getPrintColor(color)));
 
-        if (showBounds || showClip) {
+        if (showBounds || isProperty(CLIP)) {
             lineStyles.add(new LineStyle(TWIPS, Color.cyan));
             lineStyles.add(new LineStyle(TWIPS, Color.green));
         }
@@ -712,7 +718,7 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
         // System.out.println("Clip "+clipID+" at depth "+clipDepthID+" for
         // clipDepth "+clipDepth+": "+unwrittenClip);
 
-        if (showClip) {
+        if (isProperty(CLIP)) {
             if ((showClipID == 0) || (showClipDepthID == 0)) {
                 System.err
                         .println("SWFGraphics2D: internal error, invalid showClipID or showClipDepthID");

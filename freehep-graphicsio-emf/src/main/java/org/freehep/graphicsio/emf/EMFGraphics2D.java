@@ -41,9 +41,9 @@ import org.freehep.util.UserProperties;
 
 /**
  * Enhanced Metafile Format Graphics 2D driver.
- * 
+ *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java e7c6b553ef3f 2006/03/02 00:03:09 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
  */
 public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         EMFConstants {
@@ -61,8 +61,6 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
 
     private EMFOutputStream os;
 
-    private boolean fontSet = false;
-
     private Color textColor = null;
 
     private Color penColor = null;
@@ -72,8 +70,6 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
     private Map fontTable; // java fonts
 
     private Map unitFontTable; // windows fonts
-
-    private EMFGraphics2D parentGraphics;
 
     private EMFPathConstructor pathConstructor;
 
@@ -178,8 +174,8 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         textColor = graphics.textColor;
         penColor = graphics.penColor;
         brushColor = graphics.brushColor;
-        parentGraphics = graphics;
     }
+
     /*
      * ================================================================================ |
      * 2. Document Settings
@@ -308,11 +304,6 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
                     .writeTag(new DeleteObject(handleManager
                             .freeHandle(brushHandle)));
         os.writeTag(new RestoreDC());
-        // Restore does not restore the font, so if the font has been modified
-        // in this context
-        // the parents font should now be consider unset.
-        if (fontSet && (parentGraphics != null))
-            parentGraphics.fontSet = false;
     }
 
     /*
@@ -419,35 +410,34 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
 
         Font font = getFont();
         Font unitFont = (Font) unitFontTable.get(font);
-        if (!fontSet) {
-            Integer fontIndex = (Integer) fontTable.get(font);
-            if (fontIndex == null) {
-                // for special fonts (Symbol, ZapfDingbats) we choose a standard
-                // font and
-                // encode using unicode.
-                String fontName = font.getName();
-                string = FontEncoder.getEncodedString(string, fontName);
 
-                fontName = replaceFonts.getProperty(fontName, fontName);
-                String windowsFontName = FontUtilities
-                        .getWindowsFontName(fontName);
+	Integer fontIndex = (Integer) fontTable.get(font);
+	if (fontIndex == null) {
+	    // for special fonts (Symbol, ZapfDingbats) we choose a standard
+	    // font and
+	    // encode using unicode.
+	    String fontName = font.getName();
+	    string = FontEncoder.getEncodedString(string, fontName);
 
-                unitFont = new Font(windowsFontName, font.getStyle(), font
-                        .getSize());
-                unitFont = unitFont.deriveFont(font.getSize2D()
-                        * UNITS_PER_PIXEL * TWIPS);
-                unitFontTable.put(font, unitFont);
+	    fontName = replaceFonts.getProperty(fontName, fontName);
+	    String windowsFontName = FontUtilities
+		    .getWindowsFontName(fontName);
 
-                ExtLogFontW logFontW = new ExtLogFontW(unitFont);
-                int handle = handleManager.getHandle();
-                os.writeTag(new ExtCreateFontIndirectW(handle, logFontW));
+	    unitFont = new Font(windowsFontName, font.getStyle(), font
+		    .getSize());
+	    unitFont = unitFont.deriveFont(font.getSize2D()
+		    * UNITS_PER_PIXEL * TWIPS);
+	    unitFontTable.put(font, unitFont);
 
-                fontIndex = new Integer(handle);
-                fontTable.put(font, fontIndex);
-            }
-            os.writeTag(new SelectObject(fontIndex.intValue()));
-            fontSet = true;
-        }
+	    ExtLogFontW logFontW = new ExtLogFontW(unitFont);
+	    int handle = handleManager.getHandle();
+	    os.writeTag(new ExtCreateFontIndirectW(handle, logFontW));
+
+	    fontIndex = new Integer(handle);
+	    fontTable.put(font, fontIndex);
+	}
+	os.writeTag(new SelectObject(fontIndex.intValue()));
+
         int[] widths = new int[string.length()];
         for (int i = 0; i < widths.length; i++) {
             double w = unitFont.getStringBounds(string, i, i + 1,
@@ -506,20 +496,23 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
      * ================================================================================
      */
     protected void writeSetClip(Shape s) throws IOException {
-        if ((s == null) || !isProperty(CLIP))
+        if (s == null || !isProperty(CLIP)) {
             return;
-        // Write out the clip shape.
+        }
+
         writePath(s);
         os.writeTag(new SelectClipPath(EMFConstants.RGN_COPY));
     }
 
-    protected void writeClip(Shape s) throws IOException {
-        if ((s == null) || !isProperty(CLIP))
-            return;
-        // Write out the clip shape.
-        writePath(s);
-        os.writeTag(new SelectClipPath(EMFConstants.RGN_AND));
-    }
+   protected void writeClip(Shape s) throws IOException {
+
+       if (s == null || !isProperty(CLIP)) {
+           return;
+       }
+
+       writePath(s);
+       os.writeTag(new SelectClipPath(EMFConstants.RGN_AND));
+   }
 
     /*
      * ================================================================================ |
@@ -568,18 +561,8 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
     }
 
     /* 8.3. font */
-    /**
-     * This method sets the current font. However, it does not write it to the
-     * file. When drawString() wants to show text, it has to call writeFont()
-     * first, which will actually write the current font to the document. Thus
-     * we avoid embedding unused fonts (e.g. the Dialog font which is set by
-     * java for whatsoever reason
-     */
-    public void setFont(Font font) {
-        if (!font.equals(getFont())) {
-            fontSet = false;
-        }
-        super.setFont(font);
+    protected void writeFont(Font font) throws IOException {
+	// written when needed
     }
 
     /* 8.4. rendering hints */

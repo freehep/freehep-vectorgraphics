@@ -1,15 +1,7 @@
 // Copyright 2000-2006, FreeHEP
 package org.freehep.graphicsio;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.GraphicsConfiguration;
-import java.awt.Paint;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.TexturePaint;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.RenderedImage;
 import java.io.IOException;
@@ -20,9 +12,9 @@ import org.freehep.graphics2d.VectorGraphics;
  * This class provides a dummy Graphics2D class, which issues warnings for all
  * non implemented methods. It also describes how to implement these methods. It
  * serves as an example to start the implementation for a new output format.
- * 
+ *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/DummyGraphics2D.java 07902aaefb18 2006/02/28 00:05:01 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/DummyGraphics2D.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
  */
 public class DummyGraphics2D extends AbstractVectorGraphicsIO {
     /*
@@ -245,9 +237,9 @@ public class DummyGraphics2D extends AbstractVectorGraphicsIO {
         // Write out the stroke miter limit.
     }
 
-    protected void writeDash(double[] dash, double phase) throws IOException {
+    protected void writeDash(float[] dash, float phase) throws IOException {
         writeWarning(getClass()
-                + ": writeDash(double[], double) not implemented.");
+                + ": writeDash(float[], float) not implemented.");
         // Write out the stroke dash.
     }
 
@@ -285,6 +277,10 @@ public class DummyGraphics2D extends AbstractVectorGraphicsIO {
     }
 
     /* 8.3. font */
+    protected void writeFont(Font font) throws IOException {
+		writeWarning(getClass() + ": writeFont(Font) not implemented.");
+    }
+
     /* 8.4. rendering hints */
 
     /*

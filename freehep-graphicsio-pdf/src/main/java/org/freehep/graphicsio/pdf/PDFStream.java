@@ -29,7 +29,7 @@ import org.freehep.util.io.FlateOutputStream;
  * <p>
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFStream.java f493ff6e61b2 2005/12/01 18:46:43 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFStream.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
  */
 public class PDFStream extends PDFDictionary implements PDFConstants {
 
@@ -242,7 +242,7 @@ public class PDFStream extends PDFDictionary implements PDFConstants {
         println("] " + PDFUtil.fixedPrecision(phase) + " d");
     }
 
-    public void dash(double[] dash, double phase) throws IOException {
+    public void dash(float[] dash, double phase) throws IOException {
         print("[");
         for (int i = 0; i < dash.length; i++) {
             print(" " + PDFUtil.fixedPrecision(dash[i]));

@@ -42,6 +42,7 @@ import java.awt.image.renderable.RenderableImage;
 import java.io.IOException;
 import java.text.AttributedCharacterIterator;
 import java.util.Map;
+import java.util.Arrays;
 
 import org.freehep.graphics2d.GenericTagHandler;
 import org.freehep.graphics2d.TagString;
@@ -50,10 +51,10 @@ import org.freehep.util.images.ImageUtilities;
 /**
  * This class provides an abstract VectorGraphicsIO class for specific output
  * drivers.
- * 
+ *
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 07902aaefb18 2006/02/28 00:05:01 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -64,7 +65,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     public static final String EMIT_ERRORS = rootKey + ".EMIT_ERRORS";
 
-    public static final String CLIP              = rootKey+".Clip";
+    public static final String CLIP = rootKey+".CLIP";
 
     /*
      * ================================================================================
@@ -117,7 +118,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
      * <LI>Composite: AlphaComposite.SRC_OVER
      * <LI>Clip: Rectangle(0, 0, size.width, size.height)
      * </UL>
-     * 
+     *
      * @param size rectangle specifying the bounds of the image
      * @param doRestoreOnDispose true if writeGraphicsRestore() should be called
      *        when this graphics context is disposed of.
@@ -159,7 +160,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
      * <LI>Clip: The size of the component, Rectangle(0, 0, size.width,
      * size.height)
      * </UL>
-     * 
+     *
      * @param component to be used to initialize the values of the graphics
      *        state
      * @param doRestoreOnDispose true if writeGraphicsRestore() should be called
@@ -193,7 +194,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Constructs a subgraphics context.
-     * 
+     *
      * @param graphics context to clone from
      * @param doRestoreOnDispose true if writeGraphicsRestore() should be called
      *        when this graphics context is disposed of.
@@ -267,28 +268,17 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
      * Called to write the initial graphics state.
      */
     public void writeGraphicsState() throws IOException {
-        Color color = super.getColor();
-        super.setColor(null);
-        setColor(color);
+		writePaint(getPrintColor(getColor()));
 
-        Shape clip = userClip;
-        setClip(clip);
+		writeSetTransform(getTransform());
 
-        AffineTransform transform = currentTransform;
-        currentTransform = new AffineTransform();
-        setTransform(transform);
+         setClip(getClip());
 
-        Font font = getFont();
-        super.setFont(null);
-        setFont(font);
+		// Silly assignment, Font is written when String is drawed and "extra" writeFont does not exist
+		// setFont(getFont());
 
-        Composite composite = currentComposite;
-        currentComposite = null;
-        setComposite(composite);
-
-        Stroke stroke = currentStroke;
-        currentStroke = null;
-        setStroke(stroke);
+		// Silly assignment and "extra" writeComposite does not exist
+		// setComposite(getComposite);
     }
 
     public abstract void writeBackground() throws IOException;
@@ -313,7 +303,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Called to Write out a comment.
-     * 
+     *
      * @param comment to be written
      */
     public abstract void writeComment(String comment) throws IOException;
@@ -423,7 +413,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Draw and resizes (transparent) image. Calls writeImage(...).
-     * 
+     *
      * @param image image to be drawn
      * @param dx1 destination image bounds
      * @param dy1 destination image bounds
@@ -518,7 +508,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
      */
     /**
      * Draws a rendered image using a transform.
-     * 
+     *
      * @param image to be drawn
      * @param xform transform to be used on the image
      */
@@ -535,7 +525,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Clears rectangle by painting it with the backgroundColor.
-     * 
+     *
      * @param x rectangle to be cleared.
      * @param y rectangle to be cleared.
      * @param width rectangle to be cleared.
@@ -562,45 +552,38 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
     public void drawString(String str, double x, double y, int horizontal,
             int vertical, boolean framed, Color frameColor, double frameWidth,
             boolean banner, Color bannerColor) {
-        try {
-            LineMetrics metrics = getFont().getLineMetrics(str,
-                    getFontRenderContext());
-            double width = getFont().getStringBounds(str,
-                    getFontRenderContext()).getWidth();
-            double height = metrics.getHeight();
-            double descent = metrics.getDescent();
-            Rectangle2D textSize = new Rectangle2D.Double(0, descent - height,
-                    width, height);
-            double adjustment = (getFont().getSize2D() * 2) / 10;
 
-            Point2D textUL = drawFrameAndBanner(x, y, textSize, adjustment,
-                    framed, frameColor, frameWidth, banner, bannerColor,
-                    horizontal, vertical);
-
-            drawString(str, textUL.getX(), textUL.getY());
-
-        } catch (IOException e) {
-            handleException(e);
-        }
+        	LineMetrics metrics = getFont().getLineMetrics(str,
+        		getFontRenderContext());
+        	double width = getFont().getStringBounds(str,
+        		getFontRenderContext()).getWidth();
+        	double height = metrics.getHeight();
+        	double descent = metrics.getDescent();
+        	Rectangle2D textSize = new Rectangle2D.Double(0, descent - height,
+        		width, height);
+        	double adjustment = (getFont().getSize2D() * 2) / 10;
+        
+        	Point2D textUL = drawFrameAndBanner(x, y, textSize, adjustment,
+        		framed, frameColor, frameWidth, banner, bannerColor,
+        		horizontal, vertical);
+        
+        	drawString(str, textUL.getX(), textUL.getY());
     }
 
     // FIXME, maybe can move up more
     public void drawString(TagString str, double x, double y, int horizontal,
             int vertical, boolean framed, Color frameColor, double frameWidth,
             boolean banner, Color bannerColor) {
-        try {
-            GenericTagHandler tagHandler = new GenericTagHandler(this);
-            Rectangle2D r = tagHandler.stringSize(str);
-            double adjustment = (getFont().getSize2D() * 2) / 10;
 
-            Point2D textUL = drawFrameAndBanner(x, y, r, adjustment, framed,
-                    frameColor, frameWidth, banner, bannerColor, horizontal,
-                    vertical);
+		GenericTagHandler tagHandler = new GenericTagHandler(this);
+		Rectangle2D r = tagHandler.stringSize(str);
+		double adjustment = (getFont().getSize2D() * 2) / 10;
 
-            tagHandler.print(str, textUL.getX(), textUL.getY());
-        } catch (IOException e) {
-            handleException(e);
-        }
+        	Point2D textUL = drawFrameAndBanner(x, y, r, adjustment, framed,
+        		frameColor, frameWidth, banner, bannerColor, horizontal,
+        		vertical);
+
+        	tagHandler.print(str, textUL.getX(), textUL.getY());
     }
 
     protected abstract void writeString(String string, double x, double y)
@@ -630,7 +613,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
      */
     /**
      * Get the current transform.
-     * 
+     *
      * @return current transform
      */
     public AffineTransform getTransform() {
@@ -639,7 +622,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Set the current transform. Calls writeSetTransform(Transform).
-     * 
+     *
      * @param transform to be set
      */
     public void setTransform(AffineTransform transform) {
@@ -654,7 +637,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Transforms the current transform. Calls writeTransform(Transform)
-     * 
+     *
      * @param transform to be applied
      */
     public void transform(AffineTransform transform) {
@@ -668,7 +651,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Translates the current transform. Calls writeTransform(Transform)
-     * 
+     *
      * @param x amount by which to translate
      * @param y amount by which to translate
      */
@@ -685,7 +668,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
      * Rotate the current transform over the Z-axis. Calls
      * writeTransform(Transform). Rotating with a positive angle theta rotates
      * points on the positive x axis toward the positive y axis.
-     * 
+     *
      * @param theta radians over which to rotate
      */
     public void rotate(double theta) {
@@ -700,7 +683,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Scales the current transform. Calls writeTransform(Transform).
-     * 
+     *
      * @param sx amount used for scaling
      * @param sy amount used for scaling
      */
@@ -715,7 +698,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Shears the current transform. Calls writeTransform(Transform).
-     * 
+     *
      * @param shx amount for shearing
      * @param shy amount for shearing
      */
@@ -734,7 +717,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
      * internal transform, then this method needs to do nothing, BUT all
      * coordinates need to be transformed by the currentTransform before being
      * written out.
-     * 
+     *
      * @param transform to be written
      */
     protected abstract void writeTransform(AffineTransform transform)
@@ -756,7 +739,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Gets the current clip in form of a Shape (Rectangle).
-     * 
+     *
      * @return current clip
      */
     public Shape getClip() {
@@ -765,7 +748,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Gets the current clip in form of a Rectangle.
-     * 
+     *
      * @return current clip
      */
     public Rectangle getClipBounds() {
@@ -775,7 +758,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Gets the current clip in form of a Rectangle.
-     * 
+     *
      * @return current clip
      */
     public Rectangle getClipBounds(Rectangle r) {
@@ -787,7 +770,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Clips rectangle. Calls clip(Rectangle).
-     * 
+     *
      * @param x rectangle for clipping
      * @param y rectangle for clipping
      * @param width rectangle for clipping
@@ -799,7 +782,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Clips rectangle. Calls clip(Rectangle2D).
-     * 
+     *
      * @param x rectangle for clipping
      * @param y rectangle for clipping
      * @param width rectangle for clipping
@@ -811,7 +794,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Clips rectangle. Calls clip(Rectangle).
-     * 
+     *
      * @param x rectangle for clipping
      * @param y rectangle for clipping
      * @param width rectangle for clipping
@@ -823,7 +806,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Clips rectangle. Calls clip(Rectangle2D).
-     * 
+     *
      * @param x rectangle for clipping
      * @param y rectangle for clipping
      * @param width rectangle for clipping
@@ -835,7 +818,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Clips shape. Clears userClip and calls clip(Shape).
-     * 
+     *
      * @param s used for clipping
      */
     public void setClip(Shape s) {
@@ -853,7 +836,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
     /**
      * Clips using given shape. Dispatches to writeClip(Rectangle),
      * writeClip(Rectangle2D) or writeClip(Shape).
-     * 
+     *
      * @param s used for clipping
      */
     public void clip(Shape s) {
@@ -869,7 +852,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
         }
 
         try {
-            writeClip(s);
+	    writeClip(s);
         } catch (IOException e) {
             handleException(e);
         }
@@ -877,14 +860,14 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Write out Shape clip.
-     * 
+     *
      * @param shape to be used for clipping
      */
     protected abstract void writeClip(Shape shape) throws IOException;
 
     /**
      * Write out Shape clip.
-     * 
+     *
      * @param shape to be used for clipping
      */
     protected abstract void writeSetClip(Shape shape) throws IOException;
@@ -897,7 +880,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
     /* 8.1. stroke/linewidth */
     /**
      * Get the current stroke.
-     * 
+     *
      * @return current stroke
      */
     public Stroke getStroke() {
@@ -907,7 +890,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
     /**
      * Sets the current stroke. Calls writeStroke if stroke is unequal to the
      * current stroke.
-     * 
+     *
      * @param stroke to be set
      */
     public void setStroke(Stroke stroke) {
@@ -971,48 +954,26 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
                 writeMiterLimit(limit);
             }
 
-            // Get the dashing parameters.
-            float phase = ns.getDashPhase();
-            float[] newDashArray = ns.getDashArray();
+            // Check to see if there are differences in the phase or dash
+	    if(
+		// does the dash array differ?
+		!Arrays.equals(currentDashArray, ns.getDashArray()) ||
+		// or does the phase differ?
+		(currentDashPhase != ns.getDashPhase())) {
 
-            // Check to see if there are differences in the phase or
-            // length of the array.
-            boolean different = false;
-            if (currentDashPhase != phase)
-                different = true;
-            if ((newDashArray == null && currentDashArray != null)
-                    || (newDashArray != null && currentDashArray == null))
-                different = true;
-            if (newDashArray != null && currentDashArray != null
-                    && newDashArray.length != currentDashArray.length)
-                different = true;
-
-            // Check the individual dashing entries if necessary.
-            if (!different && newDashArray != null && currentDashArray != null) {
-                for (int i = 0; i < newDashArray.length; i++) {
-                    if (currentDashArray[i] != newDashArray[i])
-                        different = true;
-                }
-            }
-
-            // Now modify the dashing parameters if necessary.
-            if (different) {
-                if (newDashArray != null) {
-                    double[] doubleDash = new double[newDashArray.length];
-                    for (int i = 0; i < doubleDash.length; i++) {
-                        doubleDash[i] = newDashArray[i];
-                    }
-                    writeDash(doubleDash, phase);
-                } else {
-                    writeDash(new double[0], 0d);
-                }
-            }
+		// write the dashing parameters
+		if (ns.getDashArray() != null) {
+		    writeDash(ns.getDashArray(), ns.getDashPhase());
+		} else {
+		    writeDash(new float[0], ns.getDashPhase());
+		}
+	    }
         }
     }
 
     /**
      * Writes out the width of the stroke.
-     * 
+     *
      * @param width of the stroke
      */
     protected void writeWidth(float width) throws IOException {
@@ -1021,7 +982,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Writes out the cap of the stroke.
-     * 
+     *
      * @param cap of the stroke
      */
     protected void writeCap(int cap) throws IOException {
@@ -1030,7 +991,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Writes out the join of the stroke.
-     * 
+     *
      * @param join of the stroke
      */
     protected void writeJoin(int join) throws IOException {
@@ -1039,7 +1000,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Writes out the miter limit of the stroke.
-     * 
+     *
      * @param limit miter limit of the stroke
      */
     protected void writeMiterLimit(float limit) throws IOException {
@@ -1048,9 +1009,25 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Writes out the dash of the stroke.
-     * 
+     *
      * @param dash dash pattern, empty array is solid line
      * @param phase of the dash pattern
+     */
+    protected void writeDash(float[] dash, float phase) throws IOException {
+        // for backward compatibility
+        double[] dd = new double[dash.length];
+        for (int i = 0; i < dash.length; i++) {
+            dd[i] = dash[i];
+        }
+        writeDash(dd, (double)phase);
+    }
+
+    /**
+     * Writes out the dash of the stroke.
+     *
+     * @param dash dash pattern, empty array is solid line
+     * @param phase of the dash pattern
+     * @deprecated, use writeDash(float[], float)
      */
     protected void writeDash(double[] dash, double phase) throws IOException {
         writeWarning(getClass() + ": writeDash() not implemented.");
@@ -1074,7 +1051,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
      * writePaint(GradientPaint), writePaint(TexturePaint paint) or
      * writePaint(Paint). In the case paint is a Color the current color is also
      * changed.
-     * 
+     *
      * @param paint to be set
      */
     public void setPaint(Paint paint) {
@@ -1101,28 +1078,28 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Writes out paint as the given color.
-     * 
+     *
      * @param color to be written
      */
     protected abstract void writePaint(Color color) throws IOException;
 
     /**
      * Writes out paint as the given gradient.
-     * 
+     *
      * @param paint to be written
      */
     protected abstract void writePaint(GradientPaint paint) throws IOException;
 
     /**
      * Writes out paint as the given texture.
-     * 
+     *
      * @param paint to be written
      */
     protected abstract void writePaint(TexturePaint paint) throws IOException;
 
     /**
      * Writes out paint.
-     * 
+     *
      * @param paint to be written
      */
     protected abstract void writePaint(Paint paint) throws IOException;
@@ -1132,7 +1109,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
      * Gets the current font render context. This returns an standard
      * FontRenderContext with an upside down matrix, anti-aliasing and uses
      * fractional metrics.
-     * 
+     *
      * @return current font render context
      */
     public FontRenderContext getFontRenderContext() {
@@ -1143,7 +1120,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Gets the fontmetrics.
-     * 
+     *
      * @deprecated
      * @param font to be used for retrieving fontmetrics
      * @return fontmetrics for given font
@@ -1155,7 +1132,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
     /* 8.4. rendering hints */
     /**
      * Gets a copy of the rendering hints.
-     * 
+     *
      * @return clone of table of rendering hints.
      */
     public RenderingHints getRenderingHints() {
@@ -1164,7 +1141,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Adds to table of rendering hints.
-     * 
+     *
      * @param hints table to be added
      */
     public void addRenderingHints(Map hints) {
@@ -1173,7 +1150,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Sets table of rendering hints.
-     * 
+     *
      * @param hints table to be set
      */
     public void setRenderingHints(Map hints) {
@@ -1183,7 +1160,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Gets a given rendering hint.
-     * 
+     *
      * @param key hint key
      * @return hint associated to key
      */
@@ -1193,7 +1170,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Sets a given rendering hint.
-     * 
+     *
      * @param key hint key
      * @param hint to be associated with key
      */
@@ -1204,14 +1181,38 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
         hints.put(key, hint);
     }
 
-    /*
-     * ================================================================================ |
-     * 9. Auxiliary
-     * ================================================================================
+    /**
+     * Sets the current font.
+     *
+     * @param font to be set
      */
+    public void setFont(Font font) {
+        // FIXME: maybe add delayed setting
+        super.setFont(font);
+
+	// write the font
+	try {
+	    writeFont(font);
+	} catch (IOException e) {
+	    handleException(e);
+	}
+    }
+
+    /**
+     * Writes the font
+     *
+     * @param font to be written
+     */
+    protected abstract void writeFont(Font font) throws IOException;
+
+    /*
+	 * ================================================================================ |
+	 * 9. Auxiliary
+	 * ================================================================================
+	 */
     /**
      * Gets current composite.
-     * 
+     *
      * @return current composite
      */
     public Composite getComposite() {
@@ -1220,7 +1221,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Sets current composite.
-     * 
+     *
      * @param composite to be set
      */
     public void setComposite(Composite composite) {
@@ -1230,7 +1231,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
     /**
      * Handles an exception which has been caught. Dispatches exception to
      * writeWarning for UnsupportedOperationExceptions and writeError for others
-     * 
+     *
      * @param exception to be handled
      */
     protected void handleException(Exception exception) {
@@ -1243,7 +1244,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Writes out a warning, by default to System.err.
-     * 
+     *
      * @param exception warning to be written
      */
     protected void writeWarning(Exception exception) {
@@ -1252,7 +1253,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Writes out a warning, by default to System.err.
-     * 
+     *
      * @param warning to be written
      */
     protected void writeWarning(String warning) {
@@ -1263,7 +1264,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     /**
      * Writes out an error, by default the stack trace is printed.
-     * 
+     *
      * @param exception error to be reported
      */
     protected void writeError(Exception exception) {
@@ -1312,7 +1313,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
     private Point2D drawFrameAndBanner(double x, double y,
             Rectangle2D textSize, double adjustment, boolean framed,
             Color frameColor, double frameWidth, boolean banner,
-            Color bannerColor, int horizontal, int vertical) throws IOException {
+            Color bannerColor, int horizontal, int vertical) {
 
         double descent = textSize.getY() + textSize.getHeight();
         x = getXalignment(x, textSize.getWidth(), horizontal);

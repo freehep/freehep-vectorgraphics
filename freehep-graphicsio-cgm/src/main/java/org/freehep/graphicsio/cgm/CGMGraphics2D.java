@@ -46,11 +46,11 @@ import org.freehep.util.io.TaggedOutput;
  * specific settings like page size can then be made by the appropriate setter
  * methods. Before starting to draw, <tt>startExport()</tt> must be called.
  * When drawing is finished, call <tt>endExport()</tt>.
- * 
+ *
  * @author Mark Donszelmann
  * @author Ian Graham - fixed constructor bug, added writeImage for raster
  *         support, and refactored for reuse
- * @version $Id: freehep-graphicsio-cgm/src/main/java/org/freehep/graphicsio/cgm/CGMGraphics2D.java 07902aaefb18 2006/02/28 00:05:01 duns $
+ * @version $Id: freehep-graphicsio-cgm/src/main/java/org/freehep/graphicsio/cgm/CGMGraphics2D.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
  */
 public class CGMGraphics2D extends AbstractVectorGraphicsIO {
 
@@ -456,7 +456,7 @@ public class CGMGraphics2D extends AbstractVectorGraphicsIO {
     protected void writeSetTransform(AffineTransform t) throws IOException {
         // ignored, coordinates are pre-calculated before written to CGM
     }
-    
+
     /*
      * ================================================================================ |
      * 7. Clipping
@@ -491,7 +491,6 @@ public class CGMGraphics2D extends AbstractVectorGraphicsIO {
     protected void writeSetClip(Shape s) throws IOException {
         writeWarning(getClass()+": writeSetClip(Shape) not implemented.");
     }
-
 
     /*
      * ================================================================================ |
@@ -543,7 +542,7 @@ public class CGMGraphics2D extends AbstractVectorGraphicsIO {
         os.writeTag(new MitreLimit(limit));
     }
 
-    protected void writeDash(double[] dash, double phase) throws IOException {
+    protected void writeDash(float[] dash, float phase) throws IOException {
         // NOTE: patterns are ignored, a guess is made
         switch (dash.length) {
         case 0:
@@ -610,16 +609,9 @@ public class CGMGraphics2D extends AbstractVectorGraphicsIO {
     }
 
     /* 8.3. font */
-
-    public void setFont(Font font) {
-        super.setFont(font);
-        try {
-            os.writeTag(new TextFontIndex(fontIndex(font)));
-            os.writeTag(new CharacterHeight(font.getSize()
-                    * FONTSIZE_CORRECTION));
-        } catch (IOException e) {
-            handleException(e);
-        }
+    protected void writeFont(Font font) throws IOException {
+	os.writeTag(new TextFontIndex(fontIndex(font)));
+	os.writeTag(new CharacterHeight(font.getSize() * FONTSIZE_CORRECTION));
     }
 
     /*

@@ -15,7 +15,6 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.TexturePaint;
-import java.awt.font.LineMetrics;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -34,7 +33,6 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.Properties;
 
-import org.freehep.graphics2d.GenericTagHandler;
 import org.freehep.graphics2d.PrintColor;
 import org.freehep.graphics2d.TagString;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
@@ -55,7 +53,7 @@ import org.freehep.util.io.FlateOutputStream;
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java e7c6b553ef3f 2006/03/02 00:03:09 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
  */
 public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -118,7 +116,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         defaultProperties.setProperty(PREVIEW_BITS, 8);
 
         defaultProperties.setProperty(WRITE_IMAGES_AS, ImageConstants.SMALLEST);
-        
+
         defaultProperties.setProperty(CLIP, true);
     }
 
@@ -141,10 +139,6 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
     protected OutputStream ros;
 
     protected PrintStream os;
-
-    // Remember if the font is already set. The font is not set when
-    // setFont is called, but only when a string is actually drawn.
-    private boolean fontSet = false;
 
     private boolean multiPage;
 
@@ -262,7 +256,6 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         fontTable = new PSFontTable(ros, getFontRenderContext());
         this.multiPage = false;
         this.currentPage = 0;
-        this.fontSet = false;
     }
 
     /**
@@ -276,7 +269,6 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         // Now initialize the new object.
         ros = graphics.ros;
         os = graphics.os;
-        fontSet = graphics.fontSet;
         fontTable = graphics.fontTable;
 
         multiPage = graphics.multiPage;
@@ -597,7 +589,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
             } else {
                 boolean eofill = writePath(getStroke().createStrokedShape(shape));
                 os.println(((eofill) ? "f*" : "f"));
-            }     
+            }
         } catch (IOException e) {
             handleException(e);
         }
@@ -718,51 +710,6 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         // fixedPrecision(y)+" STR");
     }
 
-    // FIXME compare this with AVGIO
-    public void drawString(String str, double x, double y, int horizontal,
-            int vertical, boolean framed, Color frameColor, double frameWidth,
-            boolean banner, Color bannerColor) {
-
-        try {
-            LineMetrics metrics = getFont().getLineMetrics(str,
-                    getFontRenderContext());
-            double width = getFont().getStringBounds(str,
-                    getFontRenderContext()).getWidth();
-            double height = metrics.getHeight();
-            double descent = metrics.getDescent();
-            Rectangle2D textSize = new Rectangle2D.Double(0, descent - height,
-                    width, height);
-            double adjustment = (getFont().getSize2D() * 2) / 10;
-
-            Point2D textUL = drawFrameAndBanner(x, y, textSize, adjustment,
-                    framed, frameColor, frameWidth, banner, bannerColor,
-                    horizontal, vertical);
-            drawString(str, textUL.getX(), textUL.getY());
-        } catch (IOException e) {
-            handleException(e);
-        }
-    }
-
-    // FIXME compare this with AVGIO
-    public void drawString(TagString str, double x, double y, int horizontal,
-            int vertical, boolean framed, Color frameColor, double frameWidth,
-            boolean banner, Color bannerColor) {
-
-        try {
-            GenericTagHandler tagHandler = new GenericTagHandler(this);
-            Rectangle2D r = tagHandler.stringSize(str);
-            double adjustment = (getFont().getSize2D() * 2) / 10;
-
-            Point2D textUL = drawFrameAndBanner(x, y, r, adjustment, framed,
-                    frameColor, frameWidth, banner, bannerColor, horizontal,
-                    vertical);
-
-            tagHandler.print(str, textUL.getX(), textUL.getY());
-        } catch (IOException e) {
-            handleException(e);
-        }
-    }
-
     /*
      * ================================================================================ |
      * 6. Transformations
@@ -780,7 +727,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
                 + fixedPrecision(tx.getTranslateY())
                 + " ] defaultmatrix matrix concatmatrix setmatrix");
     }
-    
+
     public void transform(AffineTransform transform) {
         super.transform(transform);
         os.println("[ " + fixedPrecision(transform.getScaleX()) + " "
@@ -819,7 +766,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
     protected void writeSetTransform(AffineTransform tx) throws IOException {
         // all written with higher level methods
     }
-    
+
     /*
      * ================================================================================ |
      * 7. Clipping
@@ -851,7 +798,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         os.println("cliprestore");
         writeClip(s);
     }
-    
+
     /**
      * Write the path of the current shape to the output file. Return a boolean
      * indicating whether or not the even-odd rule for filling should be used.
@@ -906,7 +853,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         os.println(fixedPrecision(limit) + " M");
     }
 
-    protected void writeDash(double[] dash, double phase) throws IOException {
+    protected void writeDash(float[] dash, float phase) throws IOException {
         os.print("[ ");
         for (int i = 0; i < dash.length; i++) {
             os.print(fixedPrecision(dash[i]) + " ");
@@ -996,19 +943,9 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
                 + p.getClass());
     }
 
-    /* 8.3 fonts */
-    /**
-     * This method sets the current font. However, it does not write it to the
-     * file. When drawString() wants to show text, it has to call writeFont()
-     * first, which will actually write the current font to the document. Thus
-     * we avoid embedding unused fonts (e.g. the Dialog font which is set by
-     * java for whatsoever reason
-     */
-    public void setFont(Font font) {
-        if (!font.equals(getFont())) {
-            fontSet = false;
-        }
-        super.setFont(font);
+    /* 8.3. */
+    protected void writeFont(Font font) {
+	// written when needed
     }
 
     /*
@@ -1138,16 +1075,13 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         return new Point2D.Double(x, y);
     }
 
-    private void writeFont(Font font) {
-        String fontName = fontTable.fontReference(font,
-                isProperty(EMBED_FONTS), getProperty(EMBED_FONTS_AS));
-        os.println("/" + fontName + " findfont " + font.getSize()
-                * FONTSIZE_CORRECTION + " scalefont setfont");
-
-    }
-
     public void showString(Font font, String str) {
-        writeFont(font);
+	// write font
+	String fontName = fontTable.fontReference(font,
+		isProperty(EMBED_FONTS), getProperty(EMBED_FONTS_AS));
+	os.println("/" + fontName + " findfont " + font.getSize()
+		* FONTSIZE_CORRECTION + " scalefont setfont");
+
         AffineTransform t = font.getTransform();
         if (!t.isIdentity()) {
             os.println("gsave");

@@ -53,10 +53,10 @@ import org.freehep.util.UserProperties;
  * specific settings like page size can then be made by the appropriate setter
  * methods. Before starting to draw, <tt>startExport()</tt> must be called.
  * When drawing is finished, call <tt>endExport()</tt>.
- * 
+ *
  * @author Simon Fischer
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java 07902aaefb18 2006/02/28 00:05:01 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
  */
 public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -155,6 +155,8 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
         defaultProperties.setProperty(TITLE, "");
         defaultProperties.setProperty(SUBJECT, "");
         defaultProperties.setProperty(KEYWORDS, "");
+
+	defaultProperties.setProperty(CLIP,         true);
     }
 
     public static Properties getDefaultProperties() {
@@ -175,7 +177,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 
     private static final double FONTSIZE_CORRECTION = 1.0;
 
-/*  Not Used 
+/*  Not Used
     private static final CharTable STANDARD_CHAR_TABLES[] = {
             Lookup.getInstance().getTable("PDFLatin"),
             Lookup.getInstance().getTable("Symbol"),
@@ -185,6 +187,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
             new Font("Symbol", Font.PLAIN, 10),
             new Font("ZapfDingbats", Font.PLAIN, 10), };
 */
+
     // output
     private OutputStream ros;
 
@@ -541,7 +544,6 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
                 / size.height);
         if ((scaleFactor < 1) || isProperty(FIT_TO_PAGE)) {
             pageTrafo.scale(scaleFactor, scaleFactor);
-
         } else {
             scaleFactor = 1;
         }
@@ -552,12 +554,12 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
         pageTrafo.translate(dx, dy);
 
         writeTransform(pageTrafo);
-        
+
         // save the graphics context resets before setClip
         writeGraphicsSave();
-        
+
         clipRect(0, 0, size.width, size.height);
-        
+
         // save the graphics context resets before setClip
         writeGraphicsSave();
 
@@ -798,8 +800,8 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
         // write clip
         writeTransform(t);
     }
-    
-    
+
+
     /*
      * ================================================================================ |
      * 7. Clipping
@@ -849,7 +851,6 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
         }
     }
 
-
     /*
      * ================================================================================ |
      * 8. Graphics State
@@ -894,7 +895,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
         pageStream.mitterLimit(limit);
     }
 
-    protected void writeDash(double[] dash, double phase) throws IOException {
+    protected void writeDash(float[] dash, float phase) throws IOException {
         pageStream.dash(dash, phase);
     }
 
@@ -940,13 +941,18 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
     }
 
     protected void setNonStrokeColor(Color c) throws IOException {
-        float[] cc = c.getRGBColorComponents(null);
-        pageStream.colorSpace(cc[0], cc[1], cc[2]);
+	float[] cc = c.getRGBColorComponents(null);
+	pageStream.colorSpace(cc[0], cc[1], cc[2]);
     }
 
     protected void setStrokeColor(Color c) throws IOException {
         float[] cc = c.getRGBColorComponents(null);
         pageStream.colorSpaceStroke(cc[0], cc[1], cc[2]);
+    }
+
+    /* 8.3. font */
+    protected void writeFont(Font font) throws IOException {
+	// written when needed
     }
 
     /*
@@ -988,7 +994,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 
     /**
      * See the comment of VectorGraphicsUtitlies1.
-     * 
+     *
      * @see FontUtilities#showString(java.awt.Font, String, org.freehep.graphics2d.font.CharTable, org.freehep.graphicsio.font.FontUtilities.ShowString)
      */
     private void showCharacterCodes(String str) throws IOException {

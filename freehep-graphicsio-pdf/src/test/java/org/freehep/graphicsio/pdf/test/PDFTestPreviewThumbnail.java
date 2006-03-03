@@ -3,13 +3,13 @@ package org.freehep.graphicsio.pdf.test;
 
 import java.util.Properties;
 
-import org.freehep.graphicsio.pdf.PDFGraphics2D;
 import org.freehep.graphicsio.test.TestPreviewThumbnail;
+import org.freehep.graphicsio.pdf.PDFGraphics2D;
 import org.freehep.util.UserProperties;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/test/java/org/freehep/graphicsio/pdf/test/PDFTestPreviewThumbnail.java 11a78ba01bc8 2005/12/07 23:01:33 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/test/java/org/freehep/graphicsio/pdf/test/PDFTestPreviewThumbnail.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
  */
 public class PDFTestPreviewThumbnail extends TestPreviewThumbnail {
 
