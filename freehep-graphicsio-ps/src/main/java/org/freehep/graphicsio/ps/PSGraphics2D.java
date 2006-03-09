@@ -53,7 +53,7 @@ import org.freehep.util.io.FlateOutputStream;
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java cbe5b99bb13b 2006/03/09 21:55:10 duns $
  */
 public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -704,10 +704,6 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
     protected void writeString(String str, double x, double y)
             throws IOException {
         showCharacterCodes(str, x, y);
-        // writeFont();
-        // os.println("("+escapeString(str)+") "+
-        // fixedPrecision(x)+" "+
-        // fixedPrecision(y)+" STR");
     }
 
     /*
@@ -715,10 +711,16 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
      * 6. Transformations
      * ================================================================================
      */
-    public void setTransform(AffineTransform tx) {
-        super.setTransform(tx);
-        if (tx == null)
-            tx = new AffineTransform();
+    protected void writeTransform(AffineTransform tx) throws IOException {
+        os.println("[ " + fixedPrecision(tx.getScaleX()) + " "
+                + fixedPrecision(tx.getShearY()) + " "
+                + fixedPrecision(tx.getShearX()) + " "
+                + fixedPrecision(tx.getScaleY()) + " "
+                + fixedPrecision(tx.getTranslateX()) + " "
+                + fixedPrecision(tx.getTranslateY()) + " ] concat");
+    }
+
+    protected void writeSetTransform(AffineTransform tx) throws IOException {
         os.println("[ " + fixedPrecision(tx.getScaleX()) + " "
                 + fixedPrecision(tx.getShearY()) + " "
                 + fixedPrecision(tx.getShearX()) + " "
@@ -726,45 +728,6 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
                 + fixedPrecision(tx.getTranslateX()) + " "
                 + fixedPrecision(tx.getTranslateY())
                 + " ] defaultmatrix matrix concatmatrix setmatrix");
-    }
-
-    public void transform(AffineTransform transform) {
-        super.transform(transform);
-        os.println("[ " + fixedPrecision(transform.getScaleX()) + " "
-                + fixedPrecision(transform.getShearY()) + " "
-                + fixedPrecision(transform.getShearX()) + " "
-                + fixedPrecision(transform.getScaleY()) + " "
-                + fixedPrecision(transform.getTranslateX()) + " "
-                + fixedPrecision(transform.getTranslateY()) + " ] concat");
-    }
-
-    public void translate(double x, double y) {
-        super.translate(x, y);
-        os.println(fixedPrecision(x) + " " + fixedPrecision(y) + " translate");
-    }
-
-    public void rotate(double theta) {
-        super.rotate(theta);
-        os.println(fixedPrecision(Math.toDegrees(theta)) + " rotate");
-    }
-
-    public void scale(double sx, double sy) {
-        super.scale(sx, sy);
-        os.println(fixedPrecision(sx) + " " + fixedPrecision(sy) + " scale");
-    }
-
-    public void shear(double shx, double shy) {
-        super.shear(shx, shy);
-        os.println("[ 1.0 " + fixedPrecision(shy) + " " + fixedPrecision(shx)
-                + " 1.0 0.0 0.0 ] concat");
-    }
-
-    protected void writeTransform(AffineTransform tx) throws IOException {
-        // all written with higher level methods
-    }
-
-    protected void writeSetTransform(AffineTransform tx) throws IOException {
-        // all written with higher level methods
     }
 
     /*
@@ -1017,81 +980,21 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         return codedString.toString();
     }
 
-    // private TagString escapeTagString(TagString str) {
-    // // Must protect against unbalanced parentheses in the string,
-    // // as well as, occurances of "%", and "\".
-
-    // // Copy string to temporary string buffer.
-    // StringBuffer temp = new StringBuffer(str.toString());
-
-    // // Loop over all characters in the string and escape the
-    // // parentheses.
-    // int i = 0;
-    // while (i<temp.length()) {
-    // char c = temp.charAt(i);
-    // if (c=='(' || c==')' || c=='%' || c=='\\') {
-    // temp.insert(i++,'\\');
-    // }
-    // i++;
-    // }
-    // return new TagString(temp.toString());
-    // }
-
-    /**
-     * Draws frame and banner around a string. The method calculates and returns
-     * the point to which the text curser should be set before drawing the
-     * string.
-     */
-    // FIXME compare this with AVGIO
-    private Point2D drawFrameAndBanner(double x, double y,
-            Rectangle2D textSize, double adjustment, boolean framed,
-            Color frameColor, double frameWidth, boolean banner,
-            Color bannerColor, int horizontal, int vertical) throws IOException {
-
-        double descent = textSize.getY() + textSize.getHeight();
-        x = getXalignment(x, textSize.getWidth(), horizontal);
-        y = getYalignment(y, textSize.getHeight(), descent, vertical);
-
-        double rx = x - adjustment;
-        double ry = y - textSize.getHeight() + descent - adjustment;
-        double rw = textSize.getWidth() + 2 * adjustment;
-        double rh = textSize.getHeight() + 2 * adjustment;
-
-        if (banner) {
-            Paint paint = getPaint();
-            setPaint(bannerColor);
-            fillRect(rx, ry, rw, rh);
-            setPaint(paint);
-        }
-        if (framed) {
-            Paint paint = getPaint();
-            Stroke stroke = getStroke();
-            setPaint(frameColor);
-            setLineWidth(frameWidth);
-            drawRect(rx, ry, rw, rh);
-            setPaint(paint);
-            setStroke(stroke);
-        }
-        return new Point2D.Double(x, y);
-    }
-
     public void showString(Font font, String str) {
-	// write font
-	String fontName = fontTable.fontReference(font,
-		isProperty(EMBED_FONTS), getProperty(EMBED_FONTS_AS));
-	os.println("/" + fontName + " findfont " + font.getSize()
-		* FONTSIZE_CORRECTION + " scalefont setfont");
+        // write font
+        String fontName = fontTable.fontReference(font,
+            isProperty(EMBED_FONTS), getProperty(EMBED_FONTS_AS));
+        os.println("/" + fontName + " findfont " + font.getSize()
+            * FONTSIZE_CORRECTION + " scalefont setfont");
 
         AffineTransform t = font.getTransform();
         if (!t.isIdentity()) {
             os.println("gsave");
-            // NOTE: Rotation is in opposite direction.
-            os.println("[ " + fixedPrecision(t.getScaleY()) + " "
-                    + fixedPrecision(t.getShearX()) + " "
-                    + fixedPrecision(t.getShearY()) + " "
-                    + fixedPrecision(t.getScaleX()) + " "
-                    + fixedPrecision(t.getTranslateX()) + " "
-                    + fixedPrecision(t.getTranslateY()) + " ] concat");
+            try {
+                writeTransform(font.getTransform());
+            } catch (IOException e) {
+                handleException(e);
+            }
         }
 
         os.println("(" + escapeString(str) + ") show");
@@ -1103,7 +1006,12 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
 
     private void showCharacterCodes(String str, double x, double y) {
         try {
-            os.println(fixedPrecision(x) + " " + fixedPrecision(y) + " moveto");
+            // FIXME: the translation of font is added here, because
+            // as part of the matrix in showString() it is ignored,
+            // the reason is not quite clear
+            os.println(
+                fixedPrecision(x + getFont().getTransform().getTranslateX()) + " " +
+                fixedPrecision(y + getFont().getTransform().getTranslateY()) + " moveto");
             os.println("q 1 -1 scale");
             if (!isProperty(EMBED_FONTS)
                     && isComposite(fontTable.fontReference(getFont(),

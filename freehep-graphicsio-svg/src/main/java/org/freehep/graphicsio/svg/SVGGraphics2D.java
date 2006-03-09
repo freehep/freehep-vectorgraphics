@@ -14,6 +14,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.TexturePaint;
+import java.awt.font.TextAttribute;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
@@ -37,7 +38,6 @@ import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.zip.GZIPOutputStream;
 
-import org.freehep.graphics2d.font.FontEncoder;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.FontConstants;
 import org.freehep.graphicsio.ImageConstants;
@@ -58,7 +58,7 @@ import org.freehep.xml.util.XMLWriter;
  * The current implementation is based on REC-SVG11-20030114
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java db80b97becbb 2006/03/09 01:16:21 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java cbe5b99bb13b 2006/03/09 21:55:10 duns $
  */
 public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
@@ -552,47 +552,66 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
         result.append("\"/>");
 
-        os
-                .println(getTransformedString(getTransform(),
-                        getClippedString(getTransformedString(xform, result
-                                .toString()))));
+        os.println(getTransformedString(getTransform(),
+            getClippedString(getTransformedString(xform, result
+                .toString()))));
     }
 
     /* 5.3. Strings */
     protected void writeString(String str, double x, double y)
             throws IOException {
-        str = FontEncoder.getEncodedString(str, getFont().getName());
+        // str = FontEncoder.getEncodedString(str, getFont().getName());
 
         if (isProperty(EMBED_FONTS)) {
             fontTable.addGlyphs(str, getFont());
         }
 
-        os.println(
-        // general transformation
+        // font transformation should _not_ transform string position
+        // so we draw at 0:0 and translate _before_ using getFont().getTransform()
+        // we could not just translate before and reverse translation after
+        // writing because the clipping area
+
+        // create style
+        StringBuffer style = new StringBuffer(getPaintString(null, getPaint()));
+        style.append(getFontString(getFont()));
+        style.append(getStrokeString(getStroke(), false));
+
+        os.println(getTransformedString(
+            // general transformation
+            getTransform(),
+            // general clip
+            getClippedString(
                 getTransformedString(
-                        getTransform(),
-                        // general clip
-                        getClippedString(getTransformedString(
-                                // specific transformation
-                                getFont().getTransform(),
-                                "<text "
-                                        + style(getPaintString(null, getPaint())
-                                                + getFontString()
-                                                + getStrokeString(getStroke(),
-                                                        false)) + " x=\""
-                                        + fixedPrecision(x) + "\" y=\""
-                                        + fixedPrecision(y) + "\">"
-                                        + XMLWriter.normalizeText(str)
-                                        + "</text>"))));
+                    // text offset
+                    new AffineTransform(1, 0, 0, 1, x, y),
+                    getTransformedString(
+                        // font transformation and text
+                        getFont().getTransform(),
+                        "<text "
+                            // style
+                            + style(style.toString())
+                            // coordiantes
+                            + " x=\"0\" y=\"0\">"
+                            // text
+                            + XMLWriter.normalizeText(str)
+                            + "</text>")))));
     }
 
-    private String getFontString() {
+    /**
+     * Creates a tag list for the given font.
+     * Family, size, bold italic, underline and strikethrough are converted.
+     * {@link java.awt.font.TextAttribute#SUPERSCRIPT}
+     * is handled by {@link java.awt.Font#getTransform()}
+     *
+     * @return correspondig svg tags for the font
+     */
+    private String getFontString(Font font) {
         StringBuffer svgFont = new StringBuffer();
 
         svgFont.append("font-family:");
 
         if (isProperty(EMBED_FONTS)) {
-            svgFont.append(fontTable.getFontName(getFont()));
+            svgFont.append(fontTable.getEmbeddedFontName(getFont()));
         } else {
             svgFont.append(getFont().getFamily());
         }
@@ -607,6 +626,31 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             svgFont.append(";font-style:italic");
         } else {
             svgFont.append(";font-style:normal");
+        }
+
+        Object ul = font.getAttributes().get(TextAttribute.UNDERLINE);
+        if (ul != null) {
+            // underline style, only supported by CSS 3
+            if (TextAttribute.UNDERLINE_LOW_DOTTED.equals(ul)) {
+                svgFont.append(";text-underline-style:dotted");
+            } else if (TextAttribute.UNDERLINE_LOW_DASHED.equals(ul)) {
+                svgFont.append(";text-underline-style:dashed");
+            } else if (TextAttribute.UNDERLINE_ON.equals(ul)) {
+                svgFont.append(";text-underline-style:solid");
+            }
+
+            // the underline itself, supported by CSS 2
+            svgFont.append(";text-decoration:underline");
+        }
+
+        if (font.getAttributes().get(TextAttribute.STRIKETHROUGH) != null) {
+            // is the property allready witten?
+            if  (ul == null) {
+                svgFont.append(";text-decoration:");
+            } else {
+                svgFont.append(" ");
+            }
+            svgFont.append("line-through");
         }
 
         int size = getFont().getSize();

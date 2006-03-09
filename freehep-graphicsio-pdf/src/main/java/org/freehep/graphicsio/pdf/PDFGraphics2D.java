@@ -56,7 +56,7 @@ import org.freehep.util.UserProperties;
  *
  * @author Simon Fischer
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java cbe5b99bb13b 2006/03/09 21:55:10 duns $
  */
 public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -756,16 +756,21 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
         // save the graphics context, especially the transformation matrix
         writeGraphicsSave();
 
-        AffineTransform t = getFont().getTransform();
-        // translate the offset to y and mirror the matrix
-        t.scale(1.0, -1.0);
-        t.translate(0, -y);
-        pageStream.matrix(t);
+        // translate the offset to x and y
+        AffineTransform at = new AffineTransform(1, 0, 0, 1, x, y);
+        // transform for font
+        at.concatenate(getFont().getTransform());
+        // mirror the matrix
+        at.scale(1, -1);
+        
+        // write transform
+        writeTransform(at);
+
         pageStream.beginText();
-        // write the text at y=0
-        pageStream.text(x, 0);
+        pageStream.text(0, 0);
         showCharacterCodes(str);
         pageStream.endText();
+
         // restore the transformation matrix
         writeGraphicsRestore();
     }

@@ -16,7 +16,6 @@ import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.TexturePaint;
 import java.awt.Toolkit;
-import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.image.RenderedImage;
@@ -43,7 +42,7 @@ import org.freehep.util.UserProperties;
  * Enhanced Metafile Format Graphics 2D driver.
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java db80b97becbb 2006/03/09 01:16:21 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java cbe5b99bb13b 2006/03/09 21:55:10 duns $
  */
 public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         EMFConstants {
@@ -411,52 +410,60 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         Font font = getFont();
         Font unitFont = (Font) unitFontTable.get(font);
 
-	Integer fontIndex = (Integer) fontTable.get(font);
-	if (fontIndex == null) {
-	    // for special fonts (Symbol, ZapfDingbats) we choose a standard
-	    // font and
-	    // encode using unicode.
-	    String fontName = font.getName();
-	    string = FontEncoder.getEncodedString(string, fontName);
+        Integer fontIndex = (Integer) fontTable.get(font);
+        if (fontIndex == null) {
+            // for special fonts (Symbol, ZapfDingbats) we choose a standard
+            // font and
+            // encode using unicode.
+            String fontName = font.getName();
+            string = FontEncoder.getEncodedString(string, fontName);
 
-	    fontName = replaceFonts.getProperty(fontName, fontName);
-	    String windowsFontName = FontUtilities
-		    .getWindowsFontName(fontName);
+            fontName = replaceFonts.getProperty(fontName, fontName);
+            String windowsFontName = FontUtilities
+                .getWindowsFontName(fontName);
 
-	    unitFont = new Font(windowsFontName, font.getStyle(), font
-		    .getSize());
-	    unitFont = unitFont.deriveFont(font.getSize2D()
-		    * UNITS_PER_PIXEL * TWIPS);
-	    unitFontTable.put(font, unitFont);
+            unitFont = new Font(windowsFontName, font.getStyle(), font
+                .getSize());
+            unitFont = unitFont.deriveFont(font.getSize2D()
+                * UNITS_PER_PIXEL * TWIPS);
+            unitFontTable.put(font, unitFont);
 
-	    ExtLogFontW logFontW = new ExtLogFontW(unitFont);
-	    int handle = handleManager.getHandle();
-	    os.writeTag(new ExtCreateFontIndirectW(handle, logFontW));
+            ExtLogFontW logFontW = new ExtLogFontW(unitFont);
+            int handle = handleManager.getHandle();
+            os.writeTag(new ExtCreateFontIndirectW(handle, logFontW));
 
-	    fontIndex = new Integer(handle);
-	    fontTable.put(font, fontIndex);
-	}
-	os.writeTag(new SelectObject(fontIndex.intValue()));
+            fontIndex = new Integer(handle);
+            fontTable.put(font, fontIndex);
+        }
+        os.writeTag(new SelectObject(fontIndex.intValue()));
 
         int[] widths = new int[string.length()];
         for (int i = 0; i < widths.length; i++) {
             double w = unitFont.getStringBounds(string, i, i + 1,
-                    getFontRenderContext()).getWidth();
+                getFontRenderContext()).getWidth();
             widths[i] = (int) w;
         }
 
+        // font transformation sould _not_ transform string position
+        translate(x, y);
+
+        // apply font transformation
         AffineTransform t = font.getTransform();
         if (!t.isIdentity()) {
             writeGraphicsSave();
             writeTransform(t);
         }
-        TextW text = new TextW(new Point(toUnit(x), toUnit(y)), string, 0,
-                dummy, widths);
-        os.writeTag(new ExtTextOutW(imageBounds, EMFConstants.GM_ADVANCED, 1,
-                1, text));
+
+        TextW text = new TextW(new Point(0, 0), string, 0, dummy, widths);
+        os.writeTag(new ExtTextOutW(imageBounds, EMFConstants.GM_ADVANCED, 1, 1, text));
+
+        // revert font transformation
         if (!t.isIdentity()) {
             writeGraphicsRestore();
         }
+
+        // translation for string position.
+        translate(-x, -y);
     }
 
     /*

@@ -10,16 +10,17 @@ import java.awt.geom.AffineTransform;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Properties;
 
 /**
- * A table to remember which fonts were used while writing a svg file. Entries
- * are added by calling {@link #addGlyphs(String, java.awt.Font)}. The final
- * SVG tag for the <defs> section is generated using {@link #toString()}. Use
- * {@link #getFontName(java.awt.Font)} for referencing embedded fonts in <text>
- * tags.
- * 
+ * A table to remember which fonts were used while writing a svg file.
+ * Entries are added by calling {@link #addGlyphs(String, java.awt.Font)}.
+ * The final SVG tag for the <defs> section is generated using {@link #toString()}.
+ * Use {@link #getEmbeddedFontName(java.awt.Font)} for referencing embedded fonts
+ * in <text> tags.
+ *
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGFontTable.java db80b97becbb 2006/03/09 01:16:21 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGFontTable.java cbe5b99bb13b 2006/03/09 21:55:10 duns $
  */
 public class SVGFontTable {
 
@@ -59,14 +60,13 @@ public class SVGFontTable {
      */
     private SVGGlyph createGlyph(int c, Font font) {
         GlyphVector glyphVector = font.createGlyphVector(
-        // flipping is done by SVGGlyph
-                new FontRenderContext(null, true, true),
-                // unicode to char
-                String.valueOf((char) c));
+            // flipping is done by SVGGlyph
+            new FontRenderContext(null, true, true),
+            // unicode to char
+            String.valueOf((char) c));
 
         // create and store the SVG Glyph
-        return new SVGGlyph(glyphVector.getGlyphOutline(0), c, glyphVector
-                .getGlyphMetrics(0));
+        return new SVGGlyph(glyphVector.getGlyphOutline(0), c, glyphVector.getGlyphMetrics(0));
     }
 
     /**
@@ -80,11 +80,10 @@ public class SVGFontTable {
         font = substituteFont(font);
 
         // add characters
-        for (int i = 0; i < string.length(); i++) {
+        for (int i = 0; i < string.length(); i ++) {
             addGlyph(string.charAt(i), font);
         }
-
-        return getFontName(font);
+        return getEmbeddedFontName(font);
     }
 
     /**
@@ -105,9 +104,12 @@ public class SVGFontTable {
 
     /**
      * creates the font entry:
-     * 
-     * <font> <glyph ... /> ... </font>
-     * 
+     * <p/>
+     * <font>
+     * <glyph ... />
+     * ...
+     * </font>
+     *
      * @return string representing the entry
      */
     public String toString() {
@@ -119,12 +121,12 @@ public class SVGFontTable {
 
             // familiy
             result.append("<font id=\"");
-            result.append(getFontName(font));
+            result.append(getEmbeddedFontName(font));
             result.append("\">\n");
 
             // font-face
             result.append("<font-face font-family=\"");
-            result.append(getFontName(font));
+            result.append(getEmbeddedFontName(font));
             result.append("\" ");
 
             // bold
@@ -152,24 +154,18 @@ public class SVGFontTable {
             result.append(SVGGraphics2D.fixedPrecision(SVGGlyph.FONT_SIZE));
             result.append("\" ");
 
-            LineMetrics lm = font.getLineMetrics("By", new FontRenderContext(
-                    new AffineTransform(), true, true));
+            LineMetrics lm = font.getLineMetrics("By", new FontRenderContext(new AffineTransform(), true, true));
 
-            // The maximum unaccented height of the font within the font
-            // coordinate system.
-            // If the attribute is not specified, the effect is as if the
-            // attribute were set
-            // to the difference between the units-per-em value and the
-            // vert-origin-y value
+            // The maximum unaccented height of the font within the font coordinate system.
+            // If the attribute is not specified, the effect is as if the attribute were set
+            // to the difference between the units-per-em value and the vert-origin-y value
             // for the corresponding font.
             result.append("ascent=\"");
             result.append(lm.getAscent());
             result.append("\" ");
 
-            // The maximum unaccented depth of the font within the font
-            // coordinate system.
-            // If the attribute is not specified, the effect is as if the
-            // attribute were set
+            // The maximum unaccented depth of the font within the font coordinate system.
+            // If the attribute is not specified, the effect is as if the attribute were set
             // to the vert-origin-y value for the corresponding font.
             result.append("desscent=\"");
             result.append(lm.getDescent());
@@ -204,15 +200,27 @@ public class SVGFontTable {
         return result.toString();
     }
 
-    /*
-     * private static final Properties replaceFonts = new Properties(); static {
-     * replaceFonts.setProperty("Dialog", "Helvetica");
-     * replaceFonts.setProperty("DialogInput", "Helvetica");
-     * replaceFonts.setProperty("Serif", "TimesRoman");
-     * replaceFonts.setProperty("SansSerif", "Helvetica");
-     * replaceFonts.setProperty("Monospaced", "Courier"); }
+    /**
+     * font replacements makes SVG in AdobeViewer look better, firefox replaces
+     * all font settings, even the family fame
      */
+    private static final Properties replaceFonts = new Properties();
+    static {
+        replaceFonts.setProperty("Dialog", "Helvetica");
+        replaceFonts.setProperty("DialogInput", "Helvetica");
+        replaceFonts.setProperty("Serif", "TimesRoman");
+        replaceFonts.setProperty("SansSerif", "Helvetica");
+        // replaceFonts.setProperty("Monospaced", "Courier");
+    }
 
+    /**
+     * creates a font based on the parameter. The size will be {@link SVGGlyph.FONT_SIZE},
+     * transformation will be removed and the family name is replaced using
+     * {@link  SVGFontTable.replaceFonts}.
+     *
+     * @param font
+     * @return font based on the parameter
+     */
     protected Font substituteFont(Font font) {
         HashMap attributes = new HashMap(font.getAttributes());
 
@@ -222,33 +230,108 @@ public class SVGFontTable {
         // remove font transformation
         attributes.remove(TextAttribute.TRANSFORM);
 
-        /*
-         * / replace font family String replacedFamiliy =
-         * replaceFonts.getProperty((String)
-         * attributes.get(TextAttribute.FAMILY)); if (replacedFamiliy != null) {
-         * attributes.put(TextAttribute.FAMILY, replacedFamiliy); }
-         */
+        // replace font family
+        String replacedFamiliy = replaceFonts.getProperty((String) attributes.get(TextAttribute.FAMILY));
+        if (replacedFamiliy != null) {
+            attributes.put(TextAttribute.FAMILY, replacedFamiliy);
+        }
 
         return new Font(attributes);
     }
 
     /**
+     * replaces the font name using {@link  SVGFontTable.replaceFonts} and adds
+     * Bold, Italic, Underline, UnderStroke
+     *
      * @param font
      * @return unique name for font
      */
     protected String getFontName(Font font) {
-        StringBuffer result = new StringBuffer(font.getFamily());
-
-        if (font.isBold()) {
-            result.append("Bold");
+        // replace font family
+        String replacedFamiliy = replaceFonts.getProperty(font.getFamily());
+        if (replacedFamiliy != null) {
+            return replacedFamiliy;
         } else {
-            result.append("Normal");
+            return font.getFamily();
+        }
+    }
+
+    /**
+     * replaces the font name using {@link  SVGFontTable.replaceFonts} and adds
+     * Bold, Italic, Underline, UnderStroke etc.
+     *
+     * @param font
+     * @return unique name for font
+     */
+    protected String getEmbeddedFontName(Font font) {
+        // replace the name
+        StringBuffer result = new StringBuffer(getFontName(font));
+
+        // weight
+        Object weight = font.getAttributes().get(TextAttribute.WEIGHT);
+        if (TextAttribute.WEIGHT_BOLD.equals(weight)) {
+            result.append("Bold");
+        } else if (TextAttribute.WEIGHT_DEMIBOLD.equals(weight)) {
+            result.append("DemiBold");
+        } else if (TextAttribute.WEIGHT_DEMILIGHT.equals(weight)) {
+            result.append("DemiLight");
+        } else if (TextAttribute.WEIGHT_EXTRA_LIGHT.equals(weight)) {
+            result.append("ExtraLight");
+        } else if (TextAttribute.WEIGHT_EXTRABOLD.equals(weight)) {
+            result.append("ExtraBold");
+        } else if (TextAttribute.WEIGHT_HEAVY.equals(weight)) {
+            result.append("Heavy");
+        } else if (TextAttribute.WEIGHT_LIGHT.equals(weight)) {
+            result.append("Light");
+        } else if (TextAttribute.WEIGHT_MEDIUM.equals(weight)) {
+            result.append("Medium");
+        } else if (TextAttribute.WEIGHT_REGULAR.equals(weight)) {
+            result.append("WRegular");
+        } else if (TextAttribute.WEIGHT_SEMIBOLD.equals(weight)) {
+            result.append("SemiBold");
+        } else if (TextAttribute.WEIGHT_ULTRABOLD.equals(weight)) {
+            result.append("UltraBold");
         }
 
-        if (font.isItalic()) {
+        // italic
+        Object posture = font.getAttributes().get(TextAttribute.POSTURE);
+        if (TextAttribute.POSTURE_OBLIQUE.equals(posture)) {
             result.append("Italic");
-        } else {
-            result.append("Normal");
+        } else if (TextAttribute.POSTURE_REGULAR.equals(posture)) {
+            result.append("Plain");
+        }
+
+        // underline
+        Object ul = font.getAttributes().get(TextAttribute.UNDERLINE);
+        if (TextAttribute.UNDERLINE_LOW_DASHED.equals(ul)) {
+            result.append("UnderlineLowDashed");
+        } else if (TextAttribute.UNDERLINE_LOW_DOTTED.equals(ul)) {
+            result.append("UnderlineLowDotted");
+        } else if (TextAttribute.UNDERLINE_LOW_GRAY.equals(ul)) {
+            result.append("UnderlineLowGray");
+        } else if (TextAttribute.UNDERLINE_LOW_ONE_PIXEL.equals(ul)) {
+            result.append("UnderlineLowOnePixel");
+        } else if (TextAttribute.UNDERLINE_ON.equals(ul)) {
+            result.append("Underline");
+        }
+
+        // strike through
+        if (font.getAttributes().get(TextAttribute.STRIKETHROUGH) != null) {
+            result.append("StrikeThrough");
+        }
+
+        // width
+        Object width = font.getAttributes().get(TextAttribute.WIDTH);
+        if (TextAttribute.WIDTH_CONDENSED.equals(width)) {
+            result.append("Condensed");
+        } else if (TextAttribute.WIDTH_EXTENDED.equals(width)) {
+                result.append("Extended");
+        } else if (TextAttribute.WIDTH_REGULAR.equals(width)) {
+                result.append("WRegular");
+        } else if (TextAttribute.WIDTH_SEMI_CONDENSED.equals(width)) {
+                result.append("SemiCondensed");
+        } else if (TextAttribute.WIDTH_SEMI_EXTENDED.equals(width)) {
+                result.append("SemiExtended");
         }
 
         return result.toString();
