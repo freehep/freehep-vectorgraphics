@@ -7,7 +7,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.Paint;
-import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
@@ -29,7 +28,7 @@ import org.freehep.util.UserProperties;
  * 
  * @author Simon Fischer
  * @author Mark Donszelmann
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/AbstractVectorGraphics.java db80b97becbb 2006/03/09 01:16:21 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/AbstractVectorGraphics.java 598da61f5e3e 2006/03/09 23:13:52 duns $
  */
 public abstract class AbstractVectorGraphics extends VectorGraphics {
 
@@ -263,18 +262,21 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
     // ---------------------------------------------------------
     // -------------------- WRAPPER METHODS --------------------
     // -------------------- int -> double --------------------
+    // needs a bias in some cases
     // ---------------------------------------------------------
 
+    private static final double bias = 0.5;
+    
     public void clearRect(int x, int y, int width, int height) {
-        clearRect((double) x, (double) y, (double) width, (double) height);
+        clearRect((double) x + bias, (double) y + bias, (double) width, (double) height);
     }
 
     public void drawLine(int x1, int y1, int x2, int y2) {
-        drawLine((double) x1, (double) y1, (double) x2, (double) y2);
+        drawLine((double) x1 + bias, (double) y1 + bias, (double) x2 + bias, (double) y2 + bias);
     }
 
     public void drawRect(int x, int y, int width, int height) {
-        drawRect((double) x, (double) y, (double) width, (double) height);
+        drawRect((double) x + bias, (double) y + bias, (double) width, (double) height);
     }
 
     public void fillRect(int x, int y, int width, int height) {
@@ -283,7 +285,7 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
 
     public void drawArc(int x, int y, int width, int height, int startAngle,
             int arcAngle) {
-        drawArc((double) x, (double) y, (double) width, (double) height,
+        drawArc((double) x + bias, (double) y + bias, (double) width, (double) height,
                 (double) startAngle, (double) arcAngle);
     }
 
@@ -294,7 +296,7 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
     }
 
     public void drawOval(int x, int y, int width, int height) {
-        drawOval((double) x, (double) y, (double) width, (double) height);
+        drawOval((double) x + bias, (double) y + bias, (double) width, (double) height);
     }
 
     public void fillOval(int x, int y, int width, int height) {
@@ -303,7 +305,7 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
 
     public void drawRoundRect(int x, int y, int width, int height,
             int arcWidth, int arcHeight) {
-        drawRoundRect(x, y, (double) width, (double) height, (double) arcWidth,
+        drawRoundRect((double)x + bias, (double)y + bias, (double) width, (double) height, (double) arcWidth,
                 (double) arcHeight);
     }
 
@@ -470,7 +472,7 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
     }
 
     public void drawPolyline(int[] xPoints, int[] yPoints, int nPoints) {
-        draw(createShape(xPoints, yPoints, nPoints, false));
+        draw(createShape(xPoints, yPoints, nPoints, false, true));
     }
 
     public void drawPolyline(double[] xPoints, double[] yPoints, int nPoints) {
@@ -478,7 +480,7 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
     }
 
     public void drawPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-        draw(createShape(xPoints, yPoints, nPoints, true));
+        draw(createShape(xPoints, yPoints, nPoints, true, true));
     }
 
     public void drawPolygon(double[] xPoints, double[] yPoints, int nPoints) {
@@ -506,7 +508,7 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
     }
 
     public void fillPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-        fill(new Polygon(xPoints, yPoints, nPoints));
+        fill(createShape(xPoints, yPoints, nPoints, true, false));
     }
 
     public void fillPolygon(double[] xPoints, double[] yPoints, int nPoints) {
@@ -537,6 +539,7 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
 
     /**
      * Creates a polyline/polygon shape from a set of points.
+     * Needs a bias!
      * 
      * @param xPoints X coordinates of the polyline.
      * @param yPoints Y coordinates of the polyline.
@@ -544,10 +547,12 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
      * @param close is shape closed
      */
     protected Shape createShape(int[] xPoints, int[] yPoints, int nPoints,
-            boolean close) {
+            boolean close, boolean biased) {
+        
+        float offset = biased ? (float)bias : 0.0f;
         GeneralPath path = new GeneralPath(GeneralPath.WIND_EVEN_ODD);
         if (nPoints > 0) {
-            path.moveTo(xPoints[0], yPoints[0]);
+            path.moveTo(xPoints[0] + offset, yPoints[0] + offset);
             int lastX = xPoints[0];
             int lastY = yPoints[0];
             if (close && (Math.abs(xPoints[nPoints - 1] - lastX) < 1)
@@ -557,7 +562,7 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
             for (int i = 1; i < nPoints; i++) {
                 if ((Math.abs(xPoints[i] - lastX) > 1)
                         || (Math.abs(yPoints[i] - lastY) > 1)) {
-                    path.lineTo(xPoints[i], yPoints[i]);
+                    path.lineTo(xPoints[i] + offset, yPoints[i] + offset);
                     lastX = xPoints[i];
                     lastY = yPoints[i];
                 }
@@ -566,5 +571,5 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
                 path.closePath();
         }
         return path;
-    }
+    }    
 }
