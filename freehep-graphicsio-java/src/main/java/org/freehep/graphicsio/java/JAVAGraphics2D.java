@@ -76,7 +76,7 @@ import org.freehep.util.io.LineNumberWriter;
  * </ul>
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-java/src/main/java/org/freehep/graphicsio/java/JAVAGraphics2D.java 12eef040b0e1 2005/12/08 07:49:06 duns $
+ * @version $Id: freehep-graphicsio-java/src/main/java/org/freehep/graphicsio/java/JAVAGraphics2D.java 35198018c7cc 2006/03/09 18:45:26 duns $
  */
 public class JAVAGraphics2D extends VectorGraphics implements
         LineNumberWriter.LineNumberListener {
@@ -640,6 +640,7 @@ public class JAVAGraphics2D extends VectorGraphics implements
     }
 
     public void addRenderingHints(Map hints) {
+        // FIXME call should be written out
         hints.putAll(hints);
     }
 
@@ -831,10 +832,16 @@ public class JAVAGraphics2D extends VectorGraphics implements
     }
 
     public void setRenderingHint(RenderingHints.Key hintKey, Object hintValue) {
-        hints.put(hintKey, hintValue);
+        // FIXME call should be written out
+        if (hintValue != null) {
+            hints.put(hintKey, hintValue);
+        } else {
+            hints.remove(hintKey);
+        }
     }
 
     public void setRenderingHints(Map hints) {
+        // FIXME call should be written out
         this.hints = new RenderingHints(hints);
     }
 
