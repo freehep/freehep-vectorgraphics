@@ -29,7 +29,7 @@ import org.freehep.util.UserProperties;
  * 
  * @author Simon Fischer
  * @author Mark Donszelmann
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/AbstractVectorGraphics.java 07902aaefb18 2006/02/28 00:05:01 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/AbstractVectorGraphics.java db80b97becbb 2006/03/09 01:16:21 duns $
  */
 public abstract class AbstractVectorGraphics extends VectorGraphics {
 
@@ -164,7 +164,7 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
     }
 
     public void drawSymbol(int x, int y, int size, int symbol) {
-        drawSymbol((double) x, (double) y, (double) size, symbol);
+	drawSymbol((double) x, (double) y, (double) size, symbol);
     }
 
     public void fillSymbol(int x, int y, int size, int symbol) {
@@ -428,7 +428,7 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
     /**
      * Gets the current paint.
      * 
-     * @return current paint
+     * @param paint current paint
      */
     public Paint getPaint() {
         return currentPaint;

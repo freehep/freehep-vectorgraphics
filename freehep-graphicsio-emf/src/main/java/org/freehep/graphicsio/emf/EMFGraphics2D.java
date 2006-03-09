@@ -43,7 +43,7 @@ import org.freehep.util.UserProperties;
  * Enhanced Metafile Format Graphics 2D driver.
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java db80b97becbb 2006/03/09 01:16:21 duns $
  */
 public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         EMFConstants {
@@ -319,7 +319,7 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
 
     public void draw(Shape shape) {
         try {
-            if (getStroke() instanceof BasicStroke) {            
+            if (getStroke() instanceof BasicStroke) {
                 writePen((BasicStroke) getStroke(), getColor());
                 writePath(shape);
                 os.writeTag(new StrokePath(imageBounds));
@@ -456,16 +456,6 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
                 1, text));
         if (!t.isIdentity()) {
             writeGraphicsRestore();
-        }
-    }
-
-    public void drawGlyphVector(GlyphVector glyphs, float x, float y) {
-        writeWarning(getClass()
-                + ": drawGlyphVector(GlyphVector, float, float) not implemented.");
-        // Write out the string.
-
-        for (int i = 0; i < glyphs.getNumGlyphs(); i++) {
-            fill(glyphs.getGlyphOutline(i, x, y));
         }
     }
 

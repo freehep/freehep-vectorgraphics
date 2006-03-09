@@ -3,6 +3,7 @@ package org.freehep.graphicsio;
 
 import java.awt.geom.Point2D;
 import java.io.IOException;
+import java.util.Stack;
 
 /**
  * Implements cubics by approximating them using a polyline. Useful class for
@@ -10,35 +11,48 @@ import java.io.IOException;
  * only straight lines.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/CubicToLinePathConstructor.java 5641ca92a537 2005/11/26 00:15:35 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/CubicToLinePathConstructor.java db80b97becbb 2006/03/09 01:16:21 duns $
  */
 public abstract class CubicToLinePathConstructor extends
         QuadToCubicPathConstructor {
 
     private double resolution;
 
-    private transient ControlSet tempSet[] = new ControlSet[1024];
-
-    private transient ControlSet controlSet[] = new ControlSet[1024];
-
     protected CubicToLinePathConstructor() {
         this(0.025);
     }
 
     protected CubicToLinePathConstructor(double resolution) {
-        this.resolution = resolution;
+        this.resolution = Math.abs(resolution);
     }
 
     public void cubic(double x1, double y1, double x2, double y2, double x3,
-            double y3) throws IOException {
+                      double y3) throws IOException {
+
+        // ControlSets are written at the end
+        Stack/*<ControlSet>*/ controls = new Stack/*<ControlSet>*/();
+
         // System.out.println("Cubic "+x1+" "+y1+" "+x2+" "+y2+" "+x3+" "+y3);
-        int k = 0;
-        int l = 0;
         Point2D p0 = new Point2D.Double(currentX, currentY);
         Point2D p1 = new Point2D.Double(x1, y1);
         Point2D p2 = new Point2D.Double(x2, y2);
         Point2D p3 = new Point2D.Double(x3, y3);
-        tempSet[l++] = new ControlSet(p0, p1, p2, p3);
+
+        // ControlSets to create the controls
+        Stack/*<ControlSet>*/ temps = new Stack/*<ControlSet>*/();
+        temps.push(new ControlSet(p0, p1, p2, p3));
+
+        while (!temps.empty()) {
+            ControlSet control = (ControlSet) temps.pop();
+            if (control.breadth() > resolution) {
+                temps.push(control);
+                temps.push(control.bisect());
+            } else {
+                controls.push(control);
+            }
+        }
+
+        /*tempSet[l++] = new ControlSet(p0, p1, p2, p3);
         while (l > 0) {
             ControlSet control1 = tempSet[--l];
             double b = control1.breadth();
@@ -47,16 +61,19 @@ public abstract class CubicToLinePathConstructor extends
                 tempSet[l++] = control1;
                 tempSet[l++] = control3;
             } else {
-                controlSet[k++] = control1;
+                controls.push(control1);
             }
-        }
+        }*/
+
+        // write out control sets
         // System.out.println(k);
-        while (k > 0) {
-            ControlSet control2 = controlSet[--k];
-            Point2D p = control2.getPoint();
+        while (!controls.empty()) {
+            Point2D p = ((ControlSet)controls.pop()).getPoint();
             line(p.getX(), p.getY());
             // System.out.println(control2.getPoint());
         }
+
+        // store currentX and currentY
         super.cubic(x1, y1, x2, y2, x3, y3);
     }
 

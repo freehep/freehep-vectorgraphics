@@ -54,7 +54,7 @@ import org.freehep.util.images.ImageUtilities;
  *
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 91db8e6f4130 2006/03/03 19:26:00 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java db80b97becbb 2006/03/09 01:16:21 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -62,6 +62,8 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
             .getName();
 
     public static final String EMIT_WARNINGS = rootKey + ".EMIT_WARNINGS";
+
+    public static final String TEXT_AS_SHAPES = rootKey + ".TEXT_AS_SHAPES";
 
     public static final String EMIT_ERRORS = rootKey + ".EMIT_ERRORS";
 
@@ -538,13 +540,34 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
         setPaint(temp);
     }
 
+    /**
+     * Draws the string at (x, y). If TEXT_AS_SHAPES is set
+     * {@link #drawGlyphVector(java.awt.font.GlyphVector, float, float)} is used, otherwise
+     * {@link #writeString(String, double, double)} for a more direct output of the string.
+     *
+     * @param string
+     * @param x
+     * @param y
+     */
     public void drawString(String string, double x, double y) {
-        if (string.equals(""))
+        // something to draw?
+        if (string == null || string.equals("")) {
             return;
-        try {
-            writeString(string, x, y);
-        } catch (IOException e) {
-            handleException(e);
+        }
+
+        // draw strings directly?
+        if (isProperty(TEXT_AS_SHAPES)) {
+            // create glyph
+            GlyphVector gv = getFont().createGlyphVector(getFontRenderContext(), string);
+            // draw it
+            drawGlyphVector(gv, (float) x, (float) y);
+        } else {
+            // write string directly
+            try {
+                writeString(string, x, y);
+            } catch (IOException e) {
+                handleException(e);
+            }
         }
     }
 
@@ -562,11 +585,11 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
         	Rectangle2D textSize = new Rectangle2D.Double(0, descent - height,
         		width, height);
         	double adjustment = (getFont().getSize2D() * 2) / 10;
-        
+
         	Point2D textUL = drawFrameAndBanner(x, y, textSize, adjustment,
         		framed, frameColor, frameWidth, banner, bannerColor,
         		horizontal, vertical);
-        
+
         	drawString(str, textUL.getX(), textUL.getY());
     }
 
