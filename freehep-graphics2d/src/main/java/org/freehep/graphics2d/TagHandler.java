@@ -5,7 +5,7 @@ package org.freehep.graphics2d;
 /**
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/TagHandler.java 7aee336a8992 2005/11/25 23:19:05 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/TagHandler.java cba39eb5843a 2006/03/20 18:04:28 duns $
  */
 public class TagHandler {
 
@@ -152,5 +152,4 @@ public class TagHandler {
         System.out.println("\"" + s + "\"");
         System.out.println(handler.parse(s));
     }
-
 }

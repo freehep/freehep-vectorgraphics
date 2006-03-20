@@ -1,48 +1,63 @@
 // Copyright 2000, CERN, Geneva, Switzerland and University of Santa Cruz, California, U.S.A.
 package org.freehep.graphics2d;
 
-import java.awt.*;
-import java.awt.font.LineMetrics;
+import java.awt.Graphics2D;
 import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Rectangle2D;
+import java.awt.geom.AffineTransform;
+import java.text.AttributedString;
+import java.util.Hashtable;
 import java.util.Stack;
-import java.util.Map;
+import java.util.Vector;
 
 /**
- * 
+ * The class converts HTML tags like <u> in instances of {@link TextAttribute}.
+ *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/GenericTagHandler.java cbe5b99bb13b 2006/03/09 21:55:10 duns $
+ * @author Steffen Greiffenberg
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/GenericTagHandler.java cba39eb5843a 2006/03/20 18:04:28 duns $
  */
 public class GenericTagHandler extends TagHandler {
 
-    private static final String mM = "mM";
+    /**
+     * TextAttribute for overline, not a standard
+     */
+    public static Integer UNDERLINE_OVERLINE = new Integer(128);
 
+    /**
+     * context to draw AttributedString
+     */
     private Graphics2D graphics;
 
-    private boolean vertical;
+    /**
+     * text without any tags, e.g. "<sub>text</sub>" would become "text".
+     * filled by {@link #text(String)}
+     */
+    private StringBuffer clearedText;
 
-    private float buffered;
+    /**
+     * stores AttributeEntries created by {@link #closeTag(String)}
+     */
+    private Vector/*<AttributeEntry>*/ attributes;
 
-    private float overlineStart;
-
-    private float overlineEnd;
-
-    private float x;
-
-    private float y;
-
-    private float miny;
-
-    private float maxy;
-
-    private boolean print = false;
+    /**
+     * stores all open tags, e.g. "<sub>" an the position
+     * on which it placed in text. Filled by {@link #openTag(String)},
+     * emptied and translated into <code>attributes</code> by
+     * {@link #closeTag(String)}
+     */
+    private Hashtable tags;
 
     /**
      * store the names of font families before they are changed by openTag()
      */
     private Stack/*<String>*/ fontFamilyStack;
+
+    /**
+     * if we aplly TextAttribute.SUPERSCRIPT with correction of
+     * transformation the text is to high / to low by some points
+     */
+    private double superscriptCorrection;
 
     /**
      * creates a tag handler for printing text and calculating its size
@@ -52,6 +67,8 @@ public class GenericTagHandler extends TagHandler {
     public GenericTagHandler(Graphics2D graphics) {
         super();
         this.graphics = graphics;
+        this.clearedText = new StringBuffer();
+        this.tags = new Hashtable();
     }
 
     /**
@@ -61,16 +78,34 @@ public class GenericTagHandler extends TagHandler {
      * @param x coordinate for drawing
      * @param y coordinate for drawing
      */
-    public void print(TagString s, double x, double y) {
-        this.x = (float) x;
-        this.y = (float) y;
-        miny = this.y;
-        maxy = this.y;
+    public void print(TagString s, double x, double y, double superscriptCorrection) {
+
         fontFamilyStack = new Stack();
-        print = true;
-        vertical = false;
-        buffered = 0;
+
+        this.clearedText = new StringBuffer();
+        this.attributes = new Vector();
+        this.superscriptCorrection = superscriptCorrection;
+
         parse(s);
+
+        // close all open tags to ensure all
+        // open attributes are applied
+        while (tags.size() > 0) {
+            closeTag((String) tags.keys().nextElement());
+        }
+
+        // create attributed string to print
+        // with current font settings
+        AttributedString attributedString = new AttributedString(
+            clearedText.toString(),
+            graphics.getFont().getAttributes());
+
+        // aplly attributes
+        for (int i = 0; i < attributes.size(); i++) {
+            ((AttributeEntry)attributes.elementAt(i)).apply(attributedString);
+        }
+
+        graphics.drawString(attributedString.getIterator(), (float)x, (float)y);
     }
 
     /**
@@ -79,17 +114,37 @@ public class GenericTagHandler extends TagHandler {
      * @param s string to calculate
      * @return bouding box after parsing s
      */
-    public Rectangle2D stringSize(TagString s) {
-        x = 0;
-        y = 0;
-        miny = y;
-        maxy = y;
+    public TextLayout createTextLayout(TagString s, double superscriptCorrection) {
+
         fontFamilyStack = new Stack();
-        print = false;
-        vertical = false;
-        buffered = 0;
+
+        this.clearedText = new StringBuffer();
+        this.attributes = new Vector();
+        this.superscriptCorrection = superscriptCorrection;
+
         parse(s);
-        return new Rectangle2D.Float(0, miny, x, maxy - miny);
+
+        // close all open tags to ensure all
+        // open attributes are applied
+        while (tags.size() > 0) {
+            closeTag((String) tags.keys().nextElement());
+        }
+
+        // create attributed string to print
+        // with current font settings
+        AttributedString attributedString = new AttributedString(
+            clearedText.toString(),
+            graphics.getFont().getAttributes());
+
+        // aplly attributes
+        for (int i = 0; i < attributes.size(); i++) {
+            ((AttributeEntry)attributes.elementAt(i)).apply(attributedString);
+        }
+
+        // create the layout
+        return new TextLayout(
+            attributedString.getIterator(),
+            graphics.getFontRenderContext());
     }
 
     /**
@@ -102,39 +157,12 @@ public class GenericTagHandler extends TagHandler {
      */
     // FIXME: check if we can support overline and vertical?
     protected String openTag(String tag) {
-        // clone the font attribute for a derived font
-        Map attributes = graphics.getFont().getAttributes();
-
-        // change attributes
-        if (tag.equalsIgnoreCase("b")) {
-            attributes.put(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD);
-        } else if (tag.equalsIgnoreCase("i")) {
-            attributes.put(TextAttribute.POSTURE, TextAttribute.POSTURE_OBLIQUE);
-        } else if (tag.equalsIgnoreCase("s") || tag.equalsIgnoreCase("strike")) {
-            attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
-        } else if (tag.equalsIgnoreCase("udash")) {
-            attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DASHED);
-        } else if (tag.equalsIgnoreCase("udot")) {
-            attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED);
-        } else if (tag.equalsIgnoreCase("u")) {
-            attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-        } else if (tag.equalsIgnoreCase("tt")) {
-            fontFamilyStack.push(attributes.get(TextAttribute.FAMILY));
-            attributes.put(TextAttribute.FAMILY, "Courier");
-        } else if (tag.equalsIgnoreCase("v")) {
-            vertical = true;
-        } else if (tag.equalsIgnoreCase("over")) {
-            overlineStart = x;
-        } else if (tag.equalsIgnoreCase("sup")) {
-            attributes.put(TextAttribute.SUPERSCRIPT, TextAttribute.SUPERSCRIPT_SUPER);
-        } else if (tag.equalsIgnoreCase("sub")) {
-            attributes.put(TextAttribute.SUPERSCRIPT, TextAttribute.SUPERSCRIPT_SUB);
-        } else {
-            return super.openTag(tag);
+        // store position of parser for openening tag only if
+        // it the first openened, e.g. <b>text<b>text2</b> will draw
+        // text and text2 in bold weight
+        if (!tags.containsKey(tag)) {
+            tags.put(tag, new Integer(clearedText.length()));
         }
-
-        // set the font
-        graphics.setFont(new Font(attributes));
         return "";
     }
 
@@ -146,51 +174,107 @@ public class GenericTagHandler extends TagHandler {
      * @return empty string or the result of the overloaded method
      */
     protected String closeTag(String tag) {
-        // clone the font attribute for a derived font
-        Map attributes = graphics.getFont().getAttributes();
+        // begin is stored in 'tags'
+        int begin;
+
+        // do nothing if tag wasn't opened
+        if (!tags.containsKey(tag)) {
+            return super.closeTag(tag);
+        } else {
+            begin = ((Integer)tags.get(tag)).intValue();
+            tags.remove(tag);
+        }
 
         // change attributes
         if (tag.equalsIgnoreCase("b")) {
-            attributes.put(TextAttribute.WEIGHT, TextAttribute.WEIGHT_REGULAR);
+            this.attributes.add(new AttributeEntry(
+                begin,
+                clearedText.length(),
+                TextAttribute.WEIGHT,
+                TextAttribute.WEIGHT_BOLD));
         } else if (tag.equalsIgnoreCase("i")) {
-            attributes.put(TextAttribute.POSTURE, TextAttribute.POSTURE_REGULAR);
+            this.attributes.add(new AttributeEntry(
+                begin,
+                clearedText.length(),
+                TextAttribute.POSTURE,
+                TextAttribute.POSTURE_OBLIQUE));
         } else if (tag.equalsIgnoreCase("s") || tag.equalsIgnoreCase("strike")) {
-            attributes.remove(TextAttribute.STRIKETHROUGH);
+            this.attributes.add(new AttributeEntry(
+                begin,
+                clearedText.length(),
+                TextAttribute.STRIKETHROUGH,
+                TextAttribute.STRIKETHROUGH_ON));
         } else if (tag.equalsIgnoreCase("udash")) {
-            attributes.remove(TextAttribute.UNDERLINE);
+            this.attributes.add(new AttributeEntry(
+                begin,
+                clearedText.length(),
+                TextAttribute.UNDERLINE,
+                TextAttribute.UNDERLINE_LOW_DASHED));
         } else if (tag.equalsIgnoreCase("udot")) {
-            attributes.remove(TextAttribute.UNDERLINE);
+            this.attributes.add(new AttributeEntry(
+                begin,
+                clearedText.length(),
+                TextAttribute.UNDERLINE,
+                TextAttribute.UNDERLINE_LOW_DOTTED));
         } else if (tag.equalsIgnoreCase("u")) {
-            attributes.remove(TextAttribute.UNDERLINE);
+            this.attributes.add(new AttributeEntry(
+                begin,
+                clearedText.length(),
+                TextAttribute.UNDERLINE,
+                TextAttribute.UNDERLINE_ON));
         } else if (tag.equalsIgnoreCase("tt")) {
-            attributes.put(TextAttribute.FAMILY, fontFamilyStack.pop());
+            this.attributes.add(new AttributeEntry(
+                begin,
+                clearedText.length(),
+                TextAttribute.FAMILY,
+                fontFamilyStack.pop()));
         } else if (tag.equalsIgnoreCase("v")) {
-            vertical = false;
+            // vertical = false;
         } else if (tag.equalsIgnoreCase("over")) {
-            if (print) {
-                LineMetrics metrics = graphics.getFont().getLineMetrics(mM,
-                        graphics.getFontRenderContext());
-                float ascent = metrics.getAscent();
-                GeneralPath path = new GeneralPath();
-                path.moveTo(overlineStart, y - ascent);
-                path.lineTo(overlineEnd, y - ascent);
-                graphics.draw(path);
-            }
+            this.attributes.add(new AttributeEntry(
+                begin,
+                clearedText.length(),
+                TextAttribute.UNDERLINE,
+                UNDERLINE_OVERLINE));
         } else if (tag.equalsIgnoreCase("sup")) {
-            attributes.remove(TextAttribute.SUPERSCRIPT);
+
+            // FIXME: not quite clear why this is necessary
+            this.attributes.add(new AttributeEntry(
+                begin,
+                clearedText.length(),
+                TextAttribute.TRANSFORM,
+                AffineTransform.getTranslateInstance(0, superscriptCorrection)));
+
+            this.attributes.add(new AttributeEntry(
+                begin,
+                clearedText.length(),
+                TextAttribute.SUPERSCRIPT,
+                TextAttribute.SUPERSCRIPT_SUPER));
+
         } else if (tag.equalsIgnoreCase("sub")) {
-            attributes.remove(TextAttribute.SUPERSCRIPT);
+
+            // FIXME: not quite clear why this is necessary
+            this.attributes.add(new AttributeEntry(
+                begin,
+                clearedText.length(),
+                TextAttribute.TRANSFORM,
+                AffineTransform.getTranslateInstance(0, -superscriptCorrection)));
+
+            this.attributes.add(new AttributeEntry(
+                begin,
+                clearedText.length(),
+                TextAttribute.SUPERSCRIPT,
+                TextAttribute.SUPERSCRIPT_SUB));
         } else {
             return super.closeTag(tag);
         }
 
         // set the font
-        graphics.setFont(new Font(attributes));
         return "";
     }
 
     /**
-     * calculates miny und maxy for {@link #stringSize(TagString)}. If
+     * calculates miny und maxy for {@link #createTextLayout(TagString, double)}. If
      * {@link #print} is set, text is drawed using
      * {@link Graphics2D#drawString(String, float, float)} of
      * {@link #graphics}
@@ -199,36 +283,64 @@ public class GenericTagHandler extends TagHandler {
      * @return unmodified text parameter
      */
     protected String text(String text) {
-        Font font = graphics.getFont();
-
-        // calculate the "real" width, works for italic fonts too
-        TextLayout layout = new TextLayout(text, font, graphics.getFontRenderContext());
-        float width = Math.max(
-            layout.getAdvance(),
-            (float) layout.getBounds().getWidth());
-
-        // move X position in case we had something vertical before
-        if ((!vertical) && (buffered > 0)) {
-            x += buffered;
-            buffered = 0;
-        }
-
-        if (print) {
-            graphics.drawString(text, x, y);
-        }
-
-        if (vertical) {
-            buffered = Math.max(buffered, width);
-            overlineEnd = x + width;
-        } else {
-            x += width;
-            overlineEnd = x;
-        }
-
-        // store the minimum values for stringSize(TagString)
-        miny = Math.min(miny, y - layout.getAscent());
-        maxy = Math.max(maxy, y + layout.getDescent());
+        // appand text as cleared
+        clearedText.append(text);
 
         return text;
+    }
+
+    /**
+     * Helper to store an TextAttribute, its value and the range
+     * it should cover in <code>text</code>. Entries are created
+     * by {@link GenericTagHandler#closeTag(String)} and apllied
+     * in {@link GenericTagHandler#print(TagString, double, double, double)}
+     */
+    private class AttributeEntry {
+
+        /**
+         * start offset in text
+         */
+        private int begin;
+
+        /**
+         * end position for TextAttribute in text
+         */
+        private int end;
+
+        /**
+         * the TextAttribute key to layout the text,
+         * e.g. TextAttribute.WEIGHT
+         */
+        private TextAttribute textAttribute;
+
+        /**
+         * the TextAttribute key to layout the text,
+         * e.g. TextAttribute.WEIGHT_BOLD
+         */
+        private Object value;
+
+        /**
+         * stores the given parameters
+         *
+         * @param begin
+         * @param end
+         * @param textAttribute
+         * @param value
+         */
+        protected AttributeEntry(int begin, int end, TextAttribute textAttribute, Object value) {
+            this.begin = begin;
+            this.end = end;
+            this.textAttribute = textAttribute;
+            this.value = value;
+        }
+
+        /**
+         * apply the stored attributes to as
+         *
+         * @param as
+         */
+        protected void apply(AttributedString as) {
+            as.addAttribute(textAttribute,  value,  begin,  end);
+        }
     }
 }

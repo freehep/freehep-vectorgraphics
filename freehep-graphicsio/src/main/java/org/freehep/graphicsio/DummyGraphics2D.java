@@ -1,7 +1,16 @@
 // Copyright 2000-2006, FreeHEP
 package org.freehep.graphicsio;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.GraphicsConfiguration;
+import java.awt.Paint;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.TexturePaint;
 import java.awt.geom.AffineTransform;
 import java.awt.image.RenderedImage;
 import java.io.IOException;
@@ -14,7 +23,7 @@ import org.freehep.graphics2d.VectorGraphics;
  * serves as an example to start the implementation for a new output format.
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/DummyGraphics2D.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/DummyGraphics2D.java cba39eb5843a 2006/03/20 18:04:28 duns $
  */
 public class DummyGraphics2D extends AbstractVectorGraphicsIO {
     /*

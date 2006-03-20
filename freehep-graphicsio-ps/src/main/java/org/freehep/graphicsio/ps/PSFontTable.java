@@ -3,9 +3,12 @@ package org.freehep.graphicsio.ps;
 
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
+import java.awt.font.TextAttribute;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Properties;
 
 import org.freehep.graphics2d.font.CharTable;
@@ -21,7 +24,7 @@ import org.freehep.graphicsio.font.FontTable;
  * standard font. If it is unknown it is not substituted.
  * 
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSFontTable.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSFontTable.java cba39eb5843a 2006/03/20 18:04:28 duns $
  */
 public class PSFontTable extends FontTable {
 
@@ -64,97 +67,190 @@ public class PSFontTable extends FontTable {
             // e.setReference(standardfontName)
             return;
         }
+        
         fontIncluder
                 .includeFont(e.getFont(), e.getEncoding(), e.getReference());
         out.flush();
     }
 
-/*
-    private static boolean isStandardFont(Font font) {
-        String fontName = font.getName().toLowerCase();
-        return (fontName.indexOf("helvetica") >= 0)
-                || (fontName.indexOf("avantgarde") >= 0)
-                || (fontName.indexOf("bookman") >= 0)
-                || (fontName.indexOf("courier") >= 0)
-                || (fontName.indexOf("newcenturysclbk") >= 0)
-                || (fontName.indexOf("palatino") >= 0)
-                || (fontName.indexOf("times") >= 0)
-                || (fontName.indexOf("zapfdingbats") >= 0)
-                || (fontName.indexOf("zapfchancery") >= 0)
-                || (fontName.indexOf("symbol") >= 0);
-    }
-*/
-    /*
-     * public static String toStandardFontName(Font font) { String oblique =
-     * "Oblique"; boolean setstyle = true; String fontName = ""; String
-     * oFontName = font.getName().toLowerCase(); if
-     * ((oFontName.indexOf("sansserif") >= 0) || (oFontName.indexOf("helvetica") >=
-     * 0)) { fontName = "Helvetica"; } else if ((oFontName.indexOf("times") >=
-     * 0) || (oFontName.indexOf("serif") >= 0)) { fontName = "Times"; oblique =
-     * "Italic"; } else if ((oFontName.indexOf("courier") >= 0)) { fontName =
-     * "Courier"; } else if ((oFontName.indexOf("dingbats") >= 0)) { fontName =
-     * "ZapfDingbats"; setstyle = false; } else if ((oFontName.indexOf("symbol") >=
-     * 0)) { fontName = "Symbol"; setstyle = false; } else { fontName =
-     * "Helvetica"; }
-     * 
-     * if (setstyle) { boolean hyphen = false; if (font.isItalic()) { fontName +=
-     * "-"+oblique; hyphen = true; } if (font.isBold()) { fontName += (hyphen ? "" :
-     * "-") + "Bold"; } } return fontName; }
+    /**
+     * Java font names -> PS Font names, used by {@link #normalize(java.util.Map)}
      */
-
-    private static final Properties psFontNames = new Properties();
+    private static final Properties replaceFonts = new Properties();
     static {
-        psFontNames.setProperty("TimesRoman", "Times-Roman");
-        psFontNames.setProperty("TimesRoman-Italic", "Times-Italic");
-        psFontNames.setProperty("TimesRoman-Bold", "Times-Bold");
-        psFontNames.setProperty("TimesRoman-BoldItalic", "Times-BoldItalic");
-        psFontNames.setProperty("Helvetica-Italic", "Helvetica-Oblique");
-        psFontNames
-                .setProperty("Helvetica-BoldItalic", "Helvetica-BoldOblique");
-        psFontNames.setProperty("Courier-Italic", "Courier-Oblique");
-        psFontNames.setProperty("Courier-BoldItalic", "Courier-BoldOblique");
-        psFontNames.setProperty("Avantgarde-Italic", "Avantgarde-Oblique");
-        psFontNames.setProperty("Avantgarde-BoldItalic",
-                "Avantgarde-BoldOblique");
-        psFontNames.setProperty("Symbol-Italic", "Symbol");
-        psFontNames.setProperty("Symbol-Bold", "Symbol");
-        psFontNames.setProperty("Symbol-BoldItalic", "Symbol");
-        psFontNames.setProperty("ZapfDingbats-Italic", "ZapfDingbats");
-        psFontNames.setProperty("ZapfDingbats-Bold", "ZapfDingbats");
-        psFontNames.setProperty("ZapfDingbats-BoldItalic", "ZapfDingbats");
+        replaceFonts.setProperty("timesroman", "Times");
+        replaceFonts.setProperty("dialog", "Helvetica");
+        replaceFonts.setProperty("dialoginput", "Helvetica");
+        // FIXME: works well on windows, others?
+        replaceFonts.setProperty("serif", "Times");
+        replaceFonts.setProperty("sansserif", "Helvetica");
+        // FIXME: works well on windows, others?
+        replaceFonts.setProperty("monospaced", "Courier-New");
+        replaceFonts.setProperty("typewriter", "Courier-New");
     }
 
+    /**
+     * fonts that have no TextAttribute.WEIGHT and TextAttribute.POSTURE,
+     * used by {@link #createFontReference(java.awt.Font)}
+     */
+    private static final HashSet ignoreAtributes = new HashSet();
+    static {
+        ignoreAtributes.add("Symbol");
+        ignoreAtributes.add("ZapfDingbats");
+    }
+
+    /**
+     * removes any transformation and superscript, changes the names
+     * to PS font name
+     *
+     * @param font
+     * @return derived font
+     */
     protected Font substituteFont(Font font) {
-        return font;
+        Map attributes = font.getAttributes();
+        // change names
+        // normalize(attributes);
+        // remove transformations
+        attributes.remove(TextAttribute.TRANSFORM);
+        attributes.remove(TextAttribute.SUPERSCRIPT);
+        return new Font(attributes);
     }
 
     /**
      * Uses the font name as a reference. Whitespace is stripped. The font style
      * (italic/bold) is added as a suffix delimited by a dash.
+     * Uses {@link #normalize(java.util.Map)}
      */
     protected String createFontReference(Font font) {
-        String fontName = font.getName();
+        Map /*<TextAttribute, ?>*/ attributes = font.getAttributes();
+        normalize(attributes);
 
-        StringBuffer psFontName = new StringBuffer();
-        for (int i = 0; i < fontName.length(); i++) {
-            char c = fontName.charAt(i);
-            if (!Character.isWhitespace(c)) {
-                psFontName.append(c);
+        // replace the name
+        StringBuffer result = new StringBuffer();
+
+        // insert family at the end because oft the "-" between
+        // name and TextAttribute
+        String family = (String) attributes.get(TextAttribute.FAMILY);
+
+        // weight
+        Object weight = ignoreAtributes.contains(family) ?
+            null : attributes.get(TextAttribute.WEIGHT);
+
+        if (TextAttribute.WEIGHT_BOLD.equals(weight)) {
+            result.append("Bold");
+        } else if (TextAttribute.WEIGHT_DEMIBOLD.equals(weight)) {
+            result.append("DemiBold");
+        } else if (TextAttribute.WEIGHT_DEMILIGHT.equals(weight)) {
+            result.append("DemiLight");
+        } else if (TextAttribute.WEIGHT_EXTRA_LIGHT.equals(weight)) {
+            result.append("ExtraLight");
+        } else if (TextAttribute.WEIGHT_EXTRABOLD.equals(weight)) {
+            result.append("ExtraBold");
+        } else if (TextAttribute.WEIGHT_HEAVY.equals(weight)) {
+            result.append("Heavy");
+        } else if (TextAttribute.WEIGHT_LIGHT.equals(weight)) {
+            result.append("Light");
+        } else if (TextAttribute.WEIGHT_MEDIUM.equals(weight)) {
+            result.append("Medium");
+        } else if (TextAttribute.WEIGHT_REGULAR.equals(weight)) {
+            // result.append("WRegular");
+        } else if (TextAttribute.WEIGHT_SEMIBOLD.equals(weight)) {
+            result.append("SemiBold");
+        } else if (TextAttribute.WEIGHT_ULTRABOLD.equals(weight)) {
+            result.append("UltraBold");
+        }
+
+        // italic
+        Object posture = ignoreAtributes.contains(family) ?
+            null : attributes.get(TextAttribute.POSTURE);
+
+        if (TextAttribute.POSTURE_OBLIQUE.equals(posture)) {
+            if (family.equals("Times")) {
+                result.append("Italic");
+            } else {
+                result.append("Oblique");
             }
+        } else if (TextAttribute.POSTURE_REGULAR.equals(posture)) {
+            // result.append("IRegular");
         }
 
-        boolean hyphen = false;
-        if (font.isBold()) {
-            hyphen = true;
-            psFontName.append("-Bold");
-        }
-        if (font.isItalic()) {
-            psFontName.append((hyphen ? "" : "-") + "Italic");
+        // Times -> Times-Roman
+        if (family.equals("Times") && result.length() == 0) {
+            result.append("Roman");
         }
 
-        fontName = psFontName.toString();
-        fontName = psFontNames.getProperty(fontName, fontName);
-        return fontName;
+        // underline is not a specific font
+        // Object ul = font.getAttributes().get(TextAttribute.UNDERLINE);
+        // if (TextAttribute.UNDERLINE_LOW_DASHED.equals(ul)) {
+        //     result.append("UnderlineLowDashed");
+        // } else if (TextAttribute.UNDERLINE_LOW_DOTTED.equals(ul)) {
+        //     result.append("UnderlineLowDotted");
+        // } else if (TextAttribute.UNDERLINE_LOW_GRAY.equals(ul)) {
+        //     result.append("UnderlineLowGray");
+        // } else if (TextAttribute.UNDERLINE_LOW_ONE_PIXEL.equals(ul)) {
+        //     result.append("UnderlineLowOnePixel");
+        // } else if (TextAttribute.UNDERLINE_ON.equals(ul)) {
+        //     result.append("Underline");
+        // }
+
+        // strike through is not a specific font
+        // if (font.getAttributes().get(TextAttribute.STRIKETHROUGH) != null) {
+        //     result.append("StrikeThrough");
+        // }
+
+        // width is not a specific font
+        // Object width = font.getAttributes().get(TextAttribute.WIDTH);
+        // if (TextAttribute.WIDTH_CONDENSED.equals(width)) {
+        //     result.append("Condensed");
+        // } else if (TextAttribute.WIDTH_EXTENDED.equals(width)) {
+        //     result.append("Extended");
+        // } else if (TextAttribute.WIDTH_REGULAR.equals(width)) {
+        //    // result.append("WRegular");
+        // } else if (TextAttribute.WIDTH_SEMI_CONDENSED.equals(width)) {
+        //     result.append("SemiCondensed");
+        // } else if (TextAttribute.WIDTH_SEMI_EXTENDED.equals(width)) {
+        //     result.append("SemiExtended");
+        // }
+
+        // insert "name-" at the beginning or return plain "name"
+        if (result.length() > 0) {
+            result.insert(0, "-");
+            result.insert(0, attributes.get(TextAttribute.FAMILY));
+        } else {
+            result.append(attributes.get(TextAttribute.FAMILY));
+        }
+
+        return result.toString();
     }
 
+    /**
+     * Replaces TextAttribute.FAMILY by values of replaceFonts.
+     * Whitespace is family name stripped. When a
+     * font created using the result of this method the transformation would be:
+     *
+     * <code>java.awt.Font[family=SansSerif,name=SansSerif,style=plain,size=30]</code><BR>
+     * will result to:<BR>
+     * <code>java.awt.Font[family=SansSerif,name=Helvetica,style=plain,size=30]</code><BR><BR>
+     *
+     * Uses {@link FontTable#normalize(java.util.Map)} first.
+     *
+     * @param attributes with font name to change
+     */
+    public static void normalize(Map /*<TextAttribute, ?>*/ attributes) {
+        // dialog.bold -> Dialog with TextAttribute.WEIGHT_BOLD
+        FontTable.normalize(attributes);
+
+        // get replaced font family name (Yes it's right, not the name!)
+        String family = replaceFonts.getProperty(
+            ((String) attributes.get(TextAttribute.FAMILY)).toLowerCase());
+        if (family == null) {
+            family = (String) attributes.get(TextAttribute.FAMILY);
+        }
+
+        // remove spaces
+        family = family.replaceAll(" ", "");
+
+        // store family
+        attributes.put(TextAttribute.FAMILY, family);
+    }
 }

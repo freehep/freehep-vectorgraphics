@@ -20,7 +20,6 @@ import java.awt.Stroke;
 import java.awt.Transparency;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
-import java.awt.font.LineMetrics;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -40,15 +39,15 @@ import org.freehep.graphics2d.font.FontEncoder;
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/PixelGraphics2D.java 40d86979195e 2006/02/27 19:52:33 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/PixelGraphics2D.java cba39eb5843a 2006/03/20 18:04:28 duns $
  */
 public class PixelGraphics2D extends AbstractVectorGraphics {
 
     public final static RenderingHints.Key KEY_SYMBOL_BLIT = new SymbolBlitKey();
 
-    public final static Object VALUE_SYMBOL_BLIT_ON = new Boolean(true);
+    public final static Object VALUE_SYMBOL_BLIT_ON = Boolean.TRUE;
 
-    public final static Object VALUE_SYMBOL_BLIT_OFF = new Boolean(false);
+    public final static Object VALUE_SYMBOL_BLIT_OFF = Boolean.FALSE;
 
     static class SymbolBlitKey extends RenderingHints.Key {
         public SymbolBlitKey() {
@@ -590,99 +589,6 @@ public class PixelGraphics2D extends AbstractVectorGraphics {
 
     public void setClip(double x, double y, double width, double height) {
         setClip(new Rectangle2D.Double(x, y, width, height));
-    }
-
-    // //
-    // These methods are specific to the VectorGraphics interfaces.
-    // //
-
-    public void drawString(TagString str, double x, double y) {
-        tagHandler.print(str, x, y);
-    }
-
-    public void drawString(String str, double x, double y, int horizontal,
-            int vertical, boolean framed, Color frameColor, double frameWidth,
-            boolean banner, Color bannerColor) {
-
-        LineMetrics metrics = getFont().getLineMetrics(str,
-                getFontRenderContext());
-
-        // Get the size of the string.
-        double w = getFont().getStringBounds(str, getFontRenderContext())
-                .getWidth();
-        double h = metrics.getHeight();
-        double d = metrics.getDescent();
-        double adjustment = (getFont().getSize2D() * 2) / 10;
-
-        // Move the cursor to adjust for the alignment.
-        x = getXalignment(x, w, horizontal);
-        y = getYalignment(y, metrics.getAscent(), metrics.getDescent(),
-                vertical);
-
-        // Calculate the box size for the banner.
-        double rx = x - adjustment;
-        double ry = y - h + d - adjustment;
-        double rw = w + 2 * adjustment;
-        double rh = h + 2 * adjustment;
-
-        if (banner) {
-            Color color = getColor();
-            setColor(bannerColor);
-            fillRect(rx, ry, rw, rh);
-            setColor(color);
-        }
-
-        if (framed) {
-            Color color = getColor();
-            Stroke cs = getStroke();
-            setColor(frameColor);
-            setStroke(new BasicStroke((float) frameWidth));
-            drawRect(rx, ry, rw, rh);
-            setStroke(cs);
-            setColor(color);
-        }
-
-        drawString(str, x, y);
-    }
-
-    public void drawString(TagString str, double x, double y, int horizontal,
-            int vertical, boolean framed, Color frameColor, double frameWidth,
-            boolean banner, Color bannerColor) {
-
-        // Get the full string size. Calculate the descent and the
-        // banner adjustment.
-        Rectangle2D r = tagHandler.stringSize(str);
-        double descent = r.getY() + r.getHeight();
-        double adjustment = (getFont().getSize2D() * 2) / 10;
-
-        // Move the cursor to adjust for the alignment.
-        x = getXalignment(x, r.getWidth(), horizontal);
-        y = getYalignment(y, -r.getY(), descent, vertical);
-
-        // Calculate the box size for the banner.
-        double rx = x - adjustment;
-        double ry = y - r.getHeight() + descent - adjustment;
-        double rw = r.getWidth() + 2 * adjustment;
-        double rh = r.getHeight() + 2 * adjustment;
-
-        if (banner) {
-            Color color = getColor();
-            setColor(bannerColor);
-            fillRect(rx, ry, rw, rh);
-            setColor(color);
-        }
-
-        if (framed) {
-            Color color = getColor();
-            Stroke cs = hostGraphics.getStroke();
-            setColor(frameColor);
-            setStroke(new BasicStroke((float) frameWidth));
-            drawRect(rx, ry, rw, rh);
-            setStroke(cs);
-            setColor(color);
-        }
-
-        tagHandler.print(str, x, y);
     }
 
     public String toString() {

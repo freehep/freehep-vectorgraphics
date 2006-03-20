@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+
 import org.freehep.graphics2d.VectorGraphics;
 import org.freehep.graphicsio.test.TestingPanel;
 

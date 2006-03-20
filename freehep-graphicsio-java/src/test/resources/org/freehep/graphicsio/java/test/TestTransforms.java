@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.geom.AffineTransform;
+
 import org.freehep.graphics2d.VectorGraphics;
 import org.freehep.graphicsio.java.JAVAGeneralPath;
 import org.freehep.graphicsio.test.TestingPanel;

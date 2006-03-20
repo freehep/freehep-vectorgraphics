@@ -56,7 +56,7 @@ import org.freehep.util.UserProperties;
  *
  * @author Simon Fischer
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java cbe5b99bb13b 2006/03/09 21:55:10 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java cba39eb5843a 2006/03/20 18:04:28 duns $
  */
 public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -156,7 +156,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
         defaultProperties.setProperty(SUBJECT, "");
         defaultProperties.setProperty(KEYWORDS, "");
 
-	defaultProperties.setProperty(CLIP,         true);
+        defaultProperties.setProperty(CLIP, true);
     }
 
     public static Properties getDefaultProperties() {

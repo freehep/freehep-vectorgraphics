@@ -33,6 +33,7 @@ import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Stack;
 import java.util.StringTokenizer;
@@ -54,11 +55,11 @@ import org.freehep.xml.util.XMLWriter;
 /**
  * This class implements the Scalable Vector Graphics output. SVG specifications
  * can be found at http://www.w3c.org/Graphics/SVG/
- * 
+ *
  * The current implementation is based on REC-SVG11-20030114
- * 
+ *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java cbe5b99bb13b 2006/03/09 21:55:10 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java cba39eb5843a 2006/03/20 18:04:28 duns $
  */
 public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
@@ -124,6 +125,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         defaultProperties.setProperty(CLIP, true);
 
         defaultProperties.setProperty(EMBED_FONTS, false);
+        defaultProperties.setProperty(TEXT_AS_SHAPES, false);
     }
 
     public static Properties getDefaultProperties() {
@@ -340,7 +342,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
     /**
      * Writes the font definitions and calls {@link #writeGraphicsRestore()} to
      * close all open XML Tags
-     * 
+     *
      * @throws IOException
      */
     public void writeTrailer() throws IOException {
@@ -455,8 +457,10 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         result.append("\n</g> <!-- drawing style -->");
 
         // write in a transformed context
-        os.println(getTransformedString(getTransform(), getClippedString(result
-                .toString())));
+        os.println(
+            getTransformedString(
+                getTransform(),
+                getClippedString(result.toString())));
     }
 
     /* 5.2. Images */
@@ -608,21 +612,25 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
     private String getFontString(Font font) {
         StringBuffer svgFont = new StringBuffer();
 
+        // attribute for font properties
+        Map /*<TextAttribute, ?>*/ attributes = font.getAttributes();
+
+        // dialog.bold -> Helvetica with TextAttribute.WEIGHT_BOLD
+        SVGFontTable.normalize(attributes);
+
+        // family
         svgFont.append("font-family:");
+        svgFont.append(attributes.get(TextAttribute.FAMILY));
 
-        if (isProperty(EMBED_FONTS)) {
-            svgFont.append(fontTable.getEmbeddedFontName(getFont()));
-        } else {
-            svgFont.append(getFont().getFamily());
-        }
-
-        if (getFont().isBold()) {
+        // weight
+        if (TextAttribute.WEIGHT_BOLD.equals(attributes.get(TextAttribute.WEIGHT))) {
             svgFont.append(";font-weight:bold");
         } else {
             svgFont.append(";font-weight:normal");
         }
 
-        if (getFont().isItalic()) {
+        // posture
+        if (TextAttribute.POSTURE_OBLIQUE.equals(attributes.get(TextAttribute.POSTURE))) {
             svgFont.append(";font-style:italic");
         } else {
             svgFont.append(";font-style:normal");
@@ -653,9 +661,9 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             svgFont.append("line-through");
         }
 
-        int size = getFont().getSize();
+        Float size = (Float) attributes.get(TextAttribute.SIZE);
         svgFont.append(";font-size:");
-        svgFont.append(size);
+        svgFont.append(fixedPrecision(size.floatValue()));
         svgFont.append(";");
 
         return svgFont.toString();
@@ -716,7 +724,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
     /**
      * return the style tag for the stroke
-     * 
+     *
      * @param s
      *            Stroke to convert
      * @param all
@@ -929,7 +937,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
     /**
      * Encapsulates a SVG-Tag by the given transformation matrix
-     * 
+     *
      * @param t
      *            Transformation
      * @param s
@@ -965,7 +973,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
     /**
      * Encapsulates a SVG-Tag by the current clipping area matrix
-     * 
+     *
      * @param s
      *            SVG-Tag
      */
@@ -973,7 +981,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         StringBuffer result = new StringBuffer();
 
         // clipping
-        if (getClip() != null && isProperty(CLIP)) {
+        if (isProperty(CLIP) && getClip() != null) {
             // SVG uses unique lip numbers, don't reset allways increment them
             clipNumber.set(clipNumber.getInt() + 1);
 
@@ -994,7 +1002,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         result.append(s);
 
         // close clipping
-        if (getClip() != null && isProperty(CLIP)) {
+        if (isProperty(CLIP) && getClip() != null) {
             result.append("\n</g> <!-- clip");
             result.append(clipNumber.getInt());
             result.append(" -->");

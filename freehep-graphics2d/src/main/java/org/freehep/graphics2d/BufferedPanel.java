@@ -4,7 +4,6 @@ package org.freehep.graphics2d;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-//import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.awt.print.PrinterGraphics;
 
@@ -15,7 +14,7 @@ import javax.swing.JPanel;
  * used in situations in which redrawing the contents of the panel is expensive.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/BufferedPanel.java 7aee336a8992 2005/11/25 23:19:05 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/BufferedPanel.java cba39eb5843a 2006/03/20 18:04:28 duns $
  */
 public class BufferedPanel extends JPanel implements java.io.Serializable {
 

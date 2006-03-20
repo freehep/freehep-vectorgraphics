@@ -5,6 +5,7 @@ package org.freehep.graphicsio.java.test;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+
 import org.freehep.graphics2d.TagString;
 import org.freehep.graphics2d.VectorGraphics;
 import org.freehep.graphicsio.test.TestingPanel;

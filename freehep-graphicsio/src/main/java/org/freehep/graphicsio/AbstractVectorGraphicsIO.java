@@ -23,12 +23,11 @@ import java.awt.TexturePaint;
 import java.awt.Toolkit;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
-import java.awt.font.LineMetrics;
+import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.NoninvertibleTransformException;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
@@ -41,11 +40,9 @@ import java.awt.image.renderable.RenderContext;
 import java.awt.image.renderable.RenderableImage;
 import java.io.IOException;
 import java.text.AttributedCharacterIterator;
-import java.util.Map;
 import java.util.Arrays;
+import java.util.Map;
 
-import org.freehep.graphics2d.GenericTagHandler;
-import org.freehep.graphics2d.TagString;
 import org.freehep.util.images.ImageUtilities;
 
 /**
@@ -54,7 +51,8 @@ import org.freehep.util.images.ImageUtilities;
  *
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java db80b97becbb 2006/03/09 01:16:21 duns $
+ * @author Steffen Greiffenberg
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java cba39eb5843a 2006/03/20 18:04:28 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -571,62 +569,86 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
         }
     }
 
-    // FIXME, maybe can move up more
-    public void drawString(String str, double x, double y, int horizontal,
-            int vertical, boolean framed, Color frameColor, double frameWidth,
-            boolean banner, Color bannerColor) {
-
-        	LineMetrics metrics = getFont().getLineMetrics(str,
-        		getFontRenderContext());
-        	double width = getFont().getStringBounds(str,
-        		getFontRenderContext()).getWidth();
-        	double height = metrics.getHeight();
-        	double descent = metrics.getDescent();
-        	Rectangle2D textSize = new Rectangle2D.Double(0, descent - height,
-        		width, height);
-        	double adjustment = (getFont().getSize2D() * 2) / 10;
-
-        	Point2D textUL = drawFrameAndBanner(x, y, textSize, adjustment,
-        		framed, frameColor, frameWidth, banner, bannerColor,
-        		horizontal, vertical);
-
-        	drawString(str, textUL.getX(), textUL.getY());
-    }
-
-    // FIXME, maybe can move up more
-    public void drawString(TagString str, double x, double y, int horizontal,
-            int vertical, boolean framed, Color frameColor, double frameWidth,
-            boolean banner, Color bannerColor) {
-
-		GenericTagHandler tagHandler = new GenericTagHandler(this);
-		Rectangle2D r = tagHandler.stringSize(str);
-		double adjustment = (getFont().getSize2D() * 2) / 10;
-
-        	Point2D textUL = drawFrameAndBanner(x, y, r, adjustment, framed,
-        		frameColor, frameWidth, banner, bannerColor, horizontal,
-        		vertical);
-
-        	tagHandler.print(str, textUL.getX(), textUL.getY());
-    }
-
     protected abstract void writeString(String string, double x, double y)
             throws IOException;
 
+    /**
+     * Use the transformation of the glyphvector and draw it
+     *
+     * @param g
+     * @param x
+     * @param y
+     */
     public void drawGlyphVector(GlyphVector g, float x, float y) {
         fill(g.getOutline(x, y));
     }
 
     public void drawString(AttributedCharacterIterator iterator, float x,
             float y) {
-        // NOTE: ignores all attributes,
-        // a better implementation can be found at:
-        // http://cvs.sourceforge.net/viewcvs.py/itext/src/com/lowagie/text/pdf/PdfGraphics2D.java?rev=1.27&view=auto
-        StringBuffer sb = new StringBuffer();
-        for (char c = iterator.first(); c != AttributedCharacterIterator.DONE; c = iterator
-                .next()) {
-            sb.append(c);
+
+        // TextLayout draws the itarator as glyph vector
+        // thatswhy we use it only in the case of TEXT_AS_SHAPES,
+        // otherwise tagged strings are always written as glyphs
+        if (isProperty(TEXT_AS_SHAPES)) {
+            // draws all attributes
+            TextLayout tl = new TextLayout(iterator, getFontRenderContext());
+            tl.draw(this, x, y);
+        } else {
+            // reset to that font at the end
+            Font font = getFont();
+
+            // initial attributes, we us TextAttribute.equals() rather
+            // than Font.equals() because using Font.equals() we do
+            // not get a 'false' if underline etc. is changed
+            Map/*<TextAttribute, ?>*/ attributes = font.getAttributes();
+
+            // stores all characters which are written with the same font
+            // if font is changed the buffer will be written and cleared
+            // after it
+            StringBuffer sb = new StringBuffer();
+
+            for (char c = iterator.first();
+                 c != AttributedCharacterIterator.DONE;
+                 c = iterator.next()) {
+
+                // append c if font is not changed
+                if (attributes.equals(iterator.getAttributes())) {
+                    sb.append(c);
+
+                } else {
+                    // draw sb if font is changed
+                    drawString(sb.toString(), x, y);
+
+                    // change the x offset for the next drawing
+                    // FIXME: change y offset for vertical text
+                    TextLayout tl = new TextLayout(
+                        sb.toString(),
+                        attributes,
+                        getFontRenderContext());
+
+                    // calculate real width
+                    x = x + Math.max(
+                        tl.getAdvance(),
+                        (float)tl.getBounds().getWidth());
+
+                    // empty sb
+                    sb = new StringBuffer();
+                    sb.append(c);
+
+                    // change the font
+                    attributes = iterator.getAttributes();
+                    setFont(new Font(attributes));
+                }
+            }
+
+            // draw the rest
+            if (sb.length() > 0) {
+                drawString(sb.toString(), x, y);
+            }
+
+            // use the old font for the next string drawing
+            setFont(font);
         }
-        drawString(sb.toString(), x, y);
     }
 
     /*
@@ -1330,36 +1352,24 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
         }
     }
 
-    private Point2D drawFrameAndBanner(double x, double y,
-            Rectangle2D textSize, double adjustment, boolean framed,
-            Color frameColor, double frameWidth, boolean banner,
-            Color bannerColor, int horizontal, int vertical) {
+    /**
+     * Draws an overline for the text at (x, y). The method is usesefull for
+     * drivers that do not support overlines by itself.
+     *
+     * @param text text for width calulation
+     * @param font font for width calulation
+     * @param x position of text
+     * @param y position of text
+     */
+    protected void overLine(String text, Font font, float x, float y) {
+        TextLayout layout = new TextLayout(text, font, getFontRenderContext());
+        float width = Math.max(
+            layout.getAdvance(),
+            (float) layout.getBounds().getWidth());
 
-        double descent = textSize.getY() + textSize.getHeight();
-        x = getXalignment(x, textSize.getWidth(), horizontal);
-        y = getYalignment(y, textSize.getHeight(), descent, vertical);
-
-        double rx = x - adjustment;
-        double ry = y - textSize.getHeight() + descent - adjustment;
-        double rw = textSize.getWidth() + 2 * adjustment;
-        double rh = textSize.getHeight() + 2 * adjustment;
-
-        if (banner) {
-            Paint paint = getPaint();
-            setColor(bannerColor);
-            fillRect(rx, ry, rw, rh);
-            setPaint(paint);
-        }
-        if (framed) {
-            Paint paint = getPaint();
-            Stroke stroke = getStroke();
-            setColor(frameColor);
-            setLineWidth(frameWidth);
-            drawRect(rx, ry, rw, rh);
-            setPaint(paint);
-            setStroke(stroke);
-        }
-
-        return new Point2D.Double(x, y);
+        GeneralPath path = new GeneralPath();
+        path.moveTo(x, y + (float) layout.getBounds().getY() - layout.getAscent());
+        path.lineTo(x + width, y + (float) layout.getBounds().getY() - layout.getAscent() - layout.getAscent());
+        draw(path);
     }
 }

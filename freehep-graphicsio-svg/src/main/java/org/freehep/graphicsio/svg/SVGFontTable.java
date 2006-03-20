@@ -4,30 +4,35 @@ package org.freehep.graphicsio.svg;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
-import java.awt.font.LineMetrics;
 import java.awt.font.TextAttribute;
+import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
-import java.util.HashMap;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
 
+import org.freehep.graphicsio.font.FontTable;
+
 /**
- * A table to remember which fonts were used while writing a svg file.
+ * A table to remember which glyphs were used while writing a svg file.
  * Entries are added by calling {@link #addGlyphs(String, java.awt.Font)}.
  * The final SVG tag for the <defs> section is generated using {@link #toString()}.
- * Use {@link #getEmbeddedFontName(java.awt.Font)} for referencing embedded fonts
+ * Use {@link #normalize(java.util.Map)} for referencing embedded glyphs
  * in <text> tags.
  *
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGFontTable.java cbe5b99bb13b 2006/03/09 21:55:10 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGFontTable.java cba39eb5843a 2006/03/20 18:04:28 duns $
  */
 public class SVGFontTable {
 
     /**
-     * stores fonts and a glyph-hastable
+     * Stores fonts and a glyph-hashtable. The font key ist normalized using
+     * {@link #untransform(java.awt.Font)}
      */
-    private Hashtable fonts = new Hashtable();
+    private Hashtable/*<Font, Hashtable<String, SVGGlyph>*/ glyphs =
+        new Hashtable/*<Font, Hashtable<String SVGGlyph>>*/();
 
     /**
      * creates a glyph for the string character
@@ -38,7 +43,7 @@ public class SVGFontTable {
      */
     private SVGGlyph addGlyph(int c, Font font) {
         // is the font stored?
-        Hashtable glyphs = getGlyphs(font);
+        Hashtable/*<String, SVGGlyph>*/ glyphs = getGlyphs(font);
 
         // does a glyph allready exist?
         SVGGlyph result = (SVGGlyph) glyphs.get(String.valueOf(c));
@@ -66,7 +71,10 @@ public class SVGFontTable {
             String.valueOf((char) c));
 
         // create and store the SVG Glyph
-        return new SVGGlyph(glyphVector.getGlyphOutline(0), c, glyphVector.getGlyphMetrics(0));
+        return new SVGGlyph(
+            glyphVector.getGlyphOutline(0),
+            c,
+            glyphVector.getGlyphMetrics(0));
     }
 
     /**
@@ -74,78 +82,85 @@ public class SVGFontTable {
      * 
      * @param string
      * @param font
-     * @return unique font name
      */
-    protected String addGlyphs(String string, Font font) {
-        font = substituteFont(font);
+    protected void addGlyphs(String string, Font font) {
+        font = untransform(font);
 
         // add characters
         for (int i = 0; i < string.length(); i ++) {
             addGlyph(string.charAt(i), font);
         }
-        return getEmbeddedFontName(font);
     }
 
     /**
      * @param font
      * @return glyph vectors for font
      */
-    private Hashtable getGlyphs(Font font) {
+    private Hashtable/*<String SVGGlyph>*/ getGlyphs(Font font) {
         // derive a default font for the font table
-        font = substituteFont(font);
+        font = untransform(font);
 
-        Hashtable result = (Hashtable) fonts.get(font);
+        Hashtable/*<String SVGGlyph>*/ result =
+            (Hashtable/*<String SVGGlyph>*/) glyphs.get(font);
         if (result == null) {
-            result = new Hashtable();
-            fonts.put(font, result);
+            result = new Hashtable/*<String SVGGlyph>*/();
+            glyphs.put(font, result);
         }
         return result;
     }
 
     /**
      * creates the font entry:
-     * <p/>
+     * <PRE>
      * <font>
      * <glyph ... />
      * ...
      * </font>
+     * </PRE>
      *
      * @return string representing the entry
      */
     public String toString() {
         StringBuffer result = new StringBuffer();
 
-        Iterator fonts = this.fonts.keySet().iterator();
-        while (fonts.hasNext()) {
-            Font font = (Font) fonts.next();
+        Enumeration/*<Font>*/ fonts = this.glyphs.keys();
+        while (fonts.hasMoreElements()) {
+            Font font = (Font) fonts.nextElement();
+
+            // replace font family for svg
+            Map /*<TextAttribute, ?>*/ attributes = font.getAttributes();
+
+            // Dialog -> Helvetica
+            normalize(attributes);
 
             // familiy
             result.append("<font id=\"");
-            result.append(getEmbeddedFontName(font));
+            result.append(attributes.get(TextAttribute.FAMILY));
             result.append("\">\n");
 
             // font-face
             result.append("<font-face font-family=\"");
-            result.append(getEmbeddedFontName(font));
+            result.append(attributes.get(TextAttribute.FAMILY));
             result.append("\" ");
 
             // bold
-            if (font.isBold()) {
+            if (TextAttribute.WEIGHT_BOLD.equals(attributes.get(TextAttribute.WEIGHT))) {
                 result.append("font-weight=\"bold\" ");
             } else {
                 result.append("font-weight=\"normal\" ");
             }
 
             // italic
-            if (font.isItalic()) {
+            if (TextAttribute.POSTURE_OBLIQUE.equals(attributes.get(TextAttribute.POSTURE))) {
                 result.append("font-style=\"italic\" ");
             } else {
                 result.append("font-style=\"normal\" ");
             }
 
             // size
+            Float size = (Float) attributes.get(TextAttribute.SIZE);
             result.append("font-size=\"");
-            result.append(SVGGraphics2D.fixedPrecision(font.getSize2D()));
+            result.append(SVGGraphics2D.fixedPrecision(size.floatValue()));
             result.append("\" ");
 
             // number of coordinate units on the em square,
@@ -154,21 +169,21 @@ public class SVGFontTable {
             result.append(SVGGraphics2D.fixedPrecision(SVGGlyph.FONT_SIZE));
             result.append("\" ");
 
-            LineMetrics lm = font.getLineMetrics("By", new FontRenderContext(new AffineTransform(), true, true));
+            TextLayout tl = new TextLayout("By", font, new FontRenderContext(new AffineTransform(), true, true));
 
             // The maximum unaccented height of the font within the font coordinate system.
             // If the attribute is not specified, the effect is as if the attribute were set
             // to the difference between the units-per-em value and the vert-origin-y value
             // for the corresponding font.
             result.append("ascent=\"");
-            result.append(lm.getAscent());
+            result.append(tl.getAscent());
             result.append("\" ");
 
             // The maximum unaccented depth of the font within the font coordinate system.
             // If the attribute is not specified, the effect is as if the attribute were set
             // to the vert-origin-y value for the corresponding font.
             result.append("desscent=\"");
-            result.append(lm.getDescent());
+            result.append(tl.getDescent());
             result.append("\" ");
 
             // For horizontally oriented glyph layouts, indicates the alignment
@@ -201,140 +216,70 @@ public class SVGFontTable {
     }
 
     /**
-     * font replacements makes SVG in AdobeViewer look better, firefox replaces
-     * all font settings, even the family fame
-     */
-    private static final Properties replaceFonts = new Properties();
-    static {
-        replaceFonts.setProperty("Dialog", "Helvetica");
-        replaceFonts.setProperty("DialogInput", "Helvetica");
-        replaceFonts.setProperty("Serif", "TimesRoman");
-        replaceFonts.setProperty("SansSerif", "Helvetica");
-        // replaceFonts.setProperty("Monospaced", "Courier");
-    }
-
-    /**
-     * creates a font based on the parameter. The size will be {@link SVGGlyph.FONT_SIZE},
-     * transformation will be removed and the family name is replaced using
-     * {@link  SVGFontTable.replaceFonts}.
+     * creates a font based on the parameter. The size will be {@link SVGGlyph.FONT_SIZE}
+     * and transformation will be removed. Example:<BR>
+     * <code>java.awt.Font[family=SansSerif,name=SansSerif,style=plain,size=30]</code><BR>
+     * will result to:<BR>
+     * <code>java.awt.Font[family=SansSerif,name=SansSerif,style=plain,size=100]</code><BR><BR>
+     *
+     * This method does not substitute font name or family.
      *
      * @param font
      * @return font based on the parameter
      */
-    protected Font substituteFont(Font font) {
-        HashMap attributes = new HashMap(font.getAttributes());
+    private Font untransform(Font font) {
+        // replace font family
+        Map /*<TextAttribute, ?>*/ attributes = font.getAttributes();
 
         // set default font size
         attributes.put(TextAttribute.SIZE, new Float(SVGGlyph.FONT_SIZE));
 
         // remove font transformation
         attributes.remove(TextAttribute.TRANSFORM);
-
-        // replace font family
-        String replacedFamiliy = replaceFonts.getProperty((String) attributes.get(TextAttribute.FAMILY));
-        if (replacedFamiliy != null) {
-            attributes.put(TextAttribute.FAMILY, replacedFamiliy);
-        }
+        attributes.remove(TextAttribute.SUPERSCRIPT);
 
         return new Font(attributes);
     }
 
     /**
-     * replaces the font name using {@link  SVGFontTable.replaceFonts} and adds
-     * Bold, Italic, Underline, UnderStroke
-     *
-     * @param font
-     * @return unique name for font
+     * font replacements makes SVG in AdobeViewer look better, firefox replaces
+     * all font settings, even the family fame
      */
-    protected String getFontName(Font font) {
-        // replace font family
-        String replacedFamiliy = replaceFonts.getProperty(font.getFamily());
-        if (replacedFamiliy != null) {
-            return replacedFamiliy;
-        } else {
-            return font.getFamily();
-        }
+    private static final Properties replaceFonts = new Properties();
+    static {
+        replaceFonts.setProperty("dialog", "Helvetica");
+        replaceFonts.setProperty("dialoginput", "Helvetica");
+        // FIXME: works well on windows, others?
+        replaceFonts.setProperty("serif", "TimesRoman");
+        replaceFonts.setProperty("sansserif", "Helvetica");
+        // FIXME: works well on windows, others?
+        replaceFonts.setProperty("monospaced", "Courier-New");
     }
 
     /**
-     * replaces the font name using {@link  SVGFontTable.replaceFonts} and adds
-     * Bold, Italic, Underline, UnderStroke etc.
+     * Replaces TextAttribute.FAMILY by values of replaceFonts. When a
+     * font created using the result of this method the transformation would be:
      *
-     * @param font
-     * @return unique name for font
+     * <code>java.awt.Font[family=SansSerif,name=SansSerif,style=plain,size=30]</code><BR>
+     * will result to:<BR>
+     * <code>java.awt.Font[family=SansSerif,name=Helvetica,style=plain,size=30]</code><BR><BR>
+     *
+     * Uses {@link FontTable#normalize(java.util.Map)} first.
+     *
+     * @param attributes with font name to change
      */
-    protected String getEmbeddedFontName(Font font) {
-        // replace the name
-        StringBuffer result = new StringBuffer(getFontName(font));
+    public static void normalize(Map /*<TextAttribute, ?>*/ attributes) {
+        // dialog.bold -> Dialog with TextAttribute.WEIGHT_BOLD
+        FontTable.normalize(attributes);
 
-        // weight
-        Object weight = font.getAttributes().get(TextAttribute.WEIGHT);
-        if (TextAttribute.WEIGHT_BOLD.equals(weight)) {
-            result.append("Bold");
-        } else if (TextAttribute.WEIGHT_DEMIBOLD.equals(weight)) {
-            result.append("DemiBold");
-        } else if (TextAttribute.WEIGHT_DEMILIGHT.equals(weight)) {
-            result.append("DemiLight");
-        } else if (TextAttribute.WEIGHT_EXTRA_LIGHT.equals(weight)) {
-            result.append("ExtraLight");
-        } else if (TextAttribute.WEIGHT_EXTRABOLD.equals(weight)) {
-            result.append("ExtraBold");
-        } else if (TextAttribute.WEIGHT_HEAVY.equals(weight)) {
-            result.append("Heavy");
-        } else if (TextAttribute.WEIGHT_LIGHT.equals(weight)) {
-            result.append("Light");
-        } else if (TextAttribute.WEIGHT_MEDIUM.equals(weight)) {
-            result.append("Medium");
-        } else if (TextAttribute.WEIGHT_REGULAR.equals(weight)) {
-            result.append("WRegular");
-        } else if (TextAttribute.WEIGHT_SEMIBOLD.equals(weight)) {
-            result.append("SemiBold");
-        } else if (TextAttribute.WEIGHT_ULTRABOLD.equals(weight)) {
-            result.append("UltraBold");
+        // get replaced font family name (Yes it's right, not the name!)
+        String family = replaceFonts.getProperty(
+            ((String) attributes.get(TextAttribute.FAMILY)).toLowerCase());
+        if (family == null) {
+            family = (String) attributes.get(TextAttribute.FAMILY);
         }
 
-        // italic
-        Object posture = font.getAttributes().get(TextAttribute.POSTURE);
-        if (TextAttribute.POSTURE_OBLIQUE.equals(posture)) {
-            result.append("Italic");
-        } else if (TextAttribute.POSTURE_REGULAR.equals(posture)) {
-            result.append("Plain");
-        }
-
-        // underline
-        Object ul = font.getAttributes().get(TextAttribute.UNDERLINE);
-        if (TextAttribute.UNDERLINE_LOW_DASHED.equals(ul)) {
-            result.append("UnderlineLowDashed");
-        } else if (TextAttribute.UNDERLINE_LOW_DOTTED.equals(ul)) {
-            result.append("UnderlineLowDotted");
-        } else if (TextAttribute.UNDERLINE_LOW_GRAY.equals(ul)) {
-            result.append("UnderlineLowGray");
-        } else if (TextAttribute.UNDERLINE_LOW_ONE_PIXEL.equals(ul)) {
-            result.append("UnderlineLowOnePixel");
-        } else if (TextAttribute.UNDERLINE_ON.equals(ul)) {
-            result.append("Underline");
-        }
-
-        // strike through
-        if (font.getAttributes().get(TextAttribute.STRIKETHROUGH) != null) {
-            result.append("StrikeThrough");
-        }
-
-        // width
-        Object width = font.getAttributes().get(TextAttribute.WIDTH);
-        if (TextAttribute.WIDTH_CONDENSED.equals(width)) {
-            result.append("Condensed");
-        } else if (TextAttribute.WIDTH_EXTENDED.equals(width)) {
-                result.append("Extended");
-        } else if (TextAttribute.WIDTH_REGULAR.equals(width)) {
-                result.append("WRegular");
-        } else if (TextAttribute.WIDTH_SEMI_CONDENSED.equals(width)) {
-                result.append("SemiCondensed");
-        } else if (TextAttribute.WIDTH_SEMI_EXTENDED.equals(width)) {
-                result.append("SemiExtended");
-        }
-
-        return result.toString();
+        // replace the family (Yes it's right, not the name!) in the attributes
+        attributes.put(TextAttribute.FAMILY, family);
     }
-
 }

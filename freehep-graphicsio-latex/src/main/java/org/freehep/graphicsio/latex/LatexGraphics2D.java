@@ -1,7 +1,18 @@
 // Copyright 2004-2006, FreeHEP
 package org.freehep.graphicsio.latex;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.GraphicsConfiguration;
+import java.awt.Paint;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.TexturePaint;
 import java.awt.geom.AffineTransform;
 import java.awt.image.RenderedImage;
 import java.io.File;
@@ -17,7 +28,7 @@ import org.freehep.util.ScientificFormat;
 /**
  * @author Andre Bach
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-latex/src/main/java/org/freehep/graphicsio/latex/LatexGraphics2D.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
+ * @version $Id: freehep-graphicsio-latex/src/main/java/org/freehep/graphicsio/latex/LatexGraphics2D.java cba39eb5843a 2006/03/20 18:04:28 duns $
  */
 public class LatexGraphics2D extends AbstractVectorGraphicsIO {
     /*

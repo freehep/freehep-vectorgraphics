@@ -10,10 +10,13 @@ import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
+import java.awt.font.TextLayout;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.text.AttributedCharacterIterator;
@@ -24,11 +27,13 @@ import org.freehep.util.UserProperties;
 /**
  * This class implements all conversions from integer to double as well as a few
  * other convenience functions. It also handles the different drawSymbol and
- * fillSymbol methods and print colors.
+ * fillSymbol methods and print colors. The drawing of framed strings is
+ * broken down to lower level methods.
  * 
  * @author Simon Fischer
  * @author Mark Donszelmann
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/AbstractVectorGraphics.java 598da61f5e3e 2006/03/09 23:13:52 duns $
+ * @author Steffen Greiffenberg
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/AbstractVectorGraphics.java cba39eb5843a 2006/03/20 18:04:28 duns $
  */
 public abstract class AbstractVectorGraphics extends VectorGraphics {
 
@@ -354,6 +359,162 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
         drawString(iterator, (float) x, (float) y);
     }
 
+    /**
+     * Draws frame and banner for a TextLayout, which is used for
+     * calculation auf ajustment
+     *
+     * @param tl TextLayout for frame calculation
+     * @param x coordinate to draw string
+     * @param y coordinate to draw string
+     * @param horizontal alignment of the text
+     * @param vertical alignment of the text
+     * @param framed true if text is surrounded by a frame
+     * @param frameColor color of the frame
+     * @param frameWidth witdh of the frame
+     * @param banner true if the frame is filled by a banner
+     * @param bannerColor color of the banner
+     * @return Offset for the string inside the frame
+     */
+    private Point2D drawFrameAndBanner(TextLayout tl, double x, double y, int horizontal,
+            int vertical, boolean framed, Color frameColor, double frameWidth,
+            boolean banner, Color bannerColor) {
+
+        // calculate string bounds for alignment
+        Rectangle2D bounds = tl.getBounds();
+
+        // calculate real bounds
+        bounds.setRect(
+            bounds.getX(),
+            bounds.getY(),
+            // care for Italic fonts too
+            Math.max(tl.getAdvance(), bounds.getWidth()),
+            bounds.getHeight());
+
+        // add x and y
+        AffineTransform at = AffineTransform.getTranslateInstance(x, y);
+
+        // horizontal alignment
+        if (horizontal == TEXT_RIGHT) {
+            at.translate(- bounds.getWidth(), 0);
+        } else if (horizontal == TEXT_CENTER) {
+            at.translate(- bounds.getWidth() / 2, 0);
+        }
+
+        // vertical alignment
+        if (vertical == TEXT_BASELINE) {
+            // no translation needed
+        } else if (vertical == TEXT_TOP) {
+            at.translate(0, - bounds.getY());
+        } else if (vertical == TEXT_CENTER) {
+            // the following adds supersript ascent too,
+            // so it does not work
+            // at.translate(0, tl.getAscent() / 2);
+            // this is nearly the same
+            at.translate(0, tl.getDescent());
+        } else if (vertical == TEXT_BOTTOM) {
+            at.translate(0, - bounds.getHeight() - bounds.getY());
+        }
+
+        // transform the bounds
+        bounds = at.createTransformedShape(bounds).getBounds2D();
+        // create the result with the same transformation
+        Point2D result = at.transform(new Point2D.Double(0, 0), new Point2D.Double());
+
+        // space between string and border
+        double adjustment = (getFont().getSize2D() * 2) / 10;
+
+        // add the adjustment
+        bounds.setRect(
+            bounds.getX() - adjustment,
+            bounds.getY() - adjustment,
+            bounds.getWidth() + 2 * adjustment,
+            bounds.getHeight() + 2 * adjustment);
+
+        if (banner) {
+            Paint paint = getPaint();
+            setColor(bannerColor);
+            fill(bounds);
+            setPaint(paint);
+        }
+        if (framed) {
+            Paint paint = getPaint();
+            Stroke stroke = getStroke();
+            setColor(frameColor);
+            setLineWidth(frameWidth);
+            draw(bounds);
+            setPaint(paint);
+            setStroke(stroke);
+        }
+
+        return result;
+    }
+
+    /**
+     * Draws frame, banner and aligned text inside
+     *
+     * @param str text to be drawn
+     * @param x coordinate to draw string
+     * @param y coordinate to draw string
+     * @param horizontal alignment of the text
+     * @param vertical alignment of the text
+     * @param framed true if text is surrounded by a frame
+     * @param frameColor color of the frame
+     * @param frameWidth witdh of the frame
+     * @param banner true if the frame is filled by a banner
+     * @param bannerColor color of the banner
+     */
+    public void drawString(String str, double x, double y, int horizontal,
+            int vertical, boolean framed, Color frameColor, double frameWidth,
+            boolean banner, Color bannerColor) {
+
+        // change the x offset for the next drawing
+        // FIXME: change y offset for vertical text
+        TextLayout tl = new TextLayout(
+            str,
+            getFont().getAttributes(),
+            getFontRenderContext());
+
+        // draw the frame
+        Point2D offset = drawFrameAndBanner(
+            tl, x, y, horizontal, vertical,
+            framed, frameColor, frameWidth, banner, bannerColor);
+
+        // draw the string
+        drawString(str, offset.getX(), offset.getY());
+    }
+
+    /**
+     * Draws the tagged string parsed by a {@link TagHandler} and adds a
+     * border specified by the parameters
+     *
+     * @param str Tagged text to be drawn
+     * @param x coordinate to draw string
+     * @param y coordinate to draw string
+     * @param horizontal alignment of the text
+     * @param vertical alignment of the text
+     * @param framed true if text is surrounded by a frame
+     * @param frameColor color of the frame
+     * @param frameWidth witdh of the frame
+     * @param banner true if the frame is filled by a banner
+     * @param bannerColor color of the banner
+     */
+    public void drawString(TagString str, double x, double y, int horizontal,
+            int vertical, boolean framed, Color frameColor, double frameWidth,
+            boolean banner, Color bannerColor) {
+
+		GenericTagHandler tagHandler = new GenericTagHandler(this);
+		TextLayout tl = tagHandler.createTextLayout(str, getFont().getSize2D() / 7.5);
+
+        // draw the frame
+        Point2D offset = drawFrameAndBanner(
+            tl, x, y, horizontal, vertical,
+            framed, frameColor, frameWidth, banner, bannerColor);
+
+        // FIXME: not quite clear why correction is needed
+        // see {@link GenericTagHandler#superscriptCorrection
+        tagHandler.print(str, offset.getX(), offset.getY(), getFont().getSize2D() / 7.5);
+    }
+
     // ------------------ other wrapper methods ----------------
 
     public void drawString(String str, double x, double y, int horizontal,
@@ -430,7 +591,7 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
     /**
      * Gets the current paint.
      * 
-     * @param paint current paint
+     * @return paint current paint
      */
     public Paint getPaint() {
         return currentPaint;

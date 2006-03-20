@@ -13,7 +13,6 @@ import java.awt.Insets;
 import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.TexturePaint;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
@@ -30,7 +29,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.Hashtable;
+import java.util.Map;
 import java.util.Properties;
 
 import org.freehep.graphics2d.PrintColor;
@@ -53,7 +52,7 @@ import org.freehep.util.io.FlateOutputStream;
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java cbe5b99bb13b 2006/03/09 21:55:10 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java cba39eb5843a 2006/03/20 18:04:28 duns $
  */
 public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -106,6 +105,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         defaultProperties.setProperty(ORIENTATION, PageConstants.PORTRAIT);
         defaultProperties.setProperty(FIT_TO_PAGE, true);
         defaultProperties.setProperty(EMBED_FONTS, false);
+        defaultProperties.setProperty(TEXT_AS_SHAPES, true);
         defaultProperties.setProperty(EMBED_FONTS_AS,
                 FontConstants.EMBED_FONTS_TYPE3);
 
@@ -130,8 +130,6 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
 
     public static final int LEVEL_3 = 3;
 
-    private static final double FONTSIZE_CORRECTION = 1.0;
-
     // remember which fonts are used
     private PSFontTable fontTable;
 
@@ -145,60 +143,6 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
     private int currentPage;
 
     private int postscriptLevel = LEVEL_3;
-
-    // Private array to do lookups of the symbols.
-    private static String[] psSymbolNames = new String[NUMBER_OF_SYMBOLS];
-
-    private static Hashtable compositeFonts = new Hashtable();
-
-    static {
-
-        for (int i = 0; i < NUMBER_OF_SYMBOLS; i++) {
-            psSymbolNames[i] = "plus";
-        }
-        psSymbolNames[SYMBOL_VLINE] = "vline";
-        psSymbolNames[SYMBOL_HLINE] = "hline";
-        psSymbolNames[SYMBOL_PLUS] = "plus";
-        psSymbolNames[SYMBOL_CROSS] = "cross";
-        psSymbolNames[SYMBOL_STAR] = "star";
-        psSymbolNames[SYMBOL_CIRCLE] = "dot";
-        psSymbolNames[SYMBOL_BOX] = "box";
-        psSymbolNames[SYMBOL_UP_TRIANGLE] = "triup";
-        psSymbolNames[SYMBOL_DN_TRIANGLE] = "tridn";
-        psSymbolNames[SYMBOL_DIAMOND] = "diamond";
-
-        // these fonts are composite fonts in the prolog
-        compositeFonts.put("SansSerif", "");
-        compositeFonts.put("SansSerif-Bold", "");
-        compositeFonts.put("SansSerif-Italic", "");
-        compositeFonts.put("SansSerif-BoldItalic", "");
-
-        compositeFonts.put("Serif", "");
-        compositeFonts.put("Serif-Bold", "");
-        compositeFonts.put("Serif-Italic", "");
-        compositeFonts.put("Serif-BoldItalic", "");
-
-        compositeFonts.put("Monospaced", "");
-        compositeFonts.put("Monospaced-Bold", "");
-        compositeFonts.put("Monospaced-Italic", "");
-        compositeFonts.put("Monospaced-BoldItalic", "");
-
-        compositeFonts.put("Dialog", "");
-        compositeFonts.put("Dialog-Bold", "");
-        compositeFonts.put("Dialog-Italic", "");
-        compositeFonts.put("Dialog-BoldItalic", "");
-
-        compositeFonts.put("DialogInput", "");
-        compositeFonts.put("DialogInput-Bold", "");
-        compositeFonts.put("DialogInput-Italic", "");
-        compositeFonts.put("DialogInput-BoldItalic", "");
-
-        // JDK 1.1
-        compositeFonts.put("Typewriter", "");
-        compositeFonts.put("Typewriter-Bold", "");
-        compositeFonts.put("Typewriter-Italic", "");
-        compositeFonts.put("Typewriter-BoldItalic", "");
-    }
 
     // Private array to do lookups of the horizontal and vertical
     // alignments.
@@ -552,34 +496,6 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
      * 5. Drawing Methods
      * ================================================================================
      */
-    private String escapeString(String str) {
-
-        // Convert to unicode encoded string first if Font is not embedded
-        // and Font is a composite font
-        if (!isProperty(EMBED_FONTS)
-                && isComposite(fontTable.fontReference(getFont(),
-                        isProperty(EMBED_FONTS), getProperty(EMBED_FONTS_AS)))) {
-            return convertToUnicodeString(str);
-        }
-
-        // Then protect against unbalanced parentheses in the string.
-        // Copy string to temporary string buffer.
-        StringBuffer temp = new StringBuffer(str);
-
-        // Loop over all characters in the string and escape the
-        // parentheses.
-        int i = 0;
-        while (i < temp.length()) {
-            char c = temp.charAt(i);
-            if (c == '(' || c == ')' || c == '\\' || c == '%')
-                temp.insert(i++, '\\');
-            if (c == 0)
-                temp.setCharAt(i, '?');
-            i++;
-        }
-        return temp.toString();
-    }
-
     /* 5.1.4. shapes */
     public void draw(Shape shape) {
         try {
@@ -943,91 +859,92 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
      * 10. Private/Utility
      * ================================================================================
      */
-    private String convertToUnicodeString(String str) {
-
-        // Start with an empty buffer and copy the string contents
-        // into it.
-        StringBuffer codedString = new StringBuffer();
-
-        for (int i = 0; i < str.length(); i++) {
-            int chr = (int) str.charAt(i);
-            int cvalue = (chr & 0x000000ff);
-            int fvalue = (chr & 0x0000ff00) >>> 8;
-            String cbyte = Integer.toOctalString(cvalue);
-            String fbyte = Integer.toOctalString(fvalue);
-
-            // Put in the font byte first.
-            codedString.append('\\');
-            for (int j = 0; j < (3 - fbyte.length()); j++) {
-                codedString.append('0');
-            }
-            codedString.append(fbyte);
-
-            // Now the character itself. Put in non-printable
-            // characters, the backslash, the percent sign, and
-            // parentheses as octal numbers instead.
-            if (cvalue < 32 || cvalue > 126 || cvalue == '\\' || cvalue == '%'
-                    || cvalue == '(' || cvalue == ')') {
-                codedString.append('\\');
-                for (int j = 0; j < (3 - cbyte.length()); j++) {
-                    codedString.append('0');
-                }
-                codedString.append(cbyte);
-            } else {
-                codedString.append((char) cvalue);
-            }
-        }
-        return codedString.toString();
-    }
-
+    /**
+     * Write the string <code>str</code> the the stream. Method is used by
+     * {@link FontUtilities#showString(java.awt.Font, String,
+     * org.freehep.graphics2d.font.CharTable,
+     * org.freehep.graphicsio.font.FontUtilities.ShowString)} or
+     * {@link #showCharacterCodes(String, double, double)} depending on the
+     * settings font embedding.
+     *
+     * @param font font to use
+     * @param str string to draw
+     */
     public void showString(Font font, String str) {
-        // write font
-        String fontName = fontTable.fontReference(font,
-            isProperty(EMBED_FONTS), getProperty(EMBED_FONTS_AS));
-        os.println("/" + fontName + " findfont " + font.getSize()
-            * FONTSIZE_CORRECTION + " scalefont setfont");
+        StringBuffer result = new StringBuffer();
+        Map /*<TextAttribute,?>*/ attributes = font.getAttributes();
+        PSFontTable.normalize(attributes);
+        // write font name
+        String fontName = fontTable.fontReference(
+            font,
+            isProperty(EMBED_FONTS),
+            getProperty(EMBED_FONTS_AS));
+        result.append("/");
+        result.append(fontName);
+        result.append(" findfont ");
+        result.append(font.getSize());
+        result.append(" scalefont setfont");
 
-        AffineTransform t = font.getTransform();
-        if (!t.isIdentity()) {
-            os.println("gsave");
-            try {
-                writeTransform(font.getTransform());
-            } catch (IOException e) {
-                handleException(e);
-            }
+        // use embeded fonts or draw string directly
+        if (isProperty(EMBED_FONTS)) {
+            // write string directly
+            result.append("\n");
+            result.append(PSStringStyler.getEscaped(str));
+            result.append(" show");
+        } else {
+            // write string as styled unicode char sequence
+            result.append(" ");
+            result.append(PSStringStyler.getStyledString(attributes, str));
+            result.append(" recshow");
         }
 
-        os.println("(" + escapeString(str) + ") show");
-
-        if (!t.isIdentity()) {
-            os.println("grestore");
-        }
+        // write the result
+        os.println(result.toString());
     }
 
-    private void showCharacterCodes(String str, double x, double y) {
-        try {
-            // FIXME: the translation of font is added here, because
-            // as part of the matrix in showString() it is ignored,
-            // the reason is not quite clear
-            os.println(
-                fixedPrecision(x + getFont().getTransform().getTranslateX()) + " " +
-                fixedPrecision(y + getFont().getTransform().getTranslateY()) + " moveto");
-            os.println("q 1 -1 scale");
-            if (!isProperty(EMBED_FONTS)
-                    && isComposite(fontTable.fontReference(getFont(),
-                            isProperty(EMBED_FONTS),
-                            getProperty(EMBED_FONTS_AS)))) {
-                // use PS header for unicode to composite font encoding
-                showString(getFont(), str);
-            } else {
-                // use embedded font encodings for unicode to PS
-                FontUtilities.showString(getFont(), str, fontTable
-                        .getEncodingTable(), this);
-            }
-            os.println("Q");
-        } catch (java.io.IOException e) {
-            handleException(e);
+    /**
+     * Draws <code>str</code> to the stream. Uses the font transformation and depending on
+     * {@link PSGraphics2D.EMBED_FONTS} the method {@link #showString(java.awt.Font, String)}
+     * or {@link FontUtilities#showString(java.awt.Font, String, org.freehep.graphics2d.font.CharTable,
+     * org.freehep.graphicsio.font.FontUtilities.ShowString)} ;
+     *
+     * @param str string to draw
+     * @param x coordinate for drawing
+     * @param y coordinate for drawing
+     */
+    private void showCharacterCodes(String str, double x, double y) throws IOException {
+        // push a copy of the current graphics state on the graphics state stack
+        os.println("q ");
+        // move to string position. This is done by transformation because
+        // after a "moveto" command all translations by a transformation
+        // are ignored and font transformation should be used after the
+        // general one.
+        AffineTransform at = new AffineTransform(1, 0, 0, 1, x, y);
+        // aplly font transformation, e.g. vertical offset and scaling
+        // for TextAttribut.SUPERSUBSCRIPT
+        at.concatenate(getFont().getTransform());
+        // flip vertically
+        at.scale(1, -1);
+        // write transformation
+        writeTransform(at);
+        // move to drawing position, nedded to open a drawing path
+        os.println(fixedPrecision(0) + " " + fixedPrecision(0) + " moveto");
+        // embed font or draw string directly
+        if (isProperty(EMBED_FONTS)) {
+            // use embedded font encodings for unicode to PS
+            FontUtilities.showString(
+                getFont(),
+                str,
+                fontTable.getEncodingTable(),
+                this);
+        } else {
+            // use PS header for unicode to composite font encoding
+            showString(getFont(), str);
         }
+
+        // reset the current graphics state from the one on the top
+        // of the graphics state stack and pop the graphics state stack
+        os.println("Q");
     }
 
     /**
@@ -1081,10 +998,6 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
     }
 */
     
-    private static boolean isComposite(String name) {
-        return compositeFonts.containsKey(name);
-    }
-
     private ScientificFormat scientific = new ScientificFormat(6, 9, false);
 
     public String fixedPrecision(double d) {
