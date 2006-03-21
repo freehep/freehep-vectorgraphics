@@ -52,7 +52,7 @@ import org.freehep.util.io.FlateOutputStream;
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java cba39eb5843a 2006/03/20 18:04:28 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java 966f9837ffda 2006/03/21 01:21:19 duns $
  */
 public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -105,7 +105,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         defaultProperties.setProperty(ORIENTATION, PageConstants.PORTRAIT);
         defaultProperties.setProperty(FIT_TO_PAGE, true);
         defaultProperties.setProperty(EMBED_FONTS, false);
-        defaultProperties.setProperty(TEXT_AS_SHAPES, true);
+        defaultProperties.setProperty(TEXT_AS_SHAPES, false);
         defaultProperties.setProperty(EMBED_FONTS_AS,
                 FontConstants.EMBED_FONTS_TYPE3);
 

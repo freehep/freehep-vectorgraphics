@@ -33,10 +33,10 @@ import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Hashtable;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Stack;
-import java.util.StringTokenizer;
+import java.util.Enumeration;
+import java.util.Map;
 import java.util.zip.GZIPOutputStream;
 
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
@@ -59,7 +59,7 @@ import org.freehep.xml.util.XMLWriter;
  * The current implementation is based on REC-SVG11-20030114
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java cba39eb5843a 2006/03/20 18:04:28 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java 966f9837ffda 2006/03/21 01:21:19 duns $
  */
 public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
@@ -80,6 +80,10 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
     public static final String COMPRESS = rootKey + ".Binary";
 
+    /**
+     * use style="font-size:20" instaed of font-size="20"
+     * see {@link #style(java.util.Properties)} for details
+     */
     public static final String STYLABLE = rootKey + ".Stylable";
 
     public static final String IMAGE_SIZE = rootKey + "."
@@ -111,7 +115,9 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
         defaultProperties.setProperty(VERSION, VERSION_1_1);
         defaultProperties.setProperty(COMPRESS, false);
-        defaultProperties.setProperty(STYLABLE, true);
+
+        defaultProperties.setProperty(STYLABLE, false);
+
         defaultProperties.setProperty(IMAGE_SIZE, new Dimension(0, 0)); // ImageSize
 
         defaultProperties.setProperty(EXPORT_IMAGES, false);
@@ -320,9 +326,12 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         os.println("</desc>");
 
         // write default stroke
-        os
-                .println("<g style=\"" + getStrokeString(defaultStroke, true)
-                        + "\">");
+        os.print("<g ");
+        Properties style = getStrokeProperties(defaultStroke,  true);
+        os.print(style(style));
+        os.println(">");
+
+        // close default settings at the end
         closeTags.push("</g> <!-- default stroke -->");
     }
 
@@ -391,8 +400,11 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         graphics.closeTags.push("</svg> <!-- graphics context -->");
 
         // write default stroke
-        os.println("<g style=\""
-                + getStrokeString(graphics.defaultStroke, true) + "\">");
+        os.print("<g ");
+        Properties style = getStrokeProperties(defaultStroke,  true);
+        os.print(style(style));
+        os.println(">");
+
         graphics.closeTags.push("</g> <!-- default stroke -->");
 
         return graphics;
@@ -415,43 +427,83 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
      */
     /* 5.1 shapes */
     /* 5.1.4. shapes */
+
+    /**
+     * Draws the shape using the current paint as border
+     *
+     * @param shape
+     */
     public void draw(Shape shape) {
-        draw(shape, false, true);
+        // others than BasicStrokes are written by its
+        // {@link Stroke#createStrokedShape()}
+        if (getStroke() instanceof BasicStroke) {
+            PathIterator path = shape.getPathIterator(null);
+
+            Properties style = new Properties();
+            if (getPaint() != null) {
+                style.put("stroke", hexColor(getPaint()));
+                style.put("stroke-opacity", fixedPrecision(alphaColor(getPaint())));
+            }
+
+            // no filling
+            style.put("fill", "none");
+            style.putAll(getStrokeProperties(getStroke(), false));
+
+            writePathIterator(path, style);
+        } else if (getStroke() != null) {
+            // fill the shape created by stroke
+            fill(getStroke().createStrokedShape(shape));
+        } else {
+            // FIXME: do nothing or draw using defaultStroke?
+            fill(defaultStroke.createStrokedShape(shape));
+        }
     }
 
+    /**
+     * Fills the shape without a border using the current paint
+     *
+     * @param shape
+     */
     public void fill(Shape shape) {
-        draw(shape, true, false);
-    }
+        PathIterator path = shape.getPathIterator(null);
 
-    private void draw(Shape s, boolean fill, boolean draw) {
-        StringBuffer result = new StringBuffer();
-
-        PathIterator path = s.getPathIterator(null);
-
-        // define style (color and stroke)
-        StringBuffer style = new StringBuffer();
-
-        style.append(getPaintString(
-        // when drawing use paint as "border"
-                draw ? getPaint() : null,
-                // when filling use paint as "filling"
-                fill ? getPaint() : null));
-
-        style.append(getStrokeString(getStroke(), false));
+        Properties style = new Properties();
 
         if (path.getWindingRule() == PathIterator.WIND_EVEN_ODD) {
-            style.append("fill-rule:evenodd;");
+            style.put("fill-rule", "evenodd");
         } else {
-            style.append("fill-rule:nonzero;");
+            style.put("fill-rule", "nonzero;");
         }
+
+        // fill with paint
+        if (getPaint() != null) {
+            style.put("fill", hexColor(getPaint()));
+            style.put("fill-opacity", fixedPrecision(alphaColor(getPaint())));
+        }
+
+        // no border
+        style.put("stroke", "none");
+
+        writePathIterator(path, style);
+    }
+
+    /**
+     * writes a path using {@link #getPath(java.awt.geom.PathIterator)}
+     * and the given style
+     *
+     * @param pi
+     * @param style Properties for <g> tag
+     */
+    private void writePathIterator(PathIterator pi, Properties style) {
+        StringBuffer result = new StringBuffer();
 
         // write style
         result.append("<g ");
-        result.append(style(style.toString()));
+        result.append(style(style));
         result.append(">\n  ");
 
         // draw shape
-        result.append(getPath(path));
+        result.append(getPath(pi));
 
         // close style
         result.append("\n</g> <!-- drawing style -->");
@@ -575,10 +627,25 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         // we could not just translate before and reverse translation after
         // writing because the clipping area
 
-        // create style
-        StringBuffer style = new StringBuffer(getPaintString(null, getPaint()));
-        style.append(getFontString(getFont()));
-        style.append(getStrokeString(getStroke(), false));
+        // create font properties
+        Properties style = getFontProperties(getFont());
+
+        // add stroke properties
+        if (getPaint() != null) {
+            style.put("fill", hexColor(getPaint()));
+            style.put("fill-opacity", fixedPrecision(alphaColor(getPaint())));
+        } else {
+            style.put("fill", "none");
+        }
+        style.put("stroke", "none");
+
+        // convert tags to string values
+        str = XMLWriter.normalizeText(str);
+
+        // replace leading space by &#00a0; otherwise firefox 1.5 fails
+        if (str.startsWith(" ")) {
+            str = "&#x00a0;" + str.substring(1);
+        }
 
         os.println(getTransformedString(
             // general transformation
@@ -593,24 +660,24 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
                         getFont().getTransform(),
                         "<text "
                             // style
-                            + style(style.toString())
+                            + style(style)
                             // coordiantes
                             + " x=\"0\" y=\"0\">"
                             // text
-                            + XMLWriter.normalizeText(str)
+                            + str
                             + "</text>")))));
     }
 
     /**
-     * Creates a tag list for the given font.
+     * Creates the properties list for the given font.
      * Family, size, bold italic, underline and strikethrough are converted.
      * {@link java.awt.font.TextAttribute#SUPERSCRIPT}
      * is handled by {@link java.awt.Font#getTransform()}
      *
-     * @return correspondig svg tags for the font
+     * @return properties in svg style  for the font
      */
-    private String getFontString(Font font) {
-        StringBuffer svgFont = new StringBuffer();
+    private Properties getFontProperties(Font font) {
+        Properties result = new Properties();
 
         // attribute for font properties
         Map /*<TextAttribute, ?>*/ attributes = font.getAttributes();
@@ -619,54 +686,50 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         SVGFontTable.normalize(attributes);
 
         // family
-        svgFont.append("font-family:");
-        svgFont.append(attributes.get(TextAttribute.FAMILY));
+        result.put("font-family", attributes.get(TextAttribute.FAMILY));
 
         // weight
         if (TextAttribute.WEIGHT_BOLD.equals(attributes.get(TextAttribute.WEIGHT))) {
-            svgFont.append(";font-weight:bold");
+            result.put("font-weight", "bold");
         } else {
-            svgFont.append(";font-weight:normal");
+            result.put("font-weight", "normal");
         }
 
         // posture
         if (TextAttribute.POSTURE_OBLIQUE.equals(attributes.get(TextAttribute.POSTURE))) {
-            svgFont.append(";font-style:italic");
+            result.put("font-style", "italic");
         } else {
-            svgFont.append(";font-style:normal");
+            result.put("font-style", "normal");
         }
 
         Object ul = font.getAttributes().get(TextAttribute.UNDERLINE);
         if (ul != null) {
             // underline style, only supported by CSS 3
             if (TextAttribute.UNDERLINE_LOW_DOTTED.equals(ul)) {
-                svgFont.append(";text-underline-style:dotted");
+                result.put("text-underline-style", "dotted");
             } else if (TextAttribute.UNDERLINE_LOW_DASHED.equals(ul)) {
-                svgFont.append(";text-underline-style:dashed");
+                result.put("text-underline-style", "dashed");
             } else if (TextAttribute.UNDERLINE_ON.equals(ul)) {
-                svgFont.append(";text-underline-style:solid");
+                result.put("text-underline-style", "solid");
             }
 
             // the underline itself, supported by CSS 2
-            svgFont.append(";text-decoration:underline");
+            result.put("text-decoration", "underline");
         }
 
         if (font.getAttributes().get(TextAttribute.STRIKETHROUGH) != null) {
             // is the property allready witten?
             if  (ul == null) {
-                svgFont.append(";text-decoration:");
+                result.put("text-decoration", "underline, line-through");
             } else {
-                svgFont.append(" ");
+                result.put("text-decoration", "line-through");
             }
-            svgFont.append("line-through");
         }
 
         Float size = (Float) attributes.get(TextAttribute.SIZE);
-        svgFont.append(";font-size:");
-        svgFont.append(fixedPrecision(size.floatValue()));
-        svgFont.append(";");
+        result.put("font-size", fixedPrecision(size.floatValue()));
 
-        return svgFont.toString();
+        return result;
     }
 
     /*
@@ -732,97 +795,88 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
      *            handled
      * @return corresponding style string
      */
-    private String getStrokeString(Stroke s, boolean all) {
+    private Properties getStrokeProperties(Stroke s, boolean all) {
+        Properties result = new Properties();
+
         // only BasisStrokes are written
         if (!(s instanceof BasicStroke)) {
-            return "";
+            return result;
         }
 
         BasicStroke stroke = (BasicStroke) s;
-        StringBuffer result = new StringBuffer();
 
         // append linecap
         if (all || (stroke.getEndCap() != defaultStroke.getEndCap())) {
-            result.append("stroke-linecap:");
             // append cap
             switch (stroke.getEndCap()) {
                 default:
                 case BasicStroke.CAP_BUTT:
-                    result.append("butt");
+                    result.put("stroke-linecap", "butt");
                     break;
                 case BasicStroke.CAP_ROUND:
-                    result.append("round");
+                    result.put("stroke-linecap", "round");
                     break;
                 case BasicStroke.CAP_SQUARE:
-                    result.append("square");
+                    result.put("stroke-linecap", "square");
                     break;
             }
-            result.append(";");
         }
 
         // append dasharray
         if (all
                 || !Arrays.equals(stroke.getDashArray(), defaultStroke
                         .getDashArray())) {
-            result.append("stroke-dasharray:");
             if (stroke.getDashArray() != null
                     && stroke.getDashArray().length > 0) {
+                StringBuffer array = new StringBuffer();
                 for (int i = 0; i < stroke.getDashArray().length; i++) {
                     if (i > 0) {
-                        result.append(",");
+                        array.append(",");
                     }
-                    result.append(fixedPrecision(stroke.getDashArray()[i]));
+                    array.append(fixedPrecision(stroke.getDashArray()[i]));
                 }
+                result.put("stroke-dasharray", array.toString());
             } else {
-                result.append("none");
+                result.put("stroke-dasharray", "none");
             }
-            result.append(";");
         }
 
         if (all || (stroke.getDashPhase() != defaultStroke.getDashPhase())) {
-            result.append("stroke-dashoffset:");
-            result.append(fixedPrecision(stroke.getDashPhase()));
-            result.append(";");
+            result.put("stroke-dashoffset", fixedPrecision(stroke.getDashPhase()));
         }
 
         // append meter limit
         if (all || (stroke.getMiterLimit() != defaultStroke.getMiterLimit())) {
-            result.append("stroke-miterlimit:");
-            result.append(fixedPrecision(stroke.getMiterLimit()));
-            result.append(";");
+            result.put("stroke-miterlimit", fixedPrecision(stroke.getMiterLimit()));
         }
 
         // append join
         if (all || (stroke.getLineJoin() != defaultStroke.getLineJoin())) {
-            result.append("stroke-linejoin:");
             switch (stroke.getLineJoin()) {
                 default:
                 case BasicStroke.JOIN_MITER:
-                    result.append("miter");
+                    result.put("stroke-linejoin", "miter");
                     break;
                 case BasicStroke.JOIN_ROUND:
-                    result.append("round");
+                    result.put("stroke-linejoin", "round");
                     break;
                 case BasicStroke.JOIN_BEVEL:
-                    result.append("bevel");
+                    result.put("stroke-linejoin", "bevel");
                     break;
             }
-            result.append(";");
         }
 
         // append linewidth
         if (all || (stroke.getLineWidth() != defaultStroke.getLineWidth())) {
-            result.append("stroke-width:");
             // width of 0 means thinnest line, which does not exist in SVG
             if (stroke.getLineWidth() == 0) {
-                result.append(fixedPrecision(0.000001f));
+                result.put("stroke-width", fixedPrecision(0.000001f));
             } else {
-                result.append(fixedPrecision(stroke.getLineWidth()));
+                result.put("stroke-width", fixedPrecision(stroke.getLineWidth()));
             }
-            result.append(";");
         }
 
-        return result.toString();
+        return result;
     }
 
     /* 8.2. paint/color */
@@ -863,7 +917,17 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             os.println("  </linearGradient>");
             os.println("</defs>");
         }
-        os.println("<g " + style("stroke:" + hexColor(getPaint())) + ">");
+
+        // create style
+        Properties style = new Properties();
+        style.put("stroke", hexColor(getPaint()));
+
+        // write style
+        os.print("<g ");
+        os.print(style(style));
+        os.println(">");
+
+        // close color later
         closeTags.push("</g> <!-- color -->");
     }
 
@@ -891,7 +955,15 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             os.println("  </pattern>");
             os.println("</defs>");
         }
-        os.println("<g " + style("stroke:" + hexColor(getPaint())) + ">");
+
+        // write default stroke
+        os.print("<g ");
+        Properties style = new Properties();
+        style.put("stroke", hexColor(getPaint()));
+        os.print(style(style));
+        os.println(">");
+
+        // close color later
         closeTags.push("</g> <!-- color -->");
     }
 
@@ -1009,32 +1081,6 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         }
 
         return result.toString();
-    }
-
-    private String getPaintString(Paint stroke, Paint fill) {
-        // stroke color
-        StringBuffer s = new StringBuffer();
-        s.append("stroke:");
-        if (stroke != null) {
-            s.append(hexColor(stroke));
-            s.append(";stroke-opacity:");
-            s.append(alphaColor(stroke));
-        } else {
-            s.append("none");
-        }
-        s.append(";");
-
-        s.append("fill:");
-        if (fill != null) {
-            s.append(hexColor(fill));
-            s.append(";fill-opacity:");
-            s.append(alphaColor(fill));
-        } else {
-            s.append("none");
-        }
-        s.append(";");
-
-        return s.toString();
     }
 
     private float alphaColor(Paint p) {
@@ -1157,32 +1203,55 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         return result.toString();
     }
 
-    private String style(String stylableString) {
-        return style(isProperty(STYLABLE), stylableString);
-    }
-
-    static String style(boolean stylable, String stylableString) {
-        if ((stylableString == null) || (stylableString.equals(""))) {
+    /**
+     * For a given "key -> value" property set the
+     * method creates
+     * style="key1:value1;key2:value2;" or
+     * key2="value2" key2="value2" depending on
+     * {@link STYLABLE}.
+     *
+     * @param style properties to convert
+     * @return String
+     */
+    private String style(Properties style) {
+        if (style == null || style.isEmpty()) {
             return "";
         }
 
-        if (stylable) {
-            return "style=\"" + stylableString + "\"";
+        StringBuffer result = new StringBuffer();
+
+        // embed everything in a "style" attribute
+        if (isProperty(STYLABLE)) {
+            result.append("style=\"");
         }
 
-        StringBuffer r = new StringBuffer();
-        StringTokenizer st1 = new StringTokenizer(stylableString, ";");
-        while (st1.hasMoreTokens()) {
-            String s = st1.nextToken();
-            int colon = s.indexOf(':');
-            if (colon >= 0) {
-                r.append(s.substring(0, colon));
-                r.append("=\"");
-                r.append(s.substring(colon + 1));
-                r.append("\" ");
+        Enumeration keys = style.keys();
+        while (keys.hasMoreElements()) {
+            String key = (String) keys.nextElement();
+            String value = style.getProperty(key);
+
+            result.append(key);
+
+            if (isProperty(STYLABLE)) {
+                result.append(":");
+                result.append(value);
+                result.append(";");
+            } else {
+                result.append("=\"");
+                result.append(value);
+                result.append("\"");
+                if (keys.hasMoreElements()) {
+                    result.append(" ");
+                }
             }
         }
-        return r.toString();
+
+        // close the style attribute
+        if (isProperty(STYLABLE)) {
+            result.append("\"");
+        }
+
+        return result.toString();
     }
 
     private static ScientificFormat scientific = new ScientificFormat(5, 8,

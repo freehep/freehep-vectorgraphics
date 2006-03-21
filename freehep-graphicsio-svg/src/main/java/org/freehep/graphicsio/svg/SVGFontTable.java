@@ -1,19 +1,18 @@
 // Copyright 2001-2006, FreeHEP.
 package org.freehep.graphicsio.svg;
 
+import org.freehep.graphicsio.font.FontTable;
+import java.awt.geom.AffineTransform;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
-import java.awt.geom.AffineTransform;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Map;
+import java.util.Hashtable;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.Properties;
-
-import org.freehep.graphicsio.font.FontTable;
 
 /**
  * A table to remember which glyphs were used while writing a svg file.
@@ -23,7 +22,7 @@ import org.freehep.graphicsio.font.FontTable;
  * in <text> tags.
  *
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGFontTable.java cba39eb5843a 2006/03/20 18:04:28 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGFontTable.java 966f9837ffda 2006/03/21 01:21:19 duns $
  */
 public class SVGFontTable {
 
@@ -36,7 +35,7 @@ public class SVGFontTable {
 
     /**
      * creates a glyph for the string character
-     * 
+     *
      * @param c
      * @param font
      * @return unique font name
@@ -79,7 +78,7 @@ public class SVGFontTable {
 
     /**
      * creates the glyph for the string
-     * 
+     *
      * @param string
      * @param font
      */
@@ -250,10 +249,15 @@ public class SVGFontTable {
         replaceFonts.setProperty("dialog", "Helvetica");
         replaceFonts.setProperty("dialoginput", "Helvetica");
         // FIXME: works well on windows, others?
-        replaceFonts.setProperty("serif", "TimesRoman");
+        // "TimesRoman" is not valid under Firefox 1.5
+        replaceFonts.setProperty("serif", "Times");
+        replaceFonts.setProperty("timesroman", "Times");
         replaceFonts.setProperty("sansserif", "Helvetica");
         // FIXME: works well on windows, others?
-        replaceFonts.setProperty("monospaced", "Courier-New");
+        // "Courier" is not valid under Firefox 1.5
+        replaceFonts.setProperty("monospaced", "Courier New");
+        // FIXME: replacement for zapfdingbats?
+        replaceFonts.setProperty("zapfdingbats", "Wingdings");
     }
 
     /**
