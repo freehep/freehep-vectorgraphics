@@ -59,7 +59,7 @@ import org.freehep.xml.util.XMLWriter;
  * The current implementation is based on REC-SVG11-20030114
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java 966f9837ffda 2006/03/21 01:21:19 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java f2ace2456064 2006/04/05 00:26:49 duns $
  */
 public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
@@ -131,7 +131,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         defaultProperties.setProperty(CLIP, true);
 
         defaultProperties.setProperty(EMBED_FONTS, false);
-        defaultProperties.setProperty(TEXT_AS_SHAPES, false);
+        defaultProperties.setProperty(TEXT_AS_SHAPES, true);
     }
 
     public static Properties getDefaultProperties() {
