@@ -20,10 +20,13 @@ import org.freehep.util.UserProperties;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestingPanel.java f2ace2456064 2006/04/05 00:26:49 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestingPanel.java 4e4ed8246a90 2006/04/05 23:00:50 duns $
  */
 public class TestingPanel extends JPanel {
 
+    public static final int width = 600;
+    public static final int height = 600;
+    
     protected String[] args;
 
     protected VectorGraphics graphics;
@@ -65,7 +68,7 @@ public class TestingPanel extends JPanel {
     }
 
     public void runTest(Properties options) throws Exception {
-        runTest(500, 500, options);
+        runTest(width, height, options);
     }
 
     public void runTest(int width, int height, Properties options)

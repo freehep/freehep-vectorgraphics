@@ -17,15 +17,55 @@ import java.util.StringTokenizer;
 
 import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.util.Assert;
+import org.freehep.util.export.ExportFileType;
 import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java f2ace2456064 2006/04/05 00:26:49 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 4e4ed8246a90 2006/04/05 23:00:50 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
+    // Alphabetically
+    private static final String[] formatNames = {
+        "CGM",
+        "EMF",
+        "GIF",
+        "JAVA",
+        "JPG",
+        "LATEX",
+        "PDF",
+        "PNG",
+        "PS",
+        "SVG",
+        "SWF",
+    };
+    private static String[] testNames = { 
+        "TestAll", 
+        "TestClip", 
+        "TestColors", 
+        "TestCustomStrokes",
+        "TestFonts",
+        "TestFontDerivation",
+        "TestGraphicsContexts",
+        "TestHTML",
+        "TestImages",
+        "TestImage2D",
+        "TestLabels",
+        "TestLineStyles",
+        "TestOffset",
+        "TestPaint",
+        "TestPrintColors",
+        "TestResolution",
+        "TestShapes",
+        "TestSymbols2D",
+        "TestTaggedString",
+        "TestText2D",
+        "TestTransforms",
+        "TestTransparency",
+    };
 
-    private static final String testPackage = "org.freehep.graphicsio.test.";
+    private static final String gioPackage = "org.freehep.graphicsio.";
+    private static final String testPackage = gioPackage+"test.";
     private static final String testDir = "target/site/test-output/";
     
     public static class TestCase extends junit.framework.TestCase {
@@ -36,14 +76,14 @@ public class TestSuite extends junit.framework.TestSuite {
 
         private Properties properties;
 
-        public TestCase(String fullName, String fmt, String pkg, String dir, String ext,
+        public TestCase(String name, String fmt, String dir, String ext,
                 boolean compare, Properties properties) {
-            super("GraphicsIO Test for " + fullName + " in " + fmt);
-            this.fullName = fullName;
+            super("GraphicsIO Test for " + testPackage + name + " in " + fmt);
+            this.fullName = testPackage + name;
             int dot = fullName.lastIndexOf(".");
-            name = dot < 0 ? fullName : fullName.substring(dot + 1);
+            this.name = dot < 0 ? fullName : fullName.substring(dot + 1);
             this.fmt = fmt;
-            this.pkg = pkg;
+            this.pkg = "org.freehep.graphicsio."+fmt.toLowerCase();
             this.dir = dir;
             this.ext = ext;
             this.compare = compare;
@@ -111,48 +151,14 @@ public class TestSuite extends junit.framework.TestSuite {
     }
 
     protected void addTests(String fmt) {
-        addTests(fmt, true);
+        addTests(fmt, fmt.toLowerCase(), fmt.toLowerCase(), true, null);
     }
 
-    protected void addTests(String fmt, boolean compare) {
-        addTests(fmt, "org.freehep.graphicsio."+fmt.toLowerCase(), fmt.toLowerCase(), fmt.toLowerCase(), compare);
-    }
-
-    protected void addTests(String fmt, String pkg, String dir, String ext, boolean compare) {
-        addTests(fmt, pkg, dir, ext, compare, null);
-    }
-
-    protected void addTests(String fmt, String pkg, String dir, String ext,
-            boolean compare, Properties properties) {
-        // Alphabetically
-        String[] testNames = { 
-            "TestAll", 
-            "TestClip", 
-            "TestColors", 
-            "TestCustomStrokes",
-            "TestFonts",
-            "TestFontDerivation",
-            "TestGraphicsContexts",
-            "TestHTML",
-            "TestImages",
-            "TestImages2D",
-            "TestLabels",
-            "TestLineStyles",
-            "TestOffset",
-            "TestPaint",
-            "TestPrintColors",
-            "TestResolution",
-            "TestShapes",
-            "TestSymbols2D",
-            "TestTaggedString",
-            "TestText2D",
-            "TestTransforms",
-            "TestTransparency",
-        };
-        
+    protected void addTests(String fmt, String dir, String ext,
+            boolean compare, Properties properties) {        
         for (int i=0; i<testNames.length; i++) {
-            addTest(new TestCase(testPackage + testNames[i], fmt, pkg, dir, ext, compare, properties));            
-            writeHTML(testNames[i], fmt, dir, ext, testNames);
+            addTest(new TestCase(testNames[i], fmt, dir, ext, compare, properties));            
+            writeHTML(i, fmt, dir, ext);
         }
     }
 
@@ -167,41 +173,40 @@ public class TestSuite extends junit.framework.TestSuite {
         if (args.length - first > 0) {
             for (int i = first; i < args.length; i++) {
                 String ext = args[i].toLowerCase();
-                if (ext.equals("latex"))
-                    ext = "tex";
-                if (ext.equals("svg"))
-                    ext = "svgz";
-                addTests(args[i].toUpperCase(), "org.freehep.graphicsio."+args[i].toLowerCase(), args[i].toLowerCase(), ext,
-                        compare);
+                if (ext.equals("latex")) ext = "tex";
+                addTests(args[i].toUpperCase(), args[i].toLowerCase(), ext, compare, null);
             }
         } else {
-            addTests("CGM", compare);
-            addTests("EMF", compare);
-            addTests("GIF", compare);
-            addTests("JPG", compare);
-            addTests("LATEX", "org.freehep.graphicsio.latex", "latex", "tex", compare);
-            addTests("PDF", compare);
-            addTests("PNG", compare);
-            addTests("PS", compare);
-            addTests("SVG", "org.freehep.graphicsio.svg", "svg", "svgz", compare);
-            addTests("SWF", compare);
-            addTests("JAVA", "org.freehep.graphicsio.java", "org/freehep/graphicsio/java/test", "java", compare);
+            for (int i = 0; i< formatNames.length; i++) {
+                String dir = formatNames[i].toLowerCase();
+                String ext = formatNames[i].toLowerCase();
+                if (formatNames[i].equals("LATEX")) ext = "tex";
+                if (formatNames[i].equals("JAVA")) dir = "org/freehep/graphicsio/java/test";                   
+                addTests(formatNames[i], dir, ext, compare, null);
+            }
         }
     }
 
-    private void writeHTML(String name, String fmt, String dir, String ext, String[] testNames) {
-        int width = 500;
-        int height = 500;
+    private void writeHTML(int testIndex, String fmt, String dir, String ext) {
         String css = "../../css";
-        String ref = "../../../../../freehep-graphicsio-tests/target/site/test-output/png/";
-        String title = "VectorGraphics "+fmt+" "+name;
+        String refFormat = "png";
+        String top = "../../../../../";
+        String ref = top+"freehep-graphicsio-tests/target/site/test-output/"+refFormat+"/";
+        String title = "VectorGraphics "+fmt+" "+testNames[testIndex];
         String freehep = "http://java.freehep.org/";
         String freehepImage = freehep+"images/sm-freehep.gif";
-        String url = freehep+"mvn/freehep-graphicsio-"+name.toLowerCase();
-        
-        String out = testDir + dir + "/";
+        String url = freehep+"mvn/freehep-graphicsio-"+fmt.toLowerCase();
+                
+        String out = testDir + dir + "/";        
         try {
-            PrintWriter w = new PrintWriter(new FileWriter(out+name+".html"));
+            // Create Export filetype to get mime type
+            if (fmt.equals("LATEX")) fmt = "Latex";
+            Class cls = Class.forName(gioPackage+fmt.toLowerCase()+"."+fmt+"ExportFileType");
+            ExportFileType fileType = (ExportFileType)cls.newInstance();
+            String mimeType = fileType.getMIMETypes()[0];
+
+            (new File(out)).mkdirs();
+            PrintWriter w = new PrintWriter(new FileWriter(out+testNames[testIndex]+".html"));
     
             w.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
             w.println("<html>");
@@ -241,11 +246,23 @@ public class TestSuite extends junit.framework.TestSuite {
             w.println("        </div>");
             w.println("        <div id=\"leftColumn\">");
             w.println("          <div id=\"navcolumn\">");
-            w.println("            <h5>General</h5>");
+            w.println("            <h5>Formats</h5>");
+            w.println("            <ul>");
+            for (int i=0; i<formatNames.length; i++) {
+                w.println("              <li class=\"none\">");
+                if (formatNames[i].equals(fmt)) w.println("                <strong>");
+                w.println("                  <a href=\""+top+"freehep-graphicsio-"+formatNames[i].toLowerCase()+"/target/site/test-output/"+formatNames[i].toLowerCase()+"/"+testNames[0]+".html\">"+formatNames[i]+"</a>");
+                if (formatNames[i].equals(fmt)) w.println("                </strong>");
+                w.println("              </li>");
+            }
+            w.println("            </ul>");
+            w.println("            <h5>"+fmt+" Tests</h5>");
             w.println("            <ul>");
             for (int i=0; i<testNames.length; i++) {
                 w.println("              <li class=\"none\">");
+                if (i == testIndex) w.println("                <strong>");
                 w.println("                <a href=\""+testNames[i]+".html\">"+testNames[i]+"</a>");
+                if (i == testIndex) w.println("                </strong>");
                 w.println("              </li>");
             }
             w.println("            </ul>");
@@ -257,25 +274,33 @@ public class TestSuite extends junit.framework.TestSuite {
             w.println("        <div id=\"bodyColumn\">");
             w.println("          <div id=\"contentBox\">");
             w.println("            <div class=\"section\">");
-            w.println("              <h2>"+name+" "+fmt+"</h2>");
+            w.println("              <h2>"+testNames[testIndex]+" "+fmt+"</h2>");
             w.println("              <table class=\"bodyTable\">");
     //        w.println("                <caption></caption>");
             w.println("                <tr class=\"a\">");
             w.println("                  <th>"+fmt+"</th>");
-            w.println("                  <th>Reference (PNG)</th>");
+            w.println("                  <th>Reference ("+refFormat.toUpperCase()+")</th>");
             w.println("                </tr>");
             w.println("                <tr class=\"b\">");
     //        w.println("                  <td><a href=\""+name+"."+ext+"\">"+name+"."+ext+"</a></td>");
-            w.println("                  <td><object type=\"image/svg+xml\" name=\""+name+"\" data=\""+name+"."+ext+"\" width=\""+width+"\" height=\""+height+"\"</td>");
-            w.println("                  <td><img src=\""+ref+name+".png"+"\"/></td>");
+            w.println("                  <td><object type=\""+mimeType+"\" name=\""+testNames[testIndex]+"\" data=\""+testNames[testIndex]+"."+ext+"\" width=\""+TestingPanel.width+"\" height=\""+TestingPanel.height+"\">Image not embeddable: "+mimeType+"</object></td>");
+            w.println("                  <td><img src=\""+ref+testNames[testIndex]+"."+refFormat+"\"/></td>");
             w.println("                </tr>");
             w.println("                <tr class=\"a\">");
-            w.println("                  <td><a href=\""+name+"."+ext+"\">"+name+"."+ext+"</a></td>");
-            w.println("                  <td><a href=\""+ref+name+".png"+"\">"+name+".png"+"</a></td>");
+            w.println("                  <td><a href=\""+testNames[testIndex]+"."+ext+"\">"+testNames[testIndex]+"."+ext+"</a></td>");
+            w.println("                  <td><a href=\""+ref+testNames[testIndex]+"."+refFormat+"\">"+testNames[testIndex]+"."+refFormat+"</a></td>");
             w.println("                </tr>");
             w.println("                <tr class=\"a\">");
-            w.println("                  <td><a href=\""+"\">previous</a></td>");
-            w.println("                  <td><a href=\""+"\">next</a></td>");
+            if (testIndex > 0) {
+                w.println("                  <td><a href=\""+testNames[testIndex-1]+".html\">previous</a></td>");
+            } else {
+                w.println("                  <td/>");
+            }
+            if (testIndex < testNames.length-1) {
+                w.println("                  <td><a href=\""+testNames[testIndex+1]+".html\">next</a></td>");
+            } else {
+                w.println("                  <td/>");
+            } 
             w.println("                </tr>");
             w.println("             </table>");
             w.println("           </div>");
@@ -298,6 +323,12 @@ public class TestSuite extends junit.framework.TestSuite {
             w.close();
         } catch (IOException e) {
             System.err.println("Could not write "+out);
+        } catch (ClassNotFoundException e) {
+            System.err.println(e);
+        } catch (IllegalAccessException e) {
+            System.err.println(e);
+        } catch (InstantiationException e) {
+            System.err.println(e);
         }
     }
 
