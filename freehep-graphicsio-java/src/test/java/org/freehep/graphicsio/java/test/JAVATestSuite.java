@@ -8,7 +8,7 @@ import org.freehep.graphicsio.test.TestSuite;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-java/src/test/java/org/freehep/graphicsio/java/test/JAVATestSuite.java 4e4ed8246a90 2006/04/05 23:00:50 duns $
+ * @version $Id: freehep-graphicsio-java/src/test/java/org/freehep/graphicsio/java/test/JAVATestSuite.java 08eeb27f101d 2006/04/06 00:34:37 duns $
  */
 public class JAVATestSuite extends TestSuite {
 
@@ -19,7 +19,7 @@ public class JAVATestSuite extends TestSuite {
         properties.setProperty(JAVAGraphics2D.PACKAGE_NAME,
                 "org.freehep.graphicsio.java.test");
 
-        suite.addTests("JAVA", "org/freehep/graphicsio/java/test", "java", true, properties);
+        suite.addTests("JAVA", "java", "org/freehep/graphicsio/java/test", "java", true, properties);
         return suite;
     }
 }

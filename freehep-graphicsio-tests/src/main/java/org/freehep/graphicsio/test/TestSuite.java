@@ -22,7 +22,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 4e4ed8246a90 2006/04/05 23:00:50 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 08eeb27f101d 2006/04/06 00:34:37 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
     // Alphabetically
@@ -70,18 +70,19 @@ public class TestSuite extends junit.framework.TestSuite {
     
     public static class TestCase extends junit.framework.TestCase {
 
-        private String name, fullName, fmt, pkg, dir, ext;
+        private String name, fullName, category, fmt, pkg, dir, ext;
 
         private boolean compare;
 
         private Properties properties;
 
-        public TestCase(String name, String fmt, String dir, String ext,
+        public TestCase(String name, String category, String fmt, String dir, String ext,
                 boolean compare, Properties properties) {
             super("GraphicsIO Test for " + testPackage + name + " in " + fmt);
             this.fullName = testPackage + name;
             int dot = fullName.lastIndexOf(".");
             this.name = dot < 0 ? fullName : fullName.substring(dot + 1);
+            this.category = category;
             this.fmt = fmt;
             this.pkg = "org.freehep.graphicsio."+fmt.toLowerCase();
             this.dir = dir;
@@ -90,13 +91,14 @@ public class TestSuite extends junit.framework.TestSuite {
             this.properties = properties;
         }
 
-        protected void runTest() throws Throwable {
+        protected void runTest() throws Throwable {            
             String base = "src/test/resources/";
             
             String baseDir = System.getProperty("basedir");
             if (baseDir != null) base = baseDir + "/" + base;
             
             String out = testDir + dir + "/";
+            if (baseDir != null) out = baseDir + "/" +out;
             (new File(out)).mkdirs();
 
             Class cls = Class.forName(fullName);
@@ -105,8 +107,7 @@ public class TestSuite extends junit.framework.TestSuite {
             String refGZIPName = base + dir + "/" + name + "." + ext + ".gz";
             
             Object args;
-            if (fmt.equals("GIF") || fmt.equals("PNG") || fmt.equals("PPM")
-                    || fmt.equals("JPG")) {
+            if (category.equals("tests")) {
                 args = Array.newInstance(String.class, 3);
                 Array.set(args, 0, ImageGraphics2D.class.getName());
                 Array.set(args, 1, fmt.toLowerCase());
@@ -151,14 +152,27 @@ public class TestSuite extends junit.framework.TestSuite {
     }
 
     protected void addTests(String fmt) {
-        addTests(fmt, fmt.toLowerCase(), fmt.toLowerCase(), true, null);
+        addTests(fmt, true);
+    }
+    
+    protected void addTests(String fmt, boolean compare) {
+        String category = fmt.toLowerCase(); 
+        if (fmt.equals("GIF") || fmt.equals("PNG") || fmt.equals("PPM") || fmt.equals("JPG")) category = "tests";
+        String dir = fmt.toLowerCase();
+        if (fmt.equals("JAVA")) dir = "org/freehep/graphicsio/java/test"; 
+        String ext = fmt.toLowerCase();
+        if (fmt.equals("LATEX")) {
+            fmt = "Latex";
+            ext = "tex";
+        }
+        addTests(category, fmt, dir, ext, true, null);
     }
 
-    protected void addTests(String fmt, String dir, String ext,
-            boolean compare, Properties properties) {        
+    protected void addTests(String category, String fmt, String dir, String ext,
+            boolean compare, Properties properties) {     
         for (int i=0; i<testNames.length; i++) {
-            addTest(new TestCase(testNames[i], fmt, dir, ext, compare, properties));            
-            writeHTML(i, fmt, dir, ext);
+            addTest(new TestCase(testNames[i], category, fmt, dir, ext, compare, properties));            
+            writeHTML(i, category, fmt, dir, ext);
         }
     }
 
@@ -172,22 +186,17 @@ public class TestSuite extends junit.framework.TestSuite {
 
         if (args.length - first > 0) {
             for (int i = first; i < args.length; i++) {
-                String ext = args[i].toLowerCase();
-                if (ext.equals("latex")) ext = "tex";
-                addTests(args[i].toUpperCase(), args[i].toLowerCase(), ext, compare, null);
+                addTests(args[i].toUpperCase(), compare);
             }
         } else {
             for (int i = 0; i< formatNames.length; i++) {
-                String dir = formatNames[i].toLowerCase();
-                String ext = formatNames[i].toLowerCase();
-                if (formatNames[i].equals("LATEX")) ext = "tex";
-                if (formatNames[i].equals("JAVA")) dir = "org/freehep/graphicsio/java/test";                   
-                addTests(formatNames[i], dir, ext, compare, null);
+                if (formatNames[i].equals("JAVA"))                   
+                addTests(formatNames[i], compare);
             }
         }
     }
 
-    private void writeHTML(int testIndex, String fmt, String dir, String ext) {
+    private void writeHTML(int testIndex, String category, String fmt, String dir, String ext) {
         String css = "../../css";
         String refFormat = "png";
         String top = "../../../../../";
@@ -198,9 +207,10 @@ public class TestSuite extends junit.framework.TestSuite {
         String url = freehep+"mvn/freehep-graphicsio-"+fmt.toLowerCase();
                 
         String out = testDir + dir + "/";        
+        String baseDir = System.getProperty("basedir");
+        if (baseDir != null) out = baseDir + "/" +out;
         try {
             // Create Export filetype to get mime type
-            if (fmt.equals("LATEX")) fmt = "Latex";
             Class cls = Class.forName(gioPackage+fmt.toLowerCase()+"."+fmt+"ExportFileType");
             ExportFileType fileType = (ExportFileType)cls.newInstance();
             String mimeType = fileType.getMIMETypes()[0];
@@ -251,7 +261,7 @@ public class TestSuite extends junit.framework.TestSuite {
             for (int i=0; i<formatNames.length; i++) {
                 w.println("              <li class=\"none\">");
                 if (formatNames[i].equals(fmt)) w.println("                <strong>");
-                w.println("                  <a href=\""+top+"freehep-graphicsio-"+formatNames[i].toLowerCase()+"/target/site/test-output/"+formatNames[i].toLowerCase()+"/"+testNames[0]+".html\">"+formatNames[i]+"</a>");
+                w.println("                  <a href=\""+top+"freehep-graphicsio-"+category+"/target/site/test-output/"+formatNames[i].toLowerCase()+"/"+testNames[0]+".html\">"+formatNames[i]+"</a>");
                 if (formatNames[i].equals(fmt)) w.println("                </strong>");
                 w.println("              </li>");
             }

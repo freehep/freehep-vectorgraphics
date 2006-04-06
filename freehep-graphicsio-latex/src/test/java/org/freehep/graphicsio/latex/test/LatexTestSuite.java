@@ -5,13 +5,13 @@ import org.freehep.graphicsio.test.TestSuite;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-latex/src/test/java/org/freehep/graphicsio/latex/test/LatexTestSuite.java 4e4ed8246a90 2006/04/05 23:00:50 duns $
+ * @version $Id: freehep-graphicsio-latex/src/test/java/org/freehep/graphicsio/latex/test/LatexTestSuite.java 08eeb27f101d 2006/04/06 00:34:37 duns $
  */
 public class LatexTestSuite extends TestSuite {
 
     public static TestSuite suite() {
         LatexTestSuite suite = new LatexTestSuite();
-        suite.addTests("LATEX", "latex", "tex", true, null);
+        suite.addTests("LATEX");
         return suite;
     }
 
