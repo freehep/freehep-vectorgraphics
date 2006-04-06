@@ -22,7 +22,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 08eeb27f101d 2006/04/06 00:34:37 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 17dd995323e9 2006/04/06 22:50:13 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
     // Alphabetically
@@ -38,6 +38,21 @@ public class TestSuite extends junit.framework.TestSuite {
         "PS",
         "SVG",
         "SWF",
+    };
+    private static final String jiraURL = "http://bugs.freehep.org/secure/IssueNavigator.jspa?reset=true&mode=hide&sorter/order=DESC&sorter/field=priority&resolutionIds=-1";
+    private static final int jiraProductId = 10170;
+    private static final int[] jiraComponentId = {
+        10230, // "CGM"
+        10231, // "EMF"
+        10241, // "GIF"
+        10238, // "JAVA"
+        10241, // "JPG"
+        10240, // "LATEX"
+        10235, // "PDF"
+        10241, // "PNG"
+        10232, // "PS"
+        10236, // "SVG"
+        10237, // "SWF"
     };
     private static String[] testNames = { 
         "TestAll", 
@@ -107,7 +122,7 @@ public class TestSuite extends junit.framework.TestSuite {
             String refGZIPName = base + dir + "/" + name + "." + ext + ".gz";
             
             Object args;
-            if (category.equals("tests")) {
+            if (category.equals("image")) {
                 args = Array.newInstance(String.class, 3);
                 Array.set(args, 0, ImageGraphics2D.class.getName());
                 Array.set(args, 1, fmt.toLowerCase());
@@ -157,7 +172,7 @@ public class TestSuite extends junit.framework.TestSuite {
     
     protected void addTests(String fmt, boolean compare) {
         String category = fmt.toLowerCase(); 
-        if (fmt.equals("GIF") || fmt.equals("PNG") || fmt.equals("PPM") || fmt.equals("JPG")) category = "tests";
+        if (fmt.equals("GIF") || fmt.equals("PNG") || fmt.equals("PPM") || fmt.equals("JPG")) category = "image";
         String dir = fmt.toLowerCase();
         if (fmt.equals("JAVA")) dir = "org/freehep/graphicsio/java/test"; 
         String ext = fmt.toLowerCase();
@@ -172,7 +187,7 @@ public class TestSuite extends junit.framework.TestSuite {
             boolean compare, Properties properties) {     
         for (int i=0; i<testNames.length; i++) {
             addTest(new TestCase(testNames[i], category, fmt, dir, ext, compare, properties));            
-            writeHTML(i, category, fmt, dir, ext);
+            writeHTML(i, fmt, dir, ext);
         }
     }
 
@@ -196,7 +211,7 @@ public class TestSuite extends junit.framework.TestSuite {
         }
     }
 
-    private void writeHTML(int testIndex, String category, String fmt, String dir, String ext) {
+    private void writeHTML(int testIndex, String fmt, String dir, String ext) {
         String css = "../../css";
         String refFormat = "png";
         String top = "../../../../../";
@@ -205,7 +220,8 @@ public class TestSuite extends junit.framework.TestSuite {
         String freehep = "http://java.freehep.org/";
         String freehepImage = freehep+"images/sm-freehep.gif";
         String url = freehep+"mvn/freehep-graphicsio-"+fmt.toLowerCase();
-                
+        int formatIndex = -1;        
+        
         String out = testDir + dir + "/";        
         String baseDir = System.getProperty("basedir");
         if (baseDir != null) out = baseDir + "/" +out;
@@ -260,8 +276,13 @@ public class TestSuite extends junit.framework.TestSuite {
             w.println("            <ul>");
             for (int i=0; i<formatNames.length; i++) {
                 w.println("              <li class=\"none\">");
-                if (formatNames[i].equals(fmt)) w.println("                <strong>");
-                w.println("                  <a href=\""+top+"freehep-graphicsio-"+category+"/target/site/test-output/"+formatNames[i].toLowerCase()+"/"+testNames[0]+".html\">"+formatNames[i]+"</a>");
+                if (formatNames[i].equals(fmt)) {
+                    formatIndex = i;
+                    w.println("                <strong>");
+                }
+                String category = formatNames[i].toLowerCase();
+                if (formatNames[i].equals("GIF") || formatNames[i].equals("PNG") || formatNames[i].equals("PPM") || formatNames[i].equals("JPG")) category = "tests";
+                w.println("                  <a href=\""+top+"freehep-graphicsio-"+category+"/target/site/test-output/"+formatNames[i].toLowerCase()+"/"+testNames[testIndex]+".html\">"+formatNames[i]+"</a>");
                 if (formatNames[i].equals(fmt)) w.println("                </strong>");
                 w.println("              </li>");
             }
@@ -276,6 +297,12 @@ public class TestSuite extends junit.framework.TestSuite {
                 w.println("              </li>");
             }
             w.println("            </ul>");
+            
+            w.println("            <h5>"+fmt+" Links</h5>");
+            w.println("            <ul>");
+            if (formatIndex >= 0) w.println("              <li><a href=\""+jiraURL+"&pid="+jiraProductId+"&component="+jiraComponentId[formatIndex]+"\">Issues</a></li>");
+            w.println("            </ul>");
+
             w.println("            <a href=\""+freehep+"\" title=\"Built by FreeHEP\" id=\"poweredBy\">");
             w.println("              <img alt=\"Built by FreeHEP\" src=\""+freehepImage+"\"></img>");
             w.println("            </a>");
