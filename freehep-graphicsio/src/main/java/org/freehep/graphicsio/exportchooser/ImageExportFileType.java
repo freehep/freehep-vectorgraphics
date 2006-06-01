@@ -25,7 +25,7 @@ import org.freehep.util.UserProperties;
  * // FIXME, check all options
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageExportFileType.java 5641ca92a537 2005/11/26 00:15:35 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageExportFileType.java dc1b223a6664 2006/06/01 21:46:02 duns $
  */
 public class ImageExportFileType extends AbstractExportFileType {
 
@@ -71,6 +71,7 @@ public class ImageExportFileType extends AbstractExportFileType {
     }
 
     public static ImageExportFileType getInstance(String format) {
+        Throwable e = null;
         try {
             // create special derived class from ZZZImageExportFileType
             ClassLoader loader = new SpecialClassLoader(
@@ -78,39 +79,42 @@ public class ImageExportFileType extends AbstractExportFileType {
             String className = "ImageExportFileType";
             return (ImageExportFileType) loader.loadClass(className)
                     .newInstance();
-        } catch (IllegalArgumentException e) {
-            System.err.println(e);
-            return null;
-        } catch (NoClassDefFoundError e) {
-            System.err.println(e);
-            return null;
-        } catch (ClassNotFoundException e) {
-            System.err.println(e);
-            return null;
-        } catch (InstantiationException e) {
-            System.err.println(e);
-            return null;
-        } catch (IllegalAccessException e) {
-            System.err.println(e);
-            return null;
-        } catch (ClassFormatError e) {
-            System.err.println(e);
-            return null;
-        } catch (SecurityException e) {
+        } catch (IllegalArgumentException iae) {
+            e = iae;
+        } catch (NoClassDefFoundError ncdfe) {
+            e = ncdfe;
+        } catch (ClassNotFoundException cnfe) {
+            e = cnfe;
+        } catch (InstantiationException ie) {
+            e = ie;
+        } catch (IllegalAccessException iace) {
+            e = iace;
+        } catch (ClassFormatError cfe) {
+            e = cfe;
+        } catch (SecurityException se) {
             // We run in a restricted environment (WebStart)
             // so we browse for specific formats
-            if (format.equalsIgnoreCase("gif"))
-                return exportFileType("org.freehep.graphicsio.gif.GIFExportFileType");
-            if (format.equalsIgnoreCase("png"))
-                return exportFileType("org.freehep.graphicsio.png.PNGExportFileType");
-            if (format.equalsIgnoreCase("jpg"))
-                return exportFileType("org.freehep.graphicsio.jpg.JPGExportFileType");
-            if (format.equalsIgnoreCase("raw"))
-                return exportFileType("org.freehep.graphicsio.raw.RawExportFileType");
-
-            System.err.println(e);
-            return null;
-        }
+            e = se;
+         }
+        ImageExportFileType type = getStaticInstance(format);
+        if ((e != null) && (type == null)) System.err.println(e);
+        return type;
+    }
+    
+    public static ImageExportFileType getStaticInstance(String format) {
+        if (format.equalsIgnoreCase("gif"))
+            return exportFileType("org.freehep.graphicsio.gif.GIFExportFileType");
+        if (format.equalsIgnoreCase("png"))
+            return exportFileType("org.freehep.graphicsio.png.PNGExportFileType");
+        if (format.equalsIgnoreCase("jpg"))
+            return exportFileType("org.freehep.graphicsio.jpg.JPGExportFileType");
+        if (format.equalsIgnoreCase("raw"))
+            return exportFileType("org.freehep.graphicsio.raw.RawExportFileType");
+        if (format.equalsIgnoreCase("bmp"))
+            return exportFileType("org.freehep.graphicsio.exportchooser.BMPExportFileType");
+        if (format.equalsIgnoreCase("wbmp"))
+            return exportFileType("org.freehep.graphicsio.exportchooser.WBMPExportFileType");
+        return null;
     }
 
     private static ImageExportFileType exportFileType(String className) {
