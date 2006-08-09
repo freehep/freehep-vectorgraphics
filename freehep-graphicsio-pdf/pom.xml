@@ -9,6 +9,13 @@
   <artifactId>freehep-graphicsio-pdf</artifactId>
   <name>FreeHEP PDF Driver</name>
   <description>FreeHEP Portable Document Format Driver</description>
+  <repositories>
+    <repository>
+      <id>freehep-maven</id>
+      <name>Maven FreeHEP</name>
+      <url>http://java.freehep.org/maven2</url>
+    </repository>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>org.freehep</groupId>

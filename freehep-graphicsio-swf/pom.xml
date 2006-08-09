@@ -9,6 +9,13 @@
   <artifactId>freehep-graphicsio-swf</artifactId>
   <name>FreeHEP SWF (Flash) Driver</name>
   <description>FreeHEP SWF (Flash) Driver</description>
+  <repositories>
+    <repository>
+      <id>freehep-maven</id>
+      <name>Maven FreeHEP</name>
+      <url>http://java.freehep.org/maven2</url>
+    </repository>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>org.freehep</groupId>

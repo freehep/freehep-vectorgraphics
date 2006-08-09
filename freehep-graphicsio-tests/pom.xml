@@ -9,6 +9,13 @@
   <artifactId>freehep-graphicsio-tests</artifactId>
   <name>FreeHEP GraphicsIO Tests</name>
   <description>FreeHEP GraphicsIO Test Library</description>
+  <repositories>
+    <repository>
+      <id>freehep-maven</id>
+      <name>Maven FreeHEP</name>
+      <url>http://java.freehep.org/maven2</url>
+    </repository>
+  </repositories>
   <build>
     <plugins>
       <plugin>
