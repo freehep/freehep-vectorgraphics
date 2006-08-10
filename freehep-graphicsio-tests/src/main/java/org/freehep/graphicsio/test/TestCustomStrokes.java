@@ -27,7 +27,7 @@ import org.freehep.graphics2d.VectorGraphics;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestCustomStrokes.java e7c6b553ef3f 2006/03/02 00:03:09 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestCustomStrokes.java 5f67cfd19710 2006/08/10 23:06:37 duns $
  */
 public class TestCustomStrokes extends TestingPanel {
 

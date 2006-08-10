@@ -6,7 +6,7 @@ import org.freehep.graphicsio.exportchooser.ImageExportFileType;
 /**
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/WBMPExportFileType.java dc1b223a6664 2006/06/01 21:46:02 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/WBMPExportFileType.java 5f67cfd19710 2006/08/10 23:06:37 duns $
  */
 public class WBMPExportFileType extends ImageExportFileType {
 
