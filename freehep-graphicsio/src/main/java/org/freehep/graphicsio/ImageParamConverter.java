@@ -1,6 +1,7 @@
 // Copyright 2003, FreeHEP.
 package org.freehep.graphicsio;
 
+
 import java.util.Properties;
 
 import javax.imageio.ImageWriteParam;
@@ -10,7 +11,7 @@ import javax.imageio.ImageWriteParam;
  * properties available to the ImageWriter as an ImageWriteParam object.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageParamConverter.java 5641ca92a537 2005/11/26 00:15:35 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageParamConverter.java 4a3e7879b7eb 2006/08/11 17:39:56 duns $
  */
 public interface ImageParamConverter {
 
