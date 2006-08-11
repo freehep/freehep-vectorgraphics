@@ -1,4 +1,4 @@
-<project>
+<project> 
   <parent>
     <artifactId>vectorgraphics</artifactId>
     <groupId>org.freehep</groupId>
