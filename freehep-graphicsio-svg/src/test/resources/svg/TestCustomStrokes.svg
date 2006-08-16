@@ -24,7 +24,7 @@
 <defs>
 <!-- Symbols for use with SVGGraphics (generic format) -->
 <!-- Author: Mark Donszelmann -->
-<!-- Version: $Id: SVGDefs.txt 4968 2005-12-03 01:18:24Z duns $ -->
+<!-- Version: $Id$ -->
 
 <symbol id="hline" viewBox="-50 -50 100 100">
   <path d="M -50 0 H 50"/>
@@ -70,7 +70,7 @@
 </symbol>
 <!-- Symbols for use with SVGGraphics (stylable format) -->
 <!-- Author: Mark Donszelmann -->
-<!-- Version: $Id: SVGDefs-stylable.txt 4968 2005-12-03 01:18:24Z duns $ -->
+<!-- Version: $Id$ -->
 
 <symbol id="fdot">
   <use xlink:href="#dot" style="stroke:none;fill:currentColor"/>
