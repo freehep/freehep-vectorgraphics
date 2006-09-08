@@ -1,0 +1,25 @@
+    ---
+FreeHEP VectorGraphics - Users
+    ---
+Mark Donszelmann
+    ---
+    ---
+
+Users
+    
+    The following users and projects use VectorGraphics for some or all of their output:
+
+    * {{{http://jas.freehep.org}JAS}} - Java Analysis Studio
+  
+    * {{{http://wired.freehep.org}WIRED}} - WWW Interactive Remote Event Display
+  
+    * {{{http://genetics.stanford.edu/~ihab/caryoscope/}Caryoscope}} 
+      is a Java program for viewing gene expression data in a
+      whole-genome context. It is being developed by
+      {{{http://smd.stanford.edu/}SMD (Stanford Microarray Database)}} as a reusable
+      component for the {{{http://www.gmod.org/}GMOD (Generic Model Organism Database)}} project.
+    
+    * {{{mailto:Jeremy_Stein@elementk.com}Jeremy Stein}}, internal project
+
+    []
+    

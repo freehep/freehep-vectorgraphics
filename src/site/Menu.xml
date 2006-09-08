@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : SiteMapTemplate.xml
+    Created on : March 11, 2003, 11:20 AM
+    Author     : The FreeHEP team @ SLAC
+    Description: The default MenuList
+-->
+<MenuList xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+  xsi:noNamespaceSchemaLocation='SiteMap.xsd'>
+    <Menu name = "Introduction">
+        <MenuItem name = "Overview"             href="index.html"/>
+        <MenuItem name = "News"                 href="News.html"/>
+        <MenuItem name = "Features"             href="Features.html"/>
+        <MenuItem name = "Demonstrations"       href="Demonstrations.html"/>
+        <MenuItem name = "Screen Shots"         href="ScreenShots.html"/>
+        <MenuItem name = "Publications/Talks"   href="Publications.html"/>
+        <MenuItem name = "Future Plans"/>
+        <MenuItem name = "Contributors"         href="Contributors.html"/>
+        <MenuItem name = "Users"                href="Users.html"/>
+    </Menu>
+    <Menu name = "User Documentation">
+        <MenuItem name = "Overview"/>
+        <MenuItem name = "Manual"               href="Manual.html"/>
+        <MenuItem name = "Apis"/>
+        <MenuItem name = "Howtos"/>
+        <MenuItem name = "Tutorials/Examples"/>
+        <MenuItem name = "Quick Guide"/>
+        <MenuItem name = "Related Projects"/>
+        <MenuItem name = "Plugins and Extensions"/>
+        <MenuItem name = "Faq"/>
+        <MenuItem name = "Having Problems"/>
+        <MenuItem name = "License"              href="License.html"/>
+    </Menu>
+    <Menu name = "Download">
+        <MenuItem name = "Binary Distributions" href="BinaryDistributions.html"/>
+        <MenuItem name = "Source Distributions" href="SourceDistributions.html"/>
+        <MenuItem name = "Release Notes"        href="AllReleaseNotes.html"/>
+    </Menu>
+    <Menu name = "Get Involved">
+        <MenuItem name = "Discussion"/>
+        <MenuItem name = "Source Code"          href="SourceCode.html"/>
+        <MenuItem name = "Bug Database"         href="http://bugs.freehep.org/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;pid=10012&amp;sorter/order=ASC&amp;sorter/field=priority&amp;resolutionIds=-1&amp;component=10017"/>
+        <MenuItem name = "Enhancement Requests" href="EnhancementRequests.html"/>
+        <MenuItem name = "Outreach"/>
+    </Menu>
+    <Menu name = "Developer Area">
+        <MenuItem name = "Design Documentation"/>
+        <MenuItem name = "Project Guidelines"/>
+        <MenuItem name = "How to Extend"        href="HowToExtend.html" enabled="false"/>
+        <MenuItem name = "ToDo List"            href="ToDoList.html"/>
+    </Menu>
+</MenuList>

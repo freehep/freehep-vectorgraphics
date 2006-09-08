@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>VectorGraphics - Contributors</title>
+</head>
+
+<body>
+  <h1>Contributors</h1>
+
+  <ul>
+    <li>Mark D&ouml;nszelmann
+    (<a href="mailto:Mark.Donszelmann@slac.stanford.edu">Mark.Donszelmann@slac.stanford.edu</a>)</li>
+
+    <li>Tony Johnson (<a href="mailto:Tony.Johnson@slac.stanford.edu">Tony.Johnson@slac.stanford.edu</a>)</li>
+
+    <li>Ian Graham (<a href="mailto:ian@kelman.com">ian@kelman.com</a>)</li>
+
+    <li>Carsten Zerbst (<a href="mailto:carsten.zerbst@atlantec-es.com">carsten.zerbst@atlantec-es.com</a>)</li>
+
+    <li>Simon Fischer</li>
+
+    <li>Sami Kama</li>
+
+    <li>Charles Loomis</li>
+  </ul>
+</body>
+</html>

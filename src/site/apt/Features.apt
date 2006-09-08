@@ -1,0 +1,29 @@
+    ---
+FreeHEP VectorGraphics - Features
+    ---
+Mark Donszelmann
+    ---
+    ---
+
+Features
+
+    The VectorGraphics package comes with the following features:</p>
+
+    * {{{Manual.html#ImageFormats}Image (bitmap) Formats}} available: GIF, JPEG, PNG and PPM.
+
+    * {{{Manual.html#VectorFormats}Vector Graphics Formats}} available: CGM, EMF, PDF, PostScript, EPS, SVG
+    and SWF.
+
+    * Simple ExportDialog provided which can be added to application and allows user to choose from any of the
+    available formats and set format specific options.
+
+    * No need to change user's painting code, the
+    {{{http://java.freehep.org/lib/freehep/api/org/freehep/graphics2d/VectorGraphics.html}VectorGraphics}}
+    class can be used anywhere where the standard java.awt.Graphics or java.awt.Graphics2D classes are used.
+
+    * Packaged in a per-format jar file, which when added to the CLASSPATH becomes available.
+
+    * Base classes provided to allow easy extension for new formats.
+
+    []
+    

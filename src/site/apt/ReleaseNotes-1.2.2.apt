@@ -1,0 +1,209 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Release Notes</title>
+<style>
+<!--
+
+.regular {font: 10pt/20pt serif} 
+-->
+</style>
+</head>
+
+<body>
+
+<h1>Vector Graphics 1.2.2 Release Notes</h1>
+<p><font size="2">Release Notes Version: $Revision: 1.4 $.</font></p>
+<p><font size="2">The most recent version of this file is available
+<a href="http://java.freehep.org/vectorgraphics/ReleaseNotes-1.2.2.html">here</a>.<br>
+Release notes for all versions of the VectorGraphics package are available
+<a href="http://java.freehep.org/vectorgraphics/AllReleaseNotes.html">here</a>.</font></p>
+<p>The VectorGraphics package of <a href="http://java.freehep.org">
+FreeHEP Java Library</a> enables any Java program to export to a variety of
+vector graphics formats as well as bitmap image formats. Among the vector formats are PostScript, PDF, EMF,
+SVF, SWF and CGM, while the image formats
+include GIF, PNG, JPG and PPM. </p>
+
+<p>The package uses the standard java.awt.Graphics2D class as its interface to
+the user program. Coupling this package to a standard Java program is therefore
+quite easy. It also comes with a dialog box which allows you to choose between
+all the formats mentioned above and set specific parameters for them.</p>
+
+<h2>Contents</h2>
+<ul>
+  <li><a href="#Changes">Major changes in VectorGraphics 1.2.2</a></li>
+  <li><a href="#Documentation">Documentation</a></li>
+  <li><a href="#License">License</a></li>
+  <li><a href="#Installation">Installing the VectorGraphics package</a></li>
+  <li><a href="#Compilation">Compiling the VectorGraphics package</a></li>
+  <li><a href="#Building">Building an Application with the VectorGraphics 
+  package</a></li>
+  <li><a href="#Running">Running the VectorGraphics package</a></li>
+  <li><a href="#Features">Features/Limitations of the Current Release</a></li>
+  <li><a href="#BugReporting">Reporting Bugs</a></li>
+  <li><a href="#Examples">Examples</a></li>
+</ul>
+<h2><a name="Changes">Major changes in VectorGraphics 1.2.2</a></h2>
+        <ul>
+            <li>Separately packaged for users who only want the VectorGraphics 
+            package.</li>
+            <li>FREEHEP-307: Added extra documentation for usage without 
+            ExportDialog.</li>
+            <li>FREEHEP-326: VectorGraphics now runs inside Applets.</li>
+            <li>FREEHEP-323: PixelGraphics2D, caught SecurityException to allow it to run in Applets.</li>
+            <li>FREEHEP-227: All Registered ImageIO writers will now register themselves
+                as ExportFileTypes.</li>
+            <li>WIRED-6: Added BufferedPanel to allow for easy double buffering.</li>
+            <li>FREEHEP-286: Changed algorithm for Cubic to Quad beziers, supplied by
+                Robert Penner.</li>
+        </ul>
+
+        <h3>CGM, Contributed by Ian Graham, ian@kelman.com </h3>
+            <ul>
+                <li>FREEHEP-361: CGM CellArray supports large images.</li>
+                <li>FREEHEP-324: Constructor uses proper OutputStream.</li>
+                <li>FREEHEP-344: Added CGM Raster (image) support.</li>
+                <li>Added CGMInputStream, CGMDummyTag, CGMDump and CGMAnalyze to 
+                analyze an CGM file.</li>
+            </ul>
+
+        <h3>EMF</h3>
+            <ul>
+                <li>Added EMFAnalyze to analyze an EMF file.</li>
+                <li>FREEHEP-378: Pen (draw) and Brush (fill) only set when 
+                changed, and kept separately since EMF allows separate colors 
+                for them.</li>
+                <li>FREEHEP-377: Line2D, Rectangle2D, RoundRectangle2D, 
+                CubicCurve2D and Ellipse are mapped to their equivalent EMF tags 
+                without going through a path constructor.</li>
+                <li>FREEHEP-376: MiterLimit only set when changed.</li>
+                <li>FREEHEP-93: EMFInputStream now tested for EMF2SVG converter.</li>
+                <li>FREEHEP-340: Added an EMFDisplay and an EMF2SVG converter, contributed by Carsten Zerbst,
+                    carsten.zerbst@atlantec-es.com</li>
+            </ul>
+
+        <h3>Java</h3>
+            <ul>
+            <li>FREEHEP-381: Java: NPE if PACKAGE_NAME not set.</li>
+</ul>
+
+        <h3>PDF</h3>
+            <ul>
+                <li>FREEHEP-293: Fixed a problem with setMultiPage method. Now
+                    works correctly. Also fixed TestPDFMultipage test.</li>
+            </ul>
+
+      <h3>RAW</h3>
+        <ul>
+            <li>FREEHEP-380: RawImageWriteParam generates NPE</li>
+        </ul>
+
+      <h3>SWF</h3>
+      <ul>
+        <li>Added SWFAnalyze to analyze an SWF file.</li>
+      </ul>
+
+<h2><a name="Documentation">Documentation</a></h2>
+<p>The following documentation is currently available:</p>
+<ul>
+  <li><a href="http://java.freehep.org/vectorgraphics">The VectorGraphics 
+  website</a></li>
+  <li><a href="http://java.freehep.org/vectorgraphics/Manual.html">The 
+  VectorGraphics User Manual</a></li>
+</ul>
+<h2><a name="License">License</a></h2>
+<p>The VectorGraphics package is part of the <a href="http://java.freehep.org/">FreeHEP Java Library</a>, 
+an &quot;Open Source&quot; library distributed under the terms of the
+<a href="http://www.gnu.org/copyleft/lesser.html">LGPL</a>. If you have 
+questions about the licensing please send a mail to:
+<a href="mailto:developers@freehep.org">developers@freehep.org</a>.</p>
+<h2><a name="Installation">Installin</a>g the VectorGraphics package</h2>
+
+<p>Download the PS Viewer and unpack.  The distribution 
+creates the following directory structure:</p>
+
+<pre>VectorGraphics-version            containing license and release notes
+VectorGraphics-version/examples   containing examples
+VectorGraphics-version/lib        containing jar files</pre>
+<h2><a name="Compilation">Compiling the </a>VectorGraphics package</h2>
+<p>The current distribution does not contain source files.  </p>
+<p>To (re-)build the VectorGraphics package you need to get VectorGraphics-1.2.2-src.zip or .tar.gz file from 
+the <a href="ftp://ftp.slac.stanford.edu/software/freehep/VectorGraphics/v1.2.2">ftp://ftp.slac.stanford.edu/software/freehep/VectorGraphics/v1.2.2/</a> directory. </p>
+<p>To compile it, follow the general instructions for
+<a href="http://java.freehep.org/Build.html">Building the Java FreeHEP Library</a> 
+and compile only the VectorGraphics jar files using the commands:</p>
+<pre>ant -Djar=graphics2d
+ant -Djar=graphicsio
+ant -Djar=graphicsio-cgm
+ant -Djar=graphicsio-emf
+ant -Djar=graphicsio-gif
+ant -Djar=graphicsio-java
+ant -Djar=graphicsio-pdf
+ant -Djar=graphicsio-ppm
+ant -Djar=graphicsio-ps
+ant -Djar=graphicsio-svg
+ant -Djar=graphicsio-swf</pre>
+<p>To build the distribution kit:</p>
+<pre>cd org/freehep/graphicsio
+gmake dist</pre>
+<h2><a name="Building">Building</a> an Application with the VectorGraphics 
+package</h2>
+<p>Add the following libraries to your CLASSPATH:</p>
+<blockquote>
+  <pre>freehep-graphics2d.jar
+freehep-base.jar</pre>
+</blockquote>
+<h2><a name="Running">Running</a> an Application with the VectorGraphics package</h2>
+<p>Set the environment variable PSVIEWER_HOME to your unpacked PSViewer 
+distribution.  </p>
+
+<p>Add the following libraries to your CLASSPATH:</p>
+
+<blockquote>
+  <pre>freehep-graphicsio.jar
+freehep-graphics2d.jar
+freehep-base.jar</pre>
+</blockquote>
+  <p>Then add any of the following jar files to your CLASSPATH to enable that 
+  format for output:</p>
+<blockquote>
+  <pre>freehep-graphicsio-cgm.jar
+freehep-graphicsio-emf.jar
+freehep-graphicsio-gif.jar
+freehep-graphicsio-java.jar
+freehep-graphicsio-pdf.jar
+freehep-graphicsio-ppm.jar
+freehep-graphicsio-ps.jar
+freehep-graphicsio-svg.jar
+freehep-graphicsio-swf.jar</pre>
+</blockquote>
+<h2><a name="Features">Features/Limitations of the Current Release</a></h2>
+<p>The following limitations exist:</p>
+<ul>
+  <li>All outstanding issues in the
+  <a href="http://java.freehep.org/redirect?project=VectorGraphics&area=bugs&reset=true&mode=hide&sorter/order=ASC&sorter/field=priority&resolutionIds=-1">Bug Database</a>.</li>
+  <li>The distribution kits contain some CVS directories and files, please 
+  ignore.</li>
+  <li>The freehep-base.jar file (and especially its sources) are dependent on 
+  some external jar files which are not strictly needed for the PS Viewer. 
+  Please ignore for now. In a later release we will shrink freehep-base.jar and 
+  get rid of these dependencies.</li>
+</ul>
+<h2><a name="BugReporting">Reporting Bugs</a></h2>
+<p>To report bugs or request enhancements you may use the
+<a href="http://java.freehep.org/redirect?project=Java&area=bugs">FreeHEP bug database</a>, 
+component VectorGraphics.</p>
+<h2><a name="Examples">Examples</a></h2>
+<p>The VectorGraphics/examples directory contains: </p>
+
+<ul>
+  <li>ExportDialogExample.java to show how to use the default ExportDialog that 
+  comes with the VectorGraphics package.</li>
+</ul>
+
+</body>
+
+</html>
