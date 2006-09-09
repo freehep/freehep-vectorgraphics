@@ -1,23 +1,18 @@
-<?xml version="1.0"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    ---
+FreeHEP VectorGraphics - Publications and Talks
+    ---
+Mark Donszelmann
+    ---
+    ---
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title>VectorGraphics - Publications and Talks</title>
-</head>
+Publications and Talks
 
-<body>
-  <h1>Publications and Talks</h1>
+* Publications
 
-  <h2>Publications</h2>
+	* Mark D&ouml;nszelmann, Simon Fischer and Sami Kama, {{{publications/SummerStudentReport/report.pdf}"Improvements
+to the graphics2d package of the freehep Java library"}}, 2001.
 
-  <p>Mark D&ouml;nszelmann, Simon Fischer and Sami Kama, <a href="publications/SummerStudentReport/report.pdf">"Improvements
-  to the graphics2d package of the freehep Java library"</a>, 2001.</p>
+* Talks
 
-  <h2>Talks</h2>
-
-  <p>Simon Fischer (University of Dortmund) and Sami Kama (METU, Ankara), <a href="talks/graphics2d.ppt">"The
-  graphics2d package of the FreeHEP library"</a>, 2001.</p>
-</body>
-</html>
+	* Simon Fischer (University of Dortmund) and Sami Kama (METU, Ankara), {{{talks/graphics2d.ppt}"The
+graphics2d package of the FreeHEP library"}}, 2001.

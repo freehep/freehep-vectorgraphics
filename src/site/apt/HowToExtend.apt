@@ -1,410 +1,155 @@
-<html>
+    ---
+FreeHEP VectorGraphics - How To Extend VectorGraphics
+    ---
+Mark Donszelmann
+    ---
+    ---
 
-<head>
-<meta http-equiv="Content-Language" content="en-us">
-<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
-<meta name="ProgId" content="FrontPage.Editor.Document">
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-<title>Extending the VectorGraphics to produce another output format</title>
-</head>
+How To Extend VectorGraphics
 
-<body>
-
-<h1>How To Extend VectorGraphics</h1>
-
-<p>To add an extra output format to the VectorGraphics package one needs to
+	To add an extra output format to the VectorGraphics package one needs to
 extend it, and create a separate jar file for the new format. If the format is a
-common one, we <a href="mailto:(developers@freehep.org">(developers@freehep.org</a>)
+common one, we {{{mailto:developers@freehep.org}(developers@freehep.org)}}
 may be interested in adding it to our library, with the proper mentioning of
-credentials.</p>
-<p>The following describes briefly how to extend VectorGraphics to create either
+credentials.
+
+	The following describes briefly how to extend VectorGraphics to create either
 a new Image Format or a new Vector Format. Please refer to the class diagram 
-below:</p>
-<p align="center">
-<img border="0" src="ClassDiagram.png" width="720" height="540"></p>
-<p align="left">and to the following table to see how different methods are 
+below:
+
+[images/ClassDiagram.png] VectorGraphics Classes
+
+	and to the following table to see how different methods are 
 implemented in different formats. Refer to the drivers for these formats for 
-examples:</p>
-<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber1">
-  <tr>
-    <th width="16%">&nbsp;</th>
-    <th width="52%" colspan="6">Vector Graphics</th>
-  </tr>
-  <tr>
-    <th width="16%">Methods</th>
-    <th width="8%">CGM</th>
-    <th width="8%">EMF</th>
-    <th width="9%">PDF</th>
-    <th width="9%">PS</th>
-    <th width="9%">SVG</th>
-    <th width="9%">SWF</th>
-  </tr>
-  <tr>
-    <td width="8%">writeHeader / Trailer</td>
-    <td width="8%" align="center">X</td>
-    <td width="8%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-  </tr>
-  <tr>
-    <td width="8%">closeStream</td>
-    <td width="8%" align="center">X</td>
-    <td width="8%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-  </tr>
-  <tr>
-    <td width="8%">implements MultipPageDocument</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">create</td>
-    <td width="8%" align="center">X</td>
-    <td width="8%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-  </tr>
-  <tr>
-    <td width="8%">writeGraphicsSave / Restore</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">&nbsp;</td>
-    <td width="8%" align="center">&nbsp;</td>
-    <td width="8%" align="center">&nbsp;</td>
-    <td width="9%" align="center">&nbsp;</td>
-    <td width="9%" align="center">&nbsp;</td>
-    <td width="9%" align="center">&nbsp;</td>
-    <td width="9%" align="center">&nbsp;</td>
-  </tr>
-  <tr>
-    <td width="8%">draw / fill / drawAndFill</td>
-    <td width="8%" align="center">X</td>
-    <td width="8%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-  </tr>
-  <tr>
-    <td width="8%">drawRect, drawArc, etc</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">drawSymbol / fillSymbol</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="60%" colspan="7">&nbsp;</td>
-  </tr>
-  <tr>
-    <td width="8%">copyArea</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">drawRenderedImage</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">writeImage</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-  </tr>
-  <tr>
-    <td width="60%" colspan="7">&nbsp;</td>
-  </tr>
-  <tr>
-    <td width="8%">drawString</td>
-    <td width="8%" align="center">X</td>
-    <td width="8%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">drawGlyphFactor</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="60%" colspan="7">&nbsp;</td>
-  </tr>
-  <tr>
-    <td width="8%">setTransform</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">writeTransform</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">rotate / translate / ...</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="60%" colspan="7">&nbsp;</td>
-  </tr>
-  <tr>
-    <td width="8%">setClip</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">writeClip</td>
-    <td width="8%" align="center">X</td>
-    <td width="8%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">writeSetClip</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="60%" colspan="7">&nbsp;</td>
-  </tr>
-  <tr>
-    <td width="8%">writeStroke</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">X</td>
-  </tr>
-  <tr>
-    <td width="8%">writeWidth</td>
-    <td width="8%" align="center">X</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">writeCap</td>
-    <td width="8%" align="center">X</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">writeJoin</td>
-    <td width="8%" align="center">X</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">writeMiterLimit</td>
-    <td width="8%" align="center">X</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">writeDash</td>
-    <td width="8%" align="center">X</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="60%" colspan="7">&nbsp;</td>
-  </tr>
-  <tr>
-    <td width="8%">setPaintMode</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">setXORMode</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">writePaint</td>
-    <td width="8%" align="center">X</td>
-    <td width="8%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-  </tr>
-  <tr>
-    <td width="8%">setFont</td>
-    <td width="8%" align="center">X</td>
-    <td width="8%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="60%" colspan="7">&nbsp;</td>
-  </tr>
-  <tr>
-    <td width="8%">getDeviceConfiguration</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">hit</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-  <tr>
-    <td width="8%">writeComment</td>
-    <td width="8%" align="center">-</td>
-    <td width="8%" align="center">-</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">X</td>
-    <td width="9%" align="center">-</td>
-  </tr>
-</table>
-<h2>Adding a new Image Format</h2>
-<p>Adding a new Image Format is relatively easy, because we let java do all the
+examples:
+
+*---------------------------------+-----*-----*-----*-----*-----*-----*
+| <<Methods>>                     | <<CGM>> | <<EMF>> | <<PDF>> | <<PS>>  | <<SVG>> | <<SWF>>
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| writeHeader / Trailer           | X   | X   | X   | X   | X   | X
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| closeStream                     | X   | X   | X   | X   | X   | X
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| implements MultipPageDocument   | -   | -   | X   | X   | -   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| create                          | X   | X   | X   | X   | X   | X
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| writeGraphicsSave / Restore     | -   | X   | X   | X   | X   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| draw / fill / drawAndFill       | X   | X   | X   | X   | X   | X
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| drawRect, drawArc, etc          | -   | -   | -   | X   | X   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| drawSymbol / fillSymbol         | -   | -   | -   | X   | -   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| copyArea                        | -   | -   | -   | -   | -   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| drawRenderedImage               | -   | -   | -   | -   | -   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| writeImage                      | -   | X   | X   | X   | X   | X
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| drawString                      | X   | X   | X   | X   | X   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| drawGlyphFactor                 | -   | -   | -   | -   | -   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| setTransform                    | -   | -   | -   | X   | -   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| writeTransform                  | -   | X   | X   | -   | X   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| rotate / translate / ...        | -   | -   | -   | X   | -   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| setClip                         | -   | -   | X   | X   | -   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| writeClip                       | X   | X   | X   | X   | X   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| writeSetClip                    | -   | -   | -   | -   | -   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| writeStroke                     | -   | X   | -   | -   | -   | X
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| writeWidth                      | X   | -   | X   | X   | X   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| writeCap                        | X   | -   | X   | X   | X   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| writeJoin                       | X   | -   | X   | X   | X   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| writeMiterLimit                 | X   | -   | X   | X   | X   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| writeDash                       | X   | -   | X   | X   | X   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| setPaintMode                    | -   | -   | -   | -   | -   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| setXORMode                      | -   | -   | -   | -   | -   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| writePaint                      | X   | X   | X   | X   | X   | X
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| setFont                         | X   | X   | -   | X   | X   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| getDeviceConfiguration          | -   | -   | -   | -   | -   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| hit                             | -   | -   | -   | -   | -   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+| writeComment                    | -   | -   | X   | X   | X   | -
+*---------------------------------*-----*-----*-----*-----*-----*-----
+Vector Graphics Methods
+
+* Adding a new Image Format
+
+	Adding a new Image Format is relatively easy, because we let java do all the
 drawing in the PixelGraphics2D class. Once finished drawing the pixels of 
-PixelGraphics2D are grabbed and written to the proper output format.</p>
-<p>The base class
+PixelGraphics2D are grabbed and written to the proper output format.
+
+	The base class
 for all Image formats is org.freehep.graphicsio.ImageGraphicsIO, which inherits 
 from PixelGraphics2D and is therefore useable anywhere where a java.awt.Graphics 
 context is expected. ImageGraphicsIO handles the allocation of the pixel buffer, 
-closing of the stream, and production of a thumbnail image if necessary.</p>
-<p>The actual class for the new Image Format needs to implement the following 
-methods:</p>
-<ul>
-  <li>Constructors: one or more constructors to create the actual class from a 
-  stream, given a size or a component.</li>
-  <li>Create methods: two create methods which allow VectorGraphics2D to clone 
-  and make a sub-graphics component.</li>
-  <li>Write method: which will write out the bytes according of the pixel buffer 
-  to the stream.</li>
-</ul>
-<p>To actually allow the user to select the new Image Format you still need to 
-add <a href="#exportclass">Export Class</a>.</p>
-<h2>Adding a new Vector Format</h2>
-<p>create methods</p>
-<p>transforms</p>
-<p>write methods</p>
+closing of the stream, and production of a thumbnail image if necessary.
 
-<p>To actually allow the user to select the new Image Format you still need to 
-add <a href="#exportclass">Export Class</a>.</p>
+	The actual class for the new Image Format needs to implement the following 
+methods:
 
-<h2><a name="exportclass">Adding a new ExportClass</a></h2>
-<p>to be done</p>
-<p>Inherit from 
-org.freehep.graphicsio.exportchooser.ExportGraphicsFileTypeAdapter.</p>
+  * Constructors: one or more constructors to create the actual class from a 
+  stream, given a size or a component.
+  
+  * Create methods: two create methods which allow VectorGraphics2D to clone 
+  and make a sub-graphics component.
+  
+  * Write method: which will write out the bytes according of the pixel buffer 
+  to the stream.
+  
+	To actually allow the user to select the new Image Format you still need to 
+add {{{"#exportclass}Export Class}}.
 
-<h2>Making the output format MultiPage</h2>
-<p>If your output format allows multiple pages, then the driver for the output 
+* Adding a new Vector Format
+
+	create methods
+
+	transforms
+
+	write methods
+
+	To actually allow the user to select the new Image Format you still need to 
+add {{{#exportclass}Export Class}}.
+
+* {exportclass} Adding a new ExportClass
+
+	to be done
+
+	Inherit from 
+org.freehep.graphicsio.exportchooser.ExportGraphicsFileTypeAdapter.
+
+* Making the output format MultiPage
+
+	If your output format allows multiple pages, then the driver for the output 
 format could write multiple components each to one page. The driver needs to 
 implement org.freehep.graphicsio.MultiPageDocument, which needs the following 
-methods implemented:</p>
-<ul>
-  <li>openPage(), called when a new page starts.</li>
-  <li>closePage(), called when a page ends.</li>
-  <li>setHeader(), called to set a header for a page.</li>
-  <li>setFooter(), called to set a footer for a page.</li>
-</ul>
-<p>The Export Class also needs some modifications, (to be defined).</p>
+methods implemented:
 
-</body>
+  * openPage(), called when a new page starts.
+  
+  * closePage(), called when a page ends.
+  
+  * setHeader(), called to set a header for a page.
+  
+  * setFooter(), called to set a footer for a page.
 
-</html>
+	The Export Class also needs some modifications, (to be defined).
