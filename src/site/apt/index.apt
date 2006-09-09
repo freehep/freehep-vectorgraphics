@@ -7,7 +7,7 @@ Mark Donszelmann
 
 Overview
 
-    The <b>VectorGraphics</b> package of the {{{http://java.freehep.org}
+    The <<VectorGraphics>> package of the {{{http://java.freehep.org}
 FreeHEP Java Library}} enables any Java program to export to a variety of
 vector graphics formats as well as bitmap image formats. Among the
 {{{Manual.html#VectorFormats}vector formats}} are PostScript, PDF, EMF,
@@ -19,4 +19,4 @@ the user program. Coupling this package to a standard Java program is therefore
 straightforward. It also comes with a dialog box which allows you to choose between
 all the formats mentioned above and set specific parameters for them.
 
-    <img src="Architecture.png"/>
+[images/Architecture.png] VectorGraphics Architecture.

@@ -7,7 +7,7 @@ Mark Donszelmann
 
 Features
 
-    The VectorGraphics package comes with the following features:</p>
+    The VectorGraphics package comes with the following features:
 
     * {{{Manual.html#ImageFormats}Image (bitmap) Formats}} available: GIF, JPEG, PNG and PPM.
 

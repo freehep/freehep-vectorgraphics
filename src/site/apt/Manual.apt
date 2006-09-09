@@ -46,11 +46,10 @@ public class X {
 }
 +--
 
-+--
-<i>where "panel1" is the parent for the export dialog (to center the dialog box),
+	<where "panel1" is the parent for the export dialog (to center the dialog box),
 and where "panel2" specifies the target to be exported.
-These can be the same.</i>
-+--
+These can be the same.>
+
 
     As an alternative if you know you just want to write PostScript for 
 instance, and you wish not to use the ExportDialog class, you can use the 
@@ -76,28 +75,31 @@ public class X {
 }
 +--
 
-+--
-<i>where "panel2" specifies the target to be exported.</i>
-<i>Note that you have to call g.startExport to open the file and g.endExport to close the file.
+	<where "panel2" specifies the target to be exported.>
+<Note that you have to call g.startExport to open the file and g.endExport to close the file.
 Also note that you should call print(g) rather than paint(g) since the latter may use 
-double buffering and therefore paint an image, rather than vectorgraphics.</i>
-+--
+double buffering and therefore paint an image, rather than vectorgraphics.>
 
     To run code using the VectorGraphics package you need to add the following jar files to your CLASSPATH:
-<pre>
-freehep-base.jar; freehep-graphics2d.jar; freehep-graphicsio.jar;
-</pre>
+    
++--
+freehep-base.jar;freehep-graphics2d.jar;freehep-graphicsio.jar;
++--
 
-    <i>this includes some of the Image Formats (JPG, PNG and PPM)</i>
+    <this includes some of the Image Formats (JPG, PNG and PPM)>
 
     followed by one or more output format specific jar file for any of the Vector Formats:
-  <pre>freehep-graphicsio-cgm.jar; freehep-graphicsio-emf.jar; freehep-graphicsio-pdf.jar;
-freehep-graphicsio.ps.jar; freehep-graphicsio-svg.jar; freehep-graphicsio-swf.jar;
-</pre>
+
++--
+freehep-graphicsio-cgm.jar;freehep-graphicsio-emf.jar;freehep-graphicsio-pdf.jar;
+freehep-graphicsio.ps.jar;freehep-graphicsio-svg.jar;freehep-graphicsio-swf.jar;
++--
 
     to include gif you should add:
-  <pre>freehep-graphicsio-gif.jar
-  </pre>
+
++--
+freehep-graphicsio-gif.jar
++--
 
     then run your program as usual. The ExportDialog will now allow you to select any of the output formats for which
 you included jar files in the CLASSPATH.
@@ -106,7 +108,8 @@ you included jar files in the CLASSPATH.
 * How to paint into a VectorGraphics context?
 
     To make use of the extensions, described below, in the
-{{{http://java.freehep.org/lib/freehep/api/org/freehep/graphics2d/VectorGraphics.html}VectorGraphics}} class you need to convert the standard
+{{{http://java.freehep.org/lib/freehep/api/org/freehep/graphics2d/VectorGraphics.html}VectorGraphics}} class 
+you need to convert the standard
 java.awt.Graphics context to a VectorGraphics context. To do so one uses the static method
 VectorGraphics.create(Graphics g), which will either return g if it is already an instance of VectorGraphics or wrap
 g in an implementation of VectorGraphics. See the example below on how to do this:
@@ -125,8 +128,8 @@ public class X extends Component {
 +--
 
     You can use any of the methods available in Graphics2D, plus the extra methods from VectorGraphics, but you need
-to properly nest calls to the <i>create()</i> and <i>dispose()</i> methods to allow the different output formats to
-have their graphics states <i>stored</i> and <i>restored</i> correctly. All swing components do this.
+to properly nest calls to the <create()> and <dispose()> methods to allow the different output formats to
+have their graphics states <stored> and <restored> correctly. All swing components do this.
 
 
 * Additional Functionality in VectorGraphics
@@ -170,27 +173,26 @@ way the output file gets shortened considerably.
     The class TagString allows you to display strings which can be marked up with the HTML like tags described in the
 table below:
 
+*-----*--*--*--*--
+| <<Start Tag>> | <<End Tag>> | <<Description>> | <<Look>>
+*-----*--*--*--*--
+| \<B\> | \</B\> | Bold Face | <<Bold>> Face
+*-----*--*--*--*--
+| \<I\> | \</I\> | Italic Face | <Italic> Face
+*-----*--*--*--*--
+| \<OVER\> | \</OVER\> | OverLine | -
+*-----*--*--*--*--
+| \<SUB\> | \</SUB\> | SubScript | -
+*-----*--*--*--*--
+| \<SUP\> | \</SUP\> | SuperScript | -
+*-----*--*--*--*--
+| \<TT\>  | \</TT\>  | Monospaced | <<<Monospaced>>>
+*-----*--*--*--*--
+| \<U\>   | \</U\>   | Underline | -
+*-----*--*--*--*--
+Table with tags that are allowed in a TagString
 
-    Table with tags that are allowed in a TagString
-+-----+--+--+--+--+
-| Start Tag | End Tag | Description | Look
-+-----+--+--+--+--+
-| <B> | </B> | Bold Face | Bold Face
-+-----+--+--+--+--+
-| <I> | </I> | Italic Face | Italic Face
-+-----+--+--+--+--+
-| <OVER> | </OVER> | OverLine | OverLine
-+-----+--+--+--+--+
-| <SUB> | </SUB> | SubScript | SubScript
-+-----+--+--+--+--+
-| <SUP> | </SUP> | SuperScript | SuperScript
-+-----+--+--+--+--+
-| <TT>  | </TT>  | Monospaced | Monospaced
-+-----+--+--+--+--+
-| <U>   | </U>   | Underline | Underline
-+-----+--+--+--+--+
-
-    The writing of &, <, >, " and ' can be done using the entities: &amp; &lt; &gt; &quot
+    The writing of & \< \> " and ' can be done using the entities: &amp; &lt; &gt; &quot
 and &apos;.
 
     The drawString() methods have been overridden to take a TagString as a parameter and handle the tags
@@ -219,7 +221,7 @@ formats.
 the latter was to unify the way the output is produced using the java.awt.Graphics2D API. All supported formats and
 their current limitations are described below:
 
-** {{{VectorFormats}Vector Formats}} (Alphabetical)
+** {VectorFormats}Vector Formats (Alphabetical)
 
     Vector Graphics Formats store the drawing as you make it. No rasterization takes place while outputting the
 format. Unlike Image formats, which do rasterize at the time of output, rasterization for vector formats happens in
@@ -270,7 +272,8 @@ can be viewed with the {{{http://www.macromedia.com/software/flashplayer/}ShockW
 support is currently limited to version 3 and a number of things are unimplemented, see
 {{{http://java.freehep.org/lib/freehep/api/org/freehep/graphicsio/swf/package-summary.html}apidoc}} for more details.
 
-** {{{ImageFormats}Image Formats}} (Alphabetical)
+
+** {ImageFormats}Image Formats (Alphabetical)
 
     VectorGraphics formats are preferred for most drawings, unless a lot of imaging is involved. Resizing of an image
 normally results in a degradation of the image. Resizing a VectorGraphics output will use all of the resolution

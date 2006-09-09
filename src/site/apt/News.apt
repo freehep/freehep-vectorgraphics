@@ -1,39 +1,34 @@
-<?xml version="1.0"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    ---
+FreeHEP VectorGraphics - News
+    ---
+Mark Donszelmann
+    ---
+    ---
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title>VectorGraphics - News</title>
-</head>
+News
 
-<body>
-<h1>News</h1>
-<p>December 9, 2003: VectorGraphics version 1.2.2 released.<p>
-<h2>Java2D export to PDF, Postscript, SVG, EMF, shockwave etc.</h2>
-<p>
-The VectorGraphics package of FreeHEP Java Library enables any Java
+	December 9, 2003: VectorGraphics version 1.2.2 released.
+	
+* Java2D export to PDF, Postscript, SVG, EMF, shockwave etc.
+
+	The VectorGraphics package of FreeHEP Java Library enables any Java
 program to export to a variety of vector graphics formats as well as
 bitmap image formats. Among the vector formats are PostScript, PDF,
 EMF, SVF, SWF and CGM, while the image formats include GIF, PNG, JPG
 and PPM.
-</p>
-<p>
-The package uses the standard java.awt.Graphics2D class as its
+
+	The package uses the standard java.awt.Graphics2D class as its
 interface to the user program. Coupling this package to a standard
 Java program is therefore quite easy and particularly suitable for
 exporting graphs, charts, scientific visualization etc to vector
 graphics formats.
-</p>
-<p>
-It comes with a dialog box which allows you to choose between
+
+	It comes with a dialog box which allows you to choose between
 all the formats mentioned above and set specific parameters for them.
-</p>
-<p>
-VectorGraphics can easily be extended for other graphics output
+
+	VectorGraphics can easily be extended for other graphics output
 formats. Any reasonable extension can be hosted by FreeHEP.
-</p>
-<p>Available under the LGPL license.</p>
-<p>The FreeHEP Team.</p>
-</body>
-</html>
+
+	Available under the LGPL license.
+
+	The FreeHEP Team.

@@ -1,30 +1,22 @@
-<html>
+    ---
+FreeHEP VectorGraphics - Demonstrations
+    ---
+Mark Donszelmann
+    ---
+    ---
 
-<head>
+Demonstrations
 
-<title>VectorGraphics - Demonstration</title>
+* {{{http://java.freehep.org}FreeHEP}} Export Demo
 
-</head>
+	The FreeHEP Export Demo is a demonstration for the FreeHEP Vector Graphics
+export facilities.
 
-<body>
-<h1>Demonstration</h1>
+	Currently the Export Demo is available for download using Java Web Start. You
+must have {{{http://java.sun.com/products/javawebstart/}Java Web Start
+1.0}} or higher already installed on your machine for the download to work.
 
-<h2><a href="http://java.freehep.org">FreeHEP</a> Export Demo</h2>
+	Feel free to send comments/suggestions/bug reports to the authors,
+{{{mailto:developers@freehep.org}developers@freehep.org}}.
 
-<p>The FreeHEP Export Demo is a demonstration for the FreeHEP Vector Graphics
-export facilities.</p>
-
-<p>Currently the Export Demo is available for download using Java Web Start. You
-must have <a href="http://java.sun.com/products/javawebstart/">Java Web Start
-1.0</a> or higher already installed on your machine for the download to work.</p>
-
-<p>Feel free to send comments/suggestions/bug reports to the authors,
-<a href="mailto:developers@freehep.org">developers@freehep.org</a>.</p>
-
-<form method="GET" action="ExportDemo.jnlp">
-  <p><input type="submit" value="Download using Java Web Start" name="go"></p>
-</form>
-
-</body>
-
-</html>
+	{{{ExportDemo.jnlp}<<Download using Java Web Start>>}}
