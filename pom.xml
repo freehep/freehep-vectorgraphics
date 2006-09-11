@@ -18,6 +18,84 @@
       <url>http://java.freehep.org/maven2</url>
     </repository>
   </repositories>
+  <developers>
+    <developer>
+      <id>duns</id>
+      <name>Mark Donszelmann</name>
+      <email>Mark.Donszelmann@slac.stanford.edu</email>
+      <organization>SLAC - Stanford Linear Accelerator Center</organization>
+      <organizationUrl>http://www.slac.stanford.edu</organizationUrl>
+      <roles>
+        <role>Architect</role>
+        <role>Release Manager</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
+    <developer>
+      <id>tonyj</id>
+      <name>Tony Johnson</name>
+      <email>tonyj@slac.stanford.edu</email>
+      <organization>SLAC - Stanford Linear Accelerator Center</organization>
+      <organizationUrl>http://www.slac.stanford.edu</organizationUrl>
+      <roles>
+        <role>Architect</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
+    <developer>
+      <name>Cal Loomis</name>
+      <email>loomis@lal.in2p3.fr</email>
+      <organization>LAL - Laboratoire de l'Accelerateur Lineaire</organization>
+      <organizationUrl>http://www.lal.in2p3.fr</organizationUrl>
+      <roles>
+        <role>Architect</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>  
+  </developers>
+  <contributors>
+    <contributor>
+      <name>Simon Fischer</name>
+      <organization>CERN - European Organization for Nuclear Research</organization>
+      <organizationUrl>http://www.cern.ch</organizationUrl>
+      <roles>
+        <role>Summer Student 2001</role>
+      </roles>
+    </contributor>  
+    <contributor>
+      <name>Andre Bach</name>
+      <organization>SLAC - Stanford Linear Accelerator Center</organization>
+      <organizationUrl>http://www.slac.stanford.edu</organizationUrl>
+      <roles>
+        <role>Summer Student 2004</role>
+      </roles>
+    </contributor>  
+    <contributor>
+      <name>Partick Hellwig</name>
+      <organization>CERN - European Organization for Nuclear Research</organization>
+      <organizationUrl>http://www.cern.ch</organizationUrl>
+      <roles>
+        <role>Summer Student 2000</role>
+      </roles>
+    </contributor>  
+    <contributor>
+      <name>Sami Kama</name>
+      <organization>CERN - European Organization for Nuclear Research</organization>
+      <organizationUrl>http://www.cern.ch</organizationUrl>
+      <roles>
+        <role>Summer Student 2001</role>
+      </roles>
+      <timezone></timezone>
+    </contributor>  
+    <contributor>
+      <name>Ian Graham</name>
+      <organizationUrl>mailto:ian@kelman.com</organizationUrl>
+     </contributor>  
+    <contributor>
+      <name>Carsten Zerbst</name>
+      <organizationUrl>mailto:carsten.zerbst@atlantec-es.com</organizationUrl>
+    </contributor>  
+  </contributors>
   <build>
     <pluginManagement>
       <plugins>
@@ -102,4 +180,10 @@
     <module>freehep-graphicsio-svg</module>
     <module>freehep-graphicsio-swf</module>
   </modules>
+  <distributionManagement>
+    <site>
+      <id>freehep-web-deploy</id>
+      <url>scpexe://svn.freehep.org/nfs/slac/g/jas/workspace/freehep/__star__/web/freehep/vectorgraphics</url>
+    </site>
+  </distributionManagement>
 </project>

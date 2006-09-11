@@ -17,31 +17,37 @@
         <breadcrumbs/>
 
         <links>
-            <item name="FreeHEP 1.x" href="http://java.freehep.org/freehep1.x"/>
-            <item name="FreeHEP 2.x" href="http://java.freehep.org/"/>
+            <item name="FreeHEP" href="http://java.freehep.org/"/>
             <item name="JAS" href="http://jas.freehep.org/"/>
             <item name="WIRED" href="http://wired.freehep.org/"/>
         </links>
     
         <menu name="General">
-            <item name="Home" href="index.html"/>
-        	<item name = "News"                 href="News.html"/>
-        	<item name = "Features"             href="Features.html"/>
-        	<item name = "Demonstrations"       href="Demonstrations.html"/>
-        	<item name = "Screen Shots"         href="ScreenShots.html"/>
-        	<item name = "Publications/Talks"   href="Publications.html"/>
+            <item name="Introduction" href="index.html"/>
+        	<item name="News"                 href="News.html"/>
+        	<item name="Features"             href="Features.html"/>
+        	<item name="Demonstrations"       href="Demonstrations.html"/>
+        	<item name="Screenshots"         href="ScreenShots.html"/>
+        	<item name="Publications/Talks"   href="Publications.html"/>
         	<item name="Users"                href="Users.html"/>
-            <item name="Team" href="team-list.html"/>
             <item name="License" href="license.html"/>
-            <item name="Mailing Lists" href="mail-lists.html"/>
-            <item name="Forums" href="http://forum.freehep.org"/>
-            <item name="Bugs and Issues" href="http://bugs.freehep.org"/>
+            <item name="Team" href="team-list.html"/>
         </menu>
 
-		<menu name="Usage Info">
-        	<item name = "Manual"        href="Manual.html"/>
-			<item name = "How to Extend" href="HowToExtend.html"/>
-			<item name = "Source Repository" href="source-repository.html"/>
+		<menu name="User Info">
+        	<item name="Manual"        href="Manual.html"/>
+        	<item name="Download"      href="ftp://ftp.slac.stanford.edu/software/freehep/VectorGraphics"/>
+            <item name="Forum" href="http://forum.freehep.org/index.php?t=threadt&amp;frm_id=8amp;&amp;rid=4"/>
+            <item name="Bug Reports" href="http://bugs.freehep.org/browse/FVG"/>
+        </menu>
+
+        <menu name="Developer Info">
+<!--
+			<item name="How to Extend" href="HowToExtend.html"/>
+-->
+			<item name="Source Repository" href="source-repository.html"/>
+			<item name="API Docs" href="apidocs.html"/>
+			<item name="Dependency Convergence" href="dependency-convergence.html"/>
 		</menu>
     </body>
 </project>

@@ -1,0 +1,54 @@
+	---
+FreeHEP VectorGraphics APIDocs
+	---
+	---
+Mark Donszelmann
+	---
+	
+VectorGraphics APIDocs
+
+	The VectorGraphics library is in general split in two layers. The bottom layer
+implements writing (and in some cases reading) of a specific format, while the top-layer
+implements writing in terms of java.awt.Graphics2D. 
+
+	Base classes are provided in the freehep-graphics2d package. This package also includes
+bitmap formats and the screen driver.
+
+	The derived freehep-graphicsio package implements common functionality for vectorgraphics. 
+
+	Each format is defined in its own freehep-graphicsio-<fmt> package, which also contains
+the classes to write (and in some cases read) the format.
+	
+	The freehep-graphicsio-tests package defines a set of standard tests which can be run for
+each of the formats.
+
+* Below are the API Docs for each of the packages:
+
+	* {{{freehep-graphics2d/apidocs}freehep-graphics2d}}
+	
+	* {{{freehep-graphicsio/apidocs}freehep-graphicsio}}
+	
+	[]
+	
+	
+	* {{{freehep-graphicsio-cgm/apidocs}freehep-graphicsio-cgm}}
+	
+	* {{{freehep-graphicsio-emf/apidocs}freehep-graphicsio-emf}}
+
+	* {{{freehep-graphicsio-java/apidocs}freehep-graphicsio-java}}
+
+	* {{{freehep-graphicsio-latex/apidocs}freehep-graphicsio-latex}}
+
+	* {{{freehep-graphicsio-pdf/apidocs}freehep-graphicsio-pdf}}
+
+	* {{{freehep-graphicsio-ps/apidocs}freehep-graphicsio-ps}}
+
+	* {{{freehep-graphicsio-svg/apidocs}freehep-graphicsio-svg}}
+
+	* {{{freehep-graphicsio-swf/apidocs}freehep-graphicsio-swf}}
+
+	[]
+	
+	
+	* {{{freehep-graphicsio-tests/apidocs}freehep-graphicsio-tests}}
+	
