@@ -19,4 +19,4 @@ must have {{{http://java.sun.com/products/javawebstart/}Java Web Start
 	Feel free to send comments/suggestions/bug reports to the authors,
 {{{mailto:developers@freehep.org}developers@freehep.org}}.
 
-	{{{ExportDemo.jnlp}<<Download using Java Web Start>>}}
+	{{{http://java.freehep.org/demo/ExportDemo/ExportDemo.jnlp}<<Download using Java Web Start>>}}

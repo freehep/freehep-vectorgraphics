@@ -10,7 +10,7 @@
     <vendor>FreeHEP</vendor> 
     <homepage href="ExportDemo/index.thtml"/> 
     <description>FreeHEP Export Demo</description> 
-    <description kind="short">A demonstration of the FreeHEP Graphics IO library.</description>
+    <description kind="short">A demonstration of the FreeHEP VectorGraphics library.</description>
     <offline-allowed/> 
   </information> 
   <resources> 
@@ -34,4 +34,4 @@
     <property name="jnlp.org.freehep.application.ServiceManager" value="org.freehep.application.services.jnlp.JNLPServiceManager"/>
   </resources> 
   <application-desc main-class="org.freehep.demo.graphics.ExportDemo"/> 
-</jnlp> 
+</jnlp>
