@@ -10,8 +10,8 @@ Manual
     The
 {{{http://java.freehep.org/lib/freehep/api/org/freehep/graphics2d/package-summary.html"}VectorGraphics}} package of
 {{{http://java.freehep.org}FreeHEP}} is an extension of the java graphics system for users to save their
-graphical output in a number of {{{#VectorFormats}Vector Formats}} or
-{{{#ImageFormats}Image (bitmap) Formats}}. The package also contains a set of base
+graphical output in a number of {{{#Vector Formats (Alphabetical)}Vector Formats}} or
+{{{#Image Formats (Alphabetical)}Image (bitmap) Formats}}. The package also contains a set of base
 classes which can easily be extended to allow for any new formats that may become available over time. A standard
 {{{http://java.freehep.org/lib/freehep/api/org/freehep/util/export/ExportDialog.html}
 ExportDialog}} is provided to allow users to select the required output format.
@@ -221,7 +221,7 @@ formats.
 the latter was to unify the way the output is produced using the java.awt.Graphics2D API. All supported formats and
 their current limitations are described below:
 
-** {VectorFormats}Vector Formats (Alphabetical)
+** {Vector Formats (Alphabetical)}
 
     Vector Graphics Formats store the drawing as you make it. No rasterization takes place while outputting the
 format. Unlike Image formats, which do rasterize at the time of output, rasterization for vector formats happens in
@@ -273,7 +273,7 @@ support is currently limited to version 3 and a number of things are unimplement
 {{{http://java.freehep.org/lib/freehep/api/org/freehep/graphicsio/swf/package-summary.html}apidoc}} for more details.
 
 
-** {ImageFormats}Image Formats (Alphabetical)
+** {Image Formats (Alphabetical)}
 
     VectorGraphics formats are preferred for most drawings, unless a lot of imaging is involved. Resizing of an image
 normally results in a degradation of the image. Resizing a VectorGraphics output will use all of the resolution

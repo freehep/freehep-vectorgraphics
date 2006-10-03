@@ -29,28 +29,28 @@ all the formats mentioned above and set specific parameters for them.
 
 * Contents
 
-  * {{{#Changes}Major changes in VectorGraphics 1.2.3}}
+  * {{{#Major changes in VectorGraphics 1.2.3}Major changes in VectorGraphics 1.2.3}}
   
   * {{{#Documentation}Documentation}}
   
   * {{{#License}License}}
   
-  * {{{#Installation}Installing the VectorGraphics package}}
+  * {{{#Installing the VectorGraphics package}Installing the VectorGraphics package}}
   
-  * {{{#Compilation}Compiling the VectorGraphics package}}
+  * {{{#Compiling the VectorGraphics package}Compiling the VectorGraphics package}}
   
-  * {{{#Building}Building an Application with the VectorGraphics 
+  * {{{#Building an Application with the VectorGraphics package}Building an Application with the VectorGraphics 
   package}}
   
-  * {{{#Running}Running the VectorGraphics package}}
+  * {{{#Running the VectorGraphics package}Running the VectorGraphics package}}
   
-  * {{{#Features}Features/Limitations of the Current Release}}
+  * {{{#Features/Limitations of the Current Release}Features/Limitations of the Current Release}}
   
-  * {{{#BugReporting}Reporting Bugs}}
+  * {{{#Reporting Bugs}Reporting Bugs}}
   
   * {{{#Examples}Examples}}
 
-* {Changes}Major changes in VectorGraphics 1.2.3
+* {Major changes in VectorGraphics 1.2.3}
         
 	* FREEHEP-496: EMF: Add option to write gzipped EMF as EMZ file.
 			
@@ -109,7 +109,7 @@ all the formats mentioned above and set specific parameters for them.
 	* Added fillAndDrawSymbol(...) method.
 
 
-* {Documentation}Documentation
+* {Documentation}
 
 	The following documentation is currently available:
 
@@ -119,7 +119,7 @@ all the formats mentioned above and set specific parameters for them.
   * {{{http://java.freehep.org/vectorgraphics/Manual.html}The 
   VectorGraphics User Manual}}
 
-* {License}License
+* {License}
 
 	The VectorGraphics package is part of the {{{http://java.freehep.org/}FreeHEP Java Library}}, 
 an "Open Source" library distributed under the terms of the
@@ -127,7 +127,7 @@ an "Open Source" library distributed under the terms of the
 questions about the licensing please send a mail to:
 {{{mailto:developers@freehep.org}developers@freehep.org}}.
 
-* {Installation}Installing the VectorGraphics package
+* {Installing the VectorGraphics package}
 
 <p>Download VectorGraphics and unpack.  The distribution 
 creates the following directory structure:
@@ -138,7 +138,7 @@ VectorGraphics-version/examples   containing examples
 VectorGraphics-version/lib        containing jar files
 +--
 
-* {Compilation}Compiling the VectorGraphics package
+* {Compiling the VectorGraphics package}
 
 	The current distribution does not contain source files.  
 	
@@ -170,8 +170,7 @@ cd org/freehep/graphicsio
 gmake dist
 +--
 
-* {Building}Building an Application with the VectorGraphics 
-package
+* {Building an Application with the VectorGraphics package}
 
 	Add the following libraries to your CLASSPATH:
 
@@ -180,7 +179,7 @@ freehep-graphics2d.jar
 freehep-base.jar
 +--
 
-* {Running}Running an Application with the VectorGraphics package
+* {Running an Application with the VectorGraphics package}
 
 	Add the following libraries to your CLASSPATH:
 
@@ -205,7 +204,7 @@ freehep-graphicsio-svg.jar
 freehep-graphicsio-swf.jar
 +--
 
-* {Features}Features/Limitations of the Current Release
+* {Features/Limitations of the Current Release}
 
 	The following limitations exist:
 
@@ -221,13 +220,13 @@ freehep-graphicsio-swf.jar
   Please ignore for now. In a later release we will shrink freehep-base.jar and 
   get rid of these dependencies.
 
-* {BugReporting}Reporting Bugs
+* {Reporting Bugs}
 
 	To report bugs or request enhancements you may use the
 {{{http://java.freehep.org/redirect?project=Java&area=bugs}FreeHEP bug database}}, 
 component VectorGraphics.
 
-* {Examples}Examples
+* {Examples}
 
 	The VectorGraphics/examples directory contains: 
 
