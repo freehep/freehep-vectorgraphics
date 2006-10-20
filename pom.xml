@@ -180,6 +180,14 @@
     <module>freehep-graphicsio-svg</module>
     <module>freehep-graphicsio-swf</module>
   </modules>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
   <distributionManagement>
     <site>
       <id>freehep-web-deploy</id>
