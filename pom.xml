@@ -1,8 +1,8 @@
 <project>
   <parent>
-    <artifactId>freehep</artifactId>
+    <artifactId>global</artifactId>
     <groupId>org.freehep</groupId>
-    <version>4-SNAPSHOT</version>
+    <version>4</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.freehep</groupId>
@@ -109,6 +109,8 @@
     <plugins>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
+        <!-- Version 2.2 does not run suites -->
+	<version>2.1.3</version>
         <configuration>
           <testFailureIgnore>true</testFailureIgnore>
           <includes>
