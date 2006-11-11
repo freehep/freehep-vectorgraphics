@@ -7,12 +7,13 @@ import org.freehep.graphicsio.test.TestSuite;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/test/java/org/freehep/graphicsio/pdf/test/PDFTestSuite.java 08eeb27f101d 2006/04/06 00:34:37 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/test/java/org/freehep/graphicsio/pdf/test/PDFTestSuite.java 90a9bc32896b 2006/11/11 17:09:14 duns $
  */
 public class PDFTestSuite extends TestSuite {
 
     protected void addTests(String category, String fmt, String dir, String ext, boolean compare, Properties properties) {
         super.addTests(category, fmt, dir, ext, compare, properties);
+/*
         addTest(new TestCase(
                 "org.freehep.graphicsio.pdf.test.PDFTestPreviewThumbnail", category, fmt, 
                 dir, ext, compare, null));
@@ -22,6 +23,7 @@ public class PDFTestSuite extends TestSuite {
         addTest(new TestCase(
                 "org.freehep.graphicsio.pdf.test.PDFTestFontType3", category, fmt,
                 dir, ext, compare, null));
+*/
     }
 
     public static TestSuite suite() {
