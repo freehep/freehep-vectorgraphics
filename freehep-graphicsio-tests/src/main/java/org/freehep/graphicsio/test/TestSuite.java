@@ -22,7 +22,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java a2c7ce8bddd7 2006/11/11 00:18:20 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 12103cee2b7c 2006/11/12 16:30:03 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
     // Alphabetically
@@ -326,11 +326,6 @@ public class TestSuite extends junit.framework.TestSuite {
             w.println("                  <th>"+fmt+"</th>");
             w.println("                  <th>Reference ("+refFormat.toUpperCase()+")</th>");
             w.println("                </tr>");
-            w.println("                <tr class=\"b\">");
-    //        w.println("                  <td><a href=\""+name+"."+ext+"\">"+name+"."+ext+"</a></td>");
-            w.println("                  <td><object type=\""+mimeType+"\" name=\""+testNames[testIndex]+"\" data=\""+testNames[testIndex]+"."+ext+"\" width=\""+TestingPanel.width+"\" height=\""+TestingPanel.height+"\">Image not embeddable: "+mimeType+"</object></td>");
-            w.println("                  <td><img src=\""+ref+testNames[testIndex]+"."+refFormat+"\"/></td>");
-            w.println("                </tr>");
             w.println("                <tr class=\"a\">");
             w.println("                  <td><a href=\""+testNames[testIndex]+"."+ext+"\">"+testNames[testIndex]+"."+ext+"</a></td>");
             w.println("                  <td><a href=\""+ref+testNames[testIndex]+"."+refFormat+"\">"+testNames[testIndex]+"."+refFormat+"</a></td>");
@@ -346,6 +341,11 @@ public class TestSuite extends junit.framework.TestSuite {
             } else {
                 w.println("                  <td/>");
             } 
+            w.println("                </tr>");
+            w.println("                <tr class=\"b\">");
+    //        w.println("                  <td><a href=\""+name+"."+ext+"\">"+name+"."+ext+"</a></td>");
+            w.println("                  <td><object type=\""+mimeType+"\" name=\""+testNames[testIndex]+"\" data=\""+testNames[testIndex]+"."+ext+"\" width=\""+TestingPanel.width+"\" height=\""+TestingPanel.height+"\">Image not embeddable: "+mimeType+"</object></td>");
+            w.println("                  <td><img src=\""+ref+testNames[testIndex]+"."+refFormat+"\"/></td>");
             w.println("                </tr>");
             w.println("             </table>");
             w.println("           </div>");

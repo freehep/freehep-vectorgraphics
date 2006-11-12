@@ -1,4 +1,4 @@
-// Copyright 2003, FreeHEP.
+// Copyright 2003-2006, FreeHEP.
 package org.freehep.graphicsio.raw;
 
 import javax.imageio.spi.IIORegistry;
@@ -9,7 +9,7 @@ import org.freehep.graphicsio.exportchooser.ImageExportFileType;
 /**
  * 
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/raw/RawExportFileType.java 5641ca92a537 2005/11/26 00:15:35 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/raw/RawExportFileType.java 12103cee2b7c 2006/11/12 16:30:03 duns $
  */
 public class RawExportFileType extends ImageExportFileType {
 
@@ -18,7 +18,7 @@ public class RawExportFileType extends ImageExportFileType {
             Class clazz = Class
                     .forName("org.freehep.graphicsio.raw.RawImageWriterSpi");
             IIORegistry.getDefaultInstance().registerServiceProvider(
-                    clazz.newInstance(), ImageWriterSpi.class);
+                    (ImageWriterSpi)clazz.newInstance(), ImageWriterSpi.class);
         } catch (Exception e) {
             System.out.println(e);
         }

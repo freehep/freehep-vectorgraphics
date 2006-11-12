@@ -1,4 +1,4 @@
-// Copyright 2003, FreeHEP.
+// Copyright 2003-2006, FreeHEP.
 package org.freehep.graphicsio.gif;
 
 import java.awt.Component;
@@ -19,7 +19,7 @@ import org.freehep.util.UserProperties;
 /**
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFGraphics2D.java 5641ca92a537 2005/11/26 00:15:35 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFGraphics2D.java 12103cee2b7c 2006/11/12 16:30:03 duns $
  */
 public class GIFGraphics2D extends ImageGraphics2D {
 
@@ -28,7 +28,7 @@ public class GIFGraphics2D extends ImageGraphics2D {
             Class clazz = Class
                     .forName("org.freehep.graphicsio.gif.GIFImageWriterSpi");
             IIORegistry.getDefaultInstance().registerServiceProvider(
-                    clazz.newInstance(), ImageWriterSpi.class);
+                    (ImageWriterSpi)clazz.newInstance(), ImageWriterSpi.class);
         } catch (Exception e) {
             System.out.println(e);
         }

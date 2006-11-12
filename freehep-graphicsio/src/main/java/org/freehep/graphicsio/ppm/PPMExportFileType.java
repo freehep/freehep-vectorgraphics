@@ -1,4 +1,4 @@
-// Copyright 2000, CERN, Geneva, Switzerland and University of Santa Cruz, California, U.S.A.
+// Copyright 2000-2006, FreeHEP.
 package org.freehep.graphicsio.ppm;
 
 import javax.imageio.spi.IIORegistry;
@@ -9,7 +9,7 @@ import org.freehep.graphicsio.exportchooser.ImageExportFileType;
 /**
  * 
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ppm/PPMExportFileType.java 5641ca92a537 2005/11/26 00:15:35 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ppm/PPMExportFileType.java 12103cee2b7c 2006/11/12 16:30:03 duns $
  */
 public class PPMExportFileType extends ImageExportFileType {
 
@@ -18,7 +18,7 @@ public class PPMExportFileType extends ImageExportFileType {
             Class clazz = Class
                     .forName("org.freehep.graphicsio.ppm.PPMImageWriterSpi");
             IIORegistry.getDefaultInstance().registerServiceProvider(
-                    clazz.newInstance(), ImageWriterSpi.class);
+                    (ImageWriterSpi)clazz.newInstance(), ImageWriterSpi.class);
         } catch (Exception e) {
             System.out.println(e);
         }

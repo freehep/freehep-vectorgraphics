@@ -56,7 +56,7 @@ import org.freehep.util.UserProperties;
  *
  * @author Simon Fischer
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java f2ace2456064 2006/04/05 00:26:49 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java 12103cee2b7c 2006/11/12 16:30:03 duns $
  */
 public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -785,28 +785,6 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
     protected void writeTransform(AffineTransform t) throws IOException {
         pageStream.matrix(t);
     }
-
-    /** Write the given transformation matrix to the file. */
-    protected void writeSetTransform(AffineTransform t) throws IOException {
-        // clear old transform
-        try {
-            Shape clip = getClip();
-            Stroke stroke = getStroke();
-
-            writeGraphicsRestore();
-            writeGraphicsSave();
-
-            writeClip(clip);
-            writeStroke(stroke);
-
-        } catch (IOException e) {
-            handleException(e);
-        }
-
-        // write clip
-        writeTransform(t);
-    }
-
 
     /*
      * ================================================================================ |

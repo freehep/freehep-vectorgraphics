@@ -52,7 +52,7 @@ import org.freehep.util.images.ImageUtilities;
  * @author Charles Loomis
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java cba39eb5843a 2006/03/20 18:04:28 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 12103cee2b7c 2006/11/12 16:30:03 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -94,6 +94,9 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
     private Area userClip;
 
     private AffineTransform currentTransform;
+    
+    // only for use in writeSetTransform to calculate the difference.
+	private AffineTransform oldTransform = new AffineTransform();
 
     private Composite currentComposite;
 
@@ -672,6 +675,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
      */
     public void setTransform(AffineTransform transform) {
         // Fix for FREEHEP-569
+    	oldTransform.setTransform(currentTransform);
         currentTransform.setTransform(transform);
         try {
             writeSetTransform(transform);
@@ -769,12 +773,21 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
             throws IOException;
 
     /**
-     * Clears any existing transformation and sets the new one normally using
-     * writeTransform(AffineTransform transform)
-     *
+     * Clears any existing transformation and sets the a new one.
+     * The default implementation calls writeTransform using the
+     * inverted affine transform to calculate it.
+s     *
      * @param transform to be written
      */
-    protected abstract void writeSetTransform(AffineTransform transform) throws IOException;
+    protected void writeSetTransform(AffineTransform transform) throws IOException {
+    	try {
+	    	AffineTransform deltaTransform = new AffineTransform(transform);
+	        transform.concatenate(oldTransform.createInverse());
+	    	writeTransform(deltaTransform);
+    	} catch (NoninvertibleTransformException e) {
+    		// ignored...
+    	}
+    }
 
     /*
      * ================================================================================ |
