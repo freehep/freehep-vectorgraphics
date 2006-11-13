@@ -22,7 +22,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 12103cee2b7c 2006/11/12 16:30:03 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java eb5c15a832eb 2006/11/13 18:58:18 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
     // Alphabetically
@@ -78,6 +78,7 @@ public class TestSuite extends junit.framework.TestSuite {
         "TestTransforms",
         "TestTransparency",
     };
+    private boolean[] testDisabled = new boolean[testNames.length];
 
     private static final String gioPackage = "org.freehep.graphicsio.";
     private static final String testPackage = gioPackage+"test.";
@@ -166,6 +167,12 @@ public class TestSuite extends junit.framework.TestSuite {
     
     protected TestSuite() {
         super("GraphicsIO Test Suite");
+        
+        // FVG-241, TestCustomStrokes [3] disabled for MacOS X
+        if (System.getProperty("os.name").equals("Mac OS X") && 
+            System.getProperty("java.version").startsWith("1.5")) {
+        	testDisabled[3 /*TestCustomStrokes*/] = true;
+        }
     }
 
     protected void addTests(String fmt) {
@@ -188,10 +195,8 @@ public class TestSuite extends junit.framework.TestSuite {
     protected void addTests(String category, String fmt, String dir, String ext,
             boolean compare, Properties properties) {     
         for (int i=0; i<testNames.length; i++) {
-            // FVG-241, TestCustomStrokes [3] disabled for MacOS X
-            if ((i==3) && (System.getProperty("os.name").equals("Mac OS X") && 
-                (System.getProperty("java.version").startsWith("1.5")))) { 
-                System.err.println(testNames[i]+" not supported on MacOS X, Java 1.5.x");
+            if (testDisabled[i]) { 
+                System.err.println("NOTE: "+testNames[i]+" disabled.");
             } else {
                 addTest(new TestCase(testNames[i], category, fmt, dir, ext, compare, properties));            
                 writeHTML(i, fmt, dir, ext);
@@ -300,7 +305,15 @@ public class TestSuite extends junit.framework.TestSuite {
             for (int i=0; i<testNames.length; i++) {
                 w.println("              <li class=\"none\">");
                 if (i == testIndex) w.println("                <strong>");
-                w.println("                <a href=\""+testNames[i]+".html\">"+testNames[i]+"</a>");
+                w.print("                ");
+                if (!testDisabled[i]) {
+                   w.print("<a href=\""+testNames[i]+".html\">");
+                }
+                w.print(testNames[i]);
+                if (!testDisabled[i]) {
+                   w.print("</a>");
+                }
+                w.println();
                 if (i == testIndex) w.println("                </strong>");
                 w.println("              </li>");
             }
@@ -331,13 +344,17 @@ public class TestSuite extends junit.framework.TestSuite {
             w.println("                  <td><a href=\""+ref+testNames[testIndex]+"."+refFormat+"\">"+testNames[testIndex]+"."+refFormat+"</a></td>");
             w.println("                </tr>");
             w.println("                <tr class=\"a\">");
-            if (testIndex > 0) {
-                w.println("                  <td><a href=\""+testNames[testIndex-1]+".html\">previous</a></td>");
+            int previousIndex = testIndex - 1;
+            while ((previousIndex >= 0) && testDisabled[previousIndex]) previousIndex--;
+            if (previousIndex >= 0) {
+                w.println("                  <td><a href=\""+testNames[previousIndex]+".html\">previous</a></td>");
             } else {
                 w.println("                  <td/>");
             }
-            if (testIndex < testNames.length-1) {
-                w.println("                  <td><a href=\""+testNames[testIndex+1]+".html\">next</a></td>");
+            int nextIndex = testIndex + 1;
+            while ((nextIndex < testNames.length) && testDisabled[nextIndex]) nextIndex++;
+            if (nextIndex < testNames.length) {
+                w.println("                  <td><a href=\""+testNames[nextIndex]+".html\">next</a></td>");
             } else {
                 w.println("                  <td/>");
             } 
