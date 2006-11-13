@@ -20,7 +20,7 @@ import java.io.IOException;
  * bezier_draw_cubic.as ==========================
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/CubicToQuadPathConstructor.java 5641ca92a537 2005/11/26 00:15:35 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/CubicToQuadPathConstructor.java efe5341792e9 2006/11/13 22:08:58 duns $
  */
 public abstract class CubicToQuadPathConstructor extends
         AbstractPathConstructor {
@@ -61,9 +61,16 @@ public abstract class CubicToQuadPathConstructor extends
 
         double dx1 = p2.getX() - p1.getX();
         double dx2 = p3.getX() - p4.getX();
-        if ((dx1 == 0) && (dx2 == 0))
-            return null;
+        
+        // line are vertical
+        if ((dx1 == 0) && (dx2 == 0)) return null;
 
+        double dy1 = p2.getY() - p1.getY();
+        double dy2 = p3.getY() - p4.getY();
+        
+        // line are horizontal
+        if ((dy1 == 0) && (dy2 == 0)) return null;
+        
         double m1 = (p2.getY() - p1.getY()) / dx1;
         double m2 = (p3.getY() - p4.getY()) / dx2;
 
@@ -76,6 +83,10 @@ public abstract class CubicToQuadPathConstructor extends
             return new Point2D.Double(p4.getX(), m1 * (p4.getX() - p1.getX())
                     + p1.getY());
         }
+        
+        // lines are parallel
+        if (m1 == m2) return null;
+        
         double x = (-m2 * p4.getX() + p4.getY() + m1 * p1.getX() - p1.getY())
                 / (m1 - m2);
         double y = m1 * (x - p1.getX()) + p1.getY();
@@ -91,6 +102,8 @@ public abstract class CubicToQuadPathConstructor extends
             throws IOException {
         // find intersection between bezier arms
         Point2D s = intersect(a, b, c, d);
+        if (s == null) return;
+        
         // find distance between the midpoints
         double dx = (a.getX() + d.getX() + s.getX() * 4 - (b.getX() + c.getX()) * 3) * .125;
         double dy = (a.getY() + d.getY() + s.getY() * 4 - (b.getY() + c.getY()) * 3) * .125;
