@@ -22,7 +22,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 05b2c7229aec 2006/11/13 20:41:54 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 1c2183dc0baa 2006/11/13 21:28:55 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
     // Alphabetically
@@ -153,15 +153,18 @@ public class TestSuite extends junit.framework.TestSuite {
             if (!compare) {
                 return;
             }
-            File refFile = new File(refGZIPName);
-            if (!refFile.exists()) {
-                refFile = new File(refName);
-            }
-            if (!refFile.exists()) {
-                throw new FileNotFoundException("Cannot find reference file '"+refName+"' or '"+refGZIPName+"'.");
-            }
+            // FVG-242, test comparison is disabled
+            return;
             
-            boolean isBinary = !fmt.equals("PS") && !ext.equals("svg");
+//            File refFile = new File(refGZIPName);
+//            if (!refFile.exists()) {
+//                refFile = new File(refName);
+//            }
+//            if (!refFile.exists()) {
+//                throw new FileNotFoundException("Cannot find reference file '"+refName+"' or '"+refGZIPName+"'.");
+//            }
+            
+//            boolean isBinary = !fmt.equals("PS") && !ext.equals("svg");
             
             // FVG-242, test comparison is disabled
 //            Assert.assertEquals(refFile, new File(targetName), isBinary);            
@@ -209,10 +212,10 @@ public class TestSuite extends junit.framework.TestSuite {
             fmt = "Latex";
             ext = "tex";
         }
-        addTests(category, fmt, dir, os, jdk, ext, true, null);
+        addTests(category, fmt, dir, ext, true, null);
     }
 
-    protected void addTests(String category, String fmt, String dir, String os, String jdk, String ext,
+    protected void addTests(String category, String fmt, String dir, String ext,
             boolean compare, Properties properties) {     
         for (int i=0; i<testNames.length; i++) {
             if (testDisabled[i]) { 
@@ -254,7 +257,13 @@ public class TestSuite extends junit.framework.TestSuite {
         String freehepImage = freehep+"images/sm-freehep.gif";
         String url = freehep+"mvn/freehep-graphicsio-"+fmt.toLowerCase();
         int formatIndex = -1;        
-        
+        for (int i=0; i<formatNames.length; i++) {
+            if (formatNames[i].equalsIgnoreCase(fmt)) {
+                formatIndex = i;
+                break;
+            }
+        }
+        	
         String out = testOutDir + dir + "/";        
         String baseDir = System.getProperty("basedir");
         if (baseDir != null) out = baseDir + "/" +out;
@@ -305,17 +314,44 @@ public class TestSuite extends junit.framework.TestSuite {
             w.println("        </div>");
             w.println("        <div id=\"leftColumn\">");
             w.println("          <div id=\"navcolumn\">");
+
+            w.println("            <h5><a href=\""+top+"vectorgraphics/index.html"+"\">Back</a></h5>");
+            
+            w.println("            <h5>Operating System</h5>");
+            w.println("            <ul>");
+            
+            String category = formatNames[formatIndex].toLowerCase();
+            if (formatNames[formatIndex].equals("GIF") || formatNames[formatIndex].equals("PNG") || formatNames[formatIndex].equals("PPM") || formatNames[formatIndex].equals("JPG")) category = "tests";
+
+            String[] oss = {"Windows", "Linux", "MacOSX"};
+            for (int i=0; i<oss.length; i++) {
+            	w.println("              <li class=\"none\">");
+            	if (os.equals(oss[i])) w.println("                <strong>");
+            	w.println("                  <a href=\""+top+"freehep-graphicsio-"+formatNames[formatIndex].toLowerCase()+"/target/site/test-output/"+oss[i]+"/"+jdk+"/"+formatNames[formatIndex].toLowerCase()+"/"+testNames[testIndex]+".html\">"+oss[i]+"</a>");
+            	if (os.equals(oss[i])) w.println("                </strong>");
+            	w.println("              </li>");
+            }
+            w.println("            </ul>");
+
+            w.println("            <h5>Java</h5>");
+            w.println("            <ul>");
+            w.println("              <li class=\"none\">");
+            if (jdk.equals("JDK-1.5")) w.println("                <strong>");
+            w.println("                  <a href=\""+top+"freehep-graphicsio-"+formatNames[formatIndex].toLowerCase()+"/target/site/test-output/"+os+"/"+jdk+"/"+formatNames[formatIndex].toLowerCase()+"/"+testNames[testIndex]+".html\">"+jdk+"</a>");
+            if (jdk.equals("JDK-1.5")) w.println("                </strong>");
+            w.println("              </li>");
+            w.println("            </ul>");
+            
             w.println("            <h5>Formats</h5>");
             w.println("            <ul>");
             for (int i=0; i<formatNames.length; i++) {
                 w.println("              <li class=\"none\">");
                 if (formatNames[i].equals(fmt)) {
-                    formatIndex = i;
                     w.println("                <strong>");
                 }
-                String category = formatNames[i].toLowerCase();
-                if (formatNames[i].equals("GIF") || formatNames[i].equals("PNG") || formatNames[i].equals("PPM") || formatNames[i].equals("JPG")) category = "tests";
-                w.println("                  <a href=\""+top+"freehep-graphicsio-"+category+"/target/site/test-output/"+os+"/"+jdk+"/"+formatNames[i].toLowerCase()+"/"+testNames[testIndex]+".html\">"+formatNames[i]+"</a>");
+                String cat = formatNames[i].toLowerCase();
+                if (formatNames[i].equals("GIF") || formatNames[i].equals("PNG") || formatNames[i].equals("PPM") || formatNames[i].equals("JPG")) cat = "tests";
+                w.println("                  <a href=\""+top+"freehep-graphicsio-"+cat+"/target/site/test-output/"+os+"/"+jdk+"/"+formatNames[i].toLowerCase()+"/"+testNames[testIndex]+".html\">"+formatNames[i]+"</a>");
                 if (formatNames[i].equals(fmt)) w.println("                </strong>");
                 w.println("              </li>");
             }
