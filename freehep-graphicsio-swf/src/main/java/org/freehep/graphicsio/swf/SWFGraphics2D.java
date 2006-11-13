@@ -42,7 +42,7 @@ import org.freehep.util.Value;
  * SWF Graphics 2D driver.
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFGraphics2D.java 9b88d9906c5f 2006/11/13 23:40:42 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFGraphics2D.java 35e0dc167f2a 2006/11/13 23:44:09 duns $
  */
 public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
         SWFConstants {
@@ -679,6 +679,7 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
     }
 
     private void setPen(BasicStroke stroke, Color color) throws IOException {
+    	System.err.println("LW: "+stroke.getLineWidth());
         lineStyles = new LineStyleArray();
         lineStyles.add(new LineStyle((int) (stroke.getLineWidth() * TWIPS),
                 getPrintColor(color)));
