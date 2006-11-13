@@ -22,7 +22,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java eb5c15a832eb 2006/11/13 18:58:18 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 05b2c7229aec 2006/11/13 20:41:54 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
     // Alphabetically
@@ -83,16 +83,19 @@ public class TestSuite extends junit.framework.TestSuite {
     private static final String gioPackage = "org.freehep.graphicsio.";
     private static final String testPackage = gioPackage+"test.";
     private static final String testDir = "target/site/test-output/";
+    private String testOutDir;
+    private String os;
+    private String jdk;
     
     public static class TestCase extends junit.framework.TestCase {
 
-        private String name, fullName, category, fmt, pkg, dir, ext;
+        private String name, fullName, category, fmt, pkg, dir, ext, testOutDir;
 
         private boolean compare;
 
         private Properties properties;
 
-        public TestCase(String name, String category, String fmt, String dir, String ext,
+        public TestCase(String name, String category, String fmt, String dir, String ext, String testOutDir,
                 boolean compare, Properties properties) {
             super("GraphicsIO Test for " + testPackage + name + " in " + fmt);
             this.fullName = testPackage + name;
@@ -103,6 +106,7 @@ public class TestSuite extends junit.framework.TestSuite {
             this.pkg = "org.freehep.graphicsio."+fmt.toLowerCase();
             this.dir = dir;
             this.ext = ext;
+            this.testOutDir = testOutDir;
             this.compare = compare;
             this.properties = properties;
         }
@@ -113,7 +117,7 @@ public class TestSuite extends junit.framework.TestSuite {
             String baseDir = System.getProperty("basedir");
             if (baseDir != null) base = baseDir + "/" + base;
             
-            String out = testDir + dir + "/";
+            String out = testOutDir + dir + "/";
             if (baseDir != null) out = baseDir + "/" +out;
             (new File(out)).mkdirs();
 
@@ -173,6 +177,22 @@ public class TestSuite extends junit.framework.TestSuite {
             System.getProperty("java.version").startsWith("1.5")) {
         	testDisabled[3 /*TestCustomStrokes*/] = true;
         }
+        
+        os = System.getProperty("os.name","OS");
+        if (os.equals("Mac OS X")) {
+        	os = "MacOSX";
+        } else if (os.startsWith("Windows")) {
+        	os = "Windows";
+        }
+        jdk = System.getProperty("java.version","0.0");
+        int dot;
+        if ((dot = jdk.indexOf('.')) > 0) {
+        	if ((dot = jdk.indexOf('.',dot+1)) > 0) {
+        		jdk = jdk.substring(0, dot);
+        	}
+        }
+        jdk = "JDK-"+jdk;
+        testOutDir = testDir+os+"/"+jdk+"/";
     }
 
     protected void addTests(String fmt) {
@@ -189,17 +209,17 @@ public class TestSuite extends junit.framework.TestSuite {
             fmt = "Latex";
             ext = "tex";
         }
-        addTests(category, fmt, dir, ext, true, null);
+        addTests(category, fmt, dir, os, jdk, ext, true, null);
     }
 
-    protected void addTests(String category, String fmt, String dir, String ext,
+    protected void addTests(String category, String fmt, String dir, String os, String jdk, String ext,
             boolean compare, Properties properties) {     
         for (int i=0; i<testNames.length; i++) {
             if (testDisabled[i]) { 
                 System.err.println("NOTE: "+testNames[i]+" disabled.");
             } else {
-                addTest(new TestCase(testNames[i], category, fmt, dir, ext, compare, properties));            
-                writeHTML(i, fmt, dir, ext);
+                addTest(new TestCase(testNames[i], category, fmt, dir, ext, testOutDir, compare, properties));            
+                writeHTML(i, fmt, dir, os, jdk, ext);
             }
         }
     }
@@ -224,18 +244,18 @@ public class TestSuite extends junit.framework.TestSuite {
         }
     }
 
-    private void writeHTML(int testIndex, String fmt, String dir, String ext) {
-        String css = "../../css";
+    private void writeHTML(int testIndex, String fmt, String dir, String os, String jdk, String ext) {
+        String css = "../../../../css";
         String refFormat = "png";
-        String top = "../../../../../";
-        String ref = top+"freehep-graphicsio-tests/target/site/test-output/"+refFormat+"/";
+        String top = "../../../../../../../";
+        String ref = top+"freehep-graphicsio-tests/target/site/ref-output/"+refFormat+"/";
         String title = "VectorGraphics "+fmt+" "+testNames[testIndex];
         String freehep = "http://java.freehep.org/";
         String freehepImage = freehep+"images/sm-freehep.gif";
         String url = freehep+"mvn/freehep-graphicsio-"+fmt.toLowerCase();
         int formatIndex = -1;        
         
-        String out = testDir + dir + "/";        
+        String out = testOutDir + dir + "/";        
         String baseDir = System.getProperty("basedir");
         if (baseDir != null) out = baseDir + "/" +out;
         try {
@@ -295,7 +315,7 @@ public class TestSuite extends junit.framework.TestSuite {
                 }
                 String category = formatNames[i].toLowerCase();
                 if (formatNames[i].equals("GIF") || formatNames[i].equals("PNG") || formatNames[i].equals("PPM") || formatNames[i].equals("JPG")) category = "tests";
-                w.println("                  <a href=\""+top+"freehep-graphicsio-"+category+"/target/site/test-output/"+formatNames[i].toLowerCase()+"/"+testNames[testIndex]+".html\">"+formatNames[i]+"</a>");
+                w.println("                  <a href=\""+top+"freehep-graphicsio-"+category+"/target/site/test-output/"+os+"/"+jdk+"/"+formatNames[i].toLowerCase()+"/"+testNames[testIndex]+".html\">"+formatNames[i]+"</a>");
                 if (formatNames[i].equals(fmt)) w.println("                </strong>");
                 w.println("              </li>");
             }
