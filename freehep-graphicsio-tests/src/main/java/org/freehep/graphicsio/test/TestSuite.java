@@ -22,7 +22,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 1c2183dc0baa 2006/11/13 21:28:55 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 8c972f10dff2 2006/11/13 22:46:11 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
     // Alphabetically
@@ -180,6 +180,9 @@ public class TestSuite extends junit.framework.TestSuite {
             System.getProperty("java.version").startsWith("1.5")) {
         	testDisabled[3 /*TestCustomStrokes*/] = true;
         }
+        
+        // FVG-197, TestResolution not very useful yet.
+        testDisabled[15] = true;
         
         os = System.getProperty("os.name","OS");
         if (os.equals("Mac OS X")) {
