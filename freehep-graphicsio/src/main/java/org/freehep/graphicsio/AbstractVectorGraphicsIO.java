@@ -52,7 +52,7 @@ import org.freehep.util.images.ImageUtilities;
  * @author Charles Loomis
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java ecedf43ae250 2006/11/14 00:42:52 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 26667334cd34 2006/11/14 22:16:04 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -560,9 +560,13 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
         }
 
         // draw strings directly?
-        if (isProperty(TEXT_AS_SHAPES)) {
+        // NOTE, see FVG-199, createGlyphVector did not seem to create the proper glyphcodes
+        // for eithe ZapfDingbats or Symbol. The strange thing is that Graphics2D seems to handle this properly.
+        // Maybe they make an exception for these fonts. For us, we resort to writing strings directly here.
+        if (isProperty(TEXT_AS_SHAPES) && !getFont().getName().equals("Symbol") && !getFont().getName().equals("ZapfDingbats")) {
             // create glyph
             GlyphVector gv = getFont().createGlyphVector(getFontRenderContext(), string);
+            
             // draw it
             drawGlyphVector(gv, (float) x, (float) y);
         } else {
@@ -592,8 +596,8 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
     public void drawString(AttributedCharacterIterator iterator, float x,
             float y) {
 
-        // TextLayout draws the itarator as glyph vector
-        // thatswhy we use it only in the case of TEXT_AS_SHAPES,
+        // TextLayout draws the iterator as glyph vector
+        // thats why we use it only in the case of TEXT_AS_SHAPES,
         // otherwise tagged strings are always written as glyphs
         if (isProperty(TEXT_AS_SHAPES)) {
             // draws all attributes
