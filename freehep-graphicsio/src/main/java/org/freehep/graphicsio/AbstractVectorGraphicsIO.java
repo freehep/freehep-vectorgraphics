@@ -52,7 +52,7 @@ import org.freehep.util.images.ImageUtilities;
  * @author Charles Loomis
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 12103cee2b7c 2006/11/12 16:30:03 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java ecedf43ae250 2006/11/14 00:42:52 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -275,8 +275,11 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
 		writeSetTransform(getTransform());
 
-         setClip(getClip());
-
+//		writeStroke(getStroke());
+		
+        setClip(getClip());
+         
+        
 		// Silly assignment, Font is written when String is drawed and "extra" writeFont does not exist
 		// setFont(getFont());
 
