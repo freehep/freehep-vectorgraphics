@@ -42,7 +42,7 @@ import org.freehep.util.Value;
  * SWF Graphics 2D driver.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFGraphics2D.java 6619176bdf8c 2006/11/14 01:02:55 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFGraphics2D.java 9c5f37576442 2006/11/14 06:34:21 duns $
  */
 public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 		SWFConstants {
@@ -69,6 +69,7 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 		defaultProperties.setProperty(WRITE_IMAGES_AS, ImageConstants.SMALLEST);
 		// Seems not to work yet...
 		defaultProperties.setProperty(CLIP, false);
+		defaultProperties.setProperty(TEXT_AS_SHAPES, true);
 	}
 
 	public static Properties getDefaultProperties() {
