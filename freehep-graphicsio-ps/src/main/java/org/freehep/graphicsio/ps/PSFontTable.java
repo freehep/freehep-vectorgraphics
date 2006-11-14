@@ -24,7 +24,7 @@ import org.freehep.graphicsio.font.FontTable;
  * standard font. If it is unknown it is not substituted.
  * 
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSFontTable.java cba39eb5843a 2006/03/20 18:04:28 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSFontTable.java 7cb75bc60b0e 2006/11/14 22:29:00 duns $
  */
 public class PSFontTable extends FontTable {
 
@@ -80,7 +80,7 @@ public class PSFontTable extends FontTable {
     static {
         replaceFonts.setProperty("timesroman", "Times");
         replaceFonts.setProperty("dialog", "Helvetica");
-        replaceFonts.setProperty("dialoginput", "Helvetica");
+        replaceFonts.setProperty("dialoginput", "Courier-New");
         // FIXME: works well on windows, others?
         replaceFonts.setProperty("serif", "Times");
         replaceFonts.setProperty("sansserif", "Helvetica");

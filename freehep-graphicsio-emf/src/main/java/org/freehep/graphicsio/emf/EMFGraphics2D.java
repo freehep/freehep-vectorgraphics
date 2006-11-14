@@ -35,6 +35,7 @@ import org.freehep.graphics2d.VectorGraphics;
 import org.freehep.graphics2d.font.FontEncoder;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.PageConstants;
+import org.freehep.graphicsio.font.FontTable;
 import org.freehep.graphicsio.font.FontUtilities;
 import org.freehep.util.UserProperties;
 
@@ -42,7 +43,7 @@ import org.freehep.util.UserProperties;
  * Enhanced Metafile Format Graphics 2D driver.
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java cbe5b99bb13b 2006/03/09 21:55:10 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java 7cb75bc60b0e 2006/11/14 22:29:00 duns $
  */
 public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         EMFConstants {
@@ -407,7 +408,11 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
             os.writeTag(new SetTextColor(textColor));
         }
 
-        Font font = getFont();
+        // dialog.bold -> Dialog with TextAttribute.WEIGHT_BOLD
+        Map attributes = getFont().getAttributes();
+        FontTable.normalize(attributes);
+        Font font = new Font(attributes);
+        
         Font unitFont = (Font) unitFontTable.get(font);
 
         Integer fontIndex = (Integer) fontTable.get(font);

@@ -22,7 +22,7 @@ import java.util.Properties;
  * in <text> tags.
  *
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGFontTable.java 966f9837ffda 2006/03/21 01:21:19 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGFontTable.java 7cb75bc60b0e 2006/11/14 22:29:00 duns $
  */
 public class SVGFontTable {
 
@@ -247,7 +247,7 @@ public class SVGFontTable {
     private static final Properties replaceFonts = new Properties();
     static {
         replaceFonts.setProperty("dialog", "Helvetica");
-        replaceFonts.setProperty("dialoginput", "Helvetica");
+        replaceFonts.setProperty("dialoginput", "Courier New");
         // FIXME: works well on windows, others?
         // "TimesRoman" is not valid under Firefox 1.5
         replaceFonts.setProperty("serif", "Times");
@@ -282,7 +282,7 @@ public class SVGFontTable {
         if (family == null) {
             family = (String) attributes.get(TextAttribute.FAMILY);
         }
-
+        
         // replace the family (Yes it's right, not the name!) in the attributes
         attributes.put(TextAttribute.FAMILY, family);
     }

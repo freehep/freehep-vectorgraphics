@@ -42,8 +42,8 @@ public class FontUtilities {
         windowsFonts.setProperty("Times-Roman", "Times New Roman");
         windowsFonts.setProperty("TimesRoman", "Times New Roman");
         windowsFonts.setProperty("Times", "Times New Roman");
-        windowsFonts.setProperty("Symbol", "Symbol");
-        windowsFonts.setProperty("ZapfDingbats", "Wingdings");
+        windowsFonts.setProperty("Symbol", "Arial Unicode MS");
+        windowsFonts.setProperty("ZapfDingbats", "Arial Unicode MS");
     }
 
     public static String getWindowsFontName(String fontName) {

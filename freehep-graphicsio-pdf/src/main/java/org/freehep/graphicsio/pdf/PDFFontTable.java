@@ -20,7 +20,7 @@ import org.freehep.graphicsio.font.FontTable;
  * drawing is finished by calling <tt>addAll()</tt>.
  * 
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFFontTable.java f493ff6e61b2 2005/12/01 18:46:43 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFFontTable.java 7cb75bc60b0e 2006/11/14 22:29:00 duns $
  */
 public class PDFFontTable extends FontTable {
 
@@ -98,7 +98,7 @@ public class PDFFontTable extends FontTable {
     private static final Properties replaceFonts = new Properties();
     static {
         replaceFonts.setProperty("Dialog", "Helvetica");
-        replaceFonts.setProperty("DialogInput", "Helvetica");
+        replaceFonts.setProperty("DialogInput", "Courier");
         replaceFonts.setProperty("Serif", "TimesRoman");
         replaceFonts.setProperty("SansSerif", "Helvetica");
         replaceFonts.setProperty("Monospaced", "Courier");
