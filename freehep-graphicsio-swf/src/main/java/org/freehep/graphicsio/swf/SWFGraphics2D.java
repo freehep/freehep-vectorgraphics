@@ -42,7 +42,7 @@ import org.freehep.util.Value;
  * SWF Graphics 2D driver.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFGraphics2D.java 25ca39cc71a4 2006/11/14 00:25:11 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFGraphics2D.java 6619176bdf8c 2006/11/14 01:02:55 duns $
  */
 public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 		SWFConstants {
@@ -157,7 +157,7 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 		id = new Value().set(1);
 		depth = new Value().set(1);
 		textColor = getColor();
-		fillStroke = false;
+		fillStroke = true;
 	}
 
 	protected SWFGraphics2D(SWFGraphics2D graphics, boolean doRestoreOnDispose) {
@@ -559,12 +559,6 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 			BasicStroke bs = (BasicStroke) stroke;
 			setPen(bs, getColor());
 			if (bs.getLineWidth() == 0) {
-				fillStroke = false;
-			}
-			if (fillStroke
-					&& (bs.getLineJoin() == BasicStroke.JOIN_ROUND)
-					&& (bs.getEndCap() == BasicStroke.CAP_ROUND)
-					&& ((bs.getDashArray() == null) || (bs.getDashArray().length <= 1))) {
 				fillStroke = false;
 			}
 		}
