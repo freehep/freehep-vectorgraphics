@@ -43,6 +43,7 @@ import java.text.AttributedCharacterIterator;
 import java.util.Arrays;
 import java.util.Map;
 
+import org.freehep.graphics2d.font.FontEncoder;
 import org.freehep.util.images.ImageUtilities;
 
 /**
@@ -52,7 +53,7 @@ import org.freehep.util.images.ImageUtilities;
  * @author Charles Loomis
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 26667334cd34 2006/11/14 22:16:04 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java f5b2789f544e 2006/11/15 07:41:00 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -560,12 +561,21 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
         }
 
         // draw strings directly?
-        // NOTE, see FVG-199, createGlyphVector did not seem to create the proper glyphcodes
-        // for eithe ZapfDingbats or Symbol. The strange thing is that Graphics2D seems to handle this properly.
-        // Maybe they make an exception for these fonts. For us, we resort to writing strings directly here.
-        if (isProperty(TEXT_AS_SHAPES) && !getFont().getName().equals("Symbol") && !getFont().getName().equals("ZapfDingbats")) {
-            // create glyph
-            GlyphVector gv = getFont().createGlyphVector(getFontRenderContext(), string);
+        if (isProperty(TEXT_AS_SHAPES)) {
+        	
+        	Font font = getFont();
+        	
+            // NOTE, see FVG-199, createGlyphVector does not seem to create the proper glyphcodes
+            // for either ZapfDingbats or Symbol. We use our own encoding which seems to work...
+        	String fontName = font.getName();
+        	if (fontName.equals("Symbol") || fontName.equals("ZapfDingbats")) {
+        		string = FontEncoder.getEncodedString(string, fontName);
+        		// use a standard font, not Symbol.
+        		font = new Font("Serif", font.getStyle(), font.getSize());
+        	}
+        	
+        	// create glyph
+            GlyphVector gv = font.createGlyphVector(getFontRenderContext(), string);
             
             // draw it
             drawGlyphVector(gv, (float) x, (float) y);
