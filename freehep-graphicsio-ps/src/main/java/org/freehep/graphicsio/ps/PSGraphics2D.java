@@ -52,7 +52,7 @@ import org.freehep.util.io.FlateOutputStream;
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java f2ace2456064 2006/04/05 00:26:49 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java 7a44927ab283 2006/11/15 00:18:17 duns $
  */
 public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -539,7 +539,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
 
     protected void writeImage(RenderedImage image, AffineTransform xform,
             Color bkg) throws IOException {
-        // FIXME FREEHEP-374
+        // FIXME FVG-31
 
         if (bkg == null)
             bkg = getBackground();
