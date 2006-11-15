@@ -29,7 +29,7 @@ import org.freehep.util.io.FlateOutputStream;
  * <p>
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFStream.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFStream.java 6c5793275e44 2006/11/15 19:28:52 duns $
  */
 public class PDFStream extends PDFDictionary implements PDFConstants {
 
@@ -609,7 +609,8 @@ public class PDFStream extends PDFDictionary implements PDFConstants {
 
     public void imageMask(RenderedImage image, String[] encode)
             throws IOException {
-        PDFName[] filters = decodeFilters(encode);
+        // FIXME hardcoded to A85, Flate
+        PDFName[] filters = decodeFilters(new String[] {"Flate", "ASCII85"});
         entry("Width", image.getWidth());
         entry("Height", image.getHeight());
         entry("BitsPerComponent", 8);
@@ -617,7 +618,7 @@ public class PDFStream extends PDFDictionary implements PDFConstants {
         entry("Filter", filters);
 
         startStream(null);
-        // FIXME hardcoded to A85
+        // FIXME hardcoded to A85, Flate
         ASCII85OutputStream a85 = new ASCII85OutputStream(stream[0]);
         FlateOutputStream imageStream = new FlateOutputStream(a85);
         UserProperties props = new UserProperties();

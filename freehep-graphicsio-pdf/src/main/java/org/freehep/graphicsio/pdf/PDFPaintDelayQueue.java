@@ -22,7 +22,7 @@ import org.freehep.graphicsio.ImageConstants;
  * yet (ps calculation)
  * 
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFPaintDelayQueue.java f493ff6e61b2 2005/12/01 18:46:43 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFPaintDelayQueue.java 6c5793275e44 2006/11/15 19:28:52 duns $
  */
 public class PDFPaintDelayQueue {
 
@@ -242,12 +242,12 @@ public class PDFPaintDelayQueue {
         pattern.matrix(width, 0, 0, -height, 0, height);
 
         String[] encode;
-        if (e.writeAs.equals(ImageConstants.SMALLEST)) {
-            encode = new String[] { null, "ASCII85" };
-        } else if (e.writeAs.equals(ImageConstants.ZLIB)) {
+        if (e.writeAs.equals(ImageConstants.ZLIB)) {
             encode = new String[] { "Flate", "ASCII85" };
-        } else {
+        } else if (e.writeAs.equals(ImageConstants.JPG)) {
             encode = new String[] { "DCT", "ASCII85" };
+        } else {
+            encode = new String[] { null, "ASCII85" };
         }
         pattern.inlineImage(image, null, encode);
         pdf.close(pattern);
