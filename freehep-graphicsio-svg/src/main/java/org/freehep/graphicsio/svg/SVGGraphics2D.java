@@ -59,7 +59,7 @@ import org.freehep.xml.util.XMLWriter;
  * The current implementation is based on REC-SVG11-20030114
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java f2ace2456064 2006/04/05 00:26:49 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java 38597f8f6627 2006/11/15 00:47:22 duns $
  */
 public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
@@ -833,7 +833,9 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
                     if (i > 0) {
                         array.append(",");
                     }
-                    array.append(fixedPrecision(stroke.getDashArray()[i]));
+                    // SVG does not allow dash entry to be zero (Firefox 2.0).
+                    float dash = stroke.getDashArray()[i];
+                    array.append(fixedPrecision(dash > 0 ? dash : 0.1));
                 }
                 result.put("stroke-dasharray", array.toString());
             } else {
