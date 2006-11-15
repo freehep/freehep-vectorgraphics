@@ -19,7 +19,7 @@ import org.freehep.util.images.ImageHandler;
 
 /**
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestImage2D.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestImage2D.java 68aaba5d4589 2006/11/15 20:23:12 duns $
  */
 public class TestImage2D extends TestingPanel {
 
@@ -27,6 +27,7 @@ public class TestImage2D extends TestingPanel {
             BasicStroke.JOIN_ROUND);
 
     private Image image;
+    private BufferedImage image1, image2;
 
     public TestImage2D(String[] args) throws Exception {
         super(args);
@@ -41,6 +42,14 @@ public class TestImage2D extends TestingPanel {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        
+        image1 = new BufferedImage(image.getWidth(this), image.getHeight(this),
+                BufferedImage.TYPE_INT_RGB);
+        image1.createGraphics().drawImage(image, 0, 0, this);
+        
+        image2 = new BufferedImage(image.getWidth(this), image
+                .getHeight(this), BufferedImage.TYPE_INT_RGB);
+        image2.createGraphics().drawImage(image, 0, 0, this);
     }
 
     public void paintComponent(Graphics g) {
@@ -51,10 +60,7 @@ public class TestImage2D extends TestingPanel {
         vg.setColor(Color.white);
         vg.fillRect(0, 0, getWidth(), getHeight());
 
-        BufferedImage bimg0 = new BufferedImage(image.getWidth(this), image
-                .getHeight(this), BufferedImage.TYPE_INT_RGB);
-        bimg0.createGraphics().drawImage(image, 0, 0, this);
-        vg.drawImage(bimg0, new AffineTransform(), this);
+        vg.drawImage(image1, new AffineTransform(), this);
 
         vg.shear(0.2, 0.2);
         AffineTransform t = new AffineTransform();
@@ -65,13 +71,10 @@ public class TestImage2D extends TestingPanel {
 
         float[] SHARPEN3x3 = new float[] { 0.f, -1.f, 0.f, -1.f, 5.0f, -1.f,
                 0.f, -1.f, 0.f };
-        BufferedImage bimg = new BufferedImage(image.getWidth(this), image
-                .getHeight(this), BufferedImage.TYPE_INT_RGB);
-        bimg.createGraphics().drawImage(image, 0, 0, this);
         Kernel kernel = new Kernel(3, 3, SHARPEN3x3);
         BufferedImageOp cop = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP,
                 null);
-        vg.drawImage(bimg, cop, 300, -80);
+        vg.drawImage(image2, cop, 300, -80);
 
         vg.setTransform(transform);
     }
