@@ -132,82 +132,48 @@ public class GIFEncoder extends ImageEncoder {
     IntHashtable colorHash;
 
     protected void encodeDone() throws IOException {
-        // MD: added quantizer for max color limitation
-        int[] palette = Quantize.quantizeImage(rgbPixels, 255);
-
-        int transparentIndex = -1;
-        int transparentRgb = -1;
-        // Put all the pixels into a hash table.
-        colorHash = new IntHashtable();
-        int index = 0;
-        for (int row = 0; row < height; ++row) {
-//            int rowOffset = row * width;
+        // MD: run over pixels to make colors either transparent or opaque.
+       for (int row = 0; row < height; ++row) {
             for (int col = 0; col < width; ++col) {
-                // MD: and convert palette back to RGB
-                rgbPixels[row][col] = palette[rgbPixels[row][col]];
-                int rgb = rgbPixels[row][col];
-                boolean isTransparent = ((rgb >>> 24) < 0x80);
-                if (isTransparent) {
-                    if (transparentIndex < 0) {
-                        // First transparent color; remember it.
-                        transparentIndex = index;
-                        transparentRgb = rgb;
-                    } else if (rgb != transparentRgb) {
-                        // A second transparent color; replace it with
-                        // the first one.
-                        rgbPixels[row][col] = rgb = transparentRgb;
-                    }
-                }
-                GifEncoderHashitem item = (GifEncoderHashitem) colorHash
-                        .get(rgb);
-                if (item == null) {
-                    if (index >= 256) {
-                        throw new IOException("too many colors for a GIF: "
-                                + index + " >= 256.");
-                    }
-                    item = new GifEncoderHashitem(rgb, 1, index, isTransparent);
-                    ++index;
-                    colorHash.put(rgb, item);
+                if ((rgbPixels[row][col] & 0xFF000000) == 0) {
+                    rgbPixels[row][col] = 0x00FFFFFF;   // make it white, but fully transparent
                 } else {
-                    ++item.count;
+                    rgbPixels[row][col] |= 0xFF000000;
                 }
+            }
+        }
+                        
+        // MD: added quantizer for max color limitation
+        // returning a color palette (including one transparent color)
+        // and rgbPixels changes from colors into palette indices.
+        int[] palette = Quantize.quantizeImage(rgbPixels, 255);
+        
+        // MD: look for fully transparent color.
+        int transparentIndex = -1;
+        for (int i=0; i<palette.length; i++) {
+            if ((palette[i] & 0xFF000000) == 0) {
+                transparentIndex = i;
+                break;
             }
         }
 
         // Figure out how many bits to use.
         int logColors;
-        if (index <= 2)
+        if (palette.length <= 2)
             logColors = 1;
-        else if (index <= 4)
+        else if (palette.length <= 4)
             logColors = 2;
-        else if (index <= 16)
+        else if (palette.length <= 16)
             logColors = 4;
         else
             logColors = 8;
 
-        // Turn colors into colormap entries.
-        int mapSize = 1 << logColors;
-        byte[] reds = new byte[mapSize];
-        byte[] grns = new byte[mapSize];
-        byte[] blus = new byte[mapSize];
-        for (Enumeration e = colorHash.elements(); e.hasMoreElements();) {
-            GifEncoderHashitem item = (GifEncoderHashitem) e.nextElement();
-            reds[item.index] = (byte) ((item.rgb >> 16) & 0xff);
-            grns[item.index] = (byte) ((item.rgb >> 8) & 0xff);
-            blus[item.index] = (byte) (item.rgb & 0xff);
-        }
-
         GIFEncode(width, height, interlace, (byte) 0, transparentIndex,
-                logColors, reds, grns, blus);
+                logColors, palette);
     }
 
     byte GetPixel(int x, int y) throws IOException {
-        GifEncoderHashitem item = (GifEncoderHashitem) colorHash
-                .get(rgbPixels[y][x]);
-        if (item == null) {
-            throw new IOException("color not found");
-        }
-        return (byte) item.index;
+        return (byte)rgbPixels[y][x];
     }
 
     void writeString(String str) throws IOException {
@@ -230,19 +196,16 @@ public class GIFEncoder extends ImageEncoder {
     int Pass = 0;
 
     void GIFEncode(int Width, int Height, boolean Interlace, byte Background,
-            int Transparent, int BitsPerPixel, byte[] Red, byte[] Green,
-            byte[] Blue) throws IOException {
+            int Transparent, int BitsPerPixel, int[] palette) throws IOException {
 
         byte B;
         int LeftOfs, TopOfs;
-        int ColorMapSize;
         int InitCodeSize;
         int i;
 
         this.Width = Width;
         this.Height = Height;
         this.Interlace = Interlace;
-        ColorMapSize = 1 << BitsPerPixel;
         LeftOfs = TopOfs = 0;
 
         // Calculate number of bits we are expecting
@@ -291,10 +254,17 @@ public class GIFEncoder extends ImageEncoder {
         Putbyte((byte) 0);
 
         // Write out the Global Colour Map
-        for (i = 0; i < ColorMapSize; ++i) {
-            Putbyte(Red[i]);
-            Putbyte(Green[i]);
-            Putbyte(Blue[i]);
+        int colorMapSize = 1 << BitsPerPixel;
+        for (i = 0; i < colorMapSize; ++i) {
+            if (i < palette.length) {
+               Putbyte((byte)((palette[i] >> 16) & 0xFF));
+               Putbyte((byte)((palette[i] >> 8) & 0xFF));
+               Putbyte((byte)((palette[i]) & 0xFF));
+            } else {
+                Putbyte((byte)0);
+                Putbyte((byte)0);
+                Putbyte((byte)0);
+            }
         }
 
         // Write out extension for transparent colour index, if necessary.
@@ -667,26 +637,6 @@ public class GIFEncoder extends ImageEncoder {
             out.write(accum, 0, a_count);
             a_count = 0;
         }
-    }
-
-}
-
-class GifEncoderHashitem {
-
-    public int rgb;
-
-    public int count;
-
-    public int index;
-
-    public boolean isTransparent;
-
-    public GifEncoderHashitem(int rgb, int count, int index,
-            boolean isTransparent) {
-        this.rgb = rgb;
-        this.count = count;
-        this.index = index;
-        this.isTransparent = isTransparent;
     }
 
 }
