@@ -10,7 +10,7 @@ import jas.hist.XMLHistBuilder;
 /**
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestScatterPlot.java 00143e69ce01 2006/11/16 01:02:20 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestScatterPlot.java 4fc5eaa3cff4 2006/11/16 02:41:51 duns $
  */
 public class TestScatterPlot extends TestingPanel {
 
