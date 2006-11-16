@@ -40,5 +40,11 @@
             <artifactId>junit</artifactId>
             <scope>compile</scope>
         </dependency>
+    <dependency>
+      <groupId>org.freehep</groupId>
+      <artifactId>jas-plotter</artifactId>
+      <version>2.0</version>
+      <scope>compile</scope>
+    </dependency>
     </dependencies>
 </project>

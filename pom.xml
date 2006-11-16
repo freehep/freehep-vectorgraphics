@@ -173,17 +173,17 @@
     <module>freehep-graphics2d</module>
 <!--
     <module>freehep-graphics3d</module>
--->
-    <module>freehep-graphicsio</module>
-    <module>freehep-graphicsio-tests</module>
     <module>freehep-graphicsio-cgm</module>
-    <module>freehep-graphicsio-emf</module>
     <module>freehep-graphicsio-java</module>
     <module>freehep-graphicsio-latex</module>
+-->
+    <module>freehep-graphicsio</module>
+    <module>freehep-graphicsio-emf</module>
     <module>freehep-graphicsio-pdf</module>
     <module>freehep-graphicsio-ps</module>
     <module>freehep-graphicsio-svg</module>
     <module>freehep-graphicsio-swf</module>
+    <module>freehep-graphicsio-tests</module>
   </modules>
   <dependencies>
     <dependency>

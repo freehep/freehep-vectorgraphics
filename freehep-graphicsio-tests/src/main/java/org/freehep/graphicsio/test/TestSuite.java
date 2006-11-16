@@ -23,7 +23,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 5cb226b4b200 2006/11/15 18:31:55 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 00143e69ce01 2006/11/16 01:02:20 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 	
@@ -63,11 +63,15 @@ public class TestSuite extends junit.framework.TestSuite {
 
 	private static String[] testNames = { "TestAll", "TestClip", "TestColors",
 			"TestCustomStrokes", "TestFonts", "TestFontDerivation",
-			"TestGraphicsContexts", "TestHTML", "TestImages", "TestImage2D",
+			"TestGraphicsContexts", 
+            "TestHistogram",
+            "TestHTML", "TestImages", "TestImage2D",
 			"TestLabels", "TestLineStyles", "TestOffset", "TestPaint",
-			"TestPrintColors", "TestResolution", "TestShapes", "TestSymbols2D",
+			"TestPrintColors", "TestResolution", 
+            "TestScatterPlot",
+            "TestShapes", "TestSymbols2D",
 			"TestTaggedString", "TestText2D", "TestTransforms",
-			"TestTransparency", };
+			"TestTransparency"};
 	private boolean[] testDisabled = new boolean[testNames.length];
 
 	private static final String gioPackage = "org.freehep.graphicsio.";
@@ -172,12 +176,12 @@ public class TestSuite extends junit.framework.TestSuite {
 		super("GraphicsIO Test Suite");
 		
 		formats = new TreeMap();
-		formats.put("cgm", new Format("CGM", null, false, 10230));
+//		formats.put("cgm", new Format("CGM", null, false, 10230));
 		formats.put("emf", new Format("EMF", null, false, 10231));
 		formats.put("gif", new Format("GIF", "tests", true, 10241));
-		formats.put("java", new Format("JAVA", null, false, 10238));
+//		formats.put("java", new Format("JAVA", null, false, 10238));
 		formats.put("jpg", new Format("JPG", "tests", true, 10241));
-		formats.put("latex", new Format("LATEX", null, false, 10240));
+//		formats.put("latex", new Format("LATEX", null, false, 10240));
 		formats.put("pdf", new Format("PDF", null, true, 10235));
 		formats.put("png", new Format("PNG", "tests", true, 10241));
 		formats.put("ps", new Format("PS", null, true, 10232));

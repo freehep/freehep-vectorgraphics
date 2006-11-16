@@ -20,7 +20,7 @@ import org.freehep.util.UserProperties;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestingPanel.java 4e4ed8246a90 2006/04/05 23:00:50 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestingPanel.java 00143e69ce01 2006/11/16 01:02:20 duns $
  */
 public class TestingPanel extends JPanel {
 
@@ -85,7 +85,7 @@ public class TestingPanel extends JPanel {
                     frame.addPanel((String) names.get(i), (JComponent) pages
                             .get(i));
                 }
-                frame.setSize(600, 600);
+                frame.setSize(width, height);
             } else {
                 // Create a new instance of this class and add it to the frame.
                 frame.addPanel(this);
