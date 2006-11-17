@@ -24,7 +24,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java e0965045a928 2006/11/17 00:05:34 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 4a54a1f18b06 2006/11/17 18:18:51 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -67,21 +67,21 @@ public class TestSuite extends junit.framework.TestSuite {
         private boolean enabled;
 
         public Test(String name, boolean enabled) {
-            this.name =name;
+            this.name = name;
             this.enabled = enabled;
         }
-        
+
         public String getName() {
             return name;
         }
-        
+
         public boolean isEnabled() {
             return enabled;
         }
     }
-    
+
     private List tests;
-    
+
     private static final String gioPackage = "org.freehep.graphicsio.";
     private static final String testPackage = gioPackage + "test.";
     private static final String testDir = "target/site/test-output/";
@@ -197,7 +197,8 @@ public class TestSuite extends junit.framework.TestSuite {
         formats.put("swf", new Format("SWF", null, true, 10237));
 
         // FVG-241, TestCustomStrokes [3] disabled for MacOS X
-        boolean onMacOSXandJDK15 = System.getProperty("os.name").equals("Mac OS X")
+        boolean onMacOSXandJDK15 = System.getProperty("os.name").equals(
+                "Mac OS X")
                 && System.getProperty("java.version").startsWith("1.5");
 
         tests = new ArrayList();
@@ -226,7 +227,7 @@ public class TestSuite extends junit.framework.TestSuite {
         tests.add(new Test("TestText2D", true));
         tests.add(new Test("TestTransforms", true));
         tests.add(new Test("TestTransparency", true));
-                
+
         os = System.getProperty("os.name", "OS");
         if (os.equals("Mac OS X")) {
             os = "MacOSX";
@@ -268,8 +269,8 @@ public class TestSuite extends junit.framework.TestSuite {
 
     protected void addTests(String category, String fmt, String dir,
             String ext, boolean compare, Properties properties) {
-        for (Iterator i = tests.iterator(); i.hasNext(); ) {
-            Test test = (Test)i.next();
+        for (Iterator i = tests.iterator(); i.hasNext();) {
+            Test test = (Test) i.next();
             if (test.isEnabled()) {
                 addTest(new TestCase(test.getName(), category, fmt, dir, ext,
                         testOutDir, compare, properties));
@@ -328,8 +329,8 @@ public class TestSuite extends junit.framework.TestSuite {
             String mimeType = fileType.getMIMETypes()[0];
 
             (new File(out)).mkdirs();
-            PrintWriter w = new PrintWriter(new FileWriter(out
-                    + test.getName() + ".html"));
+            PrintWriter w = new PrintWriter(new FileWriter(out + test.getName()
+                    + ".html"));
 
             w
                     .println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
@@ -414,8 +415,8 @@ public class TestSuite extends junit.framework.TestSuite {
             w.println("                  <a href=\"" + top
                     + "freehep-graphicsio-" + fmt.toLowerCase()
                     + "/target/site/test-output/" + os + "/" + jdk + "/"
-                    + fmt.toLowerCase() + "/" + test.getName()
-                    + ".html\">" + jdk + "</a>");
+                    + fmt.toLowerCase() + "/" + test.getName() + ".html\">"
+                    + jdk + "</a>");
             if (jdk.equals("JDK-1.5"))
                 w.println("                </strong>");
             w.println("              </li>");
@@ -435,8 +436,7 @@ public class TestSuite extends junit.framework.TestSuite {
                     String cat = value.getCategory();
                     w.print("<a href=\"" + top + "freehep-graphicsio-" + cat
                             + "/target/site/test-output/" + os + "/" + jdk
-                            + "/" + key + "/" + test.getName()
-                            + ".html\">");
+                            + "/" + key + "/" + test.getName() + ".html\">");
                 }
                 w.print(value.getName());
                 if (value.isEnabled()) {
@@ -450,8 +450,8 @@ public class TestSuite extends junit.framework.TestSuite {
             w.println("            </ul>");
             w.println("            <h5>" + fmt + " Tests</h5>");
             w.println("            <ul>");
-            for (Iterator i = tests.iterator(); i.hasNext(); ) {
-                Test t = (Test)i.next();
+            for (Iterator i = tests.iterator(); i.hasNext();) {
+                Test t = (Test) i.next();
                 w.println("              <li class=\"none\">");
                 if (t.equals(test))
                     w.println("                <strong>");
@@ -498,22 +498,23 @@ public class TestSuite extends junit.framework.TestSuite {
                     + refFormat.toUpperCase() + ")</th>");
             w.println("                </tr>");
             w.println("                <tr class=\"a\">");
-            w.println("                  <td><a href=\"" + test.getName()
-                    + "." + ext + "\">" + test.getName() + "." + ext
-                    + "</a></td>");
-            w.println("                  <td><a href=\"" + ref
-                    + test.getName() + "." + refFormat + "\">"
-                    + test.getName() + "." + refFormat + "</a></td>");
+            w.println("                  <td><a href=\"" + test.getName() + "."
+                    + ext + "\">" + test.getName() + "." + ext + "</a></td>");
+            w.println("                  <td><a href=\"" + ref + test.getName()
+                    + "." + refFormat + "\">" + test.getName() + "."
+                    + refFormat + "</a></td>");
             w.println("                </tr>");
             w.println("                <tr class=\"a\">");
-            Test[] testArray = (Test[])tests.toArray(new Test[0]);
+            Test[] testArray = (Test[]) tests.toArray(new Test[0]);
             int testIndex = 0;
             while (testIndex < testArray.length) {
-                if (testArray[testIndex].equals(test)) break; 
+                if (testArray[testIndex].equals(test))
+                    break;
                 testIndex++;
             }
             int previousIndex = testIndex - 1;
-            while ((previousIndex >= 0) && !testArray[previousIndex].isEnabled())
+            while ((previousIndex >= 0)
+                    && !testArray[previousIndex].isEnabled())
                 previousIndex--;
             if (previousIndex >= 0) {
                 w.println("                  <td><a href=\""
@@ -523,11 +524,13 @@ public class TestSuite extends junit.framework.TestSuite {
                 w.println("                  <td/>");
             }
             int nextIndex = testIndex + 1;
-            while ((nextIndex < testArray.length) && !testArray[nextIndex].isEnabled())
+            while ((nextIndex < testArray.length)
+                    && !testArray[nextIndex].isEnabled())
                 nextIndex++;
             if (nextIndex < testArray.length) {
                 w.println("                  <td><a href=\""
-                        + testArray[nextIndex].getName() + ".html\">next</a></td>");
+                        + testArray[nextIndex].getName()
+                        + ".html\">next</a></td>");
             } else {
                 w.println("                  <td/>");
             }
@@ -535,17 +538,19 @@ public class TestSuite extends junit.framework.TestSuite {
             w.println("                <tr class=\"b\">");
             // w.println(" <td><a
             // href=\""+name+"."+ext+"\">"+name+"."+ext+"</a></td>");
-            w
-                    .println("                  <td background=\"" + cloud
-                            + "\"><object type=\"" + mimeType + "\" name=\""
-                            + test.getName() + "\" data=\""
-                            + test.getName() + "." + ext + "\" width=\""
-                            + TestingPanel.width + "\" height=\""
-                            + TestingPanel.height + "\">Image not embeddable: "
-                            + mimeType + "</object></td>");
+            w.print("                  ");
+            w.print("<td background=\"" + cloud + "\">");
+            w.print("<object type=\"" + mimeType + "\" name=\""
+                    + test.getName() + "\" data=\"" + test.getName() + "."
+                    + ext + "\" width=\"" + TestingPanel.width + "\" height=\""
+                    + TestingPanel.height + "\">");
+            w.print("<param name=\"wmode\" value=\"transparent\"/>");
+            w.print("Image not embeddable: " + mimeType);
+            w.print("</object>");
+            w.println("</td>");
             w.println("                  <td background=\"" + cloud
-                    + "\"><img src=\"" + ref + test.getName()+ "."
-                    + refFormat + "\"/></td>");
+                    + "\"><img src=\"" + ref + test.getName() + "." + refFormat
+                    + "\"/></td>");
             w.println("                </tr>");
             w.println("             </table>");
             w.println("           </div>");
