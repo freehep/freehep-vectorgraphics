@@ -129,8 +129,6 @@ public class GIFEncoder extends ImageEncoder {
         }
     }
 
-    IntHashtable colorHash;
-
     protected void encodeDone() throws IOException {
         // MD: run over pixels to make colors either transparent or opaque.
        for (int row = 0; row < height; ++row) {
