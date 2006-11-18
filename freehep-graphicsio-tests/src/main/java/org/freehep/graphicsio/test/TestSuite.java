@@ -23,7 +23,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 66aaf21853d1 2006/11/18 00:12:47 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 1e14ccdfa3d4 2006/11/18 00:23:26 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -314,7 +314,7 @@ public class TestSuite extends junit.framework.TestSuite {
                 + " " + test.getName();
         String freehep = "http://java.freehep.org/";
         String freehepImage = freehep + "images/sm-freehep.gif";
-        String url = freehep + "freehep-graphicsio-" + fmt.getLowerCaseName();
+        String url = freehep + "vectorgraphics/freehep-graphicsio-" + fmt.getLowerCaseName();
 
         String out = testOutDir + fmt.getTestDir() + "/";
         String baseDir = System.getProperty("basedir");
@@ -384,7 +384,7 @@ public class TestSuite extends junit.framework.TestSuite {
 
             if (!local) {
                 w.println("            <h5><a href=\"" + top
-                        + "vectorgraphics/index.html" + "\">Back</a></h5>");
+                        + "index.html" + "\">Back</a></h5>");
             }
 
             w.println("            <h5>Operating System</h5>");
