@@ -39,7 +39,7 @@ import org.freehep.util.images.ImageUtilities;
  * Generic class for generating bitmap outputs from an image.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java 5641ca92a537 2005/11/26 00:15:35 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java 66aaf21853d1 2006/11/18 00:12:47 duns $
  */
 public class ImageGraphics2D extends PixelGraphics2D {
 
@@ -361,7 +361,7 @@ public class ImageGraphics2D extends PixelGraphics2D {
             Properties properties, OutputStream os) throws IOException {
         // FIXME hardcoded background
         writeImage(
-                ImageUtilities.createRenderedImage(image, null, Color.BLACK),
+                ImageUtilities.createRenderedImage(image, null, Color.black),
                 format, properties, os);
     }
 
