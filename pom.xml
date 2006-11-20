@@ -112,7 +112,7 @@
         <!-- Version 2.2 does not run suites -->
 	<version>2.1.3</version>
         <configuration>
-          <testFailureIgnore>false</testFailureIgnore>
+          <forkMode>pertest</forkMode>
           <includes>
             <include>**/*TestSuite.java</include>
           </includes>
