@@ -2,7 +2,7 @@
   <parent>
     <artifactId>global</artifactId>
     <groupId>org.freehep</groupId>
-    <version>4</version>
+    <version>5</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.freehep</groupId>
