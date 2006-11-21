@@ -23,7 +23,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 1e14ccdfa3d4 2006/11/18 00:23:26 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java d06da55b1d6a 2006/11/21 08:45:39 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -89,7 +89,7 @@ public class TestSuite extends junit.framework.TestSuite {
         }
     }
 
-    private SortedMap formats;
+    private SortedMap bitmapFormats, vectorFormats;
     private static final String jiraURL = "http://bugs.freehep.org/secure/IssueNavigator.jspa?reset=true&mode=hide&sorter/order=DESC&sorter/field=priority&resolutionIds=-1";
     private static final int jiraProductId = 10170;
 
@@ -189,28 +189,34 @@ public class TestSuite extends junit.framework.TestSuite {
 
         local = !System.getProperty("vg.local", "true").equals("false");
 
-        formats = new TreeMap();
-        // formats.put("cgm", new Format("CGM", null, false, false, 10230,
+        bitmapFormats = new TreeMap();
+        bitmapFormats.put("bmp", new Format("BMP", null, "freehep-graphicsio-tests",
+                false, true, 10241, null));
+        bitmapFormats.put("gif", new Format("GIF", null, "freehep-graphicsio-tests",
+                true, true, 10241, null));
+        bitmapFormats.put("jpg", new Format("JPG", null, "freehep-graphicsio-tests",
+                true, true, 10241, null));
+        bitmapFormats.put("png", new Format("PNG", null, "freehep-graphicsio-tests",
+                true, true, 10241, null));
+        bitmapFormats.put("wbmp", new Format("WBMP", null, "freehep-graphicsio-tests",
+                false, true, 10241, null));
+
+        vectorFormats = new TreeMap();
+        // vectorFormats.put("cgm", new Format("CGM", null, false, false, 10230,
         // null));
-        formats.put("emf", new Format("EMF", null, null, false, false, 10231,
+        vectorFormats.put("emf", new Format("EMF", null, null, false, false, 10231,
                 null));
-        formats.put("gif", new Format("GIF", null, "freehep-graphicsio-tests",
-                true, true, 10241, null));
-        // formats.put("java", new Format("JAVA", null, null, false, false,
+        // vectorFormats.put("java", new Format("JAVA", null, null, false, false,
         // 10238, "org/freehep/graphicsio/java/test"));
-        formats.put("jpg", new Format("JPG", null, "freehep-graphicsio-tests",
-                true, true, 10241, null));
-        // formats.put("latex", new Format("Latex", "tex", null, false, false,
+        // vectorFormats.put("latex", new Format("Latex", "tex", null, false, false,
         // 10240, null));
-        formats.put("pdf", new Format("PDF", null, null, true, false, 10235,
+        vectorFormats.put("pdf", new Format("PDF", null, null, true, false, 10235,
                 null));
-        formats.put("png", new Format("PNG", null, "freehep-graphicsio-tests",
-                true, true, 10241, null));
-        formats.put("ps",
+        vectorFormats.put("ps",
                 new Format("PS", null, null, true, false, 10232, null));
-        formats.put("svg", new Format("SVG", null, null, true, false, 10236,
+        vectorFormats.put("svg", new Format("SVG", null, null, true, false, 10236,
                 null));
-        formats.put("swf", new Format("SWF", null, null, true, false, 10237,
+        vectorFormats.put("swf", new Format("SWF", null, null, true, false, 10237,
                 null));
 
         // FVG-241, TestCustomStrokes [3] disabled for MacOS X
@@ -273,13 +279,17 @@ public class TestSuite extends junit.framework.TestSuite {
                         properties));
                 writeHTML(test, fmt, os, jdk);
             } else {
-                System.err.println("NOTE: " + test.getName() + " disabled.");
+                System.err.println("NOTE: " + test.getName() + " disabled for "+fmt.getName()+".");
             }
         }
     }
 
-    protected void addTests(String fmt) {
-        addTests((Format) formats.get(fmt.toLowerCase()), null);
+    protected void addTests(String formatName) {
+    	Format fmt = (Format) bitmapFormats.get(formatName.toLowerCase());
+    	if (fmt == null) {
+    		fmt = (Format) vectorFormats.get(formatName.toLowerCase());
+    	}
+    	addTests(fmt, null);
     }
     
     protected void addTests(String[] args) {
@@ -288,9 +298,12 @@ public class TestSuite extends junit.framework.TestSuite {
                 addTests(args[i]);
             }
         } else {
-            for (Iterator i = formats.keySet().iterator(); i.hasNext();) {
-                String key = (String) i.next();
-                Format fmt = (Format) formats.get(key);
+            for (Iterator i = bitmapFormats.keySet().iterator(); i.hasNext();) {
+            	Format fmt = (Format) bitmapFormats.get((String) i.next());
+                addTests(fmt, null);
+            }
+            for (Iterator i = vectorFormats.keySet().iterator(); i.hasNext();) {
+                Format fmt = (Format) vectorFormats.get((String) i.next());
                 if (fmt.getUpperCaseName().equals("JAVA"))
                     addTests(fmt, null);
             }
@@ -423,15 +436,15 @@ public class TestSuite extends junit.framework.TestSuite {
             w.println("              </li>");
             w.println("            </ul>");
 
-            w.println("            <h5>Formats</h5>");
+            w.println("            <h5>Vector Formats</h5>");
             w.println("            <ul>");
-            for (Iterator i = formats.keySet().iterator(); i.hasNext();) {
+            for (Iterator i = vectorFormats.keySet().iterator(); i.hasNext();) {
                 String key = (String) i.next();
                 w.println("              <li class=\"none\">");
                 if (key.equalsIgnoreCase(fmt.getLowerCaseName())) {
                     w.println("                <strong>");
                 }
-                Format value = (Format) formats.get(key);
+                Format value = (Format) vectorFormats.get(key);
                 w.print("                  ");
                 if (value.isEnabled()) {
                     w.print("<a href=\"" + top + value.getModuleName() + "/"
@@ -448,6 +461,33 @@ public class TestSuite extends junit.framework.TestSuite {
                 w.println("              </li>");
             }
             w.println("            </ul>");
+            
+            w.println("            <h5>Bitmap Formats</h5>");
+            w.println("            <ul>");
+            for (Iterator i = bitmapFormats.keySet().iterator(); i.hasNext();) {
+                String key = (String) i.next();
+                w.println("              <li class=\"none\">");
+                if (key.equalsIgnoreCase(fmt.getLowerCaseName())) {
+                    w.println("                <strong>");
+                }
+                Format value = (Format) bitmapFormats.get(key);
+                w.print("                  ");
+                if (value.isEnabled()) {
+                    w.print("<a href=\"" + top + value.getModuleName() + "/"
+                            + (local ? "target/site/" : "") + "test-output/" + os + "/" + jdk
+                            + "/" + key + "/" + test.getName() + ".html\">");
+                }
+                w.print(value.getName());
+                if (value.isEnabled()) {
+                    w.print("</a>");
+                }
+                w.println();
+                if (key.equalsIgnoreCase(fmt.getLowerCaseName()))
+                    w.println("                </strong>");
+                w.println("              </li>");
+            }
+            w.println("            </ul>");
+            
             w.println("            <h5>" + fmt.getName() + " Tests</h5>");
             w.println("            <ul>");
             for (Iterator i = tests.iterator(); i.hasNext();) {

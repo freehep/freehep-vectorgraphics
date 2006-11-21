@@ -39,7 +39,7 @@ import org.freehep.util.images.ImageUtilities;
  * Generic class for generating bitmap outputs from an image.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java 66aaf21853d1 2006/11/18 00:12:47 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java d06da55b1d6a 2006/11/21 08:45:39 duns $
  */
 public class ImageGraphics2D extends PixelGraphics2D {
 
@@ -118,12 +118,18 @@ public class ImageGraphics2D extends PixelGraphics2D {
                 if (param.canWriteCompressed()) {
                     param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
                     properties.setProperty(formatKey + COMPRESS, true);
-                    properties.setProperty(formatKey + COMPRESS_MODE, param
-                            .getCompressionType());
+                    String[] compressionTypes = param.getCompressionTypes();
+                    String compressionType = param.getCompressionType();
+                    properties.setProperty(formatKey + COMPRESS_MODE, compressionType != null ? compressionType : compressionTypes[0]);
                     properties.setProperty(formatKey + COMPRESS_DESCRIPTION,
                             "Custom");
-                    properties.setProperty(formatKey + COMPRESS_QUALITY, param
-                            .getCompressionQuality());
+                    float compressionQuality = 0.0f;
+                    try {
+                    	compressionQuality = param.getCompressionQuality();
+                    } catch (IllegalStateException e) {
+                    	// ignored
+                    }
+                    properties.setProperty(formatKey + COMPRESS_QUALITY, compressionQuality);
                 } else {
                     properties.setProperty(formatKey + COMPRESS, false);
                     properties.setProperty(formatKey + COMPRESS_MODE, "");
