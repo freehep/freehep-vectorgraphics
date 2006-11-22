@@ -43,7 +43,7 @@ import org.freehep.util.UserProperties;
  * Enhanced Metafile Format Graphics 2D driver.
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java c163500758af 2006/11/22 00:37:36 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java f8437ddce5b7 2006/11/22 00:43:15 duns $
  */
 public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         EMFConstants {
@@ -109,7 +109,8 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         defaultProperties.setProperty(BACKGROUND_COLOR, Color.GRAY);
         defaultProperties.setProperty(COMPRESS, false);
         defaultProperties.setProperty(CLIP, true);
-        defaultProperties.setProperty(TEXT_AS_SHAPES, true);
+        // NOTE: using TEXT_AS_SHAPES makes the text shapes quite unreadable.
+        defaultProperties.setProperty(TEXT_AS_SHAPES, false);
     }
 
     public static Properties getDefaultProperties() {
@@ -388,7 +389,7 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
     /* 5.3. Strings */
     public void writeString(String string, double x, double y)
             throws IOException {
-System.err.println("WS: "+string);
+
         Color color;
         Paint paint = getPaint();
         if (paint instanceof Color) {
