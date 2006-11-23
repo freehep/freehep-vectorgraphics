@@ -178,7 +178,7 @@ public class Quantize {
 
     final static int MAX_TREE_DEPTH = 8;
 
-    final static int MAX_CHILDREN = 16;
+    final static int MAX_CHILDREN = 8; // alpha 16;
     
     // these are precomputed in advance
     static int SQUARES[];
@@ -295,7 +295,7 @@ public class Quantize {
             for (int x = width; x-- > 0;) {
                 for (int y = height; y-- > 0;) {
                     int pixel = pixels[x][y];
-                    int alpha = (pixel >> 24) & 0xFF;
+//                    int alpha = (pixel >> 24) & 0xFF;
                     int red = (pixel >> 16) & 0xFF;
                     int green = (pixel >> 8) & 0xFF;
                     int blue = (pixel >> 0) & 0xFF;
@@ -313,8 +313,8 @@ public class Quantize {
                     for (int level = 1; level <= depth; ++level) {
                         int id = (((red > node.mid_red ? 1 : 0) << 0)
                                 | ((green > node.mid_green ? 1 : 0) << 1) 
-                                | ((blue > node.mid_blue ? 1 : 0) << 2)
-                                | ((alpha > node.mid_alpha ? 1 : 0) << 3));
+                                | ((blue > node.mid_blue ? 1 : 0) << 2));
+//                                | ((alpha > node.mid_alpha ? 1 : 0) << 3));
                         if (node.child[id] == null) {
                             new Node(node, id, level);
                         }
@@ -323,7 +323,7 @@ public class Quantize {
                     }
 
                     ++node.unique;
-                    node.total_alpha += alpha;
+//                    node.total_alpha += alpha;
                     node.total_red += red;
                     node.total_green += green;
                     node.total_blue += blue;
@@ -394,7 +394,7 @@ public class Quantize {
             for (int x = width; x-- > 0;) {
                 for (int y = height; y-- > 0;) {
                     int pixel = pixels[x][y];
-                    int alpha = (pixel >> 24) & 0xFF;
+//                    int alpha = (pixel >> 24) & 0xFF;
                     int red = (pixel >> 16) & 0xFF;
                     int green = (pixel >> 8) & 0xFF;
                     int blue = (pixel >> 0) & 0xFF;
@@ -404,8 +404,8 @@ public class Quantize {
                     for (;;) {
                         int id = (((red > node.mid_red ? 1 : 0) << 0)
                                 | ((green > node.mid_green ? 1 : 0) << 1) 
-                                | ((blue > node.mid_blue ? 1 : 0) << 2)
-                                | ((alpha > node.mid_alpha ? 1 : 0) << 3));
+                                | ((blue > node.mid_blue ? 1 : 0) << 2));
+//                                | ((alpha > node.mid_alpha ? 1 : 0) << 3));
                         if (node.child[id] == null) {
                             break;
                         }
@@ -420,7 +420,7 @@ public class Quantize {
                     } else {
                         // Find the closest color.
                         search.distance = Integer.MAX_VALUE;
-                        node.parent.closestColor(alpha, red, green, blue, search);
+                        node.parent.closestColor(/* alpha, */ red, green, blue, search);
                         pixels[x][y] = search.color_number;
                     }
                 }
@@ -448,7 +448,7 @@ public class Quantize {
             int level;
 
             // our color midpoint
-            int mid_alpha;
+//            int mid_alpha;
             
             int mid_red;
 
@@ -463,7 +463,7 @@ public class Quantize {
             int unique;
 
             // the sum of all pixels contained in this node
-            int total_alpha;
+//            int total_alpha;
             
             int total_red;
 
@@ -483,7 +483,7 @@ public class Quantize {
 
                 this.number_pixels = Integer.MAX_VALUE;
 
-                this.mid_alpha = (MAX_RGB + 1) >> 1;
+//                this.mid_alpha = (MAX_RGB + 1) >> 1;
                 this.mid_red = (MAX_RGB + 1) >> 1;
                 this.mid_green = (MAX_RGB + 1) >> 1;
                 this.mid_blue = (MAX_RGB + 1) >> 1;
@@ -511,7 +511,7 @@ public class Quantize {
                 mid_red = parent.mid_red + ((id & 1) > 0 ? bi : -bi);
                 mid_green = parent.mid_green + ((id & 2) > 0 ? bi : -bi);
                 mid_blue = parent.mid_blue + ((id & 4) > 0 ? bi : -bi);
-                mid_alpha = parent.mid_alpha + ((id & 8) > 0 ? bi : -bi);
+//                mid_alpha = parent.mid_alpha + ((id & 8) > 0 ? bi : -bi);
             }
 
             /**
@@ -521,7 +521,7 @@ public class Quantize {
             void pruneChild() {
                 --parent.nchild;
                 parent.unique += unique;
-                parent.total_alpha += total_alpha;
+//                parent.total_alpha += total_alpha;
                 parent.total_red += total_red;
                 parent.total_green += total_green;
                 parent.total_blue += total_blue;
@@ -589,12 +589,12 @@ public class Quantize {
                     }
                 }
                 if (unique != 0) {
-                    int a = ((total_alpha + (unique >> 1)) / unique);
+//                    int a = ((total_alpha + (unique >> 1)) / unique);
                     int r = ((total_red + (unique >> 1)) / unique);
                     int g = ((total_green + (unique >> 1)) / unique);
                     int b = ((total_blue + (unique >> 1)) / unique);
-                    cube.colormap[cube.colors] = (((a & 0xFF) << 24)
-                            | ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | ((b & 0xFF) << 0));
+                    cube.colormap[cube.colors] = (//((a & 0xFF) << 24) |
+                            ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | ((b & 0xFF) << 0));
                     color_number = cube.colors++;
                 }
             }
@@ -604,18 +604,18 @@ public class Quantize {
              * and determines which colormap entry best represents the input
              * color.
              */
-            void closestColor(int alpha, int red, int green, int blue, Search search) {
+            void closestColor(/* int alpha, */ int red, int green, int blue, Search search) {
                 if (nchild != 0) {
                     for (int id = 0; id < MAX_CHILDREN; id++) {
                         if (child[id] != null) {
-                            child[id].closestColor(alpha, red, green, blue, search);
+                            child[id].closestColor(/* alpha, */ red, green, blue, search);
                         }
                     }
                 }
 
                 if (unique != 0) {
                     int color = cube.colormap[color_number];
-                    int distance = distance(color, alpha, red, green, blue);
+                    int distance = distance(color, /* alpha, */ red, green, blue);
                     if (distance < search.distance) {
                         search.distance = distance;
                         search.color_number = color_number;
@@ -626,11 +626,11 @@ public class Quantize {
             /**
              * Figure out the distance between this node and som color.
              */
-            final static int distance(int color, int a, int r, int g, int b) {
-                return (SQUARES[((color >> 24) & 0xFF) - a + MAX_RGB]
-                      + SQUARES[((color >> 16) & 0xFF) - r + MAX_RGB]
-                      + SQUARES[((color >> 8) & 0xFF) - g + MAX_RGB] 
-                      + SQUARES[((color >> 0) & 0xFF) - b + MAX_RGB]);
+            final static int distance(int color, /* int a, */ int r, int g, int b) {
+                return (// SQUARES[((color >> 24) & 0xFF) - a + MAX_RGB] +
+                        SQUARES[((color >> 16) & 0xFF) - r + MAX_RGB] +
+                        SQUARES[((color >> 8) & 0xFF) - g + MAX_RGB] + 
+                        SQUARES[((color >> 0) & 0xFF) - b + MAX_RGB]);
             }
 
             public String toString() {
@@ -643,8 +643,8 @@ public class Quantize {
                 buf.append(' ');
                 buf.append(level);
                 buf.append(" [");
-                buf.append(mid_alpha);
-                buf.append(',');
+//                buf.append(mid_alpha);
+//                buf.append(',');
                 buf.append(mid_red);
                 buf.append(',');
                 buf.append(mid_green);

@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
@@ -39,7 +40,7 @@ import org.freehep.util.images.ImageUtilities;
  * Generic class for generating bitmap outputs from an image.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java d06da55b1d6a 2006/11/21 08:45:39 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java ebb3d89d5caf 2006/11/23 01:05:05 duns $
  */
 public class ImageGraphics2D extends PixelGraphics2D {
 
@@ -330,7 +331,8 @@ public class ImageGraphics2D extends PixelGraphics2D {
         int imageType = (format.equalsIgnoreCase("jpg") || format
                 .equalsIgnoreCase("jpeg")) ? BufferedImage.TYPE_INT_RGB
                 : BufferedImage.TYPE_INT_ARGB;
-        return new BufferedImage(width, height, imageType);
+        BufferedImage image = new BufferedImage(width, height, imageType);
+        return image;
     }
 
     public static BufferedImage generateThumbnail(Component component,

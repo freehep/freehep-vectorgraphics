@@ -19,7 +19,7 @@ import org.freehep.util.UserProperties;
 /**
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFGraphics2D.java 12103cee2b7c 2006/11/12 16:30:03 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFGraphics2D.java ebb3d89d5caf 2006/11/23 01:05:05 duns $
  */
 public class GIFGraphics2D extends ImageGraphics2D {
 
@@ -42,8 +42,8 @@ public class GIFGraphics2D extends ImageGraphics2D {
 
     private static final UserProperties defaultProperties = new UserProperties();
     static {
-        defaultProperties.setProperty(QUANTIZE_COLORS, false);
-        defaultProperties.setProperty(QUANTIZE_MODE, "WebColors");
+        defaultProperties.setProperty(QUANTIZE_COLORS, true);
+        defaultProperties.setProperty(QUANTIZE_MODE, "NearestColor");
     }
 
     public static Properties getDefaultProperties() {

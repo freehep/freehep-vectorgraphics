@@ -23,7 +23,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java d06da55b1d6a 2006/11/21 08:45:39 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java ebb3d89d5caf 2006/11/23 01:05:05 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -219,37 +219,39 @@ public class TestSuite extends junit.framework.TestSuite {
         vectorFormats.put("swf", new Format("SWF", null, null, true, false, 10237,
                 null));
 
+        boolean on = false;
         // FVG-241, TestCustomStrokes [3] disabled for MacOS X
         boolean onMacOSXandJDK15 = System.getProperty("os.name").equals(
                 "Mac OS X")
                 && System.getProperty("java.version").startsWith("1.5");
 
+        
         tests = new ArrayList();
-        tests.add(new Test("TestAll", true));
-        tests.add(new Test("TestClip", true));
-        tests.add(new Test("TestColors", true));
-        tests.add(new Test("TestCustomStrokes", !onMacOSXandJDK15));
-        tests.add(new Test("TestFonts", true));
-        tests.add(new Test("TestFontDerivation", true));
-        tests.add(new Test("TestGraphicsContexts", true));
-        tests.add(new Test("TestHistogram", true));
+        tests.add(new Test("TestAll", on));
+        tests.add(new Test("TestClip", on));
+        tests.add(new Test("TestColors", on));
+        tests.add(new Test("TestCustomStrokes", on && !onMacOSXandJDK15));
+        tests.add(new Test("TestFonts", on));
+        tests.add(new Test("TestFontDerivation", on));
+        tests.add(new Test("TestGraphicsContexts", on));
+        tests.add(new Test("TestHistogram", on));
         tests.add(new Test("TestHTML", true));
-        tests.add(new Test("TestImages", true));
-        tests.add(new Test("TestImage2D", true));
-        tests.add(new Test("TestLabels", true));
-        tests.add(new Test("TestLineStyles", true));
-        tests.add(new Test("TestOffset", true));
-        tests.add(new Test("TestPaint", true));
-        tests.add(new Test("TestPrintColors", true));
+        tests.add(new Test("TestImages", on));
+        tests.add(new Test("TestImage2D", on));
+        tests.add(new Test("TestLabels", on));
+        tests.add(new Test("TestLineStyles", on));
+        tests.add(new Test("TestOffset", on));
+        tests.add(new Test("TestPaint", on));
+        tests.add(new Test("TestPrintColors", on));
         // FVG-197, TestResolution not very useful yet.
         tests.add(new Test("TestResolution", false));
-        tests.add(new Test("TestScatterPlot", true));
-        tests.add(new Test("TestShapes", true));
-        tests.add(new Test("TestSymbols2D", true));
-        tests.add(new Test("TestTaggedString", true));
-        tests.add(new Test("TestText2D", true));
-        tests.add(new Test("TestTransforms", true));
-        tests.add(new Test("TestTransparency", true));
+        tests.add(new Test("TestScatterPlot", on));
+        tests.add(new Test("TestShapes", on));
+        tests.add(new Test("TestSymbols2D", on));
+        tests.add(new Test("TestTaggedString", on));
+        tests.add(new Test("TestText2D", on));
+        tests.add(new Test("TestTransforms", on));
+        tests.add(new Test("TestTransparency", on));
 
         os = System.getProperty("os.name", "OS");
         if (os.equals("Mac OS X")) {

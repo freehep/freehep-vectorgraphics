@@ -131,7 +131,7 @@ public class GIFEncoder extends ImageEncoder {
 
     protected void encodeDone() throws IOException {
         // MD: run over pixels to make colors either transparent or opaque.
-       for (int row = 0; row < height; ++row) {
+        for (int row = 0; row < height; ++row) {
             for (int col = 0; col < width; ++col) {
                 if ((rgbPixels[row][col] & 0xFF000000) == 0) {
                     rgbPixels[row][col] = 0x00FFFFFF;   // make it white, but fully transparent
@@ -141,10 +141,15 @@ public class GIFEncoder extends ImageEncoder {
             }
         }
                         
-        // MD: added quantizer for max color limitation
+        // MD: added ColorMap for max color limitation
         // returning a color palette (including one transparent color)
         // and rgbPixels changes from colors into palette indices.
-        int[] palette = Quantize.quantizeImage(rgbPixels, 255);
+        GIFColorMap colorMap = new GIFNearestColorMap();
+        int[] palette = colorMap.create(rgbPixels, 255);
+        for (int i=0; i<palette.length; i++) {
+            System.err.print(Integer.toHexString(palette[i])+", ");
+        }
+        System.err.println("\n n = "+palette.length+" "+rgbPixels[5][5]+" "+Integer.toHexString(palette[rgbPixels[5][5]]));
         
         // MD: look for fully transparent color.
         int transparentIndex = -1;
