@@ -130,43 +130,34 @@ public class GIFEncoder extends ImageEncoder {
     }
 
     protected void encodeDone() throws IOException {
-        // MD: run over pixels to make colors either transparent or opaque.
-        for (int row = 0; row < height; ++row) {
-            for (int col = 0; col < width; ++col) {
-                if ((rgbPixels[row][col] & 0xFF000000) == 0) {
-                    rgbPixels[row][col] = 0x00FFFFFF;   // make it white, but fully transparent
-                } else {
-                    rgbPixels[row][col] |= 0xFF000000;
-                }
-            }
-        }
-                        
         // MD: added ColorMap for max color limitation
         // returning a color palette (including one transparent color)
         // and rgbPixels changes from colors into palette indices.
         GIFColorMap colorMap = new GIFNearestColorMap();
         int[] palette = colorMap.create(rgbPixels, 255);
+        
+        // MD: look for first fully transparent color
+        int transparentIndex = -1;
+    	for (int i=0; i<palette.length; i++) { 
+            if ((palette[i] & 0xFF000000) == 0) {
+            	transparentIndex = i;
+            	break;
+            }
+        }
+        
         for (int i=0; i<palette.length; i++) {
             System.err.print(Integer.toHexString(palette[i])+", ");
         }
-        System.err.println("\n n = "+palette.length+" "+rgbPixels[5][5]+" "+Integer.toHexString(palette[rgbPixels[5][5]]));
-        
-        // MD: look for fully transparent color.
-        int transparentIndex = -1;
-        for (int i=0; i<palette.length; i++) {
-            if ((palette[i] & 0xFF000000) == 0) {
-                transparentIndex = i;
-                break;
-            }
-        }
+        System.err.println("\n n = "+palette.length+" "+ (transparentIndex >= 0 ? Integer.toHexString(palette[transparentIndex]) : "Not Transparent"));
 
         // Figure out how many bits to use.
         int logColors;
-        if (palette.length <= 2)
+        int nColors = palette.length;
+        if (nColors <= 2)
             logColors = 1;
-        else if (palette.length <= 4)
+        else if (nColors <= 4)
             logColors = 2;
-        else if (palette.length <= 16)
+        else if (nColors <= 16)
             logColors = 4;
         else
             logColors = 8;
