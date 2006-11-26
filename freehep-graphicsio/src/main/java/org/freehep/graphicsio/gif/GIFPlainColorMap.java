@@ -7,13 +7,14 @@ package org.freehep.graphicsio.gif;
  * Slow implementation...
  * 
  * @author duns
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFPlainColorMap.java ebb3d89d5caf 2006/11/23 01:05:05 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFPlainColorMap.java 79cc2304839a 2006/11/26 20:47:43 duns $
  */
 public class GIFPlainColorMap implements GIFColorMap {
     
     public int[] create(int[][] pixels, int maxColors) {
         int[] colors = new int[maxColors];
         int n = 0;
+        int e = 0;
         
         for (int x = 0; x < pixels.length; x++) {
             for (int y = 0; y < pixels[x].length; y++) {
@@ -23,14 +24,21 @@ public class GIFPlainColorMap implements GIFColorMap {
                     i++;
                 }
                 if (i==n) {
-                    if (i >= maxColors) throw new IllegalArgumentException("GIF: Too many colors > "+maxColors);
-                    colors[i] = pixels[x][y];
-                    n++;
+                    if (i < maxColors) {
+                        colors[i] = pixels[x][y];
+                        n++;
+                    } else {
+                    	e++;
+                    }
                 }
                 pixels[x][y] = i;
             }
         }
         
+        if (e > 0) {
+        	String msg = "GIFPlainColorMap: Too many colors "+(n+e)+" > "+maxColors;
+        	throw new IllegalArgumentException(msg);
+        }
         return colors;
     }
 

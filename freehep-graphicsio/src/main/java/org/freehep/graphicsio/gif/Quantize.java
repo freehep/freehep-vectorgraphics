@@ -239,7 +239,7 @@ public class Quantize {
 %
 */
     
-    final static boolean QUICK = true;
+    final static boolean QUICK = false;
     
     final static int MAX_RGB = 255;
     final static int MAX_NODES = 266817;
@@ -293,6 +293,8 @@ public class Quantize {
             this.pixels = pixels;
             this.max_colors = max_colors;
 
+            colors = 1;
+            
             int i = max_colors;
             // tree_depth = log max_colors
             //                 4
@@ -364,32 +366,34 @@ public class Quantize {
                     int green = (pixel >>  8) & 0xFF;
                     int blue  = (pixel >>  0) & 0xFF;
 
-                    // a hard limit on the number of nodes in the tree
-                    if (nodes > MAX_NODES) {
-                        System.out.println("pruning");
-                        root.pruneLevel();
-                        --depth;
+                    if (alpha > 0) {
+	                    // a hard limit on the number of nodes in the tree
+	                    if (nodes > MAX_NODES) {
+	                        System.out.println("pruning");
+	                        root.pruneLevel();
+	                        --depth;
+	                    }
+	
+	                    // walk the tree to depth, increasing the
+	                    // number_pixels count for each node
+	                    Node node = root;
+	                    for (int level = 1; level <= depth; ++level) {
+	                        int id = (((red   > node.mid_red   ? 1 : 0) << 0) |
+	                                  ((green > node.mid_green ? 1 : 0) << 1) |
+	                                  ((blue  > node.mid_blue  ? 1 : 0) << 2));
+	                        if (node.child[id] == null) {
+	                            new Node(node, id, level);
+	                        }
+	                        node = node.child[id];
+	                        node.number_pixels += SHIFT[level];
+	                    }
+	
+	                    ++node.unique;
+	                    node.total_alpha += alpha;
+	                    node.total_red   += red;
+	                    node.total_green += green;
+	                    node.total_blue  += blue;
                     }
-
-                    // walk the tree to depth, increasing the
-                    // number_pixels count for each node
-                    Node node = root;
-                    for (int level = 1; level <= depth; ++level) {
-                        int id = (((red   > node.mid_red   ? 1 : 0) << 0) |
-                                  ((green > node.mid_green ? 1 : 0) << 1) |
-                                  ((blue  > node.mid_blue  ? 1 : 0) << 2));
-                        if (node.child[id] == null) {
-                            new Node(node, id, level);
-                        }
-                        node = node.child[id];
-                        node.number_pixels += SHIFT[level];
-                    }
-
-                    ++node.unique;
-                    node.total_alpha += alpha;
-                    node.total_red   += red;
-                    node.total_green += green;
-                    node.total_blue  += blue;
                 }
             }
         }
@@ -409,7 +413,7 @@ public class Quantize {
         void reduction() {
             int threshold = 1;
             while (colors > max_colors) {
-                colors = 0;
+                colors = 1;
                 threshold = root.reduce(threshold, Integer.MAX_VALUE);
             }
         }
@@ -445,7 +449,9 @@ public class Quantize {
         void assignment() {
             colormap = new int[colors];
 
-            colors = 0;
+            // transparent color
+            colormap[0] = 0x00800000;
+            colors = 1;
             root.colormap();
   
             int pixels[][] = this.pixels;
@@ -459,32 +465,38 @@ public class Quantize {
             for (int x = width; x-- > 0; ) {
                 for (int y = height; y-- > 0; ) {
                     int pixel = pixels[x][y];
+                    int alpha = (pixel >> 24) & 0xFF;
                     int red   = (pixel >> 16) & 0xFF;
                     int green = (pixel >>  8) & 0xFF;
                     int blue  = (pixel >>  0) & 0xFF;
 
-                    // walk the tree to find the cube containing that color
-                    Node node = root;
-                    for ( ; ; ) {
-                        int id = (((red   > node.mid_red   ? 1 : 0) << 0) |
-                                  ((green > node.mid_green ? 1 : 0) << 1) |
-                                  ((blue  > node.mid_blue  ? 1 : 0) << 2)  );
-                        if (node.child[id] == null) {
-                            break;
-                        }
-                        node = node.child[id];
-                    }
-
-                    if (QUICK) {
-                        // if QUICK is set, just use that
-                        // node. Strictly speaking, this isn't
-                        // necessarily best match.
-                        pixels[x][y] = node.color_number;
+                    if (alpha > 0) {
+	                    // walk the tree to find the cube containing that color
+	                    Node node = root;
+	                    for ( ; ; ) {
+	                        int id = (((red   > node.mid_red   ? 1 : 0) << 0) |
+	                                  ((green > node.mid_green ? 1 : 0) << 1) |
+	                                  ((blue  > node.mid_blue  ? 1 : 0) << 2)  );
+	                        if (node.child[id] == null) {
+	                            break;
+	                        }
+	                        node = node.child[id];
+	                    }
+	
+	                    if (QUICK) {
+	                        // if QUICK is set, just use that
+	                        // node. Strictly speaking, this isn't
+	                        // necessarily best match.
+	                        pixels[x][y] = node.color_number;
+	                    } else {
+	                        // Find the closest color.
+	                        search.distance = Integer.MAX_VALUE;
+	                        node.parent.closestColor(red, green, blue, search);
+	                        pixels[x][y] = search.color_number;
+	                    }
                     } else {
-                        // Find the closest color.
-                        search.distance = Integer.MAX_VALUE;
-                        node.parent.closestColor(red, green, blue, search);
-                        pixels[x][y] = search.color_number;
+                    	// transparent
+                    	pixels[x][y] = 0;
                     }
                 }
             }

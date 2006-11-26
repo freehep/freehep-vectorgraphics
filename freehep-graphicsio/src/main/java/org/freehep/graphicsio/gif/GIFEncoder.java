@@ -38,7 +38,6 @@ import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Enumeration;
 
 //import org.freehep.graphicsio.ImageEncoder;
 
@@ -133,7 +132,9 @@ public class GIFEncoder extends ImageEncoder {
         // MD: added ColorMap for max color limitation
         // returning a color palette (including one transparent color)
         // and rgbPixels changes from colors into palette indices.
-        GIFColorMap colorMap = new GIFNearestColorMap();
+//        GIFColorMap colorMap = new GIFNearestColorMap();
+//        GIFColorMap colorMap = new GIFPlainColorMap();
+        GIFColorMap colorMap = new GIFNeuralColorMap();
         int[] palette = colorMap.create(rgbPixels, 255);
         
         // MD: look for first fully transparent color
@@ -145,11 +146,12 @@ public class GIFEncoder extends ImageEncoder {
             }
         }
         
-        for (int i=0; i<palette.length; i++) {
+/*
+    	for (int i=0; i<palette.length; i++) {
             System.err.print(Integer.toHexString(palette[i])+", ");
         }
         System.err.println("\n n = "+palette.length+" "+ (transparentIndex >= 0 ? Integer.toHexString(palette[transparentIndex]) : "Not Transparent"));
-
+*/
         // Figure out how many bits to use.
         int logColors;
         int nColors = palette.length;

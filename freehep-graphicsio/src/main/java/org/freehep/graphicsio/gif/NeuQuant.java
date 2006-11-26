@@ -1,9 +1,5 @@
 package org.freehep.graphicsio.gif;
 
-import java.awt.Color;
-import java.io.IOException;
-import java.io.OutputStream;
-
 /* NeuQuant Neural-Net Quantization Algorithm
  * ------------------------------------------
  *
@@ -25,16 +21,11 @@ import java.io.OutputStream;
  * that this copyright notice remain intact.
  */
 
-public class NeuQuant implements GIFColorMap {
-
-	public int[] create(int[][] pixels, int maxColors) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+public class NeuQuant {
 
     public static final int ncycles	=	100;			// no. of learning cycles
 
-    public static final int netsize  = 256;		// number of colours used
+    public static final int netsize  = 255;		// number of colours used
     public static final int specials  = 3;		// number of reserved colours used
     public static final int bgColour  = specials-1;	// reserved background colour
     public static final int cutnetsize  = netsize - specials;
@@ -74,41 +65,29 @@ public class NeuQuant implements GIFColorMap {
     private int samplefac = 0;
 
 
-    public NeuQuant (int[][] pixels) throws IOException {
-        this (1);
+    public NeuQuant (int sample, int[][] pixels) {
+        if (sample < 1) throw new RuntimeException ("Sample must be 1..30");
+        if (sample > 30) throw new RuntimeException ("Sample must be 1..30");
+        samplefac = sample;
         setPixels (pixels);
 		setUpArrays ();
     }
         
-    private NeuQuant (int sample) throws IOException {
-        if (sample < 1) throw new IOException ("Sample must be 1..30");
-        if (sample > 30) throw new IOException ("Sample must be 1..30");
-        samplefac = sample;
-        // rest later
-    }
-    
     public int getColorCount () {
     	return netsize;
     }
 
-    public Color getColor (int i) {
-    	if (i < 0 || i >= netsize) return null;
-	    int bb = colormap[i][0];
-    	int gg = colormap[i][1];
-    	int rr = colormap[i][2];
-    	return new Color (rr, gg, bb);
-    }
-
-    public int writeColourMap (boolean rgb, OutputStream out) throws IOException {
+    public int[] getColorMap() {
+    	// keep entry 0 free for transparent color
+    	int[] c = new int[netsize+1];
+    	c[0] = 0x00000000;
     	for (int i=0; i<netsize; i++) {
-		    int bb = colormap[i][0];
-	    	int gg = colormap[i][1];
-	    	int rr = colormap[i][2];
-	    	out.write (rgb ? rr : bb);
-	    	out.write (gg);
-	    	out.write (rgb ? bb : rr);
+		    c[i+1] = (colormap[i][0]     )  |
+	    	         (colormap[i][1] << 8)  |
+	    	         (colormap[i][2] << 16) |
+	    	         (0xFF           << 24);
     	}
-    	return netsize;
+    	return c;
     }
 
     protected void setUpArrays () {
@@ -138,12 +117,11 @@ public class NeuQuant implements GIFColorMap {
         }
     }    	
     
-    private void setPixels (int[][] pixels) throws IOException {
-        if (pixels.length*pixels[0].length < maxprime) throw new IOException ("Image is too small");
+    private void setPixels (int[][] pixels) {
+        if (pixels.length*pixels[0].length < maxprime) throw new RuntimeException ("Image is too small");
         this.pixels = pixels;
     }
     
-
     public void init () {
         learn ();
         fix ();
@@ -226,7 +204,7 @@ public class NeuQuant implements GIFColorMap {
     private void learn() {
         int biasRadius = initBiasRadius;
     	int alphadec = 30 + ((samplefac-1)/3);
-    	int lengthcount = pixels.length;
+    	int lengthcount = pixels.length*pixels[0].length;
     	int samplepixels = lengthcount / samplefac;
     	int delta = samplepixels / ncycles;
     	int alpha = initalpha;
@@ -235,7 +213,7 @@ public class NeuQuant implements GIFColorMap {
     	int rad = biasRadius >> radiusbiasshift;
     	if (rad <= 1) rad = 0;
 	
-    	System.err.println("beginning 1D learning: samplepixels=" + samplepixels + "  rad=" + rad);
+//    	System.err.println("beginning 1D learning: samplepixels=" + samplepixels + "  rad=" + rad);
 
         int step = 0;
         int pos = 0;
@@ -251,7 +229,7 @@ public class NeuQuant implements GIFColorMap {
 	
     	i = 0;
     	while (i < samplepixels) {
-    	    int p = pixels [pos];
+    	    int p = pixels [pos / pixels[0].length][pos % pixels[0].length];
 	        int red   = (p >> 16) & 0xff;
 	        int green = (p >>  8) & 0xff;
 	        int blue  = (p      ) & 0xff;
@@ -286,7 +264,7 @@ public class NeuQuant implements GIFColorMap {
     			if (rad <= 1) rad = 0;
     		}
     	}
-    	System.err.println("finished 1D learning: final alpha=" + (1.0 * alpha)/initalpha + "!");
+//    	System.err.println("finished 1D learning: final alpha=" + (1.0 * alpha)/initalpha + "!");
     }
 
     private void fix() {
@@ -353,24 +331,12 @@ public class NeuQuant implements GIFColorMap {
     }
 
     public int lookup (int pixel) {
-	    int r   = (pixel >> 16) & 0xff;
+	    int r = (pixel >> 16) & 0xff;
 	    int g = (pixel >>  8) & 0xff;
-	    int b  = (pixel      ) & 0xff;
+	    int b = (pixel      ) & 0xff;
 	    int i = inxsearch(b, g, r);
-	    return i;
-    }
-
-    public int lookup (Color c) {
-	    int r   = c.getRed ();
-	    int g = c.getGreen ();
-	    int b  = c.getBlue ();
-	    int i = inxsearch(b, g, r);
-	    return i;
-    }
-
-    public int lookup (boolean rgb, int x, int g, int y) {
-	    int i = rgb ? inxsearch (y, g, x) : inxsearch (x, g, y);
-	    return i;
+	    // compensate for transparent color
+	    return i+1;
     }
 
     private int not_used_slow_inxsearch(int b, int g, int r) {

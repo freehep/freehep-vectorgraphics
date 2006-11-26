@@ -23,7 +23,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 12d01d7a5217 2006/11/25 19:32:02 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 79cc2304839a 2006/11/26 20:47:43 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -219,7 +219,7 @@ public class TestSuite extends junit.framework.TestSuite {
         vectorFormats.put("swf", new Format("SWF", null, null, true, false, 10237,
                 null));
 
-        boolean on = false;
+        boolean on = true;
         // FVG-241, TestCustomStrokes [3] disabled for MacOS X
         boolean onMacOSXandJDK15 = System.getProperty("os.name").equals(
                 "Mac OS X")
@@ -229,15 +229,15 @@ public class TestSuite extends junit.framework.TestSuite {
         tests = new ArrayList();
         tests.add(new Test("TestAll", on));
         tests.add(new Test("TestClip", on));
-        tests.add(new Test("TestColors", true));
+        tests.add(new Test("TestColors", on));
         tests.add(new Test("TestCustomStrokes", on && !onMacOSXandJDK15));
         tests.add(new Test("TestFonts", on));
         tests.add(new Test("TestFontDerivation", on));
         tests.add(new Test("TestGraphicsContexts", on));
-        tests.add(new Test("TestHistogram", true));
-        tests.add(new Test("TestHTML", true));
-        tests.add(new Test("TestImages", true));
-        tests.add(new Test("TestImage2D", true));
+        tests.add(new Test("TestHistogram", on));
+        tests.add(new Test("TestHTML", on));
+        tests.add(new Test("TestImages", on));
+        tests.add(new Test("TestImage2D", on));
         tests.add(new Test("TestLabels", on));
         tests.add(new Test("TestLineStyles", on));
         tests.add(new Test("TestOffset", on));
@@ -251,7 +251,7 @@ public class TestSuite extends junit.framework.TestSuite {
         tests.add(new Test("TestTaggedString", on));
         tests.add(new Test("TestText2D", on));
         tests.add(new Test("TestTransforms", on));
-        tests.add(new Test("TestTransparency", true));
+        tests.add(new Test("TestTransparency", on));
 
         os = System.getProperty("os.name", "OS");
         if (os.equals("Mac OS X")) {

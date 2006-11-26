@@ -14,7 +14,7 @@ import org.freehep.util.images.ImageHandler;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestTransparency.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestTransparency.java 79cc2304839a 2006/11/26 20:47:43 duns $
  */
 public class TestTransparency extends TestingPanel {
 
@@ -67,14 +67,12 @@ public class TestTransparency extends TestingPanel {
             for (int j = 0; j < bi[n].getHeight(); j++) {
                 for (int i = 0; i < bi[n].getWidth(); i++) {
                     int data = bi[n].getRGB(i, j);
-                    // System.out.println(Integer.toHexString(data));
-                    if ((data >> 24) == 0) {
+                    if (((data >> 24) & 0xFF) == 0) {
                         // mend transparent pixels
                         data |= ((dalpha * n) << 24);
                         data |= 0x00008080;
-                        // System.out.println(Integer.toHexString(data));
+                        bi[n].setRGB(i, j, data);
                     }
-                    bi[n].setRGB(i, j, data);
                 }
             }
         }
