@@ -40,7 +40,7 @@ import org.freehep.util.images.ImageUtilities;
  * Generic class for generating bitmap outputs from an image.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java ebb3d89d5caf 2006/11/23 01:05:05 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java 7a2e6daa0f4f 2006/11/26 22:00:48 duns $
  */
 public class ImageGraphics2D extends PixelGraphics2D {
 
@@ -100,15 +100,8 @@ public class ImageGraphics2D extends PixelGraphics2D {
             }
 
             // set our parameters
-            if (format.equalsIgnoreCase(ImageConstants.GIF)) {
-                // since we do not have quantization on GIF yet, we should not
-                // antialias
-                properties.setProperty(formatKey + ANTIALIAS, false);
-                properties.setProperty(formatKey + ANTIALIAS_TEXT, false);
-            } else {
-                properties.setProperty(formatKey + ANTIALIAS, true);
-                properties.setProperty(formatKey + ANTIALIAS_TEXT, true);
-            }
+            properties.setProperty(formatKey + ANTIALIAS, true);
+            properties.setProperty(formatKey + ANTIALIAS_TEXT, true);
 
             // copy parameters from specific format
             ImageWriter writer = getPreferredImageWriter(format);
