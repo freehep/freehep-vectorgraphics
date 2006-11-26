@@ -1,4 +1,4 @@
-// Copyright 2000-2003 FreeHEP
+// Copyright 2000-2006 FreeHEP
 package org.freehep.graphicsio.exportchooser;
 
 import java.awt.Component;
@@ -25,7 +25,7 @@ import org.freehep.util.UserProperties;
  * // FIXME, check all options
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageExportFileType.java dc1b223a6664 2006/06/01 21:46:02 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageExportFileType.java 5293c168717f 2006/11/26 23:12:57 duns $
  */
 public class ImageExportFileType extends AbstractExportFileType {
 
@@ -49,14 +49,6 @@ public class ImageExportFileType extends AbstractExportFileType {
 
     protected OptionTextField compressQuality;
 
-//    private ImageExportFileType(String format, ImageWriterSpi spi,
-//            ImageWriteParam param) {
-//        super();
-//        this.format = format;
-//        this.spi = spi;
-//        this.param = param;
-//    }
-
     protected ImageExportFileType(String format) {
         Iterator iterator = ImageIO.getImageWritersByFormatName(format);
         if (iterator.hasNext()) {
@@ -71,49 +63,19 @@ public class ImageExportFileType extends AbstractExportFileType {
     }
 
     public static ImageExportFileType getInstance(String format) {
-        Throwable e = null;
-        try {
-            // create special derived class from ZZZImageExportFileType
-            ClassLoader loader = new SpecialClassLoader(
-                    ImageExportFileType.class.getClassLoader(), format);
-            String className = "ImageExportFileType";
-            return (ImageExportFileType) loader.loadClass(className)
-                    .newInstance();
-        } catch (IllegalArgumentException iae) {
-            e = iae;
-        } catch (NoClassDefFoundError ncdfe) {
-            e = ncdfe;
-        } catch (ClassNotFoundException cnfe) {
-            e = cnfe;
-        } catch (InstantiationException ie) {
-            e = ie;
-        } catch (IllegalAccessException iace) {
-            e = iace;
-        } catch (ClassFormatError cfe) {
-            e = cfe;
-        } catch (SecurityException se) {
-            // We run in a restricted environment (WebStart)
-            // so we browse for specific formats
-            e = se;
-         }
-        ImageExportFileType type = getStaticInstance(format);
-        if ((e != null) && (type == null)) System.err.println(e);
-        return type;
-    }
-    
-    public static ImageExportFileType getStaticInstance(String format) {
-        if (format.equalsIgnoreCase("gif"))
+    	format = format.toLowerCase();
+        if (format.equals("gif"))
             return exportFileType("org.freehep.graphicsio.gif.GIFExportFileType");
-        if (format.equalsIgnoreCase("png"))
+        if (format.equals("png"))
             return exportFileType("org.freehep.graphicsio.png.PNGExportFileType");
-        if (format.equalsIgnoreCase("jpg"))
+        if (format.equals("jpg"))
             return exportFileType("org.freehep.graphicsio.jpg.JPGExportFileType");
-        if (format.equalsIgnoreCase("raw"))
+        if (format.equals("raw"))
             return exportFileType("org.freehep.graphicsio.raw.RawExportFileType");
-        if (format.equalsIgnoreCase("bmp"))
-            return exportFileType("org.freehep.graphicsio.exportchooser.BMPExportFileType");
-        if (format.equalsIgnoreCase("wbmp"))
-            return exportFileType("org.freehep.graphicsio.exportchooser.WBMPExportFileType");
+        if (format.equals("bmp"))
+            return exportFileType("org.freehep.graphicsio.bmp.BMPExportFileType");
+        if (format.equals("wbmp"))
+            return exportFileType("org.freehep.graphicsio.wbmp.WBMPExportFileType");
         return null;
     }
 
@@ -125,59 +87,6 @@ public class ImageExportFileType extends AbstractExportFileType {
             System.out.println(e);
         }
         return null;
-    }
-
-    private static class SpecialClassLoader extends ClassLoader {
-        private String format;
-
-        SpecialClassLoader(ClassLoader parent, String format) {
-            super(parent);
-            this.format = format;
-        }
-
-        public Class findClass(String name) throws ClassNotFoundException {
-            try {
-                String formatUp = format.toUpperCase();
-                String pkg = "org.freehep.graphicsio.exportchooser.";
-                String templateName = pkg.replaceAll("\\.", "/")
-                        + (format.length() == 4 ? "ZZZZ" : "ZZZ") + name
-                        + ".class";
-                String className = pkg + formatUp + name;
-                InputStream in = getResourceAsStream(templateName);
-                if (in == null)
-                    throw new IllegalArgumentException(templateName
-                            + " class does not exist.");
-
-                int n = 0;
-                int offset = 0;
-                byte[] bytes = new byte[4096];
-                while (n >= 0) {
-                    n = in.read(bytes, offset, bytes.length - offset);
-                    if (n > 0)
-                        offset += n;
-                }
-                in.close();
-
-                // modify class to have correct name, constructor and formatname
-                if (format.length() == 3) {
-                    for (int i = 0; i < 3; i++) {
-                        bytes[133 + i] = bytes[172 + i] = bytes[250 + i] = (byte) formatUp
-                                .charAt(i);
-                        bytes[202 + i] = (byte) format.charAt(i);
-                    }
-                } else {
-                    for (int i = 0; i < 4; i++) {
-                        bytes[133 + i] = bytes[173 + i] = bytes[253 + i] = (byte) formatUp
-                                .charAt(i);
-                        bytes[204 + i] = (byte) format.charAt(i);
-                    }
-                }
-                return defineClass(className, bytes, 0, offset);
-            } catch (IOException e) {
-                System.out.println(e);
-                throw new ClassNotFoundException();
-            }
-        }
     }
 
     public String getDescription() {
