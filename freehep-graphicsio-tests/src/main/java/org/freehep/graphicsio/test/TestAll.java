@@ -22,7 +22,7 @@ import org.freehep.util.images.ImageHandler;
 
 /**
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestAll.java 3e48ba4ef214 2006/11/27 22:51:07 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestAll.java 5893ccf212fd 2006/11/27 23:16:44 duns $
  */
 public class TestAll extends TestingPanel implements VectorGraphicsConstants {
 
@@ -71,8 +71,8 @@ public class TestAll extends TestingPanel implements VectorGraphicsConstants {
                 (int) width, (int) 10, Color.white));
         vg.fillRect(0, 10, width, 30);
         vg.setFont(new Font("Helvetica", Font.BOLD, 18));
-        vg.setPaint(new GradientPaint((int) 0, (int) 10, Color.black,
-                (int) width, (int) 10, Color.blue));
+        vg.setPaint(new GradientPaint((int) 0, (int) 10, Color.white,
+                (int) width, (int) 10, Color.orange));
         String str = "Testing " + vg.getClass().getName();
         vg.drawString(str, 10, 30);
 
