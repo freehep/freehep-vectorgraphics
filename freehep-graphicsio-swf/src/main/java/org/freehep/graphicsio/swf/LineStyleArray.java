@@ -11,7 +11,7 @@ import java.util.List;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/LineStyleArray.java fe6d709a107e 2006/11/27 18:25:46 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/LineStyleArray.java 3e48ba4ef214 2006/11/27 22:51:07 duns $
  */
 public class LineStyleArray {
 
@@ -43,7 +43,7 @@ public class LineStyleArray {
         return (LineStyle) lineStyles.get(index);
     }
 
-    public void write(SWFOutputStream swf, boolean hasAlpha, boolean hasStyles) throws IOException {
+    public void write(SWFOutputStream swf, boolean isMorphStyle, boolean hasAlpha, boolean hasStyles) throws IOException {
 
         if (lineStyles.size() >= 0xFF) {
             swf.writeUnsignedByte(0xFF);
@@ -52,7 +52,7 @@ public class LineStyleArray {
             swf.writeUnsignedByte(lineStyles.size());
         }
         for (Iterator i = lineStyles.iterator(); i.hasNext();) {
-            ((LineStyle) i.next()).write(swf, hasAlpha, hasStyles);
+            ((LineStyle) i.next()).write(swf, isMorphStyle, hasAlpha, hasStyles);
         }
     }
 

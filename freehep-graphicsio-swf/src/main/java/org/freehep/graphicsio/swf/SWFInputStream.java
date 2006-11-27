@@ -1,4 +1,4 @@
-// Copyright 2001-2005, FreeHEP.
+// Copyright 2001-2006, FreeHEP.
 package org.freehep.graphicsio.swf;
 
 import java.awt.Color;
@@ -18,7 +18,7 @@ import org.freehep.util.io.TaggedInputStream;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFInputStream.java db861da05344 2005/12/05 00:59:43 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFInputStream.java 3e48ba4ef214 2006/11/27 22:51:07 duns $
  */
 public class SWFInputStream extends TaggedInputStream implements SWFConstants {
 
@@ -56,6 +56,17 @@ public class SWFInputStream extends TaggedInputStream implements SWFConstants {
         int whole = readUnsignedByte();
         whole |= readUnsignedByte() << 8;
         return ((float) whole) + ((float) frac) / ((float) 0x10000);
+    }
+
+    /**
+     * Read a fixed point value (8.8).
+     */
+    public float readFixed8() throws IOException {
+
+        byteAlign();
+        int frac = readUnsignedByte();
+        int whole = readUnsignedByte();
+        return ((float) whole) + ((float) frac) / ((float) 0x100);
     }
 
     /**

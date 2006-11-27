@@ -11,7 +11,7 @@ import java.util.List;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/FillStyleArray.java db861da05344 2005/12/05 00:59:43 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/FillStyleArray.java 3e48ba4ef214 2006/11/27 22:51:07 duns $
  */
 public class FillStyleArray {
 
@@ -44,7 +44,7 @@ public class FillStyleArray {
         return (FillStyle) fillStyles.get(index);
     }
 
-    public void write(SWFOutputStream swf, boolean hasAlpha) throws IOException {
+    public void write(SWFOutputStream swf, boolean isMorphStyle, boolean hasAlpha) throws IOException {
 
         if (fillStyles.size() >= 0xFF) {
             swf.writeUnsignedByte(0xFF);
@@ -53,7 +53,7 @@ public class FillStyleArray {
             swf.writeUnsignedByte(fillStyles.size());
         }
         for (Iterator i = fillStyles.iterator(); i.hasNext();) {
-            ((FillStyle) i.next()).write(swf, hasAlpha);
+            ((FillStyle) i.next()).write(swf, isMorphStyle, hasAlpha);
         }
     }
 

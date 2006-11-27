@@ -6,7 +6,7 @@ package org.freehep.graphicsio.swf;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFTagSet.java 13e364e98222 2006/11/27 18:28:54 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFTagSet.java 3e48ba4ef214 2006/11/27 22:51:07 duns $
  */
 public class SWFTagSet extends SWFSpriteTagSet {
 
@@ -29,6 +29,9 @@ public class SWFTagSet extends SWFSpriteTagSet {
             addTag(new DefineText()); // 11
             addTag(new DefineFontInfo()); // 13
             addTag(new DefineSound()); // 14
+
+            // added in version 8, just skipped in earlier versions
+            addTag(new FileAttributes()); // 69
         }
 
         // Version 2
@@ -87,7 +90,7 @@ public class SWFTagSet extends SWFSpriteTagSet {
         
         // version 8
         if (version >= 8) {
-        	// addTag(new FileAttributes()); // 69
+            // NOTE: FileAttributes (69) under version 1.
             // addTag(new PlaceObject3());	// 70
         	// addTag(new Import2()); 		// 71
         	// addTag(new DefineFontAlignZoned());	// 73
@@ -95,7 +98,7 @@ public class SWFTagSet extends SWFSpriteTagSet {
         	// addTag(new DefineFont3());	// 75
         	// addTag(new Metadata());	// 77
         	// addTag(new DefineScalingGrid()); // 78
-        	// addTag(new DefineShape4());	// 83
+        	addTag(new DefineShape4());	// 83
         	// addTag(new DefineMorphShape2());	// 84
         	
         }

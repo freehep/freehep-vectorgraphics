@@ -1,4 +1,4 @@
-// Copyright 2001, FreeHEP.
+// Copyright 2001-2006, FreeHEP.
 package org.freehep.graphicsio.swf;
 
 import java.awt.Color;
@@ -10,7 +10,7 @@ import java.io.IOException;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/FillStyle.java db861da05344 2005/12/05 00:59:43 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/FillStyle.java 3e48ba4ef214 2006/11/27 22:51:07 duns $
  */
 public class FillStyle {
 
@@ -19,11 +19,27 @@ public class FillStyle {
     public static final int LINEAR_GRADIENT = 0x10;
 
     public static final int RADIAL_GRADIENT = 0x12;
+    
+    public static final int FOCAL_GRADIENT = 0x13;
 
     public static final int TILED_BITMAP = 0x40;
 
     public static final int CLIPPED_BITMAP = 0x41;
+    
+    public static final int TILED_BITMAP_NOT_SMOOTHED = 0x42;
+    
+    public static final int CLIPPED_BITMAP_NOT_SMOOTHED = 0x43;
 
+    public static final int SPREAD_MODE_PAD = 0;
+    
+    public static final int SPREAD_MODE_REFLECT = 1;
+    
+    public static final int SPREAD_MODE_REPEAT = 2;
+
+    public static final int INTERPOLATION_MODE_NORMAL_RGB = 0;
+    
+    public static final int INTERPOLATION_MODE_LINEAR_RGB = 1;
+        
     private int type;
 
     private Color color, endColor;
@@ -31,6 +47,12 @@ public class FillStyle {
     private AffineTransform matrix, endMatrix;
 
     private Gradient[] gradient;
+    
+    private int spreadMode;
+    
+    private int interpolationMode;
+    
+    private float focalPoint;
 
     private int bitmap;
 
@@ -45,8 +67,16 @@ public class FillStyle {
     }
 
     public FillStyle(Gradient[] gradient, boolean linear, AffineTransform matrix) {
-        type = (linear) ? LINEAR_GRADIENT : RADIAL_GRADIENT;
+        this(gradient, LINEAR_GRADIENT, SPREAD_MODE_PAD, INTERPOLATION_MODE_NORMAL_RGB, 0, matrix);
+    }
+    
+    public FillStyle(Gradient[] gradient, int gradientType, int spreadMode, int interpolationMode, float focalPoint,
+        AffineTransform matrix) {
+        this.type = gradientType;
         this.gradient = gradient;
+        this.spreadMode = spreadMode;
+        this.interpolationMode = interpolationMode;
+        this.focalPoint = focalPoint;
         this.matrix = matrix;
     }
 
@@ -80,18 +110,27 @@ public class FillStyle {
 
         case LINEAR_GRADIENT:
         case RADIAL_GRADIENT:
+        case FOCAL_GRADIENT:
             matrix = input.readMatrix();
             if (isMorphStyle)
                 endMatrix = input.readMatrix();
-            int gradientCount = input.readUnsignedByte();
+            input.byteAlign();
+            spreadMode = (int)input.readUBits(2);
+            interpolationMode = (int)input.readUBits(2);
+            int gradientCount = (int)input.readUBits(4);
             gradient = new Gradient[gradientCount];
             for (int i = 0; i < gradientCount; i++) {
-                gradient[i] = new Gradient(input, hasAlpha, isMorphStyle);
+                gradient[i] = new Gradient(input, isMorphStyle, hasAlpha);
+            }
+            if (type == FOCAL_GRADIENT) {
+                focalPoint = input.readFixed8();
             }
             break;
 
         case TILED_BITMAP:
         case CLIPPED_BITMAP:
+        case TILED_BITMAP_NOT_SMOOTHED:
+        case CLIPPED_BITMAP_NOT_SMOOTHED:
             bitmap = input.readUnsignedShort();
             matrix = input.readMatrix();
             if (isMorphStyle)
@@ -108,7 +147,7 @@ public class FillStyle {
         return type;
     }
 
-    public void write(SWFOutputStream swf, boolean hasAlpha) throws IOException {
+    public void write(SWFOutputStream swf, boolean isMorphStyle, boolean hasAlpha) throws IOException {
 
         swf.writeUnsignedByte(type);
 
@@ -121,20 +160,29 @@ public class FillStyle {
 
         case LINEAR_GRADIENT:
         case RADIAL_GRADIENT:
+        case FOCAL_GRADIENT:
             swf.writeMatrix(matrix);
-            if (endMatrix != null)
+            if (isMorphStyle)
                 swf.writeMatrix(endMatrix);
-            swf.writeUnsignedByte(gradient.length);
+            swf.byteAlign();
+            swf.writeUBits(spreadMode, 2);
+            swf.writeUBits(interpolationMode, 2);
+            swf.writeUBits(gradient.length, 4);
             for (int i = 0; i < gradient.length; i++) {
-                gradient[i].write(swf, hasAlpha);
+                gradient[i].write(swf, isMorphStyle, hasAlpha);
+            }
+            if (type == FOCAL_GRADIENT) {
+                swf.writeFixed8(focalPoint);
             }
             break;
 
         case TILED_BITMAP:
         case CLIPPED_BITMAP:
+        case TILED_BITMAP_NOT_SMOOTHED:
+        case CLIPPED_BITMAP_NOT_SMOOTHED:
             swf.writeUnsignedShort(bitmap);
             swf.writeMatrix(matrix);
-            if (endMatrix != null)
+            if (isMorphStyle)
                 swf.writeMatrix(endMatrix);
             break;
 

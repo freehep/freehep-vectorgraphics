@@ -9,7 +9,7 @@ import java.io.IOException;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/DefineMorphShape.java fe6d709a107e 2006/11/27 18:25:46 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/DefineMorphShape.java 3e48ba4ef214 2006/11/27 22:51:07 duns $
  */
 public class DefineMorphShape extends DefinitionTag {
 
@@ -69,15 +69,15 @@ public class DefineMorphShape extends DefinitionTag {
 
         swf.pushBuffer();
 
-        fillStyles.write(swf, true);
-        lineStyles.write(swf, true, false);
+        fillStyles.write(swf, true, true);
+        lineStyles.write(swf, true, true, false);
 
-        startEdges.write(swf, true, false);
+        startEdges.write(swf, true, true, false);
         int offset = swf.popBuffer();
         swf.writeUnsignedInt(offset);
         swf.append();
 
-        endEdges.write(swf, true, false);
+        endEdges.write(swf, true, true, false);
     }
 
     public String toString() {

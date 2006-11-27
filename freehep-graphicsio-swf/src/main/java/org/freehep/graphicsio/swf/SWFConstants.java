@@ -7,7 +7,7 @@ package org.freehep.graphicsio.swf;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFConstants.java db861da05344 2005/12/05 00:59:43 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFConstants.java 3e48ba4ef214 2006/11/27 22:51:07 duns $
  */
 public interface SWFConstants {
 
@@ -21,7 +21,7 @@ public interface SWFConstants {
      */
     public static final int DEFINITION = 2;
 
-    public static final int DEFAULT_VERSION = 6;
+    public static final int DEFAULT_VERSION = 8;
 
     public static final int TWIPS = 20;
 

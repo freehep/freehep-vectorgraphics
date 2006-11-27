@@ -9,7 +9,7 @@ import java.io.IOException;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/DefineShape4.java fe6d709a107e 2006/11/27 18:25:46 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/DefineShape4.java 3e48ba4ef214 2006/11/27 22:51:07 duns $
  */
 public class DefineShape4 extends DefineShape {
 
@@ -17,6 +17,10 @@ public class DefineShape4 extends DefineShape {
 	protected boolean usesNonScalingStrokes;
 	protected boolean usesScalingStrokes = true;
 	
+    public DefineShape4(int id, Rectangle2D bounds, FillStyleArray fillStyles, LineStyleArray lineStyles, SWFShape shape) {
+        this(id, bounds, bounds, false, true, fillStyles, lineStyles, shape);
+    }
+    
     public DefineShape4(int id, Rectangle2D bounds, Rectangle2D edgeBounds, 
     		boolean usesNonScalingStrokes, boolean usesScalingStrokes,
     		FillStyleArray fillStyles,
@@ -66,10 +70,9 @@ public class DefineShape4 extends DefineShape {
     	swf.writeBitFlag(usesNonScalingStrokes);
     	swf.writeBitFlag(usesScalingStrokes);
         
-        fillStyles.write(swf, true);
-        lineStyles.write(swf, true, true);
+        fillStyles.write(swf, false, true);
+        lineStyles.write(swf, false, true, true);
 
-        shape.write(swf, true, true);
-
+        shape.write(swf, false, true, true);
     }
 }

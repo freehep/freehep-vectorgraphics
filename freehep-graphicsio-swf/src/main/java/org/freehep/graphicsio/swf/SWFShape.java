@@ -11,7 +11,7 @@ import org.freehep.util.io.BitOutputStream;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFShape.java fe6d709a107e 2006/11/27 18:25:46 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFShape.java 3e48ba4ef214 2006/11/27 22:51:07 duns $
  */
 public class SWFShape {
 
@@ -68,10 +68,10 @@ public class SWFShape {
 
     // for font shapes
     public void write(SWFOutputStream swf) throws IOException {
-        write(swf, false, false);	// FIXME, false for hasStyles is a guess.
+        write(swf, false, false, false);	// FIXME, false for hasStyles is a guess.
     }
 
-    public void write(SWFOutputStream swf, boolean hasAlpha, boolean hasStyles) throws IOException {
+    public void write(SWFOutputStream swf, boolean isMorphStyle, boolean hasAlpha, boolean hasStyles) throws IOException {
         swf.byteAlign();
         int numFillBits = 0;
         int numLineBits = 0;
@@ -89,7 +89,7 @@ public class SWFShape {
 
         for (int i = 0; i < records.size(); i++) {
             Record r = (Record) records.get(i);
-            r.write(swf, numFillBits, numLineBits, hasAlpha, hasStyles);
+            r.write(swf, numFillBits, numLineBits, isMorphStyle, hasAlpha, hasStyles);
         }
         swf.writeUBits(0, 6); // End of Shape
         swf.byteAlign(); // make sure any offset calculations will be correct
@@ -129,7 +129,7 @@ public class SWFShape {
      */
     public static abstract class Record {
         public abstract void write(SWFOutputStream swf, int numFillBits,
-                int numLineBits, boolean hasAlpha, boolean hasStyles) throws IOException;
+                int numLineBits, boolean isMorphStyle, boolean hasAlpha, boolean hasStyles) throws IOException;
     }
 
     /**
@@ -207,7 +207,7 @@ public class SWFShape {
         }
 
         public void write(SWFOutputStream swf, int numFillBits,
-                int numLineBits, boolean hasAlpha, boolean hasStyles) throws IOException {
+                int numLineBits, boolean isMorphStyle, boolean hasAlpha, boolean hasStyles) throws IOException {
 
             int state = 0x00;
             if (newFillStyles != null)
@@ -238,8 +238,8 @@ public class SWFShape {
                 swf.writeUBits(lineStyle, numLineBits);
 
             if (newFillStyles != null) {
-                newFillStyles.write(swf, hasAlpha);
-                newLineStyles.write(swf, hasAlpha, hasStyles);
+                newFillStyles.write(swf, isMorphStyle, hasAlpha);
+                newLineStyles.write(swf, isMorphStyle, hasAlpha, hasStyles);
                 swf.writeUBits(numFillBits, 4);
                 swf.writeUBits(numLineBits, 4);
             }
@@ -334,7 +334,7 @@ public class SWFShape {
         }
 
         public void write(SWFOutputStream swf, int numFillBits,
-                int numLineBits, boolean hasAlpha, boolean hasStyles) throws IOException {
+                int numLineBits, boolean isMorphStyle, boolean hasAlpha, boolean hasStyles) throws IOException {
 
             swf.writeBitFlag(true);
             swf.writeBitFlag(!curve);

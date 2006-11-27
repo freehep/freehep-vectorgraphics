@@ -42,11 +42,12 @@ import org.freehep.util.Value;
  * SWF Graphics 2D driver.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFGraphics2D.java 9c5f37576442 2006/11/14 06:34:21 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFGraphics2D.java 3e48ba4ef214 2006/11/27 22:51:07 duns $
  */
 public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 		SWFConstants {
 
+    private static final int SWF_VERSION = 8;       // for cyclic gradients
 	private static final String rootKey = SWFGraphics2D.class.getName();
 
 	public static final String TRANSPARENT = rootKey + "."
@@ -196,7 +197,7 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 	 */
 	/* 3.1 Header & Trailer */
 	public void writeHeader() throws IOException {
-		os = new SWFOutputStream(new BufferedOutputStream(ros), getSize(),
+		os = new SWFOutputStream(new BufferedOutputStream(ros), SWF_VERSION, getSize(),
 				frameRate, compress);
 
 		String description = getCreator() + ":" + getClass().getName();
@@ -288,18 +289,18 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 		try {
 			Rectangle2D bounds = strokedShape.getBounds2D();
 			SWFShape swfShape = createShape(shape, 1, 0, -1);
-			os.writeTag(new DefineShape3(id.getInt(), bounds, fillStyles,
+			os.writeTag(new DefineShape4(id.getInt(), bounds, fillStyles,
 					lineStyles, swfShape));
-			os.writeTag(new PlaceObject(id.getInt(), depth.getInt(),
+			os.writeTag(new PlaceObject2(id.getInt(), depth.getInt(),
 					getTransform()));
 			id.set(id.getInt() + 1);
 			depth.set(depth.getInt() + 1);
 
 			if (showBounds) {
 				SWFShape swfBounds = createShape(bounds, 2, 0, -1);
-				os.writeTag(new DefineShape3(id.getInt(), bounds, fillStyles,
+				os.writeTag(new DefineShape4(id.getInt(), bounds, fillStyles,
 						lineStyles, swfBounds));
-				os.writeTag(new PlaceObject(id.getInt(), depth.getInt(),
+				os.writeTag(new PlaceObject2(id.getInt(), depth.getInt(),
 						getTransform()));
 				id.set(id.getInt() + 1);
 				depth.set(depth.getInt() + 1);
@@ -315,18 +316,18 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 			Rectangle2D bounds = new BasicStroke().createStrokedShape(shape)
 					.getBounds2D();
 			SWFShape swfShape = createShape(shape, 0, 1, -1);
-			os.writeTag(new DefineShape3(id.getInt(), bounds, fillStyles,
+			os.writeTag(new DefineShape4(id.getInt(), bounds, fillStyles,
 					lineStyles, swfShape));
-			os.writeTag(new PlaceObject(id.getInt(), depth.getInt(),
+			os.writeTag(new PlaceObject2(id.getInt(), depth.getInt(),
 					getTransform()));
 			id.set(id.getInt() + 1);
 			depth.set(depth.getInt() + 1);
 
 			if (showBounds) {
 				SWFShape swfBounds = createShape(bounds, 2, 0, -1);
-				os.writeTag(new DefineShape3(id.getInt(), bounds, fillStyles,
+				os.writeTag(new DefineShape4(id.getInt(), bounds, fillStyles,
 						lineStyles, swfBounds));
-				os.writeTag(new PlaceObject(id.getInt(), depth.getInt(),
+				os.writeTag(new PlaceObject2(id.getInt(), depth.getInt(),
 						getTransform()));
 				id.set(id.getInt() + 1);
 				depth.set(depth.getInt() + 1);
@@ -383,7 +384,7 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 
 		LineStyleArray imageLine = new LineStyleArray();
 		Rectangle bounds = shape.getBounds();
-		os.writeTag(new DefineShape3(id.getInt(), bounds, imageFill, imageLine,
+		os.writeTag(new DefineShape4(id.getInt(), bounds, imageFill, imageLine,
 				imageShape));
 
 		// place image
@@ -394,9 +395,9 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 
 		if (showBounds) {
 			SWFShape swfBounds = createShape(bounds, 2, 0, -1);
-			os.writeTag(new DefineShape3(id.getInt(), bounds, fillStyles,
+			os.writeTag(new DefineShape4(id.getInt(), bounds, fillStyles,
 					lineStyles, swfBounds));
-			os.writeTag(new PlaceObject(id.getInt(), depth.getInt(),
+			os.writeTag(new PlaceObject2(id.getInt(), depth.getInt(),
 					getTransform()));
 			id.set(id.getInt() + 1);
 			depth.set(depth.getInt() + 1);
@@ -483,9 +484,9 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 
 		if (showBounds) {
 			SWFShape swfBounds = createShape(bounds, 2, 0, -1);
-			os.writeTag(new DefineShape3(id.getInt(), bounds, fillStyles,
+			os.writeTag(new DefineShape4(id.getInt(), bounds, fillStyles,
 					lineStyles, swfBounds));
-			os.writeTag(new PlaceObject(id.getInt(), depth.getInt(),
+			os.writeTag(new PlaceObject2(id.getInt(), depth.getInt(),
 					getTransform()));
 			id.set(id.getInt() + 1);
 			depth.set(depth.getInt() + 1);
@@ -596,8 +597,9 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 				/ 2 + x0, dy / 2 + y0);
 		transform.rotate(angle);
 
+        int spreadMode = p.isCyclic() ? FillStyle.SPREAD_MODE_REFLECT : FillStyle.SPREAD_MODE_PAD;
 		fillStyles = new FillStyleArray();
-		fillStyles.add(new FillStyle(gradient, true, transform));
+		fillStyles.add(new FillStyle(gradient, FillStyle.LINEAR_GRADIENT, spreadMode, FillStyle.INTERPOLATION_MODE_NORMAL_RGB, 0.0f, transform));
 
 		textColor = PrintColor.mixColor(p.getColor1(), p.getColor2());
 	}
@@ -707,7 +709,7 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 
 		Rectangle2D bounds = unwrittenClip.getBounds2D();
 		SWFShape clipShape = createShape(unwrittenClip, 0, 1, -1);
-		os.writeTag(new DefineShape3(clipID, bounds, fillStyles, lineStyles,
+		os.writeTag(new DefineShape4(clipID, bounds, fillStyles, lineStyles,
 				clipShape));
 
 		int clipDepth = depth.getInt() - 1;
@@ -725,7 +727,7 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 			}
 
 			SWFShape swfBounds = createShape(bounds, 3, 0, -1);
-			os.writeTag(new DefineShape3(showClipID, bounds, fillStyles,
+			os.writeTag(new DefineShape4(showClipID, bounds, fillStyles,
 					lineStyles, swfBounds));
 			os.writeTag(new PlaceObject(showClipID, showClipDepthID,
 					clipTransform));

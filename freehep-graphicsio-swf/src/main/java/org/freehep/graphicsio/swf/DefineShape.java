@@ -9,7 +9,7 @@ import java.io.IOException;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/DefineShape.java fe6d709a107e 2006/11/27 18:25:46 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/DefineShape.java 3e48ba4ef214 2006/11/27 22:51:07 duns $
  */
 public class DefineShape extends DefinitionTag {
 
@@ -68,10 +68,10 @@ public class DefineShape extends DefinitionTag {
         swf.writeUnsignedShort(character);
         swf.writeRect(bounds);
         
-        fillStyles.write(swf, hasAlpha);
-        lineStyles.write(swf, hasAlpha, false);
+        fillStyles.write(swf, false,  hasAlpha);
+        lineStyles.write(swf, false, hasAlpha, false);
 
-        shape.write(swf, hasAlpha, false);
+        shape.write(swf, false, hasAlpha, false);
     }
 
     public String toString() {

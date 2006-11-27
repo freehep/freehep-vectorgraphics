@@ -1,3 +1,4 @@
+// Copyright 2002-2006, FreeHEP.
 package org.freehep.graphicsio.test;
 
 import java.awt.BasicStroke;
@@ -21,7 +22,7 @@ import org.freehep.util.images.ImageHandler;
 
 /**
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestAll.java d9a2ef8950b1 2006/03/03 19:08:18 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestAll.java 3e48ba4ef214 2006/11/27 22:51:07 duns $
  */
 public class TestAll extends TestingPanel implements VectorGraphicsConstants {
 
