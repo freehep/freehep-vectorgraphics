@@ -1,4 +1,4 @@
-// Copyright 2001, FreeHEP.
+// Copyright 2001-2006, FreeHEP.
 package org.freehep.graphicsio.swf;
 
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.util.List;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/LineStyleArray.java db861da05344 2005/12/05 00:59:43 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/LineStyleArray.java fe6d709a107e 2006/11/27 18:25:46 duns $
  */
 public class LineStyleArray {
 
@@ -22,7 +22,7 @@ public class LineStyleArray {
     }
 
     public LineStyleArray(SWFInputStream swf, boolean isMorphStyle,
-            boolean hasAlpha) throws IOException {
+            boolean hasAlpha, boolean hasStyles) throws IOException {
 
         this();
 
@@ -31,7 +31,7 @@ public class LineStyleArray {
             lineStyleCount = swf.readUnsignedShort();
         }
         for (int i = 0; i < lineStyleCount; i++) {
-            lineStyles.add(new LineStyle(swf, isMorphStyle, hasAlpha));
+            lineStyles.add(new LineStyle(swf, isMorphStyle, hasAlpha, hasStyles));
         }
     }
 
@@ -43,7 +43,7 @@ public class LineStyleArray {
         return (LineStyle) lineStyles.get(index);
     }
 
-    public void write(SWFOutputStream swf, boolean hasAlpha) throws IOException {
+    public void write(SWFOutputStream swf, boolean hasAlpha, boolean hasStyles) throws IOException {
 
         if (lineStyles.size() >= 0xFF) {
             swf.writeUnsignedByte(0xFF);
@@ -52,7 +52,7 @@ public class LineStyleArray {
             swf.writeUnsignedByte(lineStyles.size());
         }
         for (Iterator i = lineStyles.iterator(); i.hasNext();) {
-            ((LineStyle) i.next()).write(swf, hasAlpha);
+            ((LineStyle) i.next()).write(swf, hasAlpha, hasStyles);
         }
     }
 

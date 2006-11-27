@@ -9,7 +9,7 @@ import java.io.IOException;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/LineStyle.java db861da05344 2005/12/05 00:59:43 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/LineStyle.java fe6d709a107e 2006/11/27 18:25:46 duns $
  */
 public class LineStyle {
 
@@ -29,7 +29,7 @@ public class LineStyle {
     }
 
     public LineStyle(SWFInputStream input, boolean isMorphStyle,
-            boolean hasAlpha) throws IOException {
+            boolean hasAlpha, boolean hasStyles) throws IOException {
 
         if (!isMorphStyle) {
             width = input.readUnsignedShort();
@@ -42,7 +42,7 @@ public class LineStyle {
         }
     }
 
-    public void write(SWFOutputStream swf, boolean hasAlpha) throws IOException {
+    public void write(SWFOutputStream swf, boolean hasAlpha, boolean hasStyles) throws IOException {
 
         swf.writeUnsignedShort(width);
         if (endColor != null)

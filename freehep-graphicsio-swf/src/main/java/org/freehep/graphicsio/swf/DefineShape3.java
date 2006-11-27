@@ -1,4 +1,4 @@
-// Copyright 2001, FreeHEP.
+// Copyright 2001-2006, FreeHEP.
 package org.freehep.graphicsio.swf;
 
 import java.awt.geom.Rectangle2D;
@@ -9,7 +9,7 @@ import java.io.IOException;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/DefineShape3.java db861da05344 2005/12/05 00:59:43 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/DefineShape3.java fe6d709a107e 2006/11/27 18:25:46 duns $
  */
 public class DefineShape3 extends DefineShape {
 

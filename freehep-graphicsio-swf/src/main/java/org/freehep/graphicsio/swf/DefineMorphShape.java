@@ -1,4 +1,4 @@
-// Copyright 2001, FreeHEP.
+// Copyright 2001-2006, FreeHEP.
 package org.freehep.graphicsio.swf;
 
 import java.awt.geom.Rectangle2D;
@@ -9,7 +9,7 @@ import java.io.IOException;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/DefineMorphShape.java db861da05344 2005/12/05 00:59:43 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/DefineMorphShape.java fe6d709a107e 2006/11/27 18:25:46 duns $
  */
 public class DefineMorphShape extends DefinitionTag {
 
@@ -54,10 +54,10 @@ public class DefineMorphShape extends DefinitionTag {
         /* long offset = */ swf.readUnsignedInt();
 
         fillStyles = new FillStyleArray(swf, true, true);
-        lineStyles = new LineStyleArray(swf, true, true);
+        lineStyles = new LineStyleArray(swf, true, true, false);
 
-        startEdges = new SWFShape(swf, fillStyles, lineStyles, true, true);
-        endEdges = new SWFShape(swf, fillStyles, lineStyles, true, true);
+        startEdges = new SWFShape(swf, fillStyles, lineStyles, true, true, false);
+        endEdges = new SWFShape(swf, fillStyles, lineStyles, true, true, false);
 
         return tag;
     }
@@ -70,14 +70,14 @@ public class DefineMorphShape extends DefinitionTag {
         swf.pushBuffer();
 
         fillStyles.write(swf, true);
-        lineStyles.write(swf, true);
+        lineStyles.write(swf, true, false);
 
-        startEdges.write(swf, true);
+        startEdges.write(swf, true, false);
         int offset = swf.popBuffer();
         swf.writeUnsignedInt(offset);
         swf.append();
 
-        endEdges.write(swf, true);
+        endEdges.write(swf, true, false);
     }
 
     public String toString() {
