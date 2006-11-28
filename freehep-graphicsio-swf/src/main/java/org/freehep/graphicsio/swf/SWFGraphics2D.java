@@ -42,7 +42,7 @@ import org.freehep.util.Value;
  * SWF Graphics 2D driver.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFGraphics2D.java 3e48ba4ef214 2006/11/27 22:51:07 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFGraphics2D.java 9fd14b4f13ca 2006/11/28 00:22:04 duns $
  */
 public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 		SWFConstants {
@@ -449,15 +449,6 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 				new AffineTransform(), text);
 		id.set(id.getInt() + 1);
 
-		// NOTE: SWF 6 does not seem to support Text filled with gradients.
-		// if fillStyle 1 is a Gradient, replace it with Black
-		FillStyle nonSolidFillStyle = null;
-		if (fillStyles.get(0).getType() != FillStyle.SOLID) {
-			nonSolidFillStyle = fillStyles.get(0);
-			fillStyles = new FillStyleArray();
-			fillStyles.add(new FillStyle(Color.BLACK));
-		}
-
 		// hook font and text
 		for (int i = 0; i < glyphs.getNumGlyphs(); i++) {
 			// add filled shapes to font
@@ -475,12 +466,6 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 		// place String
 		os.writeTag(new PlaceObject2(textID, depth.getInt(), getTransform()));
 		depth.set(depth.getInt() + 1);
-
-		// Special case for Gradient: put original fill style back
-		if (nonSolidFillStyle != null) {
-			fillStyles = new FillStyleArray();
-			fillStyles.add(nonSolidFillStyle);
-		}
 
 		if (showBounds) {
 			SWFShape swfBounds = createShape(bounds, 2, 0, -1);
