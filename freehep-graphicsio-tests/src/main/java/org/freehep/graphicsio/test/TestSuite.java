@@ -23,7 +23,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 79cc2304839a 2006/11/26 20:47:43 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 03fa6ff303ee 2006/11/28 00:30:03 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -204,7 +204,7 @@ public class TestSuite extends junit.framework.TestSuite {
         vectorFormats = new TreeMap();
         // vectorFormats.put("cgm", new Format("CGM", null, false, false, 10230,
         // null));
-        vectorFormats.put("emf", new Format("EMF", null, null, false, false, 10231,
+        vectorFormats.put("emf", new Format("EMF", null, null, true, false, 10231,
                 null));
         // vectorFormats.put("java", new Format("JAVA", null, null, false, false,
         // 10238, "org/freehep/graphicsio/java/test"));
