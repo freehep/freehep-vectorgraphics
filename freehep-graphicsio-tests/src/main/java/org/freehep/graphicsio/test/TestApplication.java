@@ -5,7 +5,7 @@ import java.awt.Dimension;
 
 /**
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestApplication.java 40d86979195e 2006/02/27 19:52:33 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestApplication.java 01495574e746 2006/11/30 18:47:55 duns $
  */
 public class TestApplication {
 
@@ -16,20 +16,24 @@ public class TestApplication {
 
         // Create a new instance of this class and add it to the frame.
         frame.addPanel("All", new TestAll(null));
-        frame.addPanel("Colors", new TestColors(null));
         frame.addPanel("Clip", new TestClip(null));
+        frame.addPanel("Colors", new TestColors(null));
         frame.addPanel("Custom Strokes", new TestCustomStrokes(null));
+        frame.addPanel("FontDerivation", new TestFontDerivation(null));
         frame.addPanel("Fonts", new TestFonts(null));
+        frame.addPanel("Histogram", new TestHistogram(null));
         frame.addPanel("HTML", new TestHTML(null));
         frame.addPanel("Image2D", new TestImage2D(null));
         frame.addPanel("Images", new TestImages(null));
         frame.addPanel("Labels", new TestLabels(null));
-        frame.addPanel("Lines", new TestLineStyles(null));
+        frame.addPanel("Line Styles", new TestLineStyles(null));
+        frame.addPanel("Offset", new TestOffset(null));
         frame.addPanel("Paint", new TestPaint(null));
         frame.addPanel("PrintColors", new TestPrintColors(null));
+        frame.addPanel("Scatter Plot", new TestScatterPlot(null));
         frame.addPanel("Shapes", new TestShapes(null));
         frame.addPanel("Symbols", new TestSymbols2D(null));
-        frame.addPanel("Text", new TestText2D(null));
+        frame.addPanel("Text2D", new TestText2D(null));
         frame.addPanel("Tagged String", new TestTaggedString(null));
         frame.addPanel("Transforms", new TestTransforms(null));
         frame.addPanel("Transparency", new TestTransparency(null));
