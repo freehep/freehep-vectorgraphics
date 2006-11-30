@@ -1,4 +1,4 @@
-// Copyright 2000-2003 FreeHEP
+// Copyright 2000-2006 FreeHEP
 package org.freehep.graphicsio.emf;
 
 import java.awt.Component;
@@ -22,7 +22,7 @@ import org.freehep.util.UserProperties;
  * // FIXME, check all options
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFExportFileType.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFExportFileType.java 117b4dcec7e2 2006/11/30 18:44:02 duns $
  */
 public class EMFExportFileType extends AbstractExportFileType {
 
@@ -33,7 +33,7 @@ public class EMFExportFileType extends AbstractExportFileType {
     }
 
     public String[] getExtensions() {
-        return new String[] { "emz", "EMZ", "emf", "EMF" };
+        return new String[] { "emf" };
     }
 
     public String[] getMIMETypes() {
@@ -56,12 +56,6 @@ public class EMFExportFileType extends AbstractExportFileType {
                 rootKey, true));
         optionsPanel.add(TableLayout.COLUMN_FILL, new JLabel());
 
-        OptionPanel format = new OptionPanel("Format");
-        compress = new OptionCheckBox(options, EMFGraphics2D.COMPRESS,
-                "Compress");
-        format.add(TableLayout.FULL, compress);
-        optionsPanel.add(TableLayout.COLUMN_FILL, format);
-
         return optionsPanel;
     }
 
@@ -69,15 +63,5 @@ public class EMFExportFileType extends AbstractExportFileType {
             throws IOException {
 
         return new EMFGraphics2D(os, target);
-    }
-
-    public File adjustFilename(File file, Properties user) {
-        UserProperties options = new UserProperties(user, EMFGraphics2D
-                .getDefaultProperties());
-        if (options.isProperty(EMFGraphics2D.COMPRESS)) {
-            return adjustExtension(file, "emz", null, "");
-        } else {
-            return adjustExtension(file, "emf", null, "");
-        }
     }
 }

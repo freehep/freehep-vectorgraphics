@@ -43,7 +43,7 @@ import org.freehep.util.UserProperties;
  * Enhanced Metafile Format Graphics 2D driver.
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java f8437ddce5b7 2006/11/22 00:43:15 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java 117b4dcec7e2 2006/11/30 18:44:02 duns $
  */
 public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         EMFConstants {
@@ -100,14 +100,11 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
     public static final String BACKGROUND_COLOR = rootKey + "."
             + PageConstants.BACKGROUND_COLOR;
 
-    public static final String COMPRESS = rootKey + ".Binary";
-
     private static final UserProperties defaultProperties = new UserProperties();
     static {
         defaultProperties.setProperty(TRANSPARENT, true);
         defaultProperties.setProperty(BACKGROUND, false);
         defaultProperties.setProperty(BACKGROUND_COLOR, Color.GRAY);
-        defaultProperties.setProperty(COMPRESS, false);
         defaultProperties.setProperty(CLIP, true);
         // NOTE: using TEXT_AS_SHAPES makes the text shapes quite unreadable.
         defaultProperties.setProperty(TEXT_AS_SHAPES, false);
@@ -192,8 +189,6 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
     /* 3.1 Header & Trailer */
     public void writeHeader() throws IOException {
         ros = new BufferedOutputStream(ros);
-        if (isProperty(COMPRESS))
-            ros = new GZIPOutputStream(ros);
         Dimension device = isDeviceIndependent() ? new Dimension(1024, 768)
                 : Toolkit.getDefaultToolkit().getScreenSize();
         String producer = getClass().getName();
