@@ -1,4 +1,4 @@
-// Copyright 2002-2003, FreeHEP.
+// Copyright 2002-2006, FreeHEP.
 package org.freehep.graphicsio.svg;
 
 import java.awt.Component;
@@ -26,10 +26,9 @@ import org.freehep.swing.layout.TableLayout;
 import org.freehep.util.UserProperties;
 
 /**
- * Identical to SVGExportFileType except for the creation of a SVGGraphics2D
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGExportFileType.java 1d3bd2a557b2 2005/12/03 07:37:43 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGExportFileType.java 2bc4a567606d 2006/11/30 18:45:21 duns $
  */
 public class SVGExportFileType extends AbstractExportFileType {
 
@@ -47,7 +46,7 @@ public class SVGExportFileType extends AbstractExportFileType {
     }
 
     public String[] getExtensions() {
-        return new String[] { "svgz", "SVGZ", "svg", "SVG" };
+        return new String[] { "svg", "svgz" };
     }
 
     public String[] getMIMETypes() {
