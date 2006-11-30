@@ -4,6 +4,7 @@ package org.freehep.graphicsio.gif;
 import java.awt.Component;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.imageio.spi.IIORegistry;
@@ -21,7 +22,7 @@ import org.freehep.util.UserProperties;
 /**
  * 
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFExportFileType.java 6fc90d16bd14 2006/11/30 18:48:36 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFExportFileType.java fe0a573f517d 2006/11/30 22:51:38 duns $
  */
 public class GIFExportFileType extends ImageExportFileType {
 
@@ -39,7 +40,8 @@ public class GIFExportFileType extends ImageExportFileType {
     public static final String[] quantizeModes = new String[] { "NeuQuant" };
 
     public GIFExportFileType() {
-        super("gif");
+        super("gif", new GIFImageWriterSpi(), 
+        		new GIFImageWriteParam(Locale.getDefault()));
     }
 
     public boolean hasOptionPanel() {

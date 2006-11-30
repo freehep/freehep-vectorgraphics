@@ -1,4 +1,4 @@
-// Copyright 2003, FreeHEP
+// Copyright 2003-2006, FreeHEP
 package org.freehep.graphicsio.gif;
 
 import java.io.IOException;
@@ -10,7 +10,7 @@ import javax.imageio.spi.ImageWriterSpi;
 
 /**
  * 
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFImageWriterSpi.java 6fc90d16bd14 2006/11/30 18:48:36 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFImageWriterSpi.java fe0a573f517d 2006/11/30 22:51:38 duns $
  */
 public class GIFImageWriterSpi extends ImageWriterSpi {
 
@@ -33,7 +33,6 @@ public class GIFImageWriterSpi extends ImageWriterSpi {
     }
 
     public boolean canEncodeImage(ImageTypeSpecifier type) {
-        // FIXME handle # colors
         return true;
     }
 }

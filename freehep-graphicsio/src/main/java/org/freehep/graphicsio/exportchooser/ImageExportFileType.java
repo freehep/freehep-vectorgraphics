@@ -25,7 +25,7 @@ import org.freehep.util.UserProperties;
  * // FIXME, check all options
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageExportFileType.java 5293c168717f 2006/11/26 23:12:57 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageExportFileType.java fe0a573f517d 2006/11/30 22:51:38 duns $
  */
 public class ImageExportFileType extends AbstractExportFileType {
 
@@ -50,7 +50,7 @@ public class ImageExportFileType extends AbstractExportFileType {
     protected OptionTextField compressQuality;
 
     protected ImageExportFileType(String format) {
-        Iterator iterator = ImageIO.getImageWritersByFormatName(format);
+    	Iterator iterator = ImageIO.getImageWritersByFormatName(format);
         if (iterator.hasNext()) {
             ImageWriter writer = (ImageWriter) iterator.next();
             this.format = format;
@@ -60,6 +60,13 @@ public class ImageExportFileType extends AbstractExportFileType {
         }
         throw new IllegalArgumentException(getClass() + ": Format not valid: "
                 + format);
+    	
+    }
+    
+    protected ImageExportFileType(String format, ImageWriterSpi spi, ImageWriteParam param) {
+        this.format = format;
+        this.spi = spi;
+        this.param = param;
     }
 
     public static ImageExportFileType getInstance(String format) {
