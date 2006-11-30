@@ -1,4 +1,4 @@
-// Copyright 2004, FreeHEP.
+// Copyright 2004-2006, FreeHEP.
 package org.freehep.graphicsio.latex;
 
 import java.awt.Component;
@@ -11,7 +11,7 @@ import org.freehep.graphicsio.exportchooser.AbstractExportFileType;
 /**
  * 
  * @author Andre Bach
- * @version $Id: freehep-graphicsio-latex/src/main/java/org/freehep/graphicsio/latex/LatexExportFileType.java e3449d5a3c6c 2005/12/07 22:14:47 duns $
+ * @version $Id: freehep-graphicsio-latex/src/main/java/org/freehep/graphicsio/latex/LatexExportFileType.java 6fc90d16bd14 2006/11/30 18:48:36 duns $
  */
 public class LatexExportFileType extends AbstractExportFileType {
 

@@ -21,7 +21,7 @@ import org.freehep.util.UserProperties;
 /**
  * 
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFExportFileType.java 12103cee2b7c 2006/11/12 16:30:03 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFExportFileType.java 6fc90d16bd14 2006/11/30 18:48:36 duns $
  */
 public class GIFExportFileType extends ImageExportFileType {
 
@@ -36,7 +36,7 @@ public class GIFExportFileType extends ImageExportFileType {
         }
     }
 
-    public static final String[] quantizeModes = new String[] { "WebColor" };
+    public static final String[] quantizeModes = new String[] { "NeuQuant" };
 
     public GIFExportFileType() {
         super("gif");

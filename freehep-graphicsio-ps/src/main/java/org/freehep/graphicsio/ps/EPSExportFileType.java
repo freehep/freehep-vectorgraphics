@@ -1,4 +1,4 @@
-// Copyright 2000, CERN, Geneva, Switzerland and University of Santa Cruz, California, U.S.A.
+// Copyright 2000-2006, FreeHEP.
 package org.freehep.graphicsio.ps;
 
 import java.awt.Component;
@@ -13,8 +13,9 @@ import org.freehep.util.UserProperties;
 
 /**
  * 
+ * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/EPSExportFileType.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/EPSExportFileType.java 6fc90d16bd14 2006/11/30 18:48:36 duns $
  */
 public class EPSExportFileType extends AbstractPSExportFileType {
 
@@ -23,8 +24,7 @@ public class EPSExportFileType extends AbstractPSExportFileType {
     }
 
     public String[] getExtensions() {
-        return new String[] { "eps", "EPS", "epi", "EPI", "epsi", "EPSI",
-                "epsf", "EPSF" };
+        return new String[] { "eps", "epi", "epsi", "epsf" };
     }
 
     public JPanel createOptionPanel(Properties user) {

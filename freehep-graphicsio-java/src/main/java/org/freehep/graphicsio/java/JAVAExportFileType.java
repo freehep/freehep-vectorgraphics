@@ -1,4 +1,4 @@
-// Copyright 2000-2003 FreeHEP
+// Copyright 2000-2006 FreeHEP
 package org.freehep.graphicsio.java;
 
 import java.awt.Component;
@@ -13,7 +13,7 @@ import org.freehep.graphicsio.exportchooser.AbstractExportFileType;
  * // FIXME, check all options
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-java/src/main/java/org/freehep/graphicsio/java/JAVAExportFileType.java 01c7a0af1b3a 2005/12/05 06:02:47 duns $
+ * @version $Id: freehep-graphicsio-java/src/main/java/org/freehep/graphicsio/java/JAVAExportFileType.java 6fc90d16bd14 2006/11/30 18:48:36 duns $
  */
 public class JAVAExportFileType extends AbstractExportFileType {
 
@@ -22,7 +22,7 @@ public class JAVAExportFileType extends AbstractExportFileType {
     }
 
     public String[] getExtensions() {
-        return new String[] { "java", "JAVA" };
+        return new String[] { "java" };
     }
 
     public String[] getMIMETypes() {

@@ -1,4 +1,4 @@
-// Copyright 2000-2003 FreeHEP
+// Copyright 2000-2006 FreeHEP
 package org.freehep.graphicsio.cgm;
 
 import java.awt.Component;
@@ -23,7 +23,7 @@ import org.freehep.util.UserProperties;
  * // FIXME, check all options
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-cgm/src/main/java/org/freehep/graphicsio/cgm/CGMExportFileType.java 278fac7cefaa 2005/12/05 04:00:43 duns $
+ * @version $Id: freehep-graphicsio-cgm/src/main/java/org/freehep/graphicsio/cgm/CGMExportFileType.java 6fc90d16bd14 2006/11/30 18:48:36 duns $
  */
 public class CGMExportFileType extends AbstractExportFileType {
 
@@ -32,7 +32,7 @@ public class CGMExportFileType extends AbstractExportFileType {
     }
 
     public String[] getExtensions() {
-        return new String[] { "cgm", "CGM" };
+        return new String[] { "cgm" };
     }
 
     public String[] getMIMETypes() {

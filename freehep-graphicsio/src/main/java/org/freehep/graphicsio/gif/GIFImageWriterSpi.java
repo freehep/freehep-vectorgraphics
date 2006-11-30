@@ -10,13 +10,13 @@ import javax.imageio.spi.ImageWriterSpi;
 
 /**
  * 
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFImageWriterSpi.java 5641ca92a537 2005/11/26 00:15:35 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFImageWriterSpi.java 6fc90d16bd14 2006/11/30 18:48:36 duns $
  */
 public class GIFImageWriterSpi extends ImageWriterSpi {
 
     public GIFImageWriterSpi() {
         super("FreeHEP Java Libraries, http://java.freehep.org/", "1.0",
-                new String[] { "gif", "GIF" }, new String[] { "gif", "GIF" },
+                new String[] { "gif" }, new String[] { "gif" },
                 new String[] { "image/gif", "image/x-gif" },
                 "org.freehep.graphicsio.gif.GIFImageWriter",
                 STANDARD_OUTPUT_TYPE, null, false, null, null, null, null,

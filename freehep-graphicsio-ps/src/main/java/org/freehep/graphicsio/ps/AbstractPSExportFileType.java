@@ -1,4 +1,4 @@
-// Copyright 2003, FreeHEP.
+// Copyright 2003-2006, FreeHEP.
 package org.freehep.graphicsio.ps;
 
 import java.awt.Component;
@@ -28,7 +28,7 @@ import org.freehep.util.UserProperties;
 /**
  * 
  * @author Charles Loomis, Simon Fischer
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/AbstractPSExportFileType.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/AbstractPSExportFileType.java 6fc90d16bd14 2006/11/30 18:48:36 duns $
  */
 public abstract class AbstractPSExportFileType extends AbstractExportFileType {
 

@@ -1,3 +1,4 @@
+// Copyright 2001-2006, FreeHEP.
 package org.freehep.graphicsio.pdf;
 
 import java.awt.Component;
@@ -28,7 +29,7 @@ import org.freehep.util.UserProperties;
 /**
  * 
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFExportFileType.java f493ff6e61b2 2005/12/01 18:46:43 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFExportFileType.java 6fc90d16bd14 2006/11/30 18:48:36 duns $
  */
 public class PDFExportFileType extends AbstractExportFileType {
 
@@ -40,7 +41,7 @@ public class PDFExportFileType extends AbstractExportFileType {
     }
 
     public String[] getExtensions() {
-        return new String[] { "pdf", "PDF" };
+        return new String[] { "pdf" };
     }
 
     public String[] getMIMETypes() {

@@ -1,3 +1,4 @@
+// Copyright 2003-2006, FreeHEP.
 package org.freehep.graphicsio.swf;
 
 import java.awt.Component;
@@ -21,7 +22,7 @@ import org.freehep.util.UserProperties;
  * // FIXME, check all options
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFExportFileType.java db861da05344 2005/12/05 00:59:43 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFExportFileType.java 6fc90d16bd14 2006/11/30 18:48:36 duns $
  */
 public class SWFExportFileType extends AbstractExportFileType {
 
@@ -30,7 +31,7 @@ public class SWFExportFileType extends AbstractExportFileType {
     }
 
     public String[] getExtensions() {
-        return new String[] { "swf", "SWF" };
+        return new String[] { "swf" };
     }
 
     public String[] getMIMETypes() {
