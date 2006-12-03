@@ -3,7 +3,6 @@ package org.freehep.graphicsio.exportchooser;
 
 import java.awt.Component;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.Locale;
@@ -25,7 +24,7 @@ import org.freehep.util.UserProperties;
  * // FIXME, check all options
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageExportFileType.java fe0a573f517d 2006/11/30 22:51:38 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageExportFileType.java 1fdf0180916f 2006/12/03 16:40:02 duns $
  */
 public class ImageExportFileType extends AbstractExportFileType {
 
@@ -63,12 +62,30 @@ public class ImageExportFileType extends AbstractExportFileType {
     	
     }
     
-    protected ImageExportFileType(String format, ImageWriterSpi spi, ImageWriteParam param) {
-        this.format = format;
+    public ImageExportFileType(ImageWriterSpi spi) {
+        this.format = spi.getFormatNames()[0];
         this.spi = spi;
-        this.param = param;
+        try {
+        	this.param = spi.createWriterInstance().getDefaultWriteParam();
+        } catch (IOException e) {
+        	throw new RuntimeException("Failed to create Writer instance", e);
+        }
     }
-
+    
+    // FIXME only based on spi class name.
+    public boolean equals(Object obj) {
+    	if (obj instanceof ImageExportFileType) {
+    		ImageExportFileType type = (ImageExportFileType)obj;
+    		return spi.getClass().equals(type.spi.getClass());
+    	}
+    	return super.equals(obj);
+    }
+    
+    // FIXME only based on spi class name.
+    public int hashCode() {
+    	return spi.getClass().hashCode();
+    }
+    
     public static ImageExportFileType getInstance(String format) {
     	format = format.toLowerCase();
         if (format.equals("gif"))
@@ -212,6 +229,6 @@ public class ImageExportFileType extends AbstractExportFileType {
     }
 
     public String toString() {
-        return super.toString() + " for " + format;
+        return super.toString() + " for " + format + " using " + spi;
     }
 }

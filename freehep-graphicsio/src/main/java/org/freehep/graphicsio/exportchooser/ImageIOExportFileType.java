@@ -1,4 +1,4 @@
-// Copyright 2003 FreeHEP
+// Copyright 2003-2006 FreeHEP
 package org.freehep.graphicsio.exportchooser;
 
 import java.util.Iterator;
@@ -17,6 +17,7 @@ import javax.imageio.spi.ServiceRegistry;
 
 import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.util.export.ExportFileType;
+import org.freehep.util.export.ExportFileTypeRegistry;
 
 /**
  * This class does not work, since the ExportFileTypeRegistry stores Objects by
@@ -25,7 +26,7 @@ import org.freehep.util.export.ExportFileType;
  * overwrites the first one with the second and so on. Sun Bug #Submitted.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageIOExportFileType.java 5641ca92a537 2005/11/26 00:15:35 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageIOExportFileType.java 1fdf0180916f 2006/12/03 16:40:02 duns $
  */
 public class ImageIOExportFileType implements RegisterableService {
 
@@ -43,18 +44,19 @@ public class ImageIOExportFileType implements RegisterableService {
         IIORegistry imageRegistry = IIORegistry.getDefaultInstance();
         Iterator providers = imageRegistry.getServiceProviders(
                 ImageWriterSpi.class, false);
-        SortedSet formatSet = new TreeSet();
+    	ExportFileTypeRegistry exportRegistry = ExportFileTypeRegistry.getDefaultInstance(null);
         while (providers.hasNext()) {
             ImageWriterSpi writerSpi = (ImageWriterSpi) providers.next();
-            String[] formats = writerSpi.getFileSuffixes();
+        	String[] formats = writerSpi.getFileSuffixes();
             if ((formats != null) && (formats[0] != null)) {
-                formatSet.add(formats[0]);
+            	exportRegistry.add(new ImageExportFileType(writerSpi));
             } else {
                 System.err.println(getClass() + ": Cannot register "
                         + writerSpi + " because it has no filesuffixes.");
             }
-        }
-
+        }    
+        
+        /*
         // Look for the last ExportFileType so that these ImageExportFileTypes
         // are registered neatly behind that one.
         ExportFileType previous = null;
@@ -74,7 +76,7 @@ public class ImageIOExportFileType implements RegisterableService {
                 if (previous != null) {
                     registry.unsetOrdering(ExportFileType.class, previous,
                             export);
-                    /* boolean result = */ registry.setOrdering(ExportFileType.class,
+                    registry.setOrdering(ExportFileType.class,
                             previous, export);
                     // System.out.println("Ordering set : "+result);
                 }
@@ -84,7 +86,7 @@ public class ImageIOExportFileType implements RegisterableService {
                         + ".");
             }
         }
-
+*/
         registry.deregisterServiceProvider(this, category);
     }
 
@@ -140,7 +142,8 @@ public class ImageIOExportFileType implements RegisterableService {
         List exportFileTypes = ExportFileType.getExportFileTypes();
         Iterator iterator = exportFileTypes.iterator();
         while (iterator.hasNext()) {
-            System.out.println("   " + iterator.next());
+        	ExportFileType type = (ExportFileType)iterator.next();
+            System.out.println("   " + type);
         }
     }
 }

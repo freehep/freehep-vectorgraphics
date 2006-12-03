@@ -22,7 +22,7 @@ import org.freehep.util.UserProperties;
 /**
  * 
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFExportFileType.java fe0a573f517d 2006/11/30 22:51:38 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFExportFileType.java 1fdf0180916f 2006/12/03 16:40:02 duns $
  */
 public class GIFExportFileType extends ImageExportFileType {
 
@@ -40,8 +40,7 @@ public class GIFExportFileType extends ImageExportFileType {
     public static final String[] quantizeModes = new String[] { "NeuQuant" };
 
     public GIFExportFileType() {
-        super("gif", new GIFImageWriterSpi(), 
-        		new GIFImageWriteParam(Locale.getDefault()));
+        super(new GIFImageWriterSpi());
     }
 
     public boolean hasOptionPanel() {

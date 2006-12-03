@@ -8,7 +8,6 @@ import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
@@ -18,11 +17,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
@@ -40,7 +42,7 @@ import org.freehep.util.images.ImageUtilities;
  * Generic class for generating bitmap outputs from an image.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java 7a2e6daa0f4f 2006/11/26 22:00:48 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java 1fdf0180916f 2006/12/03 16:40:02 duns $
  */
 public class ImageGraphics2D extends PixelGraphics2D {
 
@@ -417,36 +419,44 @@ public class ImageGraphics2D extends PixelGraphics2D {
     }
 
     public static ImageWriter getPreferredImageWriter(String format) {
-        return getPreferredImageWriter(ImageIO
-                .getImageWritersByFormatName(format));
+        return (ImageWriter)getImageWriters(ImageIO
+                .getImageWritersByFormatName(format)).first();
     }
 
     public static ImageWriter getPreferredImageWriterForMIMEType(String mimeType) {
-        return getPreferredImageWriter(ImageIO
-                .getImageWritersByMIMEType(mimeType));
+        return (ImageWriter)getImageWriters(ImageIO
+                .getImageWritersByMIMEType(mimeType)).first();
     }
 
-    private static ImageWriter getPreferredImageWriter(Iterator iterator) {
+    public static SortedSet/*<ImageWriter>*/ getImageWriters(Iterator iterator) {
         // look for a writer that supports the given format,
         // BUT prefer our own "org.freehep."
         // over "com.sun.imageio." over "com.sun.media." over others
-        ImageWriter[] writer = new ImageWriter[4];
+        SortedSet imageWriters = new TreeSet(new Comparator() {
+        	private int order(Object o) {
+        		String className = o.getClass().getName();
+        		if (className.startsWith("org.freehep.")) {
+                    return 0;
+                } else if (className.startsWith("com.sun.imageio.")) {
+                    return 1;
+                } else if (className.startsWith("com.sun.media.")) {
+                    return 2;
+                }
+        		return 3;
+        	}
+        	
+        	public int compare(Object arg0, Object arg1) {
+        		int order0 = order(arg0);
+        		int order1 = order(arg1);
+        		return order0 < order1 ? -1 : order0 > order1 ? 1 : 0;
+        	}
+        });
         while (iterator.hasNext()) {
-            writer[3] = (ImageWriter) iterator.next();
-            String className = writer[3].getClass().getName();
-            if (className.startsWith("org.freehep.")) {
-                writer[0] = writer[3];
-            } else if (className.startsWith("com.sun.imageio.")) {
-                writer[1] = writer[3];
-            } else if (className.startsWith("com.sun.media.")) {
-                writer[2] = writer[3];
-            }
+            imageWriters.add((ImageWriter) iterator.next());
         }
-        return (writer[0] != null) ? writer[0]
-                : (writer[1] != null) ? writer[1]
-                        : (writer[2] != null) ? writer[2] : writer[3];
-    }
-
+        return imageWriters;
+    }	
+    
     public static BufferedImage readImage(String format, InputStream is)
             throws IOException {
         Iterator iterator = ImageIO.getImageReadersByFormatName(format);
