@@ -1,0 +1,14 @@
+<assembly>
+  <id>doc</id>
+  <formats>
+    <format>tar.gz</format>
+    <format>zip</format>
+  </formats>
+  <includeSiteDirectory>true</includeSiteDirectory>
+  <fileSets>
+    <fileSet>
+      <directory>src/main/doc</directory>
+      <outputDirectory>/doc</outputDirectory>
+    </fileSet>
+  </fileSets>
+</assembly>

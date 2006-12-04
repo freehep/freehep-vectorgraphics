@@ -1,0 +1,36 @@
+<assembly>
+  <id>bin</id>
+  <formats>
+    <format>tar.gz</format>
+    <format>zip</format>
+  </formats>
+  <fileSets>
+    <fileSet>
+      <includes>
+        <include>README*</include>
+        <include>LICENSE*</include>
+        <include>LGPL*</include>
+      </includes>
+    </fileSet>
+<!--
+    <fileSet>
+      <directory>src/main/bin</directory>
+      <outputDirectory>/bin</outputDirectory>
+    </fileSet>
+-->
+  </fileSets>
+  <dependencySets>
+    <dependencySet>
+      <outputDirectory>/lib</outputDirectory>
+      <unpack>false</unpack>
+      <scope>runtime</scope>
+<!--
+      <excludes>
+        <exclude>org.freehep:freehep-commanddispatcher</exclude>
+        <exclude>org.freehep:freehep-commandline</exclude>
+        <exclude>jdom:jdom</exclude>
+      </excludes>
+-->
+    </dependencySet>
+  </dependencySets>
+</assembly>
