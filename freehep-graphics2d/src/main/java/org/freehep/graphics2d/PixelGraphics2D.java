@@ -39,7 +39,7 @@ import org.freehep.graphics2d.font.FontEncoder;
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/PixelGraphics2D.java cba39eb5843a 2006/03/20 18:04:28 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/PixelGraphics2D.java f827db4cd880 2006/12/04 22:27:37 duns $
  */
 public class PixelGraphics2D extends AbstractVectorGraphics {
 
@@ -390,6 +390,8 @@ public class PixelGraphics2D extends AbstractVectorGraphics {
     }
 
     public void setFont(Font font) {
+    	if (font == null) return;
+    	
         super.setFont(font);
         if (font.getName().equals("Symbol")
                 || font.getName().equals("ZapfDingbats")) {
@@ -400,6 +402,8 @@ public class PixelGraphics2D extends AbstractVectorGraphics {
     }
 
     public void setColor(Color color) {
+    	if (color == null) return;
+    	
         if (color.equals(getColor()))
             return;
 
@@ -409,6 +413,8 @@ public class PixelGraphics2D extends AbstractVectorGraphics {
     }
 
     public void setPaint(Paint paint) {
+    	if (paint == null) return; 
+    	
         if (paint.equals(getPaint()))
             return;
 

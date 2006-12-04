@@ -24,7 +24,7 @@ import org.freehep.util.UserProperties;
  * // FIXME, check all options
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageExportFileType.java 19ee023ce098 2006/12/04 07:44:04 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageExportFileType.java f827db4cd880 2006/12/04 22:27:37 duns $
  */
 public class ImageExportFileType extends AbstractExportFileType {
 
@@ -158,12 +158,12 @@ public class ImageExportFileType extends AbstractExportFileType {
         if (param.canWriteCompressed()) {
             if (ImageGraphics2D.canWriteUncompressed(format)) {
                 panel.add(TableLayout.FULL, compress);
-            }
 
-            // NOTE: force compression
-            param.setCompressionMode(options.isProperty(formatKey
+                // NOTE: force compression
+                param.setCompressionMode(options.isProperty(formatKey
                     + ImageGraphics2D.COMPRESS) ? ImageWriteParam.MODE_EXPLICIT
                     : ImageWriteParam.MODE_DISABLED);
+            }
         }
 
         if (param.canWriteCompressed()

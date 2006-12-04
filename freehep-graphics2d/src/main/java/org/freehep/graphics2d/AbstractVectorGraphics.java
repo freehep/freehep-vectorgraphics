@@ -33,7 +33,7 @@ import org.freehep.util.UserProperties;
  * @author Simon Fischer
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/AbstractVectorGraphics.java cba39eb5843a 2006/03/20 18:04:28 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/AbstractVectorGraphics.java f827db4cd880 2006/12/04 22:27:37 duns $
  */
 public abstract class AbstractVectorGraphics extends VectorGraphics {
 
@@ -163,6 +163,8 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
      * @param font to be set
      */
     public void setFont(Font font) {
+    	if (font == null) return;
+    	
         // FIXME: maybe add delayed setting
         currentFont = font;
     }
@@ -564,6 +566,8 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
      * @param color to be set
      */
     public void setColor(Color color) {
+    	if (color == null) return;
+    	
         currentColor = color;
         currentPaint = color;
     }
@@ -583,6 +587,8 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
      * @param paint to be set
      */
     public void setPaint(Paint paint) {
+    	if (paint == null) return;
+    	
         if (!(paint instanceof Color))
             currentColor = null;
         currentPaint = paint;

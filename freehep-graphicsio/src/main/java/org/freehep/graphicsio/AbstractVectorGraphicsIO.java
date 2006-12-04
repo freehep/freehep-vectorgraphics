@@ -53,7 +53,7 @@ import org.freehep.util.images.ImageUtilities;
  * @author Charles Loomis
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java f5b2789f544e 2006/11/15 07:41:00 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java f827db4cd880 2006/12/04 22:27:37 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -1107,6 +1107,8 @@ s     *
 
     /* 8.2 Paint */
     public void setColor(Color color) {
+    	if (color == null) return;
+    	
         if (color.equals(getColor()))
             return;
 
@@ -1127,6 +1129,8 @@ s     *
      * @param paint to be set
      */
     public void setPaint(Paint paint) {
+    	if (paint == null) return;
+    	
         if (paint.equals(getPaint()))
             return;
 
@@ -1259,6 +1263,8 @@ s     *
      * @param font to be set
      */
     public void setFont(Font font) {
+    	if (font == null) return;
+    	
         // FIXME: maybe add delayed setting
         super.setFont(font);
 
