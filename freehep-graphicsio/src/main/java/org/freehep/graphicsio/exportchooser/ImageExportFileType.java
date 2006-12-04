@@ -24,7 +24,7 @@ import org.freehep.util.UserProperties;
  * // FIXME, check all options
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageExportFileType.java 1fdf0180916f 2006/12/03 16:40:02 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageExportFileType.java 19ee023ce098 2006/12/04 07:44:04 duns $
  */
 public class ImageExportFileType extends AbstractExportFileType {
 
@@ -114,19 +114,9 @@ public class ImageExportFileType extends AbstractExportFileType {
     }
 
     public String getDescription() {
-        // Sun's descriptions are no good ("Standard JPEG writer")
-        String f = format.toLowerCase();
-        if (f.equals("jpg") || f.equals("jpeg")) {
-            return "Joint Photographers Expert Group Format";
-        } else if (f.equals("png")) {
-            return "Portable Network Graphics Format";
-        } else if (f.equals("gif")) {
-            return "Graphics Interchange Format";
-        } else {
-            return spi.getDescription(Locale.US);
-        }
+    	return spi.getDescription(Locale.getDefault());
     }
-
+    
     public String[] getExtensions() {
         return spi.getFileSuffixes();
     }

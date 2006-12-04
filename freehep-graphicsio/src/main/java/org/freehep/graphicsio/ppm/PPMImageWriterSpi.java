@@ -10,7 +10,7 @@ import javax.imageio.spi.ImageWriterSpi;
 
 /**
  * 
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ppm/PPMImageWriterSpi.java 5641ca92a537 2005/11/26 00:15:35 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ppm/PPMImageWriterSpi.java 19ee023ce098 2006/12/04 07:44:04 duns $
  */
 public class PPMImageWriterSpi extends ImageWriterSpi {
 
@@ -25,7 +25,7 @@ public class PPMImageWriterSpi extends ImageWriterSpi {
     }
 
     public String getDescription(Locale locale) {
-        return "UNIX Portable PixMap";
+        return "FreeHEP UNIX Portable PixMap Format";
     }
 
     public ImageWriter createWriterInstance(Object extension)

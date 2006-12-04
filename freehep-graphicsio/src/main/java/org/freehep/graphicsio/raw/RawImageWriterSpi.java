@@ -10,7 +10,7 @@ import javax.imageio.spi.ImageWriterSpi;
 
 /**
  * 
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/raw/RawImageWriterSpi.java 5641ca92a537 2005/11/26 00:15:35 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/raw/RawImageWriterSpi.java 19ee023ce098 2006/12/04 07:44:04 duns $
  */
 public class RawImageWriterSpi extends ImageWriterSpi {
 
@@ -24,7 +24,7 @@ public class RawImageWriterSpi extends ImageWriterSpi {
     }
 
     public String getDescription(Locale locale) {
-        return "RAW image";
+        return "FreeHEP RAW Image Format";
     }
 
     public ImageWriter createWriterInstance(Object extension)

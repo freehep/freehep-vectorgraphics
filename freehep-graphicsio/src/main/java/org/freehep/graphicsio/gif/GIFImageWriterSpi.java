@@ -10,7 +10,7 @@ import javax.imageio.spi.ImageWriterSpi;
 
 /**
  * 
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFImageWriterSpi.java fe0a573f517d 2006/11/30 22:51:38 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFImageWriterSpi.java 19ee023ce098 2006/12/04 07:44:04 duns $
  */
 public class GIFImageWriterSpi extends ImageWriterSpi {
 
@@ -24,7 +24,7 @@ public class GIFImageWriterSpi extends ImageWriterSpi {
     }
 
     public String getDescription(Locale locale) {
-        return "Graphics Interchange Format";
+        return "FreeHEP Graphics Interchange Format";
     }
 
     public ImageWriter createWriterInstance(Object extension)
