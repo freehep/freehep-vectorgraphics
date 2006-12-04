@@ -7,9 +7,9 @@ import javax.imageio.spi.ImageWriterSpi;
 import org.freehep.graphicsio.exportchooser.ImageExportFileType;
 
 /**
- * 
+ * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ppm/PPMExportFileType.java 12103cee2b7c 2006/11/12 16:30:03 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ppm/PPMExportFileType.java 381498a7681c 2006/12/04 15:41:17 duns $
  */
 public class PPMExportFileType extends ImageExportFileType {
 

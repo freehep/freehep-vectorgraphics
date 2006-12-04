@@ -1,4 +1,4 @@
-// Copyright 2003, FreeHEP
+// Copyright 2003-2006, FreeHEP
 package org.freehep.graphicsio.raw;
 
 import java.io.IOException;
@@ -10,7 +10,7 @@ import javax.imageio.spi.ImageWriterSpi;
 
 /**
  * 
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/raw/RawImageWriterSpi.java 19ee023ce098 2006/12/04 07:44:04 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/raw/RawImageWriterSpi.java 381498a7681c 2006/12/04 15:41:17 duns $
  */
 public class RawImageWriterSpi extends ImageWriterSpi {
 
