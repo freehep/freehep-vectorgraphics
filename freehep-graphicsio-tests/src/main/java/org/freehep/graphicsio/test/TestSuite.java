@@ -17,13 +17,15 @@ import java.util.SortedMap;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
+import junit.framework.AssertionFailedError;
+
 import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.util.export.ExportFileType;
 import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 03fa6ff303ee 2006/11/28 00:30:03 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 40841545d8f1 2006/12/05 19:07:34 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -337,11 +339,14 @@ public class TestSuite extends junit.framework.TestSuite {
             out = baseDir + "/" + out;
         try {
             // Create Export filetype to get mime type
-            Class cls = Class.forName(gioPackage + fmt.getLowerCaseName() + "."
-                    + fmt.getName() + "ExportFileType");
-            ExportFileType fileType = (ExportFileType) cls.newInstance();
-            String mimeType = fileType.getMIMETypes()[0];
-
+//            Class cls = Class.forName(gioPackage + fmt.getLowerCaseName() + "."
+//                    + fmt.getName() + "ExportFileType");
+//            ExportFileType fileType = (ExportFileType) cls.newInstance();
+        	List fileTypes = ExportFileType.getExportFileTypes(fmt.getLowerCaseName());
+        	if (fileTypes.size() <= 0) throw new AssertionFailedError("No ExportFileType found for format '"+fmt.getLowerCaseName()+"'");
+        	String[] mimeTypes = ((ExportFileType)fileTypes.get(0)).getMIMETypes();
+        	if (mimeTypes.length <= 0) throw new AssertionFailedError("No MimeTypes found for ExportFileType '"+fmt.getLowerCaseName()+"'");
+        	
             (new File(out)).mkdirs();
             PrintWriter w = new PrintWriter(new FileWriter(out + test.getName()
                     + ".html"));
@@ -581,12 +586,12 @@ public class TestSuite extends junit.framework.TestSuite {
             // href=\""+name+"."+ext+"\">"+name+"."+ext+"</a></td>");
             w.print("                  ");
             w.print("<td background=\"" + cloud + "\">");
-            w.print("<object type=\"" + mimeType + "\" name=\""
+            w.print("<object type=\"" + mimeTypes[0] + "\" name=\""
                     + test.getName() + "\" data=\"" + test.getName() + "."
                     + fmt.getExtension() + "\" width=\"" + TestingPanel.width + "\" height=\""
                     + TestingPanel.height + "\">");
             w.print("<param name=\"wmode\" value=\"transparent\"/>");
-            w.print("Image not embeddable: " + mimeType);
+            w.print("Image not embeddable: " + mimeTypes[0]);
             w.print("</object>");
             w.println("</td>");
             w.println("                  <td background=\"" + cloud
@@ -614,12 +619,6 @@ public class TestSuite extends junit.framework.TestSuite {
             w.close();
         } catch (IOException e) {
             System.err.println("Could not write " + out);
-        } catch (ClassNotFoundException e) {
-            System.err.println("writeHTML " + e);
-        } catch (IllegalAccessException e) {
-            System.err.println("writeHTML " + e);
-        } catch (InstantiationException e) {
-            System.err.println("writeHTML " + e);
         }
     }
 

@@ -184,6 +184,7 @@
     <module>freehep-graphicsio-svg</module>
     <module>freehep-graphicsio-swf</module>
     <module>freehep-graphicsio-tests</module>
+    <module>distribution</module>
   </modules>
   <dependencies>
     <dependency>
