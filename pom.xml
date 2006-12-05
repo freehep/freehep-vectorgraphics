@@ -194,10 +194,4 @@
       <scope>compile</scope>
     </dependency>
   </dependencies>
-  <distributionManagement>
-    <site>
-      <id>freehep-web-deploy</id>
-      <url>scpexe://svn.freehep.org/nfs/slac/g/jas/workspace/freehep/__star__/web/freehep/vectorgraphics</url>
-    </site>
-  </distributionManagement>
 </project>
