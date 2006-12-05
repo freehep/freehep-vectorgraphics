@@ -28,15 +28,29 @@
     <defaultGoal>assembly:assembly</defaultGoal>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>
+                site
+              </goal>                          
+            </goals>
+            <phase>
+              package
+            </phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <!--  NOTE 2.1 fails -->
         <version>2.0.1</version>
         <configuration>
           <descriptors>
             <descriptor>src/main/assembly/bin.xml</descriptor>
-<!--
             <descriptor>src/main/assembly/doc.xml</descriptor>
--->
           </descriptors>
         </configuration>
       </plugin>
