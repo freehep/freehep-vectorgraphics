@@ -138,7 +138,7 @@
       <dependency>
         <groupId>org.freehep</groupId>
         <artifactId>freehep-util</artifactId>
-        <version>2.0</version>
+        <version>2.0.1</version>
       </dependency>
       <dependency>
         <groupId>org.freehep</groupId>
@@ -149,6 +149,12 @@
         <groupId>hep.aida</groupId>
         <artifactId>aida</artifactId>
         <version>3.3</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.2</version>
         <scope>test</scope>
       </dependency>
       <dependency>
@@ -186,6 +192,7 @@
     <module>freehep-graphicsio-tests</module>
     <module>distribution</module>
   </modules>
+<!--
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -194,4 +201,5 @@
       <scope>compile</scope>
     </dependency>
   </dependencies>
+-->
 </project>

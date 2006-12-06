@@ -1,5 +1,5 @@
     ---
-FreeHEP VectorGraphics - Release Notes 1.2.3
+FreeHEP VectorGraphics 2.0 - Release Notes 
     ---
 Mark Donszelmann
     ---
@@ -7,37 +7,44 @@ Mark Donszelmann
 
 	NOT YET RELEASED
 
-Vector Graphics 1.2.3 Release Notes
+Vector Graphics 2.0 Release Notes
 
-	Release Notes Version: $Revision: 1.17 $.
+	Release Notes Version: $Revision$.
 
-	The most recent version of this file is available
-{{{http://java.freehep.org/vectorgraphics/ReleaseNotes-1.2.3.html}here}}.\
-Release notes for all versions of the VectorGraphics package are available
-{{{http://java.freehep.org/vectorgraphics/AllReleaseNotes.html}here}}.
+	The most recent version of this file is available at
+{{http://java.freehep.org/vectorgraphics/ReleaseNotes-2.0.html}}.
+
+    Release notes for all versions of the VectorGraphics package are available at
+{{http://java.freehep.org/vectorgraphics/AllReleaseNotes.html}}.
 
 	The VectorGraphics package of {{{http://java.freehep.org}
 FreeHEP Java Library}} enables any Java program to export to a variety of
 vector graphics formats as well as bitmap image formats. Among the vector formats are PostScript, PDF, EMF,
-SVF, SWF and CGM, while the image formats
-include GIF, PNG, JPG and PPM. 
+SVF, and (Flash) SWF. The image formats
+include GIF, PNG, JPG, BMP, WBPM and PPM. All image formats included in the Java runtime, as well as any in the Java
+Advanced Imaging package (if installed) are also be available.
+
+    The formats CGM, LaTeX and JAVA (for debugging) have not been released in version 2.0. They 
+may be released at a later date/version. 
 
 	The package uses the standard java.awt.Graphics2D class as its interface to
-the user program. Coupling this package to a standard Java program is therefore
+the user program. Using this package from any Java GUI program is therefore
 quite easy. It also comes with a dialog box which allows you to choose between
 all the formats mentioned above and set specific parameters for them.
 
 * Contents
 
-  * {{{#Major changes in VectorGraphics 1.2.3}Major changes in VectorGraphics 1.2.3}}
+  * {{{#Major Changes}Major Changes}}
   
   * {{{#Documentation}Documentation}}
   
+  * {{{#Test Output}Test Output}}
+  
   * {{{#License}License}}
   
-  * {{{#Installing the VectorGraphics package}Installing the VectorGraphics package}}
+  * {{{#Installation}Installation}}
   
-  * {{{#Compiling the VectorGraphics package}Compiling the VectorGraphics package}}
+  * {{{#Compilation}Compilation}}
   
   * {{{#Building an Application with the VectorGraphics package}Building an Application with the VectorGraphics 
   package}}
@@ -50,65 +57,350 @@ all the formats mentioned above and set specific parameters for them.
   
   * {{{#Examples}Examples}}
 
-* {Major changes in VectorGraphics 1.2.3}
+
+* {Major Changes}
         
-	* FREEHEP-496: EMF: Add option to write gzipped EMF as EMZ file.
-			
-	* FREEHEP-487: DrawString("", ...) creates an unreadable SWF file.
-			
-	* FREEHEP-475: EMF writeImage no longer destroys previous pen/brush 
-			context.
-			
-	* FREEHEP-64: GIF: images will now be auto-limited to 255 colors 
-			using a Quantizer.
-			
-	* fillSymbol and drawSymbol now uses Math.ceil for size, when blitting symbols.
-          
-	* FREEHEP-448: BufferedPanel will now limit clipped copy to bounds 
-			of panel, avoiding a RasterException.
-	      
-	* FREEHEP-447: Change PathConstructor method closePath to have 
-			coordinates.
-		  
-	* FREEHEP-442: Autoscale problem fixed in PDFGraphics2D where width was used 
-          instead of height.
-          
-	* FREEHEP-388: ImageFormats PNG, JPG, GIF and RAW are also added in 
-          secure mode (WebStart), if available.
-          
-	* FREEHEP-411: Added uppercase extensions to all formats, so that 
-          format selection is still case sensitive but all uppercase and all 
-          lowercase will work the same way.
-          
-	* FREEHEP-435: PixelGraphics2D will now use a transient ArrayPath to 
-          avoid memory consumption. Unfortunately Sun in its drawing 
-          implementation still copies these arrays.
-          
-	* FREEHEP-437: The methods createShape (with both ints and doubles) 
-          in AbstractVectorGraphics and its descendents now return a Shape 
-          rather than a GeneralPath.
-          
-	* FREEHEP-438: Multiple calls to getDefaultInstance(ClassLoader 
-          loader) in ExportFileTypeRegistry are now allowed if you use the same 
-          loader.
-          
-	* SymbolShape had VLINE and HLINE symbols mixed up, and it now returns proper bounds.
-			
-	* FREEHEP-456: CGM Clipping (rectangle) is implemented.
-			
-	* FREEHEP-429: EMF fixed NPE in setting fontSet without having a 
-			non-null value for parentGraphics.
-			
-	* FREEHEP-444: EMF now writes out transform for writeImage without 
-			changing internal transform.
-			
-	* FREEHEP-428: All graphics drivers now have a simplified 
-			implementation of drawGlyphVector and drawString with an 
-			AttrributeCharIterator. Attributes are ignored.
-			
-	* Added fillAndDrawSymbol(...) method.
+    This version is binary compatible at the java.awt.Graphics2d level with version 1.2.2. However if you
+used classes/methods from the low-level format drivers or have used methods of the VectorGraphics class
+or its descendants you may have to adjust your code and recompile.
 
+    All changes previously declared fixed for version 1.2.3 are included in version 2.0 of VectorGraphics.
+Version 1.2.3 will not be released.
 
+    This version runs on Java 1.4.2 and up, but has only been tested mildly in the release candidate of
+Java 1.6.0.
+		
+	Below the major changes in general and by format:	
+			
+** General	
+
+    * [{{{http://bugs.freehep.org/browse/FVG-2}FVG-2}}] - add text as shapes
+ 
+    * [{{{http://bugs.freehep.org/browse/FVG-13}FVG-13}}] - Unicode symbols don't appear in output
+
+    * [{{{http://bugs.freehep.org/browse/FVG-17}FVG-17}}] - The size of symbols, drawn and filled seems not always equal
+
+    * [{{{http://bugs.freehep.org/browse/FVG-21}FVG-21}}] - TagString doesn't handle Nested Tags
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-23}FVG-23}}] - PixelGraphics has offset in several tests on MacOS X
+
+    * [{{{http://bugs.freehep.org/browse/FVG-39}FVG-39}}] - Write DashedLinePathConstructor
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-40}FVG-40}}] - Reorganize PathConstructors so that they can Cascade
+
+    * [{{{http://bugs.freehep.org/browse/FVG-44}FVG-44}}] - Compile time error due to ambigous reference to method drawString
+
+    * [{{{http://bugs.freehep.org/browse/FVG-82}FVG-82}}] - drawString(attributedCharIter) is unimplemented by all formats
+
+    * [{{{http://bugs.freehep.org/browse/FVG-104}FVG-104}}] - PixelGraphics2D: createShape could be faster and less memory consumptive
+
+    * [{{{http://bugs.freehep.org/browse/FVG-109}FVG-109}}] - drawImage does not save/restore transform.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-110}FVG-110}}] - ArrayPath has a problem with empty closed paths.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-111}FVG-111}}] - getDefaultInstance(ClassLoader loader) in ExportFileTypeRegistry can only be called once for the same loader.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-113}FVG-113}}] - VectorGraphics: some drawString(...) and drawGlyphVector(...) unimplemented
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-114}FVG-114}}] - copy and paste into Word 97 doesn't support EMF
+
+    * [{{{http://bugs.freehep.org/browse/FVG-116}FVG-116}}] - Export Dialog does not report errors to user
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-121}FVG-121}}] - BufferedPanel should not build a clipped bufferedimage since the blit of it is much slower on Linux.
+
+    * [{{{http://bugs.freehep.org/browse/FVG-122}FVG-122}}] - ClassCastException in makeImage of BuffredPanel when sun.java2d.ddoffscreen set to true.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-123}FVG-123}}] - Negative coordinates seem clipped.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-124}FVG-124}}] - Add test for resolution
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-132}FVG-132}}] - Move org.freehep.graphicsio.font.encoding to org.freehep.graphics2d.font
+
+    * [{{{http://bugs.freehep.org/browse/FVG-134}FVG-134}}] - getGraphics() in BufferedPanel does not return correct VG.
+
+    * [{{{http://bugs.freehep.org/browse/FVG-136}FVG-136}}] - AbstractVectorGraphicsIO.setTranform(AffineTransform) is incorrectly doing "pass by reference".
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-139}FVG-139}}] - Exporting array of components produces bad file
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-141}FVG-141}}] - Switching exportFileTypes should properly update extensions
+
+    * [{{{http://bugs.freehep.org/browse/FVG-142}FVG-142}}] - BufferedPanel will now limit clipped copy to bounds of panel, avoiding a RasterException.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-143}FVG-143}}] - Change PathConstructor method closePath to have coordinates
+
+    * [{{{http://bugs.freehep.org/browse/FVG-145}FVG-145}}] - createShape should return Shape rather than GeneralPath
+
+    * [{{{http://bugs.freehep.org/browse/FVG-146}FVG-146}}] - Export Type selection case sensitive
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-147}FVG-147}}] - ExportDemo: Security Exception for GIF, PNG, JPG and RAW formats in WebStart
+
+    * [{{{http://bugs.freehep.org/browse/FVG-149}FVG-149}}] - Font derivation does not work for arbitrary transforms
+     
+    * [{{{http://bugs.freehep.org/browse/FVG-159}FVG-159}}] - Buggfix for TTFGlyphTable.SimpleGlyph.getShape()
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-162}FVG-162}}] - Custom Strokes should work in all formats supporting shapes. Currently only in PDF.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-165}FVG-165}}] - modify writeDash to use float as parameters rather than doubles.
+
+    * [{{{http://bugs.freehep.org/browse/FVG-166}FVG-166}}] - Handle the writing of fonts better.
+
+    * [{{{http://bugs.freehep.org/browse/FVG-167}FVG-167}}] - setRenderingHints with null value should remove hint
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-168}FVG-168}}] - draw methods using integer need a bias of 0.5 to be correctly displayed.
+
+    * [{{{http://bugs.freehep.org/browse/FVG-170}FVG-170}}] - Underline, StrikeThrough ... lost for TEXT_AS_SHAPE
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-211}FVG-211}}] - ArrayIndexOutOfBoundsException for CubicCurve
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-212}FVG-212}}] - Wrong Mapping of DialogInput
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-215}FVG-215}}] - Add ExportFileType for WBMP and BMP
+
+    * [{{{http://bugs.freehep.org/browse/FVG-216}FVG-216}}] - ExportFileTypes for Bitmap formats should failover to real class rather than ZZZclass.
+
+    * [{{{http://bugs.freehep.org/browse/FVG-217}FVG-217}}] - ZZZExportFileType works on Windows but fails on MacOS X (and maybe others).
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-245}FVG-245}}] - Disabled tests should end up in report list without link, and be skipped with next/previous
+
+    * [{{{http://bugs.freehep.org/browse/FVG-246}FVG-246}}] - Test reports should be written in different dirs for JDK version and OS
+
+    * [{{{http://bugs.freehep.org/browse/FVG-247}FVG-247}}] - Add a link back to vectorgraphics page
+
+    * [{{{http://bugs.freehep.org/browse/FVG-248}FVG-248}}] - FreeHEP image is missing..
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-249}FVG-249}}] - Add link to test matrix from vectorgraphics web.
+
+    * [{{{http://bugs.freehep.org/browse/FVG-250}FVG-250}}] - CubicToQuadPatrhConstructor is not protected for parallel lines
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-258}FVG-258}}] - Add a way to skip certain formats in tests and reports
+
+    * [{{{http://bugs.freehep.org/browse/FVG-259}FVG-259}}] - Deploy test results for all platforms.
+
+    * [{{{http://bugs.freehep.org/browse/FVG-260}FVG-260}}] - Add format-wide test of normal and scatter plot
+
+    * [{{{http://bugs.freehep.org/browse/FVG-261}FVG-261}}] - Add gray cloudy background to table so we can see tarsnparency.
+
+    * [{{{http://bugs.freehep.org/browse/FVG-273}FVG-273}}] - Add missing tests to TestApplication
+
+    * [{{{http://bugs.freehep.org/browse/FVG-274}FVG-274}}] - All formats should just declare their extensions in lowercase only.
+
+    * [{{{http://bugs.freehep.org/browse/FVG-275}FVG-275}}] - Handle setColor, setFont and setPaint with null argument to mean NOP.
+    
+    []
+    	
+** EMF
+
+    * [{{{http://bugs.freehep.org/browse/FVG-1}FVG-1}}] - Bad polygon export for EMF
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-5}FVG-5}}] - EMFGraphics2D thows NPE on Ilog component  
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-18}FVG-18}}] - EMF: change output of EMF test ref files into EMZ
+
+    * [{{{http://bugs.freehep.org/browse/FVG-29}FVG-29}}] - EMF: Export to EMF under MacOS X shows only one quadrant
+       
+    * [{{{http://bugs.freehep.org/browse/FVG-48}FVG-48}}] - Export to EMF messes up screen under Windows 98
+
+    * [{{{http://bugs.freehep.org/browse/FVG-107}FVG-107}}] - EMFGraphics2D.writeImage should not call writeGraphics* directly
+ 
+    * [{{{http://bugs.freehep.org/browse/FVG-112}FVG-112}}] - EMF: problem in writeImage
+
+    * [{{{http://bugs.freehep.org/browse/FVG-148}FVG-148}}] - EMF: Add option to write gzipped EMF as EMZ file.
+
+    * [{{{http://bugs.freehep.org/browse/FVG-236}FVG-236}}] - EMF: TestImage2D no background and no red
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-237}FVG-237}}] - EMF: TestImages no background (or wrong) and no red.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-240}FVG-240}}] - EMF: TestTransparency no transparency, no red and wrong background
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-271}FVG-271}}] - Remove EMZ extension
+    
+    []
+    
+** GIF
+
+    * [{{{http://bugs.freehep.org/browse/FVG-115}FVG-115}}] - Exceptions, such as GIF > 256 colors, end up on WebStart Console, rather than on DialogBox.
+
+    * [{{{http://bugs.freehep.org/browse/FVG-119}FVG-119}}] - GIF: can only handle 256 colors
+
+    * [{{{http://bugs.freehep.org/browse/FVG-158}FVG-158}}] - GIFGraphics2D should disallow anti-aliasing
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-202}FVG-202}}] - GIF: TestColors background incorrect
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-204}FVG-204}}] - GIF: TestImage2D background incorrect
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-205}FVG-205}}] - GIF: TestSymbols2D seems not nicely drawn.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-206}FVG-206}}] - GIF: TestTransparency incorrect
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-254}FVG-254}}] - GIF: TestCustomStrokes is all black.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-263}FVG-263}}] - GIF: TestColors bottom bar is not transparent
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-265}FVG-265}}] - GIF: TestHistogram wrong background.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-266}FVG-266}}] - GIF: TestHTML wrong background
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-267}FVG-267}}] - New Quantizer for GIF improves on color selection.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-270}FVG-270}}] - Exception when clicking option box in exportdialog for GIF format
+    
+    []
+    
+** PDF    
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-66}FVG-66}}] - PDF: TestFonts no MonoType Corsiva.
+
+    * [{{{http://bugs.freehep.org/browse/FVG-67}FVG-67}}] - PDF, PS: TestAll no impact font
+
+    * [{{{http://bugs.freehep.org/browse/FVG-105}FVG-105}}] - Write images once each to pdf file
+  
+    * [{{{http://bugs.freehep.org/browse/FVG-144}FVG-144}}] - tiny typo in PDFGraphics.openPage()
+
+    * [{{{http://bugs.freehep.org/browse/FVG-157}FVG-157}}] - drawGlyphVector(GlyphVector g, float x, float y) not implemented in PDFGraphics2D
+
+    * [{{{http://bugs.freehep.org/browse/FVG-199}FVG-199}}] - PDF, PS, SVG and SWF: TestFonts and TestShapes has wrong symbol and dingbats
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-200}FVG-200}}] - PDF: TestTransform misses one figure.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-219}FVG-219}}] - PDF: TestTaggedString has no bold or italic.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-221}FVG-221}}] - PDF: TestShapes no bold or italic
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-222}FVG-222}}] - PDF: TestHTML has no bold or italic
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-224}FVG-224}}] - PDF: TestFonts, no monotype corsiva
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-225}FVG-225}}] - PDF: TestFonts, no smiley character
+    
+    []
+    
+** PS
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-67}FVG-67}}] - PDF, PS: TestAll no impact font
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-68}FVG-68}}] - PS: TestAll fails to show sky.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-102}FVG-102}}] - PS: FrameColor in drawString is ignored
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-103}FVG-103}}] - PS: TestFonts no monotype corsiva
+
+    * [{{{http://bugs.freehep.org/browse/FVG-125}FVG-125}}] - PDF: write out floats in higher precision, but do not use E.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-126}FVG-126}}] - PS: write out floating points in scientific format (E if necessary)
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-140}FVG-140}}] - PS: different default orientation
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-174}FVG-174}}] - PostScript output eats memory in GhostView
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-198}FVG-198}}] - PS: TestPaint has the wrong image encoding
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-199}FVG-199}}] - PDF, PS, SVG and SWF: TestFonts and TestShapes has wrong symbol and dingbats
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-213}FVG-213}}] - Transparency in PS does not work
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-226}FVG-226}}] - PS: TestFonts , no smiley and no heart
+    
+    []
+    
+** SVG
+
+    * [{{{http://bugs.freehep.org/browse/FVG-92}FVG-92}}] - SVG: Use predefined symbol set in output
+
+    * [{{{http://bugs.freehep.org/browse/FVG-127}FVG-127}}] - SVG: write out floating points in scientific format (E if necessary)
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-137}FVG-137}}] - SVG: xlink namespace is not bound.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-138}FVG-138}}] - SVG: Dtd and SVG namespace not correct.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-151}FVG-151}}] - SVG: avoid style attribute
+
+    * [{{{http://bugs.freehep.org/browse/FVG-152}FVG-152}}] - SVG: make stylable false the default and do not compress, since Firefox reads non-compressed files.
+
+    * [{{{http://bugs.freehep.org/browse/FVG-156}FVG-156}}] - Ref and test files in svg test area are of type svgz with extension svg
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-155}FVG-155}}] - Some constructors in the SVGGraphics2D should not throw IOException
+
+    * [{{{http://bugs.freehep.org/browse/FVG-163}FVG-163}}] - Cleaner and more correct SVG Output
+
+    * [{{{http://bugs.freehep.org/browse/FVG-164}FVG-164}}] - Embed fonts into SVG
+
+    * [{{{http://bugs.freehep.org/browse/FVG-191}FVG-191}}] - SVG: TestAll, sky image missing
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-192}FVG-192}}] - SVG: TestFonts symbol and dingbats do not show correctly
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-194}FVG-194}}] - SVG: TestLineStyles has missing dotted lines.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-195}FVG-195}}] - SVG: TestPaint has missing images
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-196}FVG-196}}] - SVG: TestShapes has wrong symbol and dingbats font
+
+    * [{{{http://bugs.freehep.org/browse/FVG-199}FVG-199}}] - PDF, PS, SVG and SWF: TestFonts and TestShapes has wrong symbol and dingbats
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-220}FVG-220}}] - SVG: TestTaggedString has no fonts, bold or italic and no super/subscripts
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-223}FVG-223}}] - SVG: TestHTML has no bold
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-227}FVG-227}}] - SVG: TestFonts serif font is not plain but italic
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-229}FVG-229}}] - SVG: TestAll text is in italic rather than plain
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-230}FVG-230}}] - SVG: TestAll Impact text is missing
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-231}FVG-231}}] - SVG: TestAll no bold text
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-257}FVG-257}}] - SVG: Symbol and Dingbats are not correct
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-272}FVG-272}}] - SVG: default extension should be svg and not svgz
+    
+    []
+
+** SWF
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-106}FVG-106}}] - SWF: DrawString("", ...) creates an unreadable file.
+        
+    * [{{{http://bugs.freehep.org/browse/FVG-120}FVG-120}}] - SWF: Parsing Header should re-set the TagSets depending on the version number.
+      
+    * [{{{http://bugs.freehep.org/browse/FVG-130}FVG-130}}] - SWF: Adjust resolution for PathConstructor
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-133}FVG-133}}] - SWF: ButtonRecord needs extra 0 byte when no colorXForm is written
+  
+    * [{{{http://bugs.freehep.org/browse/FVG-135}FVG-135}}] - SWF: version 7 reads and write DefineText in a different way than version 6.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-150}FVG-150}}] - SWF: color xform should be byte-aligned 
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-176}FVG-176}}] - SWF: TestClip draws thick green lines in JavaClip part.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-177}FVG-177}}] - SWF: TestColors bottom background incorrect
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-178}FVG-178}}] - SWF TestCustomStrokes wrong background and green line.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-179}FVG-179}}] - SWF: TestFonts no characters written.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-183}FVG-183}}] - SWF: TestImages has green line on top and left.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-184}FVG-184}}] - SWF: TestLabels green lines on label 1 and 4.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-185}FVG-185}}] - SWF: TestLineStyles has missing 0 with (thinnest) line.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-186}FVG-186}}] - SWF: TestPrintColors, has green line.
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-188}FVG-188}}] - SWF: TestTaggedString has no underline, overline etc...
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-189}FVG-189}}] - SWF: TestTransforms has incorrect line thickness
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-199}FVG-199}}] - PDF, PS, SVG and SWF: TestFonts and TestShapes has wrong symbol and dingbats
+     
+    * [{{{http://bugs.freehep.org/browse/FVG-244}FVG-244}}] - SWF TestFonts produces NPE
+   
+    * [{{{http://bugs.freehep.org/browse/FVG-262}FVG-262}}] - SWF: TestColors bottom bar not transparent
+    
+    * [{{{http://bugs.freehep.org/browse/FVG-268}FVG-268}}] - SWF: upgrade to version 8 of the SWF format
+
+    * [{{{http://bugs.freehep.org/browse/FVG-269}FVG-269}}] - SWF: TestPaint, no support for cyclic gradients
+    
+    []
+   
+   
 * {Documentation}
 
 	The following documentation is currently available:
@@ -119,6 +411,14 @@ all the formats mentioned above and set specific parameters for them.
   * {{{http://java.freehep.org/vectorgraphics/Manual.html}The 
   VectorGraphics User Manual}}
 
+
+* {Test Output}
+
+    To better understand the behaviour of the VectorGraphics package for different usage on different
+Operating Systems and with different JDK's we publish the test results (and a PNG reference) on 
+our website: {{http://java.freehep.org/vectorgraphics}}.
+
+
 * {License}
 
 	The VectorGraphics package is part of the {{{http://java.freehep.org/}FreeHEP Java Library}}, 
@@ -127,108 +427,154 @@ an "Open Source" library distributed under the terms of the
 questions about the licensing please send a mail to:
 {{{mailto:developers@freehep.org}developers@freehep.org}}.
 
-* {Installing the VectorGraphics package}
 
-	Download VectorGraphics and unpack.  The distribution 
+* {Installation}
+
+	Download VectorGraphics-version-bin.tar.gz or the .zip file and unpack. The binary distribution 
 creates the following directory structure:
 
 +--
 VectorGraphics-version            containing license and release notes
+VectorGraphics-version/bin        empty
 VectorGraphics-version/examples   containing examples
 VectorGraphics-version/lib        containing jar files
 +--
 
-* {Compiling the VectorGraphics package}
+    You may optionally download the documentation VectorGraphics-version-doc.tar.gz or the .zip file
+and unpack. The documentation distribution creates the following directory structure:
 
-	The current distribution does not contain source files.  
++--
+VectorGraphics-version/site       containing a copy of the website
++--
+
+
+* {Compilation}
+
+	The current distribution does not contain source files and can be used without recompilation. However
+if you wish to rebuild the VectorGraphics package follow the instructions below: 
 	
-	To (re-)build the VectorGraphics package you need to get VectorGraphics-1.2.3-src.zip or .tar.gz file from 
-the {{{ftp://ftp.slac.stanford.edu/software/freehep/VectorGraphics/v1.2.3}ftp://ftp.slac.stanford.edu/software/freehep/VectorGraphics/v1.2.3/}} directory. 
+	To (re-)build the VectorGraphics package you need:
+	
+    * The Java Development Kit (JDK), version 1.4.2 or up.
+    
+    * Maven, version 2.0.4 or up, see {{http://mavane.apache.org}}.
+    
+    * Subversion, version 1.3 or up, see {{http://subversion.tigris.org}}.
+    
+    []
 
-	To compile it, follow the general instructions for
-{{{http://java.freehep.org/Build.html}Building the Java FreeHEP Library}} 
-and compile only the VectorGraphics jar files using the commands:
-
+	Check out a copy of the source code either from a tagged version:
+	
 +--
-ant -Djar=graphics2d
-ant -Djar=graphicsio
-ant -Djar=graphicsio-cgm
-ant -Djar=graphicsio-emf
-ant -Djar=graphicsio-gif
-ant -Djar=graphicsio-java
-ant -Djar=graphicsio-pdf
-ant -Djar=graphicsio-ppm
-ant -Djar=graphicsio-ps
-ant -Djar=graphicsio-svg
-ant -Djar=graphicsio-swf
+svn co svn://svn.freehep.org/svn/freehep/tags/vectorgraphics-2.0
 +--
 
-	To build the distribution kit:
+    or if you like to live on the edge from the HEAD of svn:
 
 +--
-cd org/freehep/graphicsio
-gmake dist
+svn co svn://svn.freehep.org/svn/freehep/trunk/vectorgraphics
 +--
+
+    both will create a directory in which you will find all VectorGraphics modules:
+
++--
+.../freehep-graphics2d
+.../freehep-graphics3d              (to be ignored)
+.../freehep-graphicsio
+.../freehep-graphicsio-cgm          (not included in this release, but available for compilation)
+.../freehep-graphicsio-emf
+.../freehep-graphicsio-java         (not included in this release, but available for compilation)
+.../freehep-graphicsio-latex        (not included in this release, but available for compilation)
+.../freehep-graphicsio-pdf
+.../freehep-graphicsio-ps
+.../freehep-graphicsio-svg
+.../freehep-graphicsio-swf
+.../freehep-graphicsio-tests
+.../pom.xml
+.../..                              (other files)
++--
+	
+    To compile and run the tests type the following:
+
++--
+cd directory
+mvn
++--
+	
+    For further instructions see the {{{http://java.freehep.org/}FreeHEP WebSite}}.
+
 
 * {Building an Application with the VectorGraphics package}
 
 	Add the following libraries to your CLASSPATH:
 
 +--
-freehep-graphics2d.jar
-freehep-base.jar
+freehep-graphics2d-2.0.jar
+freehep-export-2.0.2.jar
+openide-lookup-1.9-patched-1.0.jar
+freehep-swing-2.0.jar
+freehep-util-2.0.jar
 +--
+
 
 * {Running an Application with the VectorGraphics package}
 
 	Add the following libraries to your CLASSPATH:
 
 +--
-freehep-graphicsio.jar
-freehep-graphics2d.jar
-freehep-base.jar
+freehep-graphicsio-2.0.jar
+freehep-io-2.0.jar
+
+freehep-graphics2d-2.0.jar
+freehep-export-2.0.2.jar
+openide-lookup-1.9-patched-1.0.jar
+freehep-swing-2.0.jar
+freehep-util-2.0.jar
 +--
 
-  	Then add any of the following jar files to your CLASSPATH to enable that 
-format for output:
+  	Then add any or all of the following jar files to your CLASSPATH to enable these vector 
+format as output:
 
 +--
-freehep-graphicsio-cgm.jar
-freehep-graphicsio-emf.jar
-freehep-graphicsio-gif.jar
-freehep-graphicsio-java.jar
-freehep-graphicsio-pdf.jar
-freehep-graphicsio-ppm.jar
-freehep-graphicsio-ps.jar
-freehep-graphicsio-svg.jar
-freehep-graphicsio-swf.jar
+freehep-graphicsio-emf-2.0.jar
+    jdom-1.0.jar                            (needed by freehep-graphicsio-emf for the EMF2SVG converter)
+freehep-graphicsio-pdf-2.0.jar
+freehep-graphicsio-ps-2.0.jar
+freehep-graphicsio-svg-2.0.jar
+    freehep-xml-2.0.jar                     (needed by freehep-graphicsio-svg)
+freehep-graphicsio-swf-2.0.jar
 +--
+
+    To run any of the tests you must also add:
+    
++--
+freehep-graphicsio-tests-2.0.jar
+jas-plotter-2.0.jar
+junit-3.8.2.jar
++--
+
 
 * {Features/Limitations of the Current Release}
 
 	The following limitations exist:
 
-  * All outstanding issues in the
-  {{{http://java.freehep.org/redirect?project=VectorGraphics&area=bugs&reset=true&mode=hide&sorter/order=ASC&sorter/field=priority&resolutionIds=-1}Bug Database}}.
+  * Some {{{http://bugs.freehep.org/secure/IssueNavigator.jspa?reset=true&mode=hide&sorter/order=DESC&sorter/field=priority&resolutionIds=-1&pid=10170&fixfor=10651}Operating System Limitations}}.
   
-  * The distribution kits contain some CVS directories and files, please 
-  ignore.
+  * Some {{{http://bugs.freehep.org/secure/IssueNavigator.jspa?reset=true&mode=hide&sorter/order=DESC&sorter/field=priority&resolutionIds=-1&pid=10170&fixfor=10650}Format Limitations}}.
+
+  * All outstanding issues in the {{{http://bugs.freehep.org/browse/FVG}Bug Database}}.
   
-  * The freehep-base.jar file (and especially its sources) are dependent on 
-  some external jar files which are not strictly needed for the VectorGraphics 
-	package. 
-  Please ignore for now. In a later release we will shrink freehep-base.jar and 
-  get rid of these dependencies.
 
 * {Reporting Bugs}
 
 	To report bugs or request enhancements you may use the
-{{{http://java.freehep.org/redirect?project=Java&area=bugs}FreeHEP bug database}}, 
-component VectorGraphics.
+{{{http://bugs.freehep.org/browse/FVG}FreeHEP Bug Database}} and 
+the {{{http://forum.freehep.org/index.php?t=thread&frm_id=8&rid=0}FreeHEP VectorGraphics Forum}}.
+
 
 * {Examples}
 
-	The VectorGraphics/examples directory contains: 
+	The VectorGraphics-version/examples directory contains: 
 
   * ExportDialogExample.java to show how to use the default ExportDialog that 
   comes with the VectorGraphics package.
