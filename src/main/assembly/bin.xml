@@ -17,6 +17,15 @@
       <outputDirectory>/bin</outputDirectory>
     </fileSet>
   </fileSets>
+  <moduleSets>
+    <moduleSet>
+      <binaries>
+        <outputDirectory>lib</outputDirectory>
+        <includeDependencies>true</includeDependencies>
+        <unpack>false</unpack>
+      </binaries>
+    </moduleSet>
+  </moduleSets>  
   <dependencySets>
     <dependencySet>
       <outputDirectory>/lib</outputDirectory>

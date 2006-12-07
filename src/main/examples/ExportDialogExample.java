@@ -20,7 +20,7 @@ import org.freehep.graphics2d.VectorGraphics;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/ExportDialogExample.java f493ff6e61b2 2005/12/01 18:46:43 duns $
+ * @version $Id: src/main/examples/ExportDialogExample.java 850fba8b8008 2006/12/07 00:29:46 duns $
  */
 public class ExportDialogExample extends JPanel {
 

@@ -53,7 +53,7 @@ import org.freehep.util.images.ImageUtilities;
  * @author Charles Loomis
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java f827db4cd880 2006/12/04 22:27:37 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 850fba8b8008 2006/12/07 00:29:46 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -1096,10 +1096,10 @@ s     *
 
     /**
      * Writes out the dash of the stroke.
-     *
+
+     * @deprecated use writeDash(float[], float)
      * @param dash dash pattern, empty array is solid line
      * @param phase of the dash pattern
-     * @deprecated, use writeDash(float[], float)
      */
     protected void writeDash(double[] dash, double phase) throws IOException {
         writeWarning(getClass() + ": writeDash() not implemented.");

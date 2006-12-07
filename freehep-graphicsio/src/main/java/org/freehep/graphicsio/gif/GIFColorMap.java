@@ -5,7 +5,7 @@ package org.freehep.graphicsio.gif;
  * Creates colormap from set of pixels, making pixels index into the colormap.
  * 
  * @author duns
- * @versionb $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFColorMap.java ebb3d89d5caf 2006/11/23 01:05:05 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFColorMap.java 850fba8b8008 2006/12/07 00:29:46 duns $
  */
 public interface GIFColorMap {
     

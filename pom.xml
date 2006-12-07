@@ -118,9 +118,19 @@
         <artifactId>maven-site-plugin</artifactId>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <aggregate>true</aggregate>
+<!--          
+<overview>org/freehep/graphics2d/overview.html</overview>
+-->
+          <verbose>true</verbose>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <!--  NOTE 2.1 fails -->
-        <version>2.0.1</version>
+        <version>2.1</version>
         <configuration>
           <descriptors>
             <descriptor>src/main/assembly/bin.xml</descriptor>
@@ -181,7 +191,7 @@
       <dependency>
         <groupId>org.freehep</groupId>
         <artifactId>freehep-io</artifactId>
-        <version>2.0</version>
+        <version>2.0.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.freehep</groupId>
@@ -191,7 +201,7 @@
       <dependency>
         <groupId>org.freehep</groupId>
         <artifactId>freehep-xml</artifactId>
-        <version>2.0</version>
+        <version>2.0.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>hep.aida</groupId>
@@ -232,11 +242,13 @@
     <module>freehep-graphicsio-latex</module>
 -->
     <module>freehep-graphicsio</module>
+<!--
     <module>freehep-graphicsio-emf</module>
     <module>freehep-graphicsio-pdf</module>
     <module>freehep-graphicsio-ps</module>
     <module>freehep-graphicsio-svg</module>
     <module>freehep-graphicsio-swf</module>
     <module>freehep-graphicsio-tests</module>
+-->
   </modules>
 </project>

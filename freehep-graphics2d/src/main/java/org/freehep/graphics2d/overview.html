@@ -1,0 +1,31 @@
+<body>
+<p>
+This is the API specification of the FreeHEP VectorGraphics package.
+</p>
+
+<p>
+        The VectorGraphics library is in general split in two layers. The bottom layer
+implements writing (and in some cases reading) of a specific format, while the top-layer
+implements writing in terms of java.awt.Graphics2D. 
+</p>
+
+<p>
+        Base classes are provided in the freehep-graphics2d package. This package also includes
+bitmap formats and the screen driver.
+</p>
+
+<p>
+        The derived freehep-graphicsio package implements common functionality for vectorgraphics. 
+</p>
+
+<p>
+        Each format is defined in its own freehep-graphicsio-&lt;fmt&gt; package, which also contains
+the classes to write (and in some cases read) the format.
+</p>
+
+<p>
+        The freehep-graphicsio-tests package defines a set of standard tests which can be run for
+each of the formats.
+</p>
+
+</body>

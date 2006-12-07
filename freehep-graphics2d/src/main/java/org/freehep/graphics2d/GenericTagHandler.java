@@ -1,4 +1,4 @@
-// Copyright 2000, CERN, Geneva, Switzerland and University of Santa Cruz, California, U.S.A.
+// Copyright FreeHEP, 2000-2006
 package org.freehep.graphics2d;
 
 import java.awt.Graphics2D;
@@ -15,7 +15,7 @@ import java.util.Vector;
  *
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/GenericTagHandler.java cba39eb5843a 2006/03/20 18:04:28 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/GenericTagHandler.java 850fba8b8008 2006/12/07 00:29:46 duns $
  */
 public class GenericTagHandler extends TagHandler {
 
@@ -168,7 +168,7 @@ public class GenericTagHandler extends TagHandler {
 
     /**
      * closes the given html tag. It doesn't matter, if that one was opened, so </udot>
-     * closes a <udash> too, because the use the same {@link TextAttribute.UNDERLINE}.
+     * closes a <udash> too, because the use the same TextAttribute.UNDERLINE.
      *
      * @param tag to close
      * @return empty string or the result of the overloaded method

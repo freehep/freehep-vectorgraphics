@@ -430,21 +430,22 @@ questions about the licensing please send a mail to:
 
 * {Installation}
 
-	Download VectorGraphics-version-bin.tar.gz or the .zip file and unpack. The binary distribution 
+	Download vectorgraphics-2.0-bin.tar.gz or the .zip file and unpack. The binary distribution 
 creates the following directory structure:
 
 +--
-VectorGraphics-version            containing license and release notes
-VectorGraphics-version/bin        empty
-VectorGraphics-version/examples   containing examples
-VectorGraphics-version/lib        containing jar files
+vectorgraphics-2.0            containing license and release notes
+vectorgraphics-2.0/bin        empty
+vectorgraphics-2.0/examples   containing examples
+vectorgraphics-2.0/lib        containing jar files
 +--
 
-    You may optionally download the documentation VectorGraphics-version-doc.tar.gz or the .zip file
+    You may optionally download the documentation vectorgraphics-2.0-doc.tar.gz or the .zip file
 and unpack. The documentation distribution creates the following directory structure:
 
 +--
-VectorGraphics-version/site       containing a copy of the website
+vectorgraphics-2.0/doc        empty
+vectorgraphics-2.0/site       containing a copy of the website
 +--
 
 
@@ -491,6 +492,7 @@ svn co svn://svn.freehep.org/svn/freehep/trunk/vectorgraphics
 .../freehep-graphicsio-swf
 .../freehep-graphicsio-tests
 .../pom.xml
+.../src/...			    (the website and files for building the distributions)
 .../..                              (other files)
 +--
 	
@@ -512,8 +514,8 @@ mvn
 freehep-graphics2d-2.0.jar
 freehep-export-2.0.2.jar
 openide-lookup-1.9-patched-1.0.jar
-freehep-swing-2.0.jar
-freehep-util-2.0.jar
+freehep-swing-2.0.2.jar
+freehep-util-2.0.1.jar
 +--
 
 
@@ -541,7 +543,7 @@ freehep-graphicsio-emf-2.0.jar
 freehep-graphicsio-pdf-2.0.jar
 freehep-graphicsio-ps-2.0.jar
 freehep-graphicsio-svg-2.0.jar
-    freehep-xml-2.0.jar                     (needed by freehep-graphicsio-svg)
+    freehep-xml-2.0.1.jar                   (needed by freehep-graphicsio-svg)
 freehep-graphicsio-swf-2.0.jar
 +--
 
