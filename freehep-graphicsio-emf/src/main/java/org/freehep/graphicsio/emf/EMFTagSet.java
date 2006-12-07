@@ -1,13 +1,96 @@
 // Copyright 2001, FreeHEP.
 package org.freehep.graphicsio.emf;
 
+import org.freehep.graphicsio.emf.gdi.AbortPath;
+import org.freehep.graphicsio.emf.gdi.AlphaBlend;
+import org.freehep.graphicsio.emf.gdi.AngleArc;
+import org.freehep.graphicsio.emf.gdi.Arc;
+import org.freehep.graphicsio.emf.gdi.ArcTo;
+import org.freehep.graphicsio.emf.gdi.BeginPath;
+import org.freehep.graphicsio.emf.gdi.BitBlt;
+import org.freehep.graphicsio.emf.gdi.Chord;
+import org.freehep.graphicsio.emf.gdi.CloseFigure;
+import org.freehep.graphicsio.emf.gdi.CreateBrushIndirect;
+import org.freehep.graphicsio.emf.gdi.CreatePen;
+import org.freehep.graphicsio.emf.gdi.DeleteObject;
+import org.freehep.graphicsio.emf.gdi.EMFPolygon;
+import org.freehep.graphicsio.emf.gdi.EMFRectangle;
+import org.freehep.graphicsio.emf.gdi.EOF;
+import org.freehep.graphicsio.emf.gdi.Ellipse;
+import org.freehep.graphicsio.emf.gdi.EndPath;
+import org.freehep.graphicsio.emf.gdi.ExcludeClipRect;
+import org.freehep.graphicsio.emf.gdi.ExtCreateFontIndirectW;
+import org.freehep.graphicsio.emf.gdi.ExtCreatePen;
+import org.freehep.graphicsio.emf.gdi.ExtFloodFill;
+import org.freehep.graphicsio.emf.gdi.ExtSelectClipRgn;
+import org.freehep.graphicsio.emf.gdi.ExtTextOutA;
+import org.freehep.graphicsio.emf.gdi.ExtTextOutW;
+import org.freehep.graphicsio.emf.gdi.FillPath;
+import org.freehep.graphicsio.emf.gdi.FlattenPath;
+import org.freehep.graphicsio.emf.gdi.GDIComment;
+import org.freehep.graphicsio.emf.gdi.GradientFill;
+import org.freehep.graphicsio.emf.gdi.IntersectClipRect;
+import org.freehep.graphicsio.emf.gdi.LineTo;
+import org.freehep.graphicsio.emf.gdi.ModifyWorldTransform;
+import org.freehep.graphicsio.emf.gdi.MoveToEx;
+import org.freehep.graphicsio.emf.gdi.OffsetClipRgn;
+import org.freehep.graphicsio.emf.gdi.Pie;
+import org.freehep.graphicsio.emf.gdi.PolyBezier;
+import org.freehep.graphicsio.emf.gdi.PolyBezier16;
+import org.freehep.graphicsio.emf.gdi.PolyBezierTo;
+import org.freehep.graphicsio.emf.gdi.PolyBezierTo16;
+import org.freehep.graphicsio.emf.gdi.PolyDraw;
+import org.freehep.graphicsio.emf.gdi.PolyDraw16;
+import org.freehep.graphicsio.emf.gdi.PolyPolygon;
+import org.freehep.graphicsio.emf.gdi.PolyPolygon16;
+import org.freehep.graphicsio.emf.gdi.PolyPolyline;
+import org.freehep.graphicsio.emf.gdi.PolyPolyline16;
+import org.freehep.graphicsio.emf.gdi.Polygon16;
+import org.freehep.graphicsio.emf.gdi.Polyline;
+import org.freehep.graphicsio.emf.gdi.Polyline16;
+import org.freehep.graphicsio.emf.gdi.PolylineTo;
+import org.freehep.graphicsio.emf.gdi.PolylineTo16;
+import org.freehep.graphicsio.emf.gdi.RealizePalette;
+import org.freehep.graphicsio.emf.gdi.ResizePalette;
+import org.freehep.graphicsio.emf.gdi.RestoreDC;
+import org.freehep.graphicsio.emf.gdi.RoundRect;
+import org.freehep.graphicsio.emf.gdi.SaveDC;
+import org.freehep.graphicsio.emf.gdi.ScaleViewportExtEx;
+import org.freehep.graphicsio.emf.gdi.ScaleWindowExtEx;
+import org.freehep.graphicsio.emf.gdi.SelectClipPath;
+import org.freehep.graphicsio.emf.gdi.SelectObject;
+import org.freehep.graphicsio.emf.gdi.SelectPalette;
+import org.freehep.graphicsio.emf.gdi.SetArcDirection;
+import org.freehep.graphicsio.emf.gdi.SetBkColor;
+import org.freehep.graphicsio.emf.gdi.SetBkMode;
+import org.freehep.graphicsio.emf.gdi.SetBrushOrgEx;
+import org.freehep.graphicsio.emf.gdi.SetICMMode;
+import org.freehep.graphicsio.emf.gdi.SetMapMode;
+import org.freehep.graphicsio.emf.gdi.SetMapperFlags;
+import org.freehep.graphicsio.emf.gdi.SetMetaRgn;
+import org.freehep.graphicsio.emf.gdi.SetMiterLimit;
+import org.freehep.graphicsio.emf.gdi.SetPixelV;
+import org.freehep.graphicsio.emf.gdi.SetPolyFillMode;
+import org.freehep.graphicsio.emf.gdi.SetROP2;
+import org.freehep.graphicsio.emf.gdi.SetStretchBltMode;
+import org.freehep.graphicsio.emf.gdi.SetTextAlign;
+import org.freehep.graphicsio.emf.gdi.SetTextColor;
+import org.freehep.graphicsio.emf.gdi.SetViewportExtEx;
+import org.freehep.graphicsio.emf.gdi.SetViewportOrgEx;
+import org.freehep.graphicsio.emf.gdi.SetWindowExtEx;
+import org.freehep.graphicsio.emf.gdi.SetWindowOrgEx;
+import org.freehep.graphicsio.emf.gdi.SetWorldTransform;
+import org.freehep.graphicsio.emf.gdi.StretchDIBits;
+import org.freehep.graphicsio.emf.gdi.StrokeAndFillPath;
+import org.freehep.graphicsio.emf.gdi.StrokePath;
+import org.freehep.graphicsio.emf.gdi.WidenPath;
 import org.freehep.util.io.TagSet;
 
 /**
  * EMF specific tagset.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFTagSet.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFTagSet.java f2f1115939ae 2006/12/07 07:50:41 duns $
  */
 public class EMFTagSet extends TagSet {
 

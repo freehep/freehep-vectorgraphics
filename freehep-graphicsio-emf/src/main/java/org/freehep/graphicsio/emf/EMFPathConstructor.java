@@ -6,10 +6,17 @@ import java.awt.Rectangle;
 import java.io.IOException;
 
 import org.freehep.graphicsio.QuadToCubicPathConstructor;
+import org.freehep.graphicsio.emf.gdi.CloseFigure;
+import org.freehep.graphicsio.emf.gdi.LineTo;
+import org.freehep.graphicsio.emf.gdi.MoveToEx;
+import org.freehep.graphicsio.emf.gdi.PolyBezierTo;
+import org.freehep.graphicsio.emf.gdi.PolyBezierTo16;
+import org.freehep.graphicsio.emf.gdi.PolylineTo;
+import org.freehep.graphicsio.emf.gdi.PolylineTo16;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFPathConstructor.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFPathConstructor.java f2f1115939ae 2006/12/07 07:50:41 duns $
  */
 public class EMFPathConstructor extends QuadToCubicPathConstructor implements
         EMFConstants {

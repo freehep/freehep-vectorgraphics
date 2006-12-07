@@ -9,7 +9,7 @@ package org.freehep.graphicsio.emf;
  * Company:      ATLANTEC Enterprise Solutions GmbH<p>
  *
  * @author Carsten Zerbst carsten.zerbst@atlantec-es.com
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFDisplay.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFDisplay.java f2f1115939ae 2006/12/07 07:50:41 duns $
  */
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
@@ -29,6 +29,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import org.freehep.graphicsio.emf.gdi.Arc;
+import org.freehep.graphicsio.emf.gdi.ArcTo;
+import org.freehep.graphicsio.emf.gdi.BeginPath;
+import org.freehep.graphicsio.emf.gdi.Chord;
+import org.freehep.graphicsio.emf.gdi.CloseFigure;
+import org.freehep.graphicsio.emf.gdi.CreatePen;
+import org.freehep.graphicsio.emf.gdi.Ellipse;
+import org.freehep.graphicsio.emf.gdi.LineTo;
+import org.freehep.graphicsio.emf.gdi.LogPen;
+import org.freehep.graphicsio.emf.gdi.MoveToEx;
+import org.freehep.graphicsio.emf.gdi.Pie;
 import org.freehep.util.io.Tag;
 
 /**

@@ -35,6 +35,38 @@ import org.freehep.graphics2d.VectorGraphics;
 import org.freehep.graphics2d.font.FontEncoder;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.PageConstants;
+import org.freehep.graphicsio.emf.gdi.AlphaBlend;
+import org.freehep.graphicsio.emf.gdi.BeginPath;
+import org.freehep.graphicsio.emf.gdi.CreateBrushIndirect;
+import org.freehep.graphicsio.emf.gdi.DeleteObject;
+import org.freehep.graphicsio.emf.gdi.EOF;
+import org.freehep.graphicsio.emf.gdi.EndPath;
+import org.freehep.graphicsio.emf.gdi.ExtCreateFontIndirectW;
+import org.freehep.graphicsio.emf.gdi.ExtCreatePen;
+import org.freehep.graphicsio.emf.gdi.ExtLogFontW;
+import org.freehep.graphicsio.emf.gdi.ExtLogPen;
+import org.freehep.graphicsio.emf.gdi.ExtTextOutW;
+import org.freehep.graphicsio.emf.gdi.FillPath;
+import org.freehep.graphicsio.emf.gdi.LogBrush32;
+import org.freehep.graphicsio.emf.gdi.ModifyWorldTransform;
+import org.freehep.graphicsio.emf.gdi.RestoreDC;
+import org.freehep.graphicsio.emf.gdi.SaveDC;
+import org.freehep.graphicsio.emf.gdi.SelectClipPath;
+import org.freehep.graphicsio.emf.gdi.SelectObject;
+import org.freehep.graphicsio.emf.gdi.SetBkMode;
+import org.freehep.graphicsio.emf.gdi.SetMapMode;
+import org.freehep.graphicsio.emf.gdi.SetMiterLimit;
+import org.freehep.graphicsio.emf.gdi.SetPolyFillMode;
+import org.freehep.graphicsio.emf.gdi.SetTextAlign;
+import org.freehep.graphicsio.emf.gdi.SetTextColor;
+import org.freehep.graphicsio.emf.gdi.SetViewportExtEx;
+import org.freehep.graphicsio.emf.gdi.SetViewportOrgEx;
+import org.freehep.graphicsio.emf.gdi.SetWindowExtEx;
+import org.freehep.graphicsio.emf.gdi.SetWindowOrgEx;
+import org.freehep.graphicsio.emf.gdi.SetWorldTransform;
+import org.freehep.graphicsio.emf.gdi.StrokeAndFillPath;
+import org.freehep.graphicsio.emf.gdi.StrokePath;
+import org.freehep.graphicsio.emf.gdi.TextW;
 import org.freehep.graphicsio.font.FontTable;
 import org.freehep.graphicsio.font.FontUtilities;
 import org.freehep.util.UserProperties;
@@ -43,7 +75,7 @@ import org.freehep.util.UserProperties;
  * Enhanced Metafile Format Graphics 2D driver.
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java 117b4dcec7e2 2006/11/30 18:44:02 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java f2f1115939ae 2006/12/07 07:50:41 duns $
  */
 public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         EMFConstants {

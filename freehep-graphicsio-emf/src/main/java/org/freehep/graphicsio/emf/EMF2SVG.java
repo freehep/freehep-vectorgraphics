@@ -9,13 +9,25 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
+import org.freehep.graphicsio.emf.gdi.Arc;
+import org.freehep.graphicsio.emf.gdi.BeginPath;
+import org.freehep.graphicsio.emf.gdi.CreateBrushIndirect;
+import org.freehep.graphicsio.emf.gdi.CreatePen;
+import org.freehep.graphicsio.emf.gdi.DeleteObject;
+import org.freehep.graphicsio.emf.gdi.EndPath;
+import org.freehep.graphicsio.emf.gdi.FillPath;
+import org.freehep.graphicsio.emf.gdi.LineTo;
+import org.freehep.graphicsio.emf.gdi.LogBrush32;
+import org.freehep.graphicsio.emf.gdi.LogPen;
+import org.freehep.graphicsio.emf.gdi.MoveToEx;
+import org.freehep.graphicsio.emf.gdi.SelectObject;
 import org.freehep.util.io.Tag;
 import org.jdom.Attribute;
 import org.jdom.Element;
 
 /**
  * @author Carsten Zerbst carsten.zerbst@atlantec-es.com
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMF2SVG.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMF2SVG.java f2f1115939ae 2006/12/07 07:50:41 duns $
  */
 public class EMF2SVG {
     private EMFInputStream is;
