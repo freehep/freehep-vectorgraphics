@@ -1,5 +1,3 @@
-// Copyright FreeHEP, 2003-2006.
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -23,8 +21,7 @@ import org.freehep.graphics2d.VectorGraphics;
  * to your application and allow it to export what you draw
  * in panel to any of the supported vector and bitmap formats.
  *
- * The paintComponent() method and the ExportDialogExample
- * panel should be replaced by your own method and component.
+ * Instead of MyPanel you should use your own panel/component.
  *
  * The output formats available depend on the jar files
  * you add to the CLASSPATH.
@@ -35,39 +32,9 @@ import org.freehep.graphics2d.VectorGraphics;
  * methods from this class in the paint methods).
  *
  * @author Mark Donszelmann
- * @version $Id: src/main/examples/ExportDialogExample.java accbeaafed87 2006/12/07 01:17:03 duns $
+ * @version $Id: src/main/examples/ExportDialogExample.java e31519a485cd 2006/12/07 15:42:14 duns $
  */
-public class ExportDialogExample extends JPanel {
-
-
-    public ExportDialogExample() {
-        setPreferredSize(new Dimension(600,400));
-    }
-
-    public void paintComponent(Graphics g) {
-
-        if (g == null) return;
-
-        VectorGraphics vg = VectorGraphics.create(g);
-
-        Dimension dim = getSize();
-        Insets insets = getInsets();
-
-        vg.setColor(Color.white);
-        vg.fillRect(insets.left, insets.top,
-                    dim.width-insets.left-insets.right,
-                    dim.height-insets.top-insets.bottom);
-
-        vg.setColor(Color.black);
-
-        vg.setLineWidth(4.0);
-        double w=dim.width, h=dim.height;
-        vg.translate(w/2,h/2);
-        double xhi=w/2-10, yhi=h/2-10;
-        vg.drawLine(-xhi,-yhi,xhi, yhi);
-        vg.drawLine(-xhi, yhi,xhi,-yhi);
-        vg.drawRect(-xhi,-yhi,w-20,h-20);
-    }
+public class ExportDialogExample {
 
     public static void main(String[] args) throws Exception {
         JFrame frame = new JFrame("ExportDialogExample");
@@ -78,7 +45,7 @@ public class ExportDialogExample extends JPanel {
             }
         });
 
-        final ExportDialogExample panel = new ExportDialogExample();
+        final MyPanel panel = new MyPanel();
         frame.getContentPane().add(panel);
 
         JMenuBar menuBar = new JMenuBar();
@@ -106,5 +73,36 @@ public class ExportDialogExample extends JPanel {
 
         frame.pack();
         frame.setVisible(true);
+    }
+}
+
+class MyPanel extends JPanel {
+	public MyPanel() {
+        setPreferredSize(new Dimension(600,400));		
+	}
+
+    public void paintComponent(Graphics g) {
+
+        if (g == null) return;
+
+        VectorGraphics vg = VectorGraphics.create(g);
+
+        Dimension dim = getSize();
+        Insets insets = getInsets();
+
+        vg.setColor(Color.white);
+        vg.fillRect(insets.left, insets.top,
+                    dim.width-insets.left-insets.right,
+                    dim.height-insets.top-insets.bottom);
+
+        vg.setColor(Color.black);
+
+        vg.setLineWidth(4.0);
+        double w=dim.width, h=dim.height;
+        vg.translate(w/2,h/2);
+        double xhi=w/2-10, yhi=h/2-10;
+        vg.drawLine(-xhi,-yhi,xhi, yhi);
+        vg.drawLine(-xhi, yhi,xhi,-yhi);
+        vg.drawRect(-xhi,-yhi,w-20,h-20);
     }
 }
