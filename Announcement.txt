@@ -1,0 +1,10 @@
+The FreeHEP Team announces "The VectorGraphics Package, Version 2.0"
+
+For further information please refer to: 
+
+		http://java.freehep.org/vectorgraphics
+
+This release is also available from our maven1 and maven2 servers.
+
+The FreeHEP Team.
+
