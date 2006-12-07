@@ -1,0 +1,26 @@
+Below the informal release procedure to be run
+as Release Candidate for all items with a star (*)
+and if successful again for all items.
+
+1.  *Update News Item in VectorGraphics
+2.  *Commit
+3.  *mvn -DdryRun release:prepare
+4.  *mvn release:clean
+5.  *mvn release:prepare
+6.  *mvn release:perform
+7.  *log into Windows/Unix and check out tag, and run 
+7.a   *mvn
+7.b   *mvn site:site
+7.c   *mvn site:deploy
+8.  *check out tag
+9.  *mvn javadoc:javadoc
+10. *mvn site:site
+11. *mvn
+12. *mvn package assembly:attached
+13. *check tar and zip files
+14. copy tar and zip files
+15. update jira project
+16. update news main site
+17. announce forum
+18. announce mailing list
+ 
