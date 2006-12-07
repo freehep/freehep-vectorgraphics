@@ -1,0 +1,26 @@
+    ---
+FreeHEP VectorGraphics - Source Repository
+    ---
+Mark Donszelmann
+    ---
+    ---
+
+Source Repository
+
+    This project uses {{{http://subversion.tigris.org}Subversion}} to manage its 
+source code. Instructions on Subversion use can be found at {{http://svnbook.red-bean.com/}}.
+
+
+* Web Access
+
+    You can browse the repository with 
+{{{http://java.freehep.org/svn/repobrowser.svn?path=%2ffreehep%2ftrunk%2fvectorgraphics/&revision=HEAD}Sventon}}.
+
+
+* Checkout
+
+    The source can be checked out from SVN with this command:
+    
++--
+svn checkout svn://svn.freehep.org/svn/freehep/trunk/vectorgraphics vectorgraphics
++--
