@@ -577,7 +577,8 @@ junit-3.8.2.jar
 
 * Usage with Maven
 
-    All of the jar files listed above are available from our maven servers:
+    All of the jar files listed above, including the -javadoc and -source jar 
+attachements are available from our maven servers:
     
     [Maven 1 URL] http://java.freehep.org/maven
     
