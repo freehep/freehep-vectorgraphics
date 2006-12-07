@@ -125,7 +125,6 @@
 <!--          
 <overview>org/freehep/graphics2d/overview.html</overview>
 -->
-          <verbose>true</verbose>
         </configuration>
       </plugin>
       <plugin>
@@ -242,13 +241,11 @@
     <module>freehep-graphicsio-latex</module>
 -->
     <module>freehep-graphicsio</module>
-<!--
     <module>freehep-graphicsio-emf</module>
     <module>freehep-graphicsio-pdf</module>
     <module>freehep-graphicsio-ps</module>
     <module>freehep-graphicsio-svg</module>
     <module>freehep-graphicsio-swf</module>
     <module>freehep-graphicsio-tests</module>
--->
   </modules>
 </project>

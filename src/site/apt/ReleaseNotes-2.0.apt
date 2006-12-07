@@ -580,3 +580,8 @@ the {{{http://forum.freehep.org/index.php?t=thread&frm_id=8&rid=0}FreeHEP Vector
 
   * ExportDialogExample.java to show how to use the default ExportDialog that 
   comes with the VectorGraphics package.
+
+  * HeadlessExample.java to show how you can write out any format
+  while not actually displaying anything on the screen. This code needs
+  some modification to actually run.
+

@@ -1,4 +1,4 @@
-// Copyright 2003, SLAC, Stanford, U.S.A.
+// Copyright FreeHEP, 2003-2006.
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,8 +19,23 @@ import org.freehep.util.export.ExportDialog;
 import org.freehep.graphics2d.VectorGraphics;
 
 /**
+ * This example shows how to add a standard ExportDialog
+ * to your application and allow it to export what you draw
+ * in panel to any of the supported vector and bitmap formats.
+ *
+ * The paintComponent() method and the ExportDialogExample
+ * panel should be replaced by your own method and component.
+ *
+ * The output formats available depend on the jar files
+ * you add to the CLASSPATH.
+ *
+ * This example (or your application) solely depends
+ * on the ExportDialog class and the VectorGraphics
+ * class (the latter only if you wish to use special
+ * methods from this class in the paint methods).
+ *
  * @author Mark Donszelmann
- * @version $Id: src/main/examples/ExportDialogExample.java 850fba8b8008 2006/12/07 00:29:46 duns $
+ * @version $Id: src/main/examples/ExportDialogExample.java accbeaafed87 2006/12/07 01:17:03 duns $
  */
 public class ExportDialogExample extends JPanel {
 
