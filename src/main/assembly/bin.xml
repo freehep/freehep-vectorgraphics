@@ -25,6 +25,9 @@
     <moduleSet>
       <binaries>
         <outputDirectory>lib</outputDirectory>
+<!--
+        <outputDirectory>modules/${artifactId}</outputDirectory>
+-->
         <includeDependencies>true</includeDependencies>
         <unpack>false</unpack>
       </binaries>

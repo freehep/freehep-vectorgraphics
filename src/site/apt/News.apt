@@ -7,9 +7,13 @@ Mark Donszelmann
 
 News
 
-	December 9, 2003: VectorGraphics version 1.2.2 released.
+    * December 7, 2006: VectorGraphics version 2.0 released.
 	
-* Java2D export to PDF, Postscript, SVG, EMF, shockwave etc.
+	* December 9, 2003: VectorGraphics version 1.2.2 released.
+	
+	[]
+	
+* Java2D export to PDF, Postscript, SVG, EMF, SWF (Flash) etc.
 
 	The VectorGraphics package of FreeHEP Java Library enables any Java
 program to export to a variety of vector graphics formats as well as
