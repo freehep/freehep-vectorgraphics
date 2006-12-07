@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="freehep-graphicsio-latex">
     <bannerLeft>
-        <name>FreeHEP FIXME</name>
+        <name>FreeHEP GraphicsIO LaTeX</name>
 <!--        <src>http://maven.apache.org/images/apache-maven-project.png</src> -->
 <!-- FIXME, should this be substituted by some properties -->
         <href>http://java.freehep.org/mvn/freehep-graphicsio-latex</href>
@@ -20,12 +20,12 @@
             <item name="WIRED" href="http://wired.freehep.org/"/>
         </links>
     
+        <menu ref="parent"/>
+
         <menu name="General">
             <item name="Home" href="index.html"/>
         </menu>
-        
-<!--        
-        ${reports}      
--->
+
+        <menu ref="reports"/>
     </body>
 </project>

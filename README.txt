@@ -2,9 +2,9 @@ For information on the FreeHEP VectorGraphics package see:
 
 	http://java.freehep.org/vectorgraphics
 
-or the file
+of, if you installed the documentation distribution, the local website
 
-	doc/index.html
+	site/index.html
 
-in the documentation distribution.
+The FreeHEP Team.
 
