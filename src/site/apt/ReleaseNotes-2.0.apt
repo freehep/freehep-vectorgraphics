@@ -549,8 +549,8 @@ freehep-io-2.0.1.jar
 freehep-graphics2d-2.0.jar
 freehep-export-2.0.3.jar
 openide-lookup-1.9-patched-1.0.jar
-freehep-swing-2.0.jar
-freehep-util-2.0.jar
+freehep-swing-2.0.2.jar
+freehep-util-2.0.1.jar
 +--
 
   	Then add any or all of the following jar files to your CLASSPATH to enable these vector 
