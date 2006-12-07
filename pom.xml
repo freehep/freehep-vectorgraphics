@@ -191,7 +191,7 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
           <aggregate>true</aggregate>  
-<!--       
+<!-- bug in javadoc plugin 2.0, maybe next version will work       
           <overview>overview.html</overview>
 -->
           <groups>
