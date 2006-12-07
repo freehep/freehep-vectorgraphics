@@ -118,16 +118,6 @@
         <artifactId>maven-site-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <aggregate>true</aggregate>
-<!--          
-<overview>org/freehep/graphics2d/overview.html</overview>
--->
-        </configuration>
-      </plugin>
-      <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
           <descriptors>
@@ -180,6 +170,41 @@
       </plugin>
     </plugins>
   </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <configuration>
+          <aggregate>true</aggregate>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <aggregate>true</aggregate>  
+<!--       
+          <overview>overview.html</overview>
+-->
+          <groups>
+            <group>
+              <title>VectorGraphics</title>
+              <packages>org.freehep.graphics2d*:org.freehep.graphicsio:org.freehep.graphicsio.exportchooser:org.freehep.graphicsio.font*:org.freehep.graphicsio.test</packages>
+            </group>
+            <group>
+              <title>Vector Formats</title>
+              <packages>org.freehep.graphicsio.emf*:org.freehep.graphicsio.pdf*:org.freehep.graphicsio.ps*:org.freehep.graphicsio.svg*:org.freehep.graphicsio.swf*</packages>
+            </group>
+            <group>
+              <title>Bitmap Formats</title>
+              <packages>org.freehep.graphicsio.gif*:org.freehep.graphicsio.png*:org.freehep.graphicsio.ppm*:org.freehep.graphicsio.raw*</packages>
+            </group>
+          </groups>
+        </configuration>
+      </plugin>
+    </plugins>  
+  </reporting>
   <dependencyManagement>
     <dependencies>
       <dependency>

@@ -48,6 +48,8 @@
 -->
 		<item name="Source Repository" href="SourceRepository.html"/>
 		<item name="API Docs" href="apidocs/index.html"/>
+		<item name="Source Xref" href="xref/index.html"/>
+		<item name="Test Xref" href="xref-test/index.html"/>
 		<item name="Dependency Convergence" href="dependency-convergence.html"/>
 	</menu>
 
@@ -56,5 +58,7 @@
 		<item name="JDK-1.5 Linux" href="http://java.freehep.org/vectorgraphics/freehep-graphicsio-tests/test-output/Linux/JDK-1.5/png/TestAll.html"/>
 		<item name="JDK-1.5 MacOSX" href="http://java.freehep.org/vectorgraphics/freehep-graphicsio-tests/test-output/MacOSX/JDK-1.5/png/TestAll.html"/>
 	</menu>
+
+    <menu ref="modules"/>
     </body>
 </project>
