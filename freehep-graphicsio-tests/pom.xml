@@ -50,6 +50,7 @@
         <dependency>
             <groupId>org.freehep</groupId>
             <artifactId>freehep-graphicsio</artifactId>
+            <version>${version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
