@@ -1,0 +1,45 @@
+<faqs title="Frequently Asked Questions" toplink="false">
+
+  <part id="clipping">
+    <title>Clipping</title>
+   
+    <faq id="ps-pdf-clip">
+      <question>
+        PostScript and PDF can only reduce the clipping region. Is there a way in
+        my java program to enlarge the region and still output correct PostScript
+        and PDF?
+      </question>
+      <answer>
+        <p>Indeed in PostScript and PDF one can only reduce the clipping region.
+VectorGraphics has no protection for you setting a larger region and exporting
+to PostScript or PDF. However, both format can save the graphics state, reduce
+the clipping region and then restore the graphics state (including the initially
+larger clipping region).
+        </p>
+        
+	<p>You do not have direct control over save/restore, but creating a 
+sub-graphics context is used to do a save/restore, as shown in the code below:
+	</p>
+
+        <source>
+... large (or no) clipping exists in context g.
+
+Graphics2D tempg = g.create();
+tempg.clipRect(100, 100, 200, 200);
+
+... draw stuff with smaller clipping
+
+tempg.dispose();
+
+... large (or no) clipping exists in context g.
+	</source>
+        
+        <p>
+Note that it is important to call tempg.dispose(); at the end, otherwise the 
+newly created graphics object will remain as a memory leak.
+	</p>
+      </answer>
+    </faq>
+  </part>
+</faqs>
+
