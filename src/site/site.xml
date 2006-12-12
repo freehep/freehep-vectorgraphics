@@ -36,6 +36,7 @@
 
 	<menu name="User Info">
 	    <item name="Manual"        href="Manual.html"/>
+	    <item name="FAQ"           href="FAQ.html"/>
        	    <item name="Download"      href="ftp://ftp.slac.stanford.edu/software/freehep/VectorGraphics"/>
             <item name="Release Notes" href="ReleaseNotes.html"/>
             <item name="Forum" href="http://forum.freehep.org/index.php?t=threadt&amp;frm_id=8amp;&amp;rid=4"/>
