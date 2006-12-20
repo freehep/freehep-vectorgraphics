@@ -25,7 +25,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 40841545d8f1 2006/12/05 19:07:34 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 7c239f3463fb 2006/12/20 00:45:12 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -208,8 +208,8 @@ public class TestSuite extends junit.framework.TestSuite {
         // null));
         vectorFormats.put("emf", new Format("EMF", null, null, true, false, 10231,
                 null));
-        // vectorFormats.put("java", new Format("JAVA", null, null, false, false,
-        // 10238, "org/freehep/graphicsio/java/test"));
+        vectorFormats.put("java", new Format("JAVA", null, null, true, false,
+                10238, "org/freehep/graphicsio/java/test"));
         // vectorFormats.put("latex", new Format("Latex", "tex", null, false, false,
         // 10240, null));
         vectorFormats.put("pdf", new Format("PDF", null, null, true, false, 10235,
@@ -288,14 +288,18 @@ public class TestSuite extends junit.framework.TestSuite {
         }
     }
 
-    protected void addTests(String formatName) {
+    protected void addTests(String formatName, Properties properties) {
     	Format fmt = (Format) bitmapFormats.get(formatName.toLowerCase());
     	if (fmt == null) {
     		fmt = (Format) vectorFormats.get(formatName.toLowerCase());
     	}
-    	addTests(fmt, null);
+    	addTests(fmt, properties);
     }
     
+    protected void addTests(String formatName) {
+        addTests(formatName, null);
+    }
+        
     protected void addTests(String[] args) {
         if (args.length > 0) {
             for (int i = 0; i < args.length; i++) {
@@ -308,7 +312,7 @@ public class TestSuite extends junit.framework.TestSuite {
             }
             for (Iterator i = vectorFormats.keySet().iterator(); i.hasNext();) {
                 Format fmt = (Format) vectorFormats.get((String) i.next());
-                if (fmt.getUpperCaseName().equals("JAVA"))
+//                if (fmt.getUpperCaseName().equals("JAVA"))
                     addTests(fmt, null);
             }
         }
