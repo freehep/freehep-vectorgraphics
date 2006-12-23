@@ -1,5 +1,36 @@
 <faqs title="Frequently Asked Questions" toplink="false">
 
+  <part id="general">
+    <title>General</title>
+
+    <faq id="merge-jars">
+      <question>
+        The vectorgraphics formats are distributed as separate jar files. 
+        I merged the jar files into one, but now I only see a few (or no)
+        formats appear the ExportDialog option box. Where did the other
+        formats go?
+      </question>
+
+      <answer>
+        <p>
+        Every format registers itself as an ExportFileType with a lookup service, so that 
+        a program can find ExportFileTypes for a particular format.
+	The registration is done by scanning each of the jar files on the
+	classpath for the file META-INF/services/org.freehep.util.export.ExportFileType.
+	This file contains the names of all the ExportFileTypes it should
+register, normally only one per jar file, but sometimes more, in the case of 
+PS and EPS for instance.
+        </p>
+
+        <p>
+        If you merge all the jar files into one, you should also make 
+        a META-INF/services/org.freehep.util.export.ExportFileType file with
+        ALL the formats in it.
+        </p>
+      </answer>
+    </faq>
+  </part>
+
   <part id="clipping">
     <title>Clipping</title>
    
