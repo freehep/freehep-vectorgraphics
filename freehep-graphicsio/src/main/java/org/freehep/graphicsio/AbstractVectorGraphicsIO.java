@@ -53,7 +53,7 @@ import org.freehep.util.images.ImageUtilities;
  * @author Charles Loomis
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 850fba8b8008 2006/12/07 00:29:46 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java f9f18185753d 2007/01/02 19:17:40 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -1190,7 +1190,7 @@ s     *
      */
     public FontRenderContext getFontRenderContext() {
         // NOTE: not sure?
-        return new FontRenderContext(new AffineTransform(1, 0, 0, -1, 0, 0),
+        return new FontRenderContext(new AffineTransform(1, 0, 0, 1, 0, 0),
                 true, true);
     }
 
