@@ -1,4 +1,4 @@
-// Copyright 2000-2006, FreeHEP
+// Copyright 2000-2007, FreeHEP
 package org.freehep.graphicsio;
 
 import java.awt.AlphaComposite;
@@ -53,7 +53,7 @@ import org.freehep.util.images.ImageUtilities;
  * @author Charles Loomis
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 4412b83c145c 2007/01/02 19:18:25 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java a3071d178520 2007/01/02 20:08:50 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -1183,13 +1183,14 @@ s     *
     /* 8.3. font */
     /**
      * Gets the current font render context. This returns an standard
-     * FontRenderContext with an upside down matrix, anti-aliasing and uses
+     * FontRenderContext with anti-aliasing and uses
      * fractional metrics.
      *
      * @return current font render context
      */
     public FontRenderContext getFontRenderContext() {
         // NOTE: not sure?
+        // Fixed for VG-285
         return new FontRenderContext(new AffineTransform(1, 0, 0, 1, 0, 0),
                 true, true);
     }

@@ -1,4 +1,4 @@
-// Copyright 2001-2006, FreeHEP.
+// Copyright 2001-2007, FreeHEP.
 package org.freehep.graphicsio.test;
 
 import java.io.File;
@@ -25,7 +25,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 7c239f3463fb 2006/12/20 00:45:12 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java a3071d178520 2007/01/02 20:08:50 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -121,7 +121,7 @@ public class TestSuite extends junit.framework.TestSuite {
     private String testOutDir;
     private String os;
     private String jdk;
-
+    
     private boolean local = true;
 
     public static class TestCase extends junit.framework.TestCase {
@@ -208,7 +208,7 @@ public class TestSuite extends junit.framework.TestSuite {
         // null));
         vectorFormats.put("emf", new Format("EMF", null, null, true, false, 10231,
                 null));
-        vectorFormats.put("java", new Format("JAVA", null, null, true, false,
+        vectorFormats.put("java", new Format("JAVA", null, null, false, false,
                 10238, "org/freehep/graphicsio/java/test"));
         // vectorFormats.put("latex", new Format("Latex", "tex", null, false, false,
         // 10240, null));
@@ -434,17 +434,25 @@ public class TestSuite extends junit.framework.TestSuite {
 
             w.println("            <h5>Java</h5>");
             w.println("            <ul>");
+            
             w.println("              <li class=\"none\">");
-            if (jdk.equals("JDK-1.5"))
-                w.println("                <strong>");
-            w.println("                  <a href=\"" + top
-                    + fmt.getModuleName() + "/"
-                    + (local ? "target/site/" : "") + "test-output/" + os + "/" + jdk + "/"
-                    + fmt.getLowerCaseName() + "/" + test.getName()
-                    + ".html\">" + jdk + "</a>");
-            if (jdk.equals("JDK-1.5"))
-                w.println("                </strong>");
-            w.println("              </li>");
+            String[] jdks = { "JDK-1.5", "JDK-1.6" };
+            for (int i=0; i<jdks.length; i++) {
+                if (!local || jdk.equals(jdks[i])) {
+                    w.println("              <li class=\"none\">");
+                    if (jdk.equals(jdks[i]))
+                        w.println("                <strong>");
+                    w.println("                  <a href=\"" + top
+                            + fmt.getModuleName() + "/"
+                            + (local ? "target/site/" : "") + "test-output/" + os + "/" + jdks[i] + "/"
+                            + fmt.getLowerCaseName() + "/" + test.getName()
+                            + ".html\">" + jdks[i] + "</a>");
+                    if (jdk.equals(jdks[i]))
+                        w.println("                </strong>");
+                    w.println("              </li>");
+                }
+                
+            }
             w.println("            </ul>");
 
             w.println("            <h5>Vector Formats</h5>");
