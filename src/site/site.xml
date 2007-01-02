@@ -58,6 +58,8 @@
 		<item name="JDK-1.5 Windows" href="http://java.freehep.org/vectorgraphics/freehep-graphicsio-tests/test-output/Windows/JDK-1.5/png/TestAll.html"/>
 		<item name="JDK-1.5 Linux" href="http://java.freehep.org/vectorgraphics/freehep-graphicsio-tests/test-output/Linux/JDK-1.5/png/TestAll.html"/>
 		<item name="JDK-1.5 MacOSX" href="http://java.freehep.org/vectorgraphics/freehep-graphicsio-tests/test-output/MacOSX/JDK-1.5/png/TestAll.html"/>
+		<item name="JDK-1.6 Windows" href="http://java.freehep.org/vectorgraphics/freehep-graphicsio-tests/test-output/Windows/JDK-1.6/png/TestAll.html"/>
+		<item name="JDK-1.6 Linux" href="http://java.freehep.org/vectorgraphics/freehep-graphicsio-tests/test-output/Linux/JDK-1.6/png/TestAll.html"/>
 	</menu>
 
     <menu ref="modules"/>

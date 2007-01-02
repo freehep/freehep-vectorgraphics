@@ -10,8 +10,9 @@ Overview
     The <<VectorGraphics>> package of the {{{http://java.freehep.org}
 FreeHEP Java Library}} enables any Java program to export to a variety of
 vector graphics formats as well as bitmap image formats. Among the
-{{{Manual.html#VectorFormats}vector formats}} are PostScript, PDF, EMF,
-SVF, SWF and CGM, while the {{{Manual.html#ImageFormats}image formats}}
+{{{Manual.html#Vector Formats (Alphabetical)}vector formats}} are 
+PostScript, PDF, EMF, SVF, and Flash SWF, 
+while the {{{Manual.html#Image Formats (Alphabetical)}image formats}}
 include GIF, PNG, JPG and PPM.
 
     The package uses the standard java.awt.Graphics2D class as its interface to

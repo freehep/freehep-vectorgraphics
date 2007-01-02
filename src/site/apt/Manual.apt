@@ -83,25 +83,23 @@ double buffering and therefore paint an image, rather than vectorgraphics.>
     To run code using the VectorGraphics package you need to add the following jar files to your CLASSPATH:
     
 +--
-freehep-base.jar;freehep-graphics2d.jar;freehep-graphicsio.jar;
+freehep-export-x.x.jar;freehep-swing-x.x.jar;freehep-util-x.x.jar;freehep-xml-x.x.jar;
+freehep-graphics2d-x.x.jar;freehep-graphicsio-x.x.jar;
+jdom-x.x.jar;openide-lookup-x.x.jar
 +--
 
-    <this includes some of the Image Formats (JPG, PNG and PPM)>
+    <this includes some of the Image Formats (GIF, JPG, PNG and PPM)>
 
     followed by one or more output format specific jar file for any of the Vector Formats:
 
 +--
-freehep-graphicsio-cgm.jar;freehep-graphicsio-emf.jar;freehep-graphicsio-pdf.jar;
-freehep-graphicsio.ps.jar;freehep-graphicsio-svg.jar;freehep-graphicsio-swf.jar;
+freehep-graphicsio-emf-x.x.jar;freehep-graphicsio-pdf-x.x.jar;
+freehep-graphicsio.ps-x.x.jar;freehep-graphicsio-svg-x.x.jar;freehep-graphicsio-swf-x.x.jar;
 +--
 
-    to include gif you should add:
+    where x.x is the version umber of the file found in the distribution, see lib directory.
 
-+--
-freehep-graphicsio-gif.jar
-+--
-
-    then run your program as usual. The ExportDialog will now allow you to select any of the output formats for which
+    Then run your program as usual. The ExportDialog will now allow you to select any of the output formats for which
 you included jar files in the CLASSPATH.
 
 
@@ -228,15 +226,6 @@ format. Unlike Image formats, which do rasterize at the time of output, rasteriz
 the viewer of the format. The output can be scaled, rotated and manipulated in many ways, without losing its
 precision. For most drawings Vector Formats should be preferred.
 
-*** CGM (Computer Graphics Metafile)
-
-    The Computer Graphics Metafile format is used for electronic interchange. Can be used by many document
-applications, but limited in functionality. Prefer EMF over CGM. CGM can be used for the web in conjunction with the
-{{{http://www.corel.com/servlet/Satellite?pagename=Corel/Products/productInfo&id=1042152784209&did=1042152819585}
-Corel's ActiveCGM}} plugin. CGM support is currently
-limited to version 1, see
-{{{http://java.freehep.org/lib/freehep/api/org/freehep/graphicsio/cgm/package-summary.html}apidoc}} for more details.
-
 *** EMF (Enhanced Meta Format)
 
     The EMF format is a Windows specific format and can be used to import into Office applications (e.g. Word,
@@ -282,7 +271,8 @@ available.
 *** GIF (Graphics Interchange Format)
 
     GIF is a popular image format for line drawings on the web. It is limited to 256 colors and only has one
-transparency level available. All known browsers support it. PNG is preferred over GIF if more colors are needed or
+transparency level available. The FreeHEP GIF writer will reduce the number of colors
+to 255 if more colors are used. All known browsers support GIF. PNG is preferred over GIF if more colors are needed or
 more transparency levels.
 
 *** JPEG (Joint Photographic Engineering Group)
