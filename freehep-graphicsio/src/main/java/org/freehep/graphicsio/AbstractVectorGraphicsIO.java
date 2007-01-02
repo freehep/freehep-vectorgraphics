@@ -53,7 +53,7 @@ import org.freehep.util.images.ImageUtilities;
  * @author Charles Loomis
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java f9f18185753d 2007/01/02 19:17:40 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 4412b83c145c 2007/01/02 19:18:25 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -576,7 +576,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
         	
         	// create glyph
             GlyphVector gv = font.createGlyphVector(getFontRenderContext(), string);
-            
+
             // draw it
             drawGlyphVector(gv, (float) x, (float) y);
         } else {
