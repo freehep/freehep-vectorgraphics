@@ -19,6 +19,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.BufferedOutputStream;
@@ -59,7 +60,7 @@ import org.freehep.xml.util.XMLWriter;
  * The current implementation is based on REC-SVG11-20030114
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java 38597f8f6627 2006/11/15 00:47:22 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java ed51cacbe866 2007/01/03 18:50:46 duns $
  */
 public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
@@ -300,8 +301,8 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         os.println("     >");
         closeTags.push("</svg> <!-- bounding box -->");
 
-        os.println("<title>");
-        os.println(XMLWriter.normalizeText(getProperty(TITLE)));
+        os.print("<title>");
+        os.print(XMLWriter.normalizeText(getProperty(TITLE)));
         os.println("</title>");
 
         String producer = getClass().getName();
@@ -309,19 +310,14 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             producer += " " + version.substring(1, version.length() - 1);
         }
 
-        os.println("<desc>");
-        os.println("<Title>" + XMLWriter.normalizeText(getProperty(TITLE))
-                + "</Title>");
-        os.println("<Creator>" + XMLWriter.normalizeText(getCreator())
-                + "</Creator>");
-        os.println("<Producer>" + XMLWriter.normalizeText(producer)
-                + "</Producer>");
-        os.println("<Source>" + XMLWriter.normalizeText(getProperty(FOR))
-                + "</Source>");
+        os.print("<desc>");
+        os.print("Creator: " + XMLWriter.normalizeText(getCreator()));
+        os.print(" Producer: " + XMLWriter.normalizeText(producer));
+        os.print(" Source: " + XMLWriter.normalizeText(getProperty(FOR)));
         if (!isDeviceIndependent()) {
-            os.println("<Date>"
+            os.print(" Date: "
                     + DateFormat.getDateTimeInstance(DateFormat.FULL,
-                            DateFormat.FULL).format(new Date()) + "</Date>");
+                            DateFormat.FULL).format(new Date()));
         }
         os.println("</desc>");
 
@@ -472,7 +468,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         if (path.getWindingRule() == PathIterator.WIND_EVEN_ODD) {
             style.put("fill-rule", "evenodd");
         } else {
-            style.put("fill-rule", "nonzero;");
+            style.put("fill-rule", "nonzero");
         }
 
         // fill with paint
@@ -508,11 +504,33 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         // close style
         result.append("\n</g> <!-- drawing style -->");
 
-        // write in a transformed context
-        os.println(
-            getTransformedString(
-                getTransform(),
-                getClippedString(result.toString())));
+        boolean drawClipped = false;
+
+        // test if clip intersects pi
+        if (getClip() != null) {
+            GeneralPath gp = new GeneralPath();
+            gp.append(pi, true);
+            // create the stroked shape
+            Stroke stroke = getStroke() == null? defaultStroke : getStroke();
+            Rectangle2D bounds = stroke.createStrokedShape(gp).getBounds();
+            // clip should intersect the path
+            // if clip contains the bounds completely, clipping is not needed
+            drawClipped = getClip().intersects(bounds) && !getClip().contains(bounds);
+        }
+
+        if (drawClipped) {
+            // write in a transformed and clipped context
+            os.println(
+                getTransformedString(
+                    getTransform(),
+                    getClippedString(result.toString())));
+        } else {
+            // write in a transformed context
+            os.println(
+                getTransformedString(
+                    getTransform(),
+                    result.toString()));
+        }
     }
 
     /* 5.2. Images */
