@@ -13,7 +13,7 @@ import java.util.Map;
  * 
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/PageConstants.java eec28a0c4108 2007/01/03 18:33:24 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/PageConstants.java 8b39cdff4c34 2007/01/03 18:59:24 duns $
  */
 public class PageConstants {
 
@@ -50,7 +50,7 @@ public class PageConstants {
      * Value for CUSTOM_PAGE_SIZE and Key for a Dimension
      * object if custom size is used
      */
-    public static final String CUSTOM_PAGE_SIZE = "Custom_PageSize";
+    public static final String CUSTOM_PAGE_SIZE = "Custom PageSize";
 
     public static final String LETTER = "Letter";
 
