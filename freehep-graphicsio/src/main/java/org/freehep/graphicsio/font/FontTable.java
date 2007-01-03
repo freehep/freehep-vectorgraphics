@@ -1,4 +1,4 @@
-// Copyright 2001-2005 freehep
+// Copyright 2001-2007 freehep
 package org.freehep.graphicsio.font;
 
 import java.awt.Font;
@@ -15,7 +15,7 @@ import org.freehep.graphics2d.font.Lookup;
  * A table to remember which fonts were used while writing a document.
  * 
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/font/FontTable.java cba39eb5843a 2006/03/20 18:04:28 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/font/FontTable.java eec28a0c4108 2007/01/03 18:33:24 duns $
  */
 public abstract class FontTable {
 
@@ -196,7 +196,7 @@ public abstract class FontTable {
         } else if (family.toLowerCase().endsWith(".italic")) {
             attributes.put(TextAttribute.POSTURE, TextAttribute.POSTURE_OBLIQUE);
             // cut the ".italic"
-            int pos = family.toLowerCase().indexOf(".bold");
+            int pos = family.toLowerCase().indexOf(".italic");
             family = family.substring(0, pos);
         } else if (family.toLowerCase().endsWith(".plain")) {
             // cut the ".plain"
