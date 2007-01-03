@@ -52,7 +52,7 @@ import org.freehep.util.io.FlateOutputStream;
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java 7a44927ab283 2006/11/15 00:18:17 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java 94853f4aa4a6 2007/01/03 18:40:40 duns $
  */
 public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -67,6 +67,9 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
 
     public static final String PAGE_SIZE = rootKey + "."
             + PageConstants.PAGE_SIZE;
+
+    public static final String CUSTOM_PAGE_SIZE = rootKey + "."
+            + PageConstants.CUSTOM_PAGE_SIZE;
 
     public static final String PAGE_MARGINS = rootKey + "."
             + PageConstants.PAGE_MARGINS;
@@ -246,10 +249,11 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
      * Get the bounding box for this page.
      */
     private Rectangle getBoundingBox() {
+        // determine page size
+        Dimension pageSize = getPageSize();
 
         // Our PS Header has internal page orientation mode, all sizes given in
         // portrait
-        Dimension pageSize = PageConstants.getSize(getProperty(PAGE_SIZE));
         Insets margins = getPropertyInsets(PAGE_MARGINS);
         boolean isPortrait = getProperty(ORIENTATION).equals(
                 PageConstants.PORTRAIT);
@@ -265,8 +269,9 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
 
         // Choose the minimum scale factor.
         double sf = Math.min(awidth / iwidth, aheight / iheight);
-        if (!isProperty(FIT_TO_PAGE))
+        if (!isProperty(FIT_TO_PAGE)) {
             sf = Math.min(sf, 1.);
+        }
 
         // Lower left corner.
         double x0 = awidth / 2. + margins.left - sf * iwidth / 2.;
@@ -393,15 +398,44 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         openPage(size, title, null);
     }
 
+    /**
+     * Reads the PAGE_SIZE Property. If A4 .. A0 is found,
+     * PageConstants will determine the size. If CUSTOM_PAGE_SIZE
+     * is found, CUSTOM_PAGE_SIZE is used as a Property key for
+     * a dimension object.
+     *
+     * @return Size of page
+     */
+    private Dimension getPageSize() {
+        // A4 ... A0 or PageConstants.CUSTOM_PAGE_SIZE expected
+        // if PageConstants.CUSTOM_PAGE_SIZE is found,
+        // PageConstants.CUSTOM_PAGE_SIZE is used as Key too
+        String pageSizeProperty = getProperty(PAGE_SIZE);
+
+        // determine page size
+        Dimension result = CUSTOM_PAGE_SIZE.equals(pageSizeProperty) ?
+            getPropertyDimension(CUSTOM_PAGE_SIZE) :
+            PageConstants.getSize(getProperty(PAGE_SIZE));
+
+        // set a default value
+        if (result == null) {
+            result = PageConstants.getSize(PageConstants.A4);
+        }
+
+        return result;
+    }
+
     private void openPage(Dimension size, String title, Component component) {
-        if (size == null)
+        if (size == null) {
             size = component.getSize();
+        }
+
         currentPage++;
         resetClip(new Rectangle(0, 0, size.width, size.height));
 
         // Our PS Header has internal page orientation mode, all sizes given in
         // portrait
-        Dimension pageSize = PageConstants.getSize(getProperty(PAGE_SIZE));
+        Dimension pageSize = getPageSize();
         Insets margins = getPropertyInsets(PAGE_MARGINS);
 
         title = (title == null) ? "" + currentPage : "(" + title + ")";
@@ -417,10 +451,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         os.println("0 0 setorigin");
         os.println(size.width + " " + size.height + " setsize");
         os.println(isProperty(FIT_TO_PAGE) ? "fittopage" : "naturalsize");
-        os
-                .println(getProperty(ORIENTATION)
-                        .equals(PageConstants.PORTRAIT) ? "portrait"
-                        : "landscape");
+        os.println(getProperty(ORIENTATION).equals(PageConstants.PORTRAIT) ? "portrait" : "landscape");
         os.println("imagescale");
         os.println("cliptobounds");
         os.println("setbasematrix");
@@ -539,10 +570,15 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
 
     protected void writeImage(RenderedImage image, AffineTransform xform,
             Color bkg) throws IOException {
+
+        // save complete gstate, not only color space
+        writeGraphicsSave();
+
         // FIXME FVG-31
 
-        if (bkg == null)
+        if (bkg == null) {
             bkg = getBackground();
+        }
         image = ImageUtilities.createRenderedImage(image, bkg);
 
         // Write out the PostScript code to start an image
@@ -550,14 +586,11 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         int imageWidth = image.getWidth();
         int imageHeight = image.getHeight();
 
-        AffineTransform imageTransform = new AffineTransform(imageWidth, 0.0,
-                0.0, imageHeight, 0.0, 0.0);
+        AffineTransform imageTransform = new AffineTransform(
+            imageWidth, 0.0, 0.0, imageHeight, 0.0, 0.0);
         xform.concatenate(imageTransform);
 
-        os.println("gsave /DeviceRGB setcolorspace");
-        // os.println(x+" "+y+" translate");
-        // os.println(width+" "+height+" scale");
-        transform(xform);
+        writeTransform(xform);
         os.println("<<");
         os.println("/ImageType 1");
         os.println("/Width " + imageWidth + "  /Height " + imageHeight);
@@ -614,7 +647,8 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         os.write(imageBytes);
 
         os.println("");
-        os.println("grestore");
+
+        writeGraphicsRestore();
     }
 
     /* 5.3. Strings */
@@ -915,7 +949,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
      */
     private void showCharacterCodes(String str, double x, double y) throws IOException {
         // push a copy of the current graphics state on the graphics state stack
-        os.println("q ");
+        writeGraphicsSave();
         // move to string position. This is done by transformation because
         // after a "moveto" command all translations by a transformation
         // are ignored and font transformation should be used after the
@@ -945,7 +979,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
 
         // reset the current graphics state from the one on the top
         // of the graphics state stack and pop the graphics state stack
-        os.println("Q");
+        writeGraphicsRestore();
     }
 
     /**

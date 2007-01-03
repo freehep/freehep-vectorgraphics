@@ -545,10 +545,10 @@ UCDingbatsEncoding [ 16#c0 1 16#ff {} for ] vg&undef
 /Dialog-BoldItalic /Helvetica-BoldOblique 16#03 vg&newcompositefont
 
 % Make the DialogInput composite fonts.
-/DialogInput /Helvetica 16#00 vg&newcompositefont
-/DialogInput-Bold /Helvetica-Bold 16#01 vg&newcompositefont
-/DialogInput-Italic /Helvetica-Oblique 16#02 vg&newcompositefont
-/DialogInput-BoldItalic /Helvetica-BoldOblique 16#03 vg&newcompositefont
+/DialogInput /Courier 16#00 vg&newcompositefont
+/DialogInput-Bold /Courier-Bold 16#01 vg&newcompositefont
+/DialogInput-Italic /Courier-Oblique 16#02 vg&newcompositefont
+/DialogInput-BoldItalic /Courier-BoldOblique 16#03 vg&newcompositefont
 
 % Make the Typewriter composite fonts (JDK 1.1 only).
 /Typewriter /Courier 16#00 vg&newcompositefont
