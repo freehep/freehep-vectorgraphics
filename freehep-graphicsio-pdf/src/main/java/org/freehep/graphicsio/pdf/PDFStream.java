@@ -1,3 +1,4 @@
+// Copyright 2000-2007 FreeHEP
 package org.freehep.graphicsio.pdf;
 
 import java.awt.Color;
@@ -29,7 +30,7 @@ import org.freehep.util.io.FlateOutputStream;
  * <p>
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFStream.java 6c5793275e44 2006/11/15 19:28:52 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFStream.java 28b7ee334c24 2007/01/04 01:21:54 duns $
  */
 public class PDFStream extends PDFDictionary implements PDFConstants {
 
@@ -160,6 +161,10 @@ public class PDFStream extends PDFDictionary implements PDFConstants {
         out.printPlain("\nendstream");
         out.println();
         object.close();
+        
+        if (gStates > 0) {
+            System.err.println("PDFStream: unbalanced saves()/restores(), too many saves: "+gStates);            
+        }
     }
 
     String getName() {
@@ -198,8 +203,9 @@ public class PDFStream extends PDFDictionary implements PDFConstants {
     }
 
     public void restore() throws IOException {
-        if (gStates <= 0)
-            System.err.println("PDFStream: unbalanced saves()/restores()");
+        if (gStates <= 0) {
+            System.err.println("PDFStream: unbalanced saves()/restores(), too many restores");
+        }
         gStates--;
         println("Q");
     }

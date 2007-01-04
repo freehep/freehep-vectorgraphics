@@ -1,4 +1,4 @@
-// Copyright 2000-2006 FreeHEP
+// Copyright 2000-2007 FreeHEP
 package org.freehep.graphicsio.pdf;
 
 import java.awt.BasicStroke;
@@ -56,7 +56,7 @@ import org.freehep.util.UserProperties;
  * 
  * @author Simon Fischer
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java ed7cf0bfe62e 2006/11/12 17:25:14 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java 28b7ee334c24 2007/01/04 01:21:54 duns $
  */
 public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 		MultiPageDocument, FontUtilities.ShowString {
@@ -137,7 +137,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 		defaultProperties.setProperty(BACKGROUND_COLOR, Color.GRAY);
 
 		defaultProperties.setProperty(VERSION, VERSION5);
-		defaultProperties.setProperty(COMPRESS, true);
+		defaultProperties.setProperty(COMPRESS, false);
 		defaultProperties.setProperty(PAGE_SIZE, PageConstants.INTERNATIONAL);
 		defaultProperties.setProperty(PAGE_MARGINS, PageConstants
 				.getMargins(PageConstants.SMALL));
@@ -577,6 +577,8 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 					+ "Call openPage() to start a new one.");
 			return;
 		}
+        writeGraphicsRestore();
+        writeGraphicsRestore();
 		os.close(pageStream);
 		pageStream = null;
 
