@@ -1,4 +1,4 @@
-// Copyright 2000-2006 FreeHEP
+// Copyright 2000-2007 FreeHEP
 package org.freehep.graphicsio.ps;
 
 import java.awt.BasicStroke;
@@ -52,7 +52,7 @@ import org.freehep.util.io.FlateOutputStream;
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java 94853f4aa4a6 2007/01/03 18:40:40 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java e5b4b9730048 2007/01/05 22:51:59 duns $
  */
 public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -545,8 +545,14 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
 
     public void fill(Shape shape) {
         try {
-            boolean eofill = writePath(shape);
-            os.println(((eofill) ? "f*" : "f"));
+            if (getPaint() instanceof Color || (getPaint() instanceof GradientPaint && postscriptLevel >= LEVEL_3)) {
+                boolean eofill = writePath(shape);
+                os.println(((eofill) ? "f*" : "f"));
+            } else {
+                // setting the color seems to be needed by PS
+                writePaint(Color.black);
+                fill(shape, getPaint());
+            }
         } catch (IOException e) {
             handleException(e);
         }
@@ -554,9 +560,15 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
 
     public void fillAndDraw(Shape shape, Color fillColor) {
         try {
-            setPSColor(fillColor, true);
-            boolean eofill = writePath(shape);
-            os.println(((eofill) ? "B*" : "B"));
+            if (getPaint() instanceof Color || (getPaint() instanceof GradientPaint && postscriptLevel >= LEVEL_3)) {
+                setPSColor(fillColor, true);
+                boolean eofill = writePath(shape);
+                os.println(((eofill) ? "B*" : "B"));
+            } else {
+                // setting the color seems to be needed by PS
+                writePaint(Color.black);
+                fill(shape, getPaint());
+            }
         } catch (IOException e) {
             handleException(e);
         }
@@ -814,47 +826,15 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
             os.println("   >>");
             os.println(">>");
             os.println("matrix makepattern setpattern");
-        } else {
-            writeComment("Gradient fill not supported by ps level 2. "
-                    + "Replacing with intermediate color.");
-            setColor(PrintColor.mixColor(paint.getColor1(), paint.getColor2()));
         }
     }
 
     protected void writePaint(TexturePaint paint) throws IOException {
-        BufferedImage img = paint.getImage();
-        os.println("<< /PatternType 1");
-        os.println("   /PaintType 1");
-        os.println("   /TilingType 1");
-        os.println("   /BBox [0 0 " + img.getWidth() + " " + img.getHeight()
-                + "]");
-        os.println("   /XStep " + paint.getAnchorRect().getWidth());
-        os.println("   /YStep " + paint.getAnchorRect().getHeight());
-        os.println("   /PaintProc");
-        os.println("   {");
-        os.println("     begin");
-        os.println("     /DeviceRGB setcolorspace");
-        os.println("     0 0 translate");
-        os.println("     " + img.getWidth() + " " + img.getHeight() + " scale");
-        os.println("     <<");
-        os.println("     /ImageType 1");
-        os.println("     /Width " + img.getWidth());
-        os.println("     /Height " + img.getWidth());
-        os.println("     /BitsPerComponent 8");
-        os.println("     /Decode [0 1 0 1 0 1]");
-        os.println("     /ImageMatrix [" + img.getWidth() + " 0 0 "
-                + img.getHeight() + " 0 0]");
-        os.println("     /DataSource ( Z  Z  Z  Z  Z  Z  Z  Z Z ZZ ZZ ZZ ZZ ZZ ZZ ZZ Z)");
-        os.println("     >> image");
-        os.println("     end");
-        os.println("   } bind");
-        os.println(">>");
-        os.println("matrix makepattern setpattern");
+        // written when filled
     }
 
     protected void writePaint(Paint p) throws IOException {
-        writeWarning(getClass() + ": writePaint(Paint) not implemented for "
-                + p.getClass());
+        // written when filled
     }
 
     /* 8.3. */
@@ -939,7 +919,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
 
     /**
      * Draws <code>str</code> to the stream. Uses the font transformation and depending on
-     * {@link PSGraphics2D.EMBED_FONTS} the method {@link #showString(java.awt.Font, String)}
+     * {@link PSGraphics2D#EMBED_FONTS} the method {@link #showString(java.awt.Font, String)}
      * or {@link FontUtilities#showString(java.awt.Font, String, org.freehep.graphics2d.font.CharTable,
      * org.freehep.graphicsio.font.FontUtilities.ShowString)} ;
      *

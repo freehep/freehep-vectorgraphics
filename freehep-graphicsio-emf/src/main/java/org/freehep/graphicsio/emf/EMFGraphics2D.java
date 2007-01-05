@@ -1,4 +1,4 @@
-// Copyright 2000-2006 FreeHEP
+// Copyright 2000-2007 FreeHEP
 package org.freehep.graphicsio.emf;
 
 import java.awt.BasicStroke;
@@ -28,7 +28,6 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.zip.GZIPOutputStream;
 
 import org.freehep.graphics2d.PrintColor;
 import org.freehep.graphics2d.VectorGraphics;
@@ -75,7 +74,7 @@ import org.freehep.util.UserProperties;
  * Enhanced Metafile Format Graphics 2D driver.
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java e5b4b9730048 2007/01/05 22:51:59 duns $
  */
 public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         EMFConstants {
@@ -364,9 +363,14 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
 
     public void fill(Shape shape) {
         try {
-            writeBrush(getColor());
-            writePath(shape);
-            os.writeTag(new FillPath(imageBounds));
+            if (getPaint() instanceof Color) {
+                writeBrush(getColor());
+                writePath(shape);
+                os.writeTag(new FillPath(imageBounds));
+            } else {
+                // draw paint as image
+                fill(shape, getPaint());
+            }
         } catch (IOException e) {
             handleException(e);
         }
@@ -374,10 +378,17 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
 
     public void fillAndDraw(Shape shape, Color fillColor) {
         try {
-            writePen((BasicStroke) getStroke(), getColor());
-            writeBrush(fillColor);
-            writePath(shape);
-            os.writeTag(new StrokeAndFillPath(imageBounds));
+            if (getPaint() instanceof Color) {
+                writePen((BasicStroke) getStroke(), getColor());
+                writeBrush(fillColor);
+                writePath(shape);
+                os.writeTag(new StrokeAndFillPath(imageBounds));
+            } else {
+                // draw paint as image
+                fill(shape, getPaint());
+                // draw shape
+                draw(shape);
+            }
         } catch (IOException e) {
             handleException(e);
         }
@@ -405,12 +416,6 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
                 toUnit(image.getWidth()), toUnit(image.getHeight()),
                 new AffineTransform(), image, bkg));
         os.writeTag(new RestoreDC());
-    }
-
-    private final static Properties replaceFonts = new Properties();
-    static {
-        replaceFonts.setProperty("Symbol", "Arial Unicode MS");
-        replaceFonts.setProperty("ZapfDingbats", "Arial Unicode MS");
     }
 
     /* 5.3. Strings */
@@ -441,7 +446,7 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         Map attributes = getFont().getAttributes();
         FontTable.normalize(attributes);
         Font font = new Font(attributes);
-        
+
         Font unitFont = (Font) unitFontTable.get(font);
 
         Integer fontIndex = (Integer) fontTable.get(font);
@@ -452,7 +457,6 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
             String fontName = font.getName();
             string = FontEncoder.getEncodedString(string, fontName);
 
-            fontName = replaceFonts.getProperty(fontName, fontName);
             String windowsFontName = FontUtilities
                 .getWindowsFontName(fontName);
 
@@ -572,28 +576,20 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
     }
 
     protected void writePaint(GradientPaint p) throws IOException {
-        writeWarning(getClass()
-                + ": writePaint(GradientPaint) not implemented.");
-        // Write out the gradient paint.
-        setColor(PrintColor.mixColor(p.getColor1(), p.getColor2()));
+        // all paint setting delayed
     }
 
     protected void writePaint(TexturePaint p) throws IOException {
-        writeWarning(getClass() + ": writePaint(TexturePaint) not implemented.");
-        // Write out the texture paint.
-        setColor(Color.RED);
+        // all paint setting delayed
     }
 
     protected void writePaint(Paint p) throws IOException {
-        writeWarning(getClass() + ": writePaint(Paint) not implemented for "
-                + p.getClass());
-        // Write out the paint.
-        setColor(Color.WHITE);
+        // all paint setting delayed
     }
 
     /* 8.3. font */
     protected void writeFont(Font font) throws IOException {
-	// written when needed
+    	// written when needed
     }
 
     /* 8.4. rendering hints */

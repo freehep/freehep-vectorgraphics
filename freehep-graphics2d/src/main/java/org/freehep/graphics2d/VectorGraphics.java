@@ -1,6 +1,7 @@
-// Copyright 2000-2004, FreeHEP.
+// Copyright 2000-2007, FreeHEP.
 package org.freehep.graphics2d;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
 import java.awt.Dimension;
@@ -18,6 +19,7 @@ import java.awt.Stroke;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.awt.image.ImageObserver;
@@ -58,7 +60,7 @@ import java.util.Properties;
  * 
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/VectorGraphics.java 7aee336a8992 2005/11/25 23:19:05 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/VectorGraphics.java e5b4b9730048 2007/01/05 22:51:59 duns $
  */
 public abstract class VectorGraphics extends Graphics2D implements
         VectorGraphicsConstants {
@@ -251,6 +253,40 @@ public abstract class VectorGraphics extends Graphics2D implements
     public abstract void drawString(String str, float x, float y);
 
     public abstract void fill(Shape s);
+
+    /**
+     * Fills an are with the given paint using in offscreen BufferedImage.
+     * Used for drawing GradientPaint or image
+     * @param shape Shape usede as clipping area
+     * @param paint Paint used
+     */
+    protected void fill(Shape shape, Paint paint) {
+        Rectangle2D bounds = shape.getBounds2D();
+
+        // create image
+        BufferedImage image = new BufferedImage(
+            (int)Math.ceil(bounds.getWidth()) + 1,
+            (int)Math.ceil(bounds.getHeight()) + 1,
+            BufferedImage.TYPE_INT_ARGB);
+
+        // fill background
+        Graphics2D graphics = image.createGraphics();
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.0f));
+        graphics.fill(graphics.getDeviceConfiguration().getBounds());
+        graphics.setComposite(AlphaComposite.SrcOver);
+
+        // draw paint
+        graphics.setPaint(paint);
+        graphics.translate(- bounds.getMinX(), - bounds.getMinY());
+        graphics.fill(shape);
+        graphics.dispose();
+
+        // draw image
+        Shape clip = getClip();
+        clip(shape);
+        drawImage(image, (int)bounds.getX(), (int)bounds.getY(), null);
+        setClip(clip);
+    }
 
     // NOTE: overridden in Graphics2D
     // public abstract void fill3DRect(int x, int y,

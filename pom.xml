@@ -2,7 +2,7 @@
   <parent>
     <artifactId>global</artifactId>
     <groupId>org.freehep</groupId>
-    <version>6</version>
+    <version>7</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.freehep</groupId>
@@ -100,6 +100,10 @@
     <contributor>
       <name>Carsten Zerbst</name>
       <organizationUrl>mailto:carsten.zerbst@atlantec-es.com</organizationUrl>
+    </contributor>  
+    <contributor>
+      <name>Steffen Greiffenberg</name>
+      <organizationUrl>mailto:steffen.greiffenberg@semture.de</organizationUrl>
     </contributor>  
   </contributors>
   <build>
@@ -222,7 +226,7 @@
       <dependency>
         <groupId>org.freehep</groupId>
         <artifactId>freehep-io</artifactId>
-        <version>2.0.1</version>
+        <version>2.0.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.freehep</groupId>

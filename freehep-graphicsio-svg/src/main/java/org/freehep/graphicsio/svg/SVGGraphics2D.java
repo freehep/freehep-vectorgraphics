@@ -1,4 +1,4 @@
-// Copyright 2000-2006 FreeHEP
+// Copyright 2000-2007 FreeHEP
 package org.freehep.graphicsio.svg;
 
 import java.awt.BasicStroke;
@@ -60,7 +60,7 @@ import org.freehep.xml.util.XMLWriter;
  * The current implementation is based on REC-SVG11-20030114
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java ed51cacbe866 2007/01/03 18:50:46 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java e5b4b9730048 2007/01/05 22:51:59 duns $
  */
 public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
@@ -427,7 +427,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
     /**
      * Draws the shape using the current paint as border
      *
-     * @param shape
+     * @param shape Shape to draw
      */
     public void draw(Shape shape) {
         // others than BasicStrokes are written by its
@@ -458,36 +458,42 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
     /**
      * Fills the shape without a border using the current paint
      *
-     * @param shape
+     * @param shape Shape to be filled with the current paint
      */
     public void fill(Shape shape) {
-        PathIterator path = shape.getPathIterator(null);
-
-        Properties style = new Properties();
-
-        if (path.getWindingRule() == PathIterator.WIND_EVEN_ODD) {
-            style.put("fill-rule", "evenodd");
+        // draw paint as image if needed
+        if (!(getPaint() instanceof Color || getPaint() instanceof GradientPaint)) {
+            // draw paint as image
+            fill(shape, getPaint());
         } else {
-            style.put("fill-rule", "nonzero");
+            PathIterator path = shape.getPathIterator(null);
+
+            Properties style = new Properties();
+
+            if (path.getWindingRule() == PathIterator.WIND_EVEN_ODD) {
+                style.put("fill-rule", "evenodd");
+            } else {
+                style.put("fill-rule", "nonzero");
+            }
+
+            // fill with paint
+            if (getPaint() != null) {
+                style.put("fill", hexColor(getPaint()));
+                style.put("fill-opacity", fixedPrecision(alphaColor(getPaint())));
+            }
+
+            // no border
+            style.put("stroke", "none");
+
+            writePathIterator(path, style);
         }
-
-        // fill with paint
-        if (getPaint() != null) {
-            style.put("fill", hexColor(getPaint()));
-            style.put("fill-opacity", fixedPrecision(alphaColor(getPaint())));
-        }
-
-        // no border
-        style.put("stroke", "none");
-
-        writePathIterator(path, style);
     }
 
     /**
      * writes a path using {@link #getPath(java.awt.geom.PathIterator)}
      * and the given style
      *
-     * @param pi
+     * @param pi PathIterator
      * @param style Properties for <g> tag
      */
     private void writePathIterator(PathIterator pi, Properties style) {
@@ -693,6 +699,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
      * is handled by {@link java.awt.Font#getTransform()}
      *
      * @return properties in svg style  for the font
+     * @param font Font to
      */
     private Properties getFontProperties(Font font) {
         Properties result = new Properties();
@@ -952,44 +959,11 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
     }
 
     protected void writePaint(TexturePaint paint) throws IOException {
-        if (textures.get(paint) == null) {
-            String name = "texture-" + textures.size();
-            textures.put(paint, name);
-            BufferedImage image = paint.getImage();
-            Rectangle2D rect = paint.getAnchorRect();
-            os.println("<defs>");
-            os.print("  <pattern id=\"" + name + "\" ");
-            os.print("x=\"0\" ");
-            os.print("y=\"0\" ");
-            os.print("width=\"" + fixedPrecision(image.getWidth()) + "\" ");
-            os.print("height=\"" + fixedPrecision(image.getHeight()) + "\" ");
-            os.print("patternUnits=\"userSpaceOnUse\" ");
-            os.print("patternTransform=\"matrix("
-                    + fixedPrecision(rect.getWidth() / image.getWidth()) + ","
-                    + "0.0,0.0,"
-                    + fixedPrecision(rect.getHeight() / image.getHeight())
-                    + "," + fixedPrecision(rect.getX()) + ","
-                    + fixedPrecision(rect.getY()) + ")\" ");
-            os.println(">");
-            writeImage(image, null, null);
-            os.println("  </pattern>");
-            os.println("</defs>");
-        }
-
-        // write default stroke
-        os.print("<g ");
-        Properties style = new Properties();
-        style.put("stroke", hexColor(getPaint()));
-        os.print(style(style));
-        os.println(">");
-
-        // close color later
-        closeTags.push("</g> <!-- color -->");
+        // written when needed
     }
 
     protected void writePaint(Paint p) throws IOException {
-        writeWarning(getClass() + ": writePaint(Paint) not implemented for "
-                + p.getClass());
+        // written when needed
     }
 
     /* 8.3. font */
@@ -1066,8 +1040,8 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
     /**
      * Encapsulates a SVG-Tag by the current clipping area matrix
      *
-     * @param s
-     *            SVG-Tag
+     * @param s SVG-Tag
+     * @return SVG Tag encapsulated by the current clip
      */
     private String getClippedString(String s) {
         StringBuffer result = new StringBuffer();
@@ -1228,7 +1202,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
      * method creates
      * style="key1:value1;key2:value2;" or
      * key2="value2" key2="value2" depending on
-     * {@link STYLABLE}.
+     * {@link #STYLABLE}.
      *
      * @param style properties to convert
      * @return String
