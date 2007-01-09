@@ -26,7 +26,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java d7c75c135a1d 2007/01/09 00:32:55 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java c7daa1d65b55 2007/01/09 19:19:22 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -195,7 +195,7 @@ public class TestSuite extends junit.framework.TestSuite {
         bitmapFormats = new TreeMap();
         bitmapFormats.put(
             ImageConstants.BMP.toLowerCase(),
-            new Format(ImageConstants.BMP, null, "freehep-graphicsio-tests", false, true, 10241, null));
+            new Format(ImageConstants.BMP, null, "freehep-graphicsio-tests", true, true, 10241, null));
         bitmapFormats.put(
             ImageConstants.GIF.toLowerCase(),
             new Format(ImageConstants.GIF, null, "freehep-graphicsio-tests", true, true, 10241, null));
@@ -207,7 +207,7 @@ public class TestSuite extends junit.framework.TestSuite {
             new Format(ImageConstants.PNG, null, "freehep-graphicsio-tests", true, true, 10241, null));
         bitmapFormats.put(
             ImageConstants.WBMP.toLowerCase(),
-            new Format(ImageConstants.WBMP, null, "freehep-graphicsio-tests", false, true, 10241, null));
+            new Format(ImageConstants.WBMP, null, "freehep-graphicsio-tests", true, true, 10241, null));
 
         vectorFormats = new TreeMap();
         // vectorFormats.put("cgm", new Format("CGM", null, false, false, 10230,
@@ -258,8 +258,7 @@ public class TestSuite extends junit.framework.TestSuite {
         tests.add(new Test("TestOffset", on));
         tests.add(new Test("TestPaint", on));
         tests.add(new Test("TestPrintColors", on));
-        // FVG-197, TestResolution not very useful yet.
-        tests.add(new Test("TestResolution", false));
+        tests.add(new Test("TestResolution", on));
         tests.add(new Test("TestScatterPlot", on));
         tests.add(new Test("TestShapes", on));
         tests.add(new Test("TestSymbols2D", on));
