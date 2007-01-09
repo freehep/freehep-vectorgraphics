@@ -1,4 +1,4 @@
-// Copyright 2001-2003, FreeHEP.
+// Copyright 2001-2007, FreeHEP.
 package org.freehep.graphicsio.swf;
 
 import java.awt.Color;
@@ -7,23 +7,20 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.awt.image.RenderedImage;
 import java.awt.image.WritableRaster;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.zip.InflaterInputStream;
 
 import org.freehep.graphicsio.ImageGraphics2D;
-import org.freehep.graphicsio.raw.RawImageWriteParam;
-import org.freehep.util.UserProperties;
+import org.freehep.graphicsio.ImageConstants;
 import org.freehep.util.images.ImageUtilities;
 import org.freehep.util.io.ByteOrderInputStream;
-import org.freehep.util.io.FlateOutputStream;
 
 /**
  * DefineBitsLossless TAG.
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/DefineBitsLossless.java db861da05344 2005/12/05 00:59:43 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/DefineBitsLossless.java d7c75c135a1d 2007/01/09 00:32:55 duns $
  */
 public class DefineBitsLossless extends DefinitionTag {
 
@@ -157,17 +154,12 @@ public class DefineBitsLossless extends DefinitionTag {
 
     private byte[] getImageBytes() throws IOException {
         if (imageBytes == null) {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            FlateOutputStream flate = new FlateOutputStream(baos);
-
-            UserProperties props = new UserProperties();
-            props.setProperty(RawImageWriteParam.BACKGROUND, bkg);
-            props.setProperty(RawImageWriteParam.CODE, "*ARGB");
-            props.setProperty(RawImageWriteParam.PAD, 1);
-            ImageGraphics2D.writeImage(image, "raw", props, flate);
-            flate.close();
-
-            imageBytes = baos.toByteArray();
+            // calculate bytes
+            imageBytes = ImageGraphics2D.toByteArray(
+                image,
+                ImageConstants.RAW,
+                ImageConstants.ENCODING_FLATE,
+                ImageGraphics2D.getRAWProperties(bkg, ImageConstants.COLOR_MODEL_ARGB));
         }
         return imageBytes;
     }

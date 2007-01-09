@@ -1,4 +1,4 @@
-// Copyright 2002-2003, FreeHEP.
+// Copyright 2002-2007, FreeHEP.
 package org.freehep.graphicsio.emf.gdi;
 
 import java.awt.Color;
@@ -8,6 +8,7 @@ import java.awt.image.RenderedImage;
 import java.io.IOException;
 
 import org.freehep.graphicsio.ImageGraphics2D;
+import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
@@ -20,7 +21,7 @@ import org.freehep.util.io.NoCloseOutputStream;
  * PNG and JPG seem not to work.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AlphaBlend.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AlphaBlend.java d7c75c135a1d 2007/01/09 00:32:55 duns $
  */
 public class AlphaBlend extends EMFTag implements EMFConstants {
 
@@ -120,12 +121,11 @@ public class AlphaBlend extends EMFTag implements EMFConstants {
         int encode;
         // plain
         encode = BI_RGB;
-        UserProperties properties = new UserProperties();
-        properties.setProperty(RawImageWriteParam.BACKGROUND, bkg);
-        properties.setProperty(RawImageWriteParam.CODE, "*BGRA");
-        properties.setProperty(RawImageWriteParam.PAD, 1);
-        ImageGraphics2D.writeImage(image, "raw", properties,
-                new NoCloseOutputStream(emf));
+        ImageGraphics2D.writeImage(
+            image,
+            ImageConstants.RAW.toLowerCase(),
+            ImageGraphics2D.getRAWProperties(bkg, "*BGRA"),
+            new NoCloseOutputStream(emf));
 
         // emf.writeImage(image, bkg, "*BGRA", 1);
         // png

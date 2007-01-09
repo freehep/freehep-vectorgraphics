@@ -1,4 +1,4 @@
-// Copyright 2001, FreeHEP.
+// Copyright 2001-2007, FreeHEP.
 package org.freehep.graphicsio.swf;
 
 import java.awt.Color;
@@ -6,11 +6,11 @@ import java.awt.Image;
 import java.awt.image.ImageObserver;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 import org.freehep.graphicsio.ImageGraphics2D;
+import org.freehep.graphicsio.ImageConstants;
 import org.freehep.util.images.ImageUtilities;
 
 /**
@@ -18,7 +18,7 @@ import org.freehep.util.images.ImageUtilities;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/DefineBitsJPEG2.java db861da05344 2005/12/05 00:59:43 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/DefineBitsJPEG2.java d7c75c135a1d 2007/01/09 00:32:55 duns $
  */
 public class DefineBitsJPEG2 extends DefinitionTag {
 
@@ -60,7 +60,7 @@ public class DefineBitsJPEG2 extends DefinitionTag {
         byte[] data = swf.readByte(len - 2);
 
         ByteArrayInputStream bais = new ByteArrayInputStream(data);
-        tag.image = ImageGraphics2D.readImage("jpg", bais);
+        tag.image = ImageGraphics2D.readImage(ImageConstants.JPG.toLowerCase(), bais);
 
         if (bais.available() > 0)
             System.err.println("DefineBitsJPEG2: not all bytes read: "
@@ -83,11 +83,8 @@ public class DefineBitsJPEG2 extends DefinitionTag {
 
     private byte[] getImageBytes() throws IOException {
         if (imageBytes == null) {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageGraphics2D.writeImage(image, "jpg", options, baos);
-            baos.close();
-
-            imageBytes = baos.toByteArray();
+             imageBytes = ImageGraphics2D.toByteArray(
+                image, ImageConstants.JPG, null, options);
         }
         return imageBytes;
     }

@@ -1,16 +1,16 @@
-// Copyright 2000-2007 FreeHEP
+// Copyright 2000-2007, FreeHEP
 package org.freehep.graphicsio.pdf;
 
 import java.awt.Color;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.image.RenderedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Properties;
 
 import org.freehep.graphicsio.ImageGraphics2D;
+import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.raw.RawImageWriteParam;
 import org.freehep.util.UserProperties;
 import org.freehep.util.io.ASCII85OutputStream;
@@ -30,7 +30,7 @@ import org.freehep.util.io.FlateOutputStream;
  * <p>
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFStream.java 28b7ee334c24 2007/01/04 01:21:54 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFStream.java d7c75c135a1d 2007/01/09 00:32:55 duns $
  */
 public class PDFStream extends PDFDictionary implements PDFConstants {
 
@@ -668,47 +668,53 @@ public class PDFStream extends PDFDictionary implements PDFConstants {
      */
     private byte[] imageToBytes(RenderedImage image, Color bkg, String[] encode)
             throws IOException {
+
+        // decide for the best encoding
         if (encode[0] == null) {
+
+            byte[] zlibBytes = ImageGraphics2D.toByteArray(
+                image,
+                ImageConstants.RAW,
+                ImageConstants.ENCODING_FLATE,
+                ImageGraphics2D.getRAWProperties(bkg, ImageConstants.COLOR_MODEL_RGB));
+
+            // because JPEG doen't support transparent images, RAW is used
             if (image.getColorModel().hasAlpha() && (bkg == null)) {
-                encode[0] = "Flate";
-                return imageToBytes(image, bkg, encode);
+                encode[0] = ImageConstants.ENCODING_FLATE;
+                return zlibBytes;
             }
 
             // return the smallest
-            encode[0] = "Flate";
-            byte[] zlibBytes = imageToBytes(image, bkg, encode);
-            encode[0] = "DCT";
-            byte[] jpgBytes = imageToBytes(image, bkg, encode);
+            else {
+                byte[] jpgBytes = ImageGraphics2D.toByteArray(
+                    image,
+                    ImageConstants.JPG,
+                    ImageConstants.ENCODING_ASCII85,
+                    new Properties());
 
-            if (jpgBytes.length < 0.5 * zlibBytes.length) {
-                encode[0] = "DCT";
-                return jpgBytes;
-            } else {
-                encode[0] = "Flate";
-                return zlibBytes;
+                if (jpgBytes.length < 0.5 * zlibBytes.length) {
+                    encode[0] = ImageConstants.ENCODING_DCT;
+                    return jpgBytes;
+                } else {
+                    encode[0] = ImageConstants.ENCODING_FLATE;
+                    return zlibBytes;
+                }
             }
         }
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        // FIXME hardcoded to A85
-        ASCII85OutputStream a85 = new ASCII85OutputStream(baos);
-        OutputStream imageStream;
-        if (encode[0].equalsIgnoreCase("Flate")) {
-            imageStream = new FlateOutputStream(a85);
-            UserProperties props = new UserProperties();
-            props.setProperty(RawImageWriteParam.BACKGROUND, bkg);
-            props.setProperty(RawImageWriteParam.CODE, "RGB");
-            props.setProperty(RawImageWriteParam.PAD, 1);
-            ImageGraphics2D.writeImage(image, "raw", props, imageStream);
+        if (ImageConstants.ENCODING_FLATE.equalsIgnoreCase(encode[0])) {
+            return ImageGraphics2D.toByteArray(
+                image,
+                ImageConstants.RAW,
+                ImageConstants.ENCODING_FLATE_ASCII85,
+                ImageGraphics2D.getRAWProperties(bkg, ImageConstants.COLOR_MODEL_RGB));
         } else {
-            imageStream = a85;
-            ImageGraphics2D.writeImage(image, "jpg", new Properties(),
-                    imageStream);
+            return ImageGraphics2D.toByteArray(
+                image,
+                ImageConstants.JPG,
+                ImageConstants.ENCODING_ASCII85, 
+                new Properties());
         }
-        imageStream.close();
-        a85.close();
-        baos.close();
-        return baos.toByteArray();
     }
 
     //

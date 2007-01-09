@@ -1,4 +1,4 @@
-// Copyright 2000-2006 FreeHEP
+// Copyright 2000-2007, FreeHEP
 package org.freehep.graphicsio.exportchooser;
 
 import java.awt.Component;
@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 
 import org.freehep.graphics2d.VectorGraphics;
 import org.freehep.graphicsio.ImageGraphics2D;
+import org.freehep.graphicsio.ImageConstants;
 import org.freehep.swing.layout.TableLayout;
 import org.freehep.util.UserProperties;
 
@@ -24,7 +25,7 @@ import org.freehep.util.UserProperties;
  * // FIXME, check all options
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageExportFileType.java f827db4cd880 2006/12/04 22:27:37 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageExportFileType.java d7c75c135a1d 2007/01/09 00:32:55 duns $
  */
 public class ImageExportFileType extends AbstractExportFileType {
 
@@ -88,17 +89,17 @@ public class ImageExportFileType extends AbstractExportFileType {
     
     public static ImageExportFileType getInstance(String format) {
     	format = format.toLowerCase();
-        if (format.equals("gif"))
+        if (format.equals(ImageConstants.GIF.toLowerCase()))
             return exportFileType("org.freehep.graphicsio.gif.GIFExportFileType");
-        if (format.equals("png"))
+        if (format.equals(ImageConstants.PNG.toLowerCase()))
             return exportFileType("org.freehep.graphicsio.png.PNGExportFileType");
-        if (format.equals("jpg"))
+        if (format.equals(ImageConstants.JPG.toLowerCase()))
             return exportFileType("org.freehep.graphicsio.jpg.JPGExportFileType");
-        if (format.equals("raw"))
+        if (format.equals(ImageConstants.RAW.toLowerCase()))
             return exportFileType("org.freehep.graphicsio.raw.RawExportFileType");
-        if (format.equals("bmp"))
+        if (format.equals(ImageConstants.BMP.toLowerCase()))
             return exportFileType("org.freehep.graphicsio.bmp.BMPExportFileType");
-        if (format.equals("wbmp"))
+        if (format.equals(ImageConstants.WBMP.toLowerCase()))
             return exportFileType("org.freehep.graphicsio.wbmp.WBMPExportFileType");
         return null;
     }

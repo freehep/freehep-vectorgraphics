@@ -20,12 +20,13 @@ import java.util.TreeMap;
 import junit.framework.AssertionFailedError;
 
 import org.freehep.graphicsio.ImageGraphics2D;
+import org.freehep.graphicsio.ImageConstants;
 import org.freehep.util.export.ExportFileType;
 import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java a3071d178520 2007/01/02 20:08:50 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java d7c75c135a1d 2007/01/09 00:32:55 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -192,34 +193,46 @@ public class TestSuite extends junit.framework.TestSuite {
         local = !System.getProperty("vg.local", "true").equals("false");
 
         bitmapFormats = new TreeMap();
-        bitmapFormats.put("bmp", new Format("BMP", null, "freehep-graphicsio-tests",
-                false, true, 10241, null));
-        bitmapFormats.put("gif", new Format("GIF", null, "freehep-graphicsio-tests",
-                true, true, 10241, null));
-        bitmapFormats.put("jpg", new Format("JPG", null, "freehep-graphicsio-tests",
-                true, true, 10241, null));
-        bitmapFormats.put("png", new Format("PNG", null, "freehep-graphicsio-tests",
-                true, true, 10241, null));
-        bitmapFormats.put("wbmp", new Format("WBMP", null, "freehep-graphicsio-tests",
-                false, true, 10241, null));
+        bitmapFormats.put(
+            ImageConstants.BMP.toLowerCase(),
+            new Format(ImageConstants.BMP, null, "freehep-graphicsio-tests", false, true, 10241, null));
+        bitmapFormats.put(
+            ImageConstants.GIF.toLowerCase(),
+            new Format(ImageConstants.GIF, null, "freehep-graphicsio-tests", true, true, 10241, null));
+        bitmapFormats.put(
+            ImageConstants.JPG.toLowerCase(),
+            new Format(ImageConstants.JPG, null, "freehep-graphicsio-tests", true, true, 10241, null));
+        bitmapFormats.put(
+            ImageConstants.PNG.toLowerCase(),
+            new Format(ImageConstants.PNG, null, "freehep-graphicsio-tests", true, true, 10241, null));
+        bitmapFormats.put(
+            ImageConstants.WBMP.toLowerCase(),
+            new Format(ImageConstants.WBMP, null, "freehep-graphicsio-tests", false, true, 10241, null));
 
         vectorFormats = new TreeMap();
         // vectorFormats.put("cgm", new Format("CGM", null, false, false, 10230,
         // null));
-        vectorFormats.put("emf", new Format("EMF", null, null, true, false, 10231,
-                null));
-        vectorFormats.put("java", new Format("JAVA", null, null, false, false,
+        vectorFormats.put(
+            ImageConstants.EMF.toLowerCase(),
+            new Format(ImageConstants.EMF, null, null, true, false, 10231, null));
+        vectorFormats.put(
+            ImageConstants.JAVA.toLowerCase(),
+            new Format(ImageConstants.JAVA, null, null, false, false,
                 10238, "org/freehep/graphicsio/java/test"));
         // vectorFormats.put("latex", new Format("Latex", "tex", null, false, false,
         // 10240, null));
-        vectorFormats.put("pdf", new Format("PDF", null, null, true, false, 10235,
-                null));
-        vectorFormats.put("ps",
-                new Format("PS", null, null, true, false, 10232, null));
-        vectorFormats.put("svg", new Format("SVG", null, null, true, false, 10236,
-                null));
-        vectorFormats.put("swf", new Format("SWF", null, null, true, false, 10237,
-                null));
+        vectorFormats.put(
+            ImageConstants.PDF.toLowerCase(),
+            new Format("PDF", null, null, true, false, 10235, null));
+        vectorFormats.put(
+            ImageConstants.PS.toLowerCase(),
+            new Format(ImageConstants.PS, null, null, true, false, 10232, null));
+        vectorFormats.put(
+            ImageConstants.SVG.toLowerCase(),
+            new Format(ImageConstants.SVG, null, null, true, false, 10236, null));
+        vectorFormats.put(
+            ImageConstants.SWF.toLowerCase(),
+            new Format(ImageConstants.SWF, null, null, true, false, 10237, null));
 
         boolean on = true;
         // FVG-241, TestCustomStrokes [3] disabled for MacOS X
@@ -324,7 +337,7 @@ public class TestSuite extends junit.framework.TestSuite {
         String css = site + "css";
 
         String top = site + (local ? "../../" : "") + "../";
-        String refFormat = "png";
+        String refFormat = ImageConstants.PNG.toLowerCase();
 
         String testSite = top + "freehep-graphicsio-tests/"
                 + (local ? "target/site/" : "");

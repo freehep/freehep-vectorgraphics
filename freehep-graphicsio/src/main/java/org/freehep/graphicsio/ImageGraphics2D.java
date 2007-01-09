@@ -1,4 +1,4 @@
-// Copyright 2003, FreeHEP.
+// Copyright 2003-2007, FreeHEP.
 package org.freehep.graphicsio;
 
 import java.awt.Color;
@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Enumeration;
@@ -36,21 +37,28 @@ import javax.imageio.stream.ImageOutputStream;
 
 import org.freehep.graphics2d.PixelGraphics2D;
 import org.freehep.util.UserProperties;
+import org.freehep.util.io.ASCII85OutputStream;
+import org.freehep.util.io.FlateOutputStream;
 import org.freehep.util.images.ImageUtilities;
+import org.freehep.graphicsio.raw.RawImageWriteParam;
 
 /**
  * Generic class for generating bitmap outputs from an image.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java 1fdf0180916f 2006/12/03 16:40:02 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java d7c75c135a1d 2007/01/09 00:32:55 duns $
  */
 public class ImageGraphics2D extends PixelGraphics2D {
 
-    private final static String alwaysCompressedFormats[] = { "jpg", "jpeg",
-            "gif" };
+    private final static String alwaysCompressedFormats[] = {
+        ImageConstants.JPG.toLowerCase(),
+        ImageConstants.JPEG.toLowerCase(),
+        ImageConstants.GIF.toLowerCase()};
 
-    private final static String nonTransparentFormats[] = { "jpg", "jpeg",
-            "ppm" };
+    private final static String nonTransparentFormats[] = {
+        ImageConstants.JPG.toLowerCase(),
+        ImageConstants.JPEG.toLowerCase(),
+        ImageConstants.PPM.toLowerCase()};
 
     public static final String rootKey = "org.freehep.graphicsio";
 
@@ -323,8 +331,8 @@ public class ImageGraphics2D extends PixelGraphics2D {
     public static BufferedImage createBufferedImage(String format, int width,
             int height) {
         // NOTE: special case for JPEG which has no Alpha
-        int imageType = (format.equalsIgnoreCase("jpg") || format
-                .equalsIgnoreCase("jpeg")) ? BufferedImage.TYPE_INT_RGB
+        int imageType = (format.equalsIgnoreCase(ImageConstants.JPG) || format
+                .equalsIgnoreCase(ImageConstants.JPEG)) ? BufferedImage.TYPE_INT_RGB
                 : BufferedImage.TYPE_INT_ARGB;
         BufferedImage image = new BufferedImage(width, height, imageType);
         return image;
@@ -459,7 +467,7 @@ public class ImageGraphics2D extends PixelGraphics2D {
     
     public static BufferedImage readImage(String format, InputStream is)
             throws IOException {
-        Iterator iterator = ImageIO.getImageReadersByFormatName(format);
+        Iterator iterator = ImageIO.getImageReadersByFormatName(format.toLowerCase());
         if (!iterator.hasNext()) {
             throw new IOException(ImageGraphics2D.class
                     + ": No reader for format '" + format + "'.");
@@ -486,5 +494,57 @@ public class ImageGraphics2D extends PixelGraphics2D {
     public static boolean canWriteTransparent(String format) {
         return !Arrays.asList(nonTransparentFormats).contains(
                 format.toLowerCase());
+    }
+
+    /**
+     * @param bkg Background color for the image
+     * @return Properties used to create a RAW image
+     */
+    public static UserProperties getRAWProperties(Color bkg, String code) {
+        UserProperties result = new UserProperties();
+        result.setProperty(RawImageWriteParam.BACKGROUND, bkg);
+        result.setProperty(RawImageWriteParam.CODE, code);
+        result.setProperty(RawImageWriteParam.PAD, 1);
+        return result;
+    }
+
+    /**
+     * Converts a given image to byte[]
+     *
+     * @throws IOException thrown by {@link #writeImage(java.awt.image.RenderedImage, String, java.util.Properties, java.io.OutputStream)}
+     * @param image Image to vonvert
+     * @param format e.g. {@link ImageConstants#JPG}, {@link ImageConstants#PNG, {@link ImageConstants#RAW}
+     * @param props Properties for writing, e.g. {@link org.freehep.graphicsio.raw.RawImageWriteParam#BACKGROUND}
+     * @param encoding {@link ImageConstants#ENCODING_ASCII85}, {@link ImageConstants#ENCODING_FLATE} or null
+     * @return bytes representing the image
+     */
+    public static byte[] toByteArray(
+        RenderedImage image,
+        String format,
+        String encoding,
+        Properties props) throws IOException {
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        OutputStream os = bos;
+
+        if (ImageConstants.ENCODING_ASCII85.equals(encoding) || ImageConstants.ENCODING_FLATE_ASCII85.equals(encoding)) {
+            os = new ASCII85OutputStream(os);
+        }
+
+        if (ImageConstants.ENCODING_FLATE.equals(encoding)) {
+            os = new FlateOutputStream(os);
+        }
+
+        // avoid NPE
+        if (props == null) {
+            props = new Properties();
+        }
+
+        // write image into the stream
+        ImageGraphics2D.writeImage(image, format.toLowerCase(), props, os);
+        os.close();
+
+        // return reulting bytes from stream
+        return bos.toByteArray();
     }
 }

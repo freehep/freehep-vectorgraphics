@@ -1,4 +1,4 @@
-// Copyright 2000-2006, FreeHEP
+// Copyright 2000-2007, FreeHEP
 package org.freehep.graphics2d;
 
 import java.awt.BasicStroke;
@@ -19,6 +19,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
+import java.awt.geom.Area;
 import java.text.AttributedCharacterIterator;
 import java.util.Properties;
 
@@ -33,7 +34,7 @@ import org.freehep.util.UserProperties;
  * @author Simon Fischer
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/AbstractVectorGraphics.java f827db4cd880 2006/12/04 22:27:37 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/AbstractVectorGraphics.java d7c75c135a1d 2007/01/09 00:32:55 duns $
  */
 public abstract class AbstractVectorGraphics extends VectorGraphics {
 
@@ -738,5 +739,32 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
                 path.closePath();
         }
         return path;
-    }    
+    }
+
+    /**
+     * Checks whether or not the specified <code>Shape</code> intersects
+     * the specified {@link Rectangle}, which is in device
+     * space.
+     *
+     * @param rect the area in device space to check for a hit
+     * @param s the <code>Shape</code> to check for a hit
+     * @param onStroke flag used to choose between testing the stroked or the filled shape.
+     * @see java.awt.Graphics2D#hit(Rectangle, Shape, boolean)
+     */
+    public boolean hit(Rectangle rect, Shape s, boolean onStroke) {
+        if (onStroke && getStroke() != null) {
+            s = getStroke().createStrokedShape(s);
+        }
+
+        if (getTransform() != null) {
+            s = getTransform().createTransformedShape(s);
+        }
+
+        Area area = new Area(s);
+        if (getClip() != null) {
+            area.intersect(new Area(getClip()));
+        }
+
+        return area.intersects(rect);
+    }
 }

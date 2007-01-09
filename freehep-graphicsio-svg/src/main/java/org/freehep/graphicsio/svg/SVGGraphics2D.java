@@ -20,10 +20,8 @@ import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.GeneralPath;
-import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -60,7 +58,7 @@ import org.freehep.xml.util.XMLWriter;
  * The current implementation is based on REC-SVG11-20030114
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java e5b4b9730048 2007/01/05 22:51:59 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java d7c75c135a1d 2007/01/09 00:32:55 duns $
  */
 public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
@@ -560,36 +558,36 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         boolean isTransparent = image.getColorModel().hasAlpha()
                 && (bkg == null);
 
-        byte[] pngBytes = null;
-        if (writeAs.equals(ImageConstants.PNG)
-                || writeAs.equals(ImageConstants.SMALLEST) || isTransparent) {
-            ByteArrayOutputStream png = new ByteArrayOutputStream();
-            ImageGraphics2D.writeImage(image, "png", new Properties(), png);
-            png.close();
-            pngBytes = png.toByteArray();
-        }
-
-        byte[] jpgBytes = null;
-        if ((writeAs.equals(ImageConstants.JPG) || writeAs
-                .equals(ImageConstants.SMALLEST))
-                && !isTransparent) {
-            ByteArrayOutputStream jpg = new ByteArrayOutputStream();
-            ImageGraphics2D.writeImage(image, "jpg", new Properties(), jpg);
-            jpg.close();
-            jpgBytes = jpg.toByteArray();
-        }
-
         String encode;
         byte[] imageBytes;
-        if (writeAs.equals(ImageConstants.PNG) || isTransparent) {
-            encode = "png";
-            imageBytes = pngBytes;
-        } else if (writeAs.equals(ImageConstants.JPG)) {
-            encode = "jpg";
-            imageBytes = jpgBytes;
-        } else {
-            encode = (jpgBytes.length < 0.5 * pngBytes.length) ? "jpg" : "png";
-            imageBytes = encode.equals("jpg") ? jpgBytes : pngBytes;
+
+        // write as PNG
+        if (ImageConstants.PNG.equalsIgnoreCase(writeAs) || isTransparent) {
+            encode = ImageConstants.PNG;
+            imageBytes = ImageGraphics2D.toByteArray(
+                image, ImageConstants.PNG, null, null);
+        }
+
+        // write as JPG
+        else if (ImageConstants.JPG.equalsIgnoreCase(writeAs)) {
+            encode = ImageConstants.JPG;
+            imageBytes = ImageGraphics2D.toByteArray(
+                image, ImageConstants.JPG, null, null);
+        }
+
+        // write as SMALLEST
+        else {
+            byte[] pngBytes = ImageGraphics2D.toByteArray(image, ImageConstants.PNG, null, null);
+            byte[] jpgBytes = ImageGraphics2D.toByteArray(image, ImageConstants.JPG, null, null);
+
+            // define encode and imageBytes
+            if (jpgBytes.length < 0.5 * pngBytes.length) {
+                encode = ImageConstants.JPG;
+                imageBytes = jpgBytes;
+            } else {
+                encode = ImageConstants.PNG;
+                imageBytes = pngBytes;
+            }
         }
 
         if (isProperty(EXPORT_IMAGES)) {
@@ -1213,9 +1211,10 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         }
 
         StringBuffer result = new StringBuffer();
+        boolean styleable = isProperty(STYLABLE);
 
         // embed everything in a "style" attribute
-        if (isProperty(STYLABLE)) {
+        if (styleable) {
             result.append("style=\"");
         }
 
@@ -1226,7 +1225,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
             result.append(key);
 
-            if (isProperty(STYLABLE)) {
+            if (styleable) {
                 result.append(":");
                 result.append(value);
                 result.append(";");
@@ -1241,7 +1240,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         }
 
         // close the style attribute
-        if (isProperty(STYLABLE)) {
+        if (styleable) {
             result.append("\"");
         }
 

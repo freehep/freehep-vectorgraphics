@@ -1,4 +1,4 @@
-// Copyright 2001, FreeHEP.
+// Copyright 2001-2007, FreeHEP.
 package org.freehep.graphicsio.swf;
 
 import java.awt.Color;
@@ -8,23 +8,20 @@ import java.awt.image.ImageObserver;
 import java.awt.image.RenderedImage;
 import java.awt.image.WritableRaster;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.zip.InflaterInputStream;
 
 import org.freehep.graphicsio.ImageGraphics2D;
-import org.freehep.graphicsio.raw.RawImageWriteParam;
-import org.freehep.util.UserProperties;
+import org.freehep.graphicsio.ImageConstants;
 import org.freehep.util.images.ImageUtilities;
-import org.freehep.util.io.FlateOutputStream;
 
 /**
  * DefineBitsJPEG3 TAG.
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/DefineBitsJPEG3.java db861da05344 2005/12/05 00:59:43 duns $
+ * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/DefineBitsJPEG3.java d7c75c135a1d 2007/01/09 00:32:55 duns $
  */
 public class DefineBitsJPEG3 extends DefineBitsJPEG2 {
 
@@ -56,7 +53,7 @@ public class DefineBitsJPEG3 extends DefineBitsJPEG2 {
         byte[] data = swf.readByte(jpegLen);
 
         ByteArrayInputStream bais = new ByteArrayInputStream(data);
-        BufferedImage bi = ImageGraphics2D.readImage("jpg", bais);
+        BufferedImage bi = ImageGraphics2D.readImage(ImageConstants.JPG.toLowerCase(), bais);
         if (bais.available() > 0)
             System.err.println("DefineBitsJPEG3: not all bytes read: "
                     + bais.available());
@@ -95,20 +92,23 @@ public class DefineBitsJPEG3 extends DefineBitsJPEG2 {
 
     private byte[] getImageBytes() throws IOException {
         if (imageBytes == null) {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageGraphics2D.writeImage(image, "jpg", options, baos);
-            imageLength = baos.size();
 
-            FlateOutputStream flate = new FlateOutputStream(baos);
-            UserProperties props = new UserProperties();
-            props.setProperty(RawImageWriteParam.BACKGROUND, Color.BLACK);
-            props.setProperty(RawImageWriteParam.CODE, "A");
-            props.setProperty(RawImageWriteParam.PAD, 1);
-            ImageGraphics2D.writeImage(image, "raw", props, flate);
-            flate.finish();
-            baos.close();
+            // calculate jpg bytes
+            byte[] jpgBytes = ImageGraphics2D.toByteArray(
+                image, ImageConstants.JPG, null, null);
+            imageLength = jpgBytes.length;
 
-            imageBytes = baos.toByteArray();
+            // calculate raw bytes
+            byte[] rawBytes = ImageGraphics2D.toByteArray(
+                image,
+                ImageConstants.RAW,
+                ImageConstants.ENCODING_FLATE,
+                ImageGraphics2D.getRAWProperties(Color.black, ImageConstants.COLOR_MODEL_A));
+
+            // write jpgBytes and rawBytes into the imageBytes
+            imageBytes = new byte[jpgBytes.length + rawBytes.length];
+            System.arraycopy(jpgBytes, 0, imageBytes, 0, jpgBytes.length);
+            System.arraycopy(rawBytes, 0, imageBytes, jpgBytes.length, rawBytes.length);
         }
         return imageBytes;
     }

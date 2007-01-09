@@ -20,7 +20,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -32,7 +31,6 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 
-import org.freehep.graphics2d.PrintColor;
 import org.freehep.graphics2d.TagString;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.FontConstants;
@@ -42,17 +40,14 @@ import org.freehep.graphicsio.InfoConstants;
 import org.freehep.graphicsio.MultiPageDocument;
 import org.freehep.graphicsio.PageConstants;
 import org.freehep.graphicsio.font.FontUtilities;
-import org.freehep.graphicsio.raw.RawImageWriteParam;
 import org.freehep.util.ScientificFormat;
 import org.freehep.util.UserProperties;
 import org.freehep.util.images.ImageUtilities;
-import org.freehep.util.io.ASCII85OutputStream;
-import org.freehep.util.io.FlateOutputStream;
 
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java e5b4b9730048 2007/01/05 22:51:59 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java d7c75c135a1d 2007/01/09 00:32:55 duns $
  */
 public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -209,6 +204,9 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
     /**
      * This protected method is used by the create() methods to create a clone
      * of the given graphics object.
+     *
+     * @param graphics Parent graphics to take attributes from
+     * @param doRestoreOnDispose if true writeGraphicsRestore() is called on dispose()
      */
     protected PSGraphics2D(PSGraphics2D graphics, boolean doRestoreOnDispose) {
 
@@ -240,6 +238,8 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
     /**
      * Set the clipping enabled flag. This will affect all output operations
      * after this call completes.
+     *
+     * @param enabled true enables clipping
      */
     public static void setClipEnabled(boolean enabled) {
         defaultProperties.setProperty(CLIP, enabled);
@@ -247,6 +247,8 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
 
     /**
      * Get the bounding box for this page.
+     *
+     * @return pageSize - margins
      */
     private Rectangle getBoundingBox() {
         // determine page size
@@ -611,45 +613,59 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         os.println("/ImageMatrix [" + imageWidth + " 0 0 " + imageHeight
                 + " 0 0]");
 
+        // read image format
         String writeAs = getProperty(WRITE_IMAGES_AS);
 
-        byte[] flateBytes = null;
-        if (writeAs.equals(ImageConstants.ZLIB)
-                || writeAs.equals(ImageConstants.SMALLEST)) {
-            ByteArrayOutputStream flate = new ByteArrayOutputStream();
-            ASCII85OutputStream flate85 = new ASCII85OutputStream(flate);
-            FlateOutputStream fos = new FlateOutputStream(flate85);
-            UserProperties props = new UserProperties();
-            props.setProperty(RawImageWriteParam.BACKGROUND, bkg);
-            props.setProperty(RawImageWriteParam.CODE, "RGB");
-            props.setProperty(RawImageWriteParam.PAD, 1);
-            ImageGraphics2D.writeImage(image, "raw", props, fos);
-            fos.close();
-            flateBytes = flate.toByteArray();
-        }
-
-        byte[] jpgBytes = null;
-        if (writeAs.equals(ImageConstants.JPG)
-                || writeAs.equals(ImageConstants.SMALLEST)) {
-            ByteArrayOutputStream jpg = new ByteArrayOutputStream();
-            ASCII85OutputStream jpg85 = new ASCII85OutputStream(jpg);
-            ImageGraphics2D.writeImage(image, "jpg", new Properties(), jpg85);
-            jpg85.close();
-            jpgBytes = jpg.toByteArray();
-        }
-
+        // used for creating
+        //    /DataSource currentfile /ASCII85Decode filter /"encode"Decode filter
+        //    >> image "imageBytes"
         String encode;
         byte[] imageBytes;
-        if (writeAs.equals(ImageConstants.ZLIB)) {
-            encode = "Flate";
-            imageBytes = flateBytes;
-        } else if (writeAs.equals(ImageConstants.JPG)) {
-            encode = "DCT";
-            imageBytes = jpgBytes;
-        } else {
-            encode = (jpgBytes.length < 0.5 * flateBytes.length) ? "DCT"
-                    : "Flate";
-            imageBytes = encode.equals("DCT") ? jpgBytes : flateBytes;
+
+        // write as RAW with ZIP compression
+        if (ImageConstants.ZLIB.equalsIgnoreCase(writeAs)) {
+            encode = ImageConstants.ENCODING_FLATE;
+            imageBytes = ImageGraphics2D.toByteArray(
+                image,
+                ImageConstants.RAW,
+                ImageConstants.ENCODING_FLATE,
+                ImageGraphics2D.getRAWProperties(bkg, ImageConstants.COLOR_MODEL_RGB));
+        }
+
+        // write as JPEG
+        else if (ImageConstants.JPG.equalsIgnoreCase(writeAs)) {
+            encode = ImageConstants.ENCODING_DCT;
+            imageBytes = ImageGraphics2D.toByteArray(
+                image,
+                ImageConstants.JPG,
+                ImageConstants.ENCODING_ASCII85,
+                null);
+        }
+
+        // write SMALLEST (JPEG or RAW)
+        else {
+            // zip-compressed raw image
+            byte[] flateBytes = ImageGraphics2D.toByteArray(
+                image,
+                ImageConstants.RAW,
+                ImageConstants.ENCODING_FLATE_ASCII85,
+                ImageGraphics2D.getRAWProperties(bkg, ImageConstants.COLOR_MODEL_RGB));
+
+            // jpeg image DCT encoded
+            byte[] jpgBytes = ImageGraphics2D.toByteArray(
+                image,
+                ImageConstants.JPG,
+                ImageConstants.ENCODING_ASCII85,
+                null);
+
+            // define encoding and imagebytes
+            if (jpgBytes.length < 0.5 * flateBytes.length) {
+                encode = ImageConstants.ENCODING_DCT;
+                imageBytes = jpgBytes;
+            } else {
+                encode = ImageConstants.ENCODING_FLATE;
+                imageBytes = flateBytes;
+            }
         }
 
         os.println("/DataSource currentfile " + "/ASCII85Decode filter " + "/"
@@ -728,6 +744,9 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
     /**
      * Write the path of the current shape to the output file. Return a boolean
      * indicating whether or not the even-odd rule for filling should be used.
+     * @return path by PSPathConstructor
+     * @param s Shape to convert
+     * @throws java.io.IOException thrown by created path
      */
     private boolean writePath(Shape s) throws IOException {
         os.println("newpath");
@@ -926,6 +945,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
      * @param str string to draw
      * @param x coordinate for drawing
      * @param y coordinate for drawing
+     * @throws java.io.IOException thrown by write operations
      */
     private void showCharacterCodes(String str, double x, double y) throws IOException {
         // push a copy of the current graphics state on the graphics state stack
@@ -966,6 +986,9 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
      * A utility function which actually sets the color in the PS. We use the
      * stroke color as the PS current color and a special saved variable for the
      * fill color.
+     *
+     * @param c Color
+     * @param fillColor true writes a color for fillings
      */
     private void setPSColor(Color c, boolean fillColor) {
         if (c != null) {

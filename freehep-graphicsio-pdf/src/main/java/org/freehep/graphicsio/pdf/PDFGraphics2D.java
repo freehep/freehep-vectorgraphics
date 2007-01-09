@@ -1,4 +1,4 @@
-// Copyright 2000-2007 FreeHEP
+// Copyright 2000-2007, FreeHEP
 package org.freehep.graphicsio.pdf;
 
 import java.awt.BasicStroke;
@@ -56,7 +56,7 @@ import org.freehep.util.UserProperties;
  * 
  * @author Simon Fischer
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java 28b7ee334c24 2007/01/04 01:21:54 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java d7c75c135a1d 2007/01/09 00:32:55 duns $
  */
 public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 		MultiPageDocument, FontUtilities.ShowString {
@@ -172,7 +172,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 
 	private static final String PDF_VERSION = "1.4";
 
-	private static final String[] COMPRESS_FILTERS = { "Flate", "ASCII85" };
+	private static final String[] COMPRESS_FILTERS = { ImageConstants.ENCODING_FLATE, ImageConstants.ENCODING_ASCII85};
 
 	private static final String[] NO_FILTERS = {};
 
