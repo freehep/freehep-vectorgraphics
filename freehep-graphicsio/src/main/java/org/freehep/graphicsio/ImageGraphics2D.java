@@ -46,7 +46,7 @@ import org.freehep.graphicsio.raw.RawImageWriteParam;
  * Generic class for generating bitmap outputs from an image.
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java 2fa79ac3a135 2007/01/09 18:18:57 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java 8475f837f0d0 2007/01/09 19:01:32 duns $
  */
 public class ImageGraphics2D extends PixelGraphics2D {
 
@@ -328,14 +328,37 @@ public class ImageGraphics2D extends PixelGraphics2D {
         System.err.println(exception);
     }
 
-    public static BufferedImage createBufferedImage(String format, int width,
-            int height) {
+    /**
+     * creates an empty image
+     *
+     * @param format e.g. {@link ImageConstants#BMP} or {ImageConstants#PNG}
+     * @param width image width
+     * @param height image height
+     * @return offscreen buffered image
+     */
+    public static BufferedImage createBufferedImage(
+        String format,
+        int width,
+        int height) {
+
+        // NOTE: special case for WBMP which only
+        // supports on color band with sample size 1
+        // (which means black / white with no gray scale)
+        if (ImageConstants.WBMP.equalsIgnoreCase(format)) {
+            return new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
+        }
+
         // NOTE: special case for JPEG which has no Alpha
-        int imageType = (format.equalsIgnoreCase(ImageConstants.JPG) || format
-                .equalsIgnoreCase(ImageConstants.JPEG)) ? BufferedImage.TYPE_INT_RGB
-                : BufferedImage.TYPE_INT_ARGB;
-        BufferedImage image = new BufferedImage(width, height, imageType);
-        return image;
+        if (ImageConstants.JPG.equalsIgnoreCase(format)) {
+            return new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        }
+
+        // NOTE: special case for BMP which has no Alpha
+        if (ImageConstants.BMP.equalsIgnoreCase(format)) {
+            return new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        }
+
+        return new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     }
 
     public static BufferedImage generateThumbnail(Component component,
