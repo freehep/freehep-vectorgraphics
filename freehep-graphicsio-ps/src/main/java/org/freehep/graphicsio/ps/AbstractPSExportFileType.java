@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import org.freehep.graphics2d.VectorGraphics;
 import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.InfoConstants;
+import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.exportchooser.AbstractExportFileType;
 import org.freehep.graphicsio.exportchooser.BackgroundPanel;
 import org.freehep.graphicsio.exportchooser.FontPanel;
@@ -28,7 +29,7 @@ import org.freehep.util.UserProperties;
 /**
  * 
  * @author Charles Loomis, Simon Fischer
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/AbstractPSExportFileType.java 6fc90d16bd14 2006/11/30 18:48:36 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/AbstractPSExportFileType.java 9d9f8caaff82 2007/01/09 18:20:50 duns $
  */
 public abstract class AbstractPSExportFileType extends AbstractExportFileType {
 
@@ -65,7 +66,9 @@ public abstract class AbstractPSExportFileType extends AbstractExportFileType {
         previewCheckBox.enables(previewComboBox);
         preview.setVisible(false);
 
+        // rootKeys for FontProperties
         String rootKey = PSGraphics2D.class.getName();
+        String abstractRootKey = AbstractVectorGraphicsIO.class.getName();
 
         JPanel infoPanel = new InfoPanel(options, rootKey, new String[] {
                 InfoConstants.FOR, InfoConstants.TITLE });
@@ -86,7 +89,7 @@ public abstract class AbstractPSExportFileType extends AbstractExportFileType {
         rightPanel.add(TableLayout.COLUMN, new ImageTypePanel(options, rootKey,
                 new String[] { ImageConstants.SMALLEST, ImageConstants.ZLIB,
                         ImageConstants.JPG }));
-        rightPanel.add(TableLayout.COLUMN, new FontPanel(options, rootKey));
+        rightPanel.add(TableLayout.COLUMN, new FontPanel(options, rootKey, abstractRootKey));
         rightPanel.add(TableLayout.COLUMN_FILL, new JLabel());
 
         // Make the full panel.

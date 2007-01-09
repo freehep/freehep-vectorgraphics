@@ -53,7 +53,7 @@ import org.freehep.util.images.ImageUtilities;
  * @author Charles Loomis
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java a3071d178520 2007/01/02 20:08:50 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 9d9f8caaff82 2007/01/09 18:20:50 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -62,7 +62,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
     public static final String EMIT_WARNINGS = rootKey + ".EMIT_WARNINGS";
 
-    public static final String TEXT_AS_SHAPES = rootKey + ".TEXT_AS_SHAPES";
+    public static final String TEXT_AS_SHAPES = rootKey + "." + FontConstants.TEXT_AS_SHAPES;
 
     public static final String EMIT_ERRORS = rootKey + ".EMIT_ERRORS";
 

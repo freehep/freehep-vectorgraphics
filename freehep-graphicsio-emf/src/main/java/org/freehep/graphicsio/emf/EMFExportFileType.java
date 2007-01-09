@@ -15,6 +15,8 @@ import org.freehep.graphicsio.exportchooser.AbstractExportFileType;
 import org.freehep.graphicsio.exportchooser.BackgroundPanel;
 import org.freehep.graphicsio.exportchooser.OptionCheckBox;
 import org.freehep.graphicsio.exportchooser.OptionPanel;
+import org.freehep.graphicsio.exportchooser.FontPanel;
+import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.swing.layout.TableLayout;
 import org.freehep.util.UserProperties;
 
@@ -22,7 +24,7 @@ import org.freehep.util.UserProperties;
  * // FIXME, check all options
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFExportFileType.java 117b4dcec7e2 2006/11/30 18:44:02 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFExportFileType.java 9d9f8caaff82 2007/01/09 18:20:50 duns $
  */
 public class EMFExportFileType extends AbstractExportFileType {
 
@@ -49,11 +51,18 @@ public class EMFExportFileType extends AbstractExportFileType {
                 .getDefaultProperties());
 
         String rootKey = EMFGraphics2D.class.getName();
+        String abstractRootKey = AbstractVectorGraphicsIO.class.getName();
 
         // Make the full panel.
         OptionPanel optionsPanel = new OptionPanel();
-        optionsPanel.add("0 0 [5 5 5 5] wt", new BackgroundPanel(options,
-                rootKey, true));
+        optionsPanel.add(
+            "0 0 [5 5 5 5] wt",
+            new BackgroundPanel(options, rootKey, true));
+
+        optionsPanel.add(
+            "0 1 [5 5 5 5] wt",
+            new FontPanel(options, null, abstractRootKey));
+        
         optionsPanel.add(TableLayout.COLUMN_FILL, new JLabel());
 
         return optionsPanel;

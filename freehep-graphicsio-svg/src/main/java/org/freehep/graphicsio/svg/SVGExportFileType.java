@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import org.freehep.graphics2d.VectorGraphics;
 import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.InfoConstants;
+import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.exportchooser.AbstractExportFileType;
 import org.freehep.graphicsio.exportchooser.BackgroundPanel;
 import org.freehep.graphicsio.exportchooser.ImageSizePanel;
@@ -22,13 +23,14 @@ import org.freehep.graphicsio.exportchooser.OptionCheckBox;
 import org.freehep.graphicsio.exportchooser.OptionComboBox;
 import org.freehep.graphicsio.exportchooser.OptionPanel;
 import org.freehep.graphicsio.exportchooser.OptionTextField;
+import org.freehep.graphicsio.exportchooser.FontPanel;
 import org.freehep.swing.layout.TableLayout;
 import org.freehep.util.UserProperties;
 
 /**
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGExportFileType.java 2bc4a567606d 2006/11/30 18:45:21 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGExportFileType.java 9d9f8caaff82 2007/01/09 18:20:50 duns $
  */
 public class SVGExportFileType extends AbstractExportFileType {
 
@@ -62,6 +64,8 @@ public class SVGExportFileType extends AbstractExportFileType {
                 .getDefaultProperties());
 
         String rootKey = SVGGraphics2D.class.getName();
+        String abstractRootKey = AbstractVectorGraphicsIO.class.getName();
+
         OptionPanel imageSize = new ImageSizePanel(options, rootKey);
 
         OptionPanel format = new OptionPanel("Format");
@@ -107,6 +111,7 @@ public class SVGExportFileType extends AbstractExportFileType {
         rightPanel.add(TableLayout.COLUMN, new ImageTypePanel(options, rootKey,
                 new String[] { ImageConstants.SMALLEST, ImageConstants.PNG,
                         ImageConstants.JPG }));
+        rightPanel.add(TableLayout.COLUMN, new FontPanel(options, null, abstractRootKey));
         rightPanel.add(TableLayout.COLUMN_FILL, new JLabel());
 
         // Make the full panel.
