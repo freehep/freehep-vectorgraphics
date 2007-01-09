@@ -12,8 +12,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.freehep.graphicsio.ImageConstants;
-
 /**
  * Delay <tt>Paint</tt> objects (gradient/texture, not color) for writing
  * pattern/shading/function dictionaries to the pdf file when the pageStream is
@@ -22,7 +20,7 @@ import org.freehep.graphicsio.ImageConstants;
  * yet (ps calculation)
  * 
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFPaintDelayQueue.java 6c5793275e44 2006/11/15 19:28:52 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFPaintDelayQueue.java 2fa79ac3a135 2007/01/09 18:18:57 duns $
  */
 public class PDFPaintDelayQueue {
 
@@ -241,15 +239,7 @@ public class PDFPaintDelayQueue {
         // scale the tiling image to the correct size
         pattern.matrix(width, 0, 0, -height, 0, height);
 
-        String[] encode;
-        if (e.writeAs.equals(ImageConstants.ZLIB)) {
-            encode = new String[] { "Flate", "ASCII85" };
-        } else if (e.writeAs.equals(ImageConstants.JPG)) {
-            encode = new String[] { "DCT", "ASCII85" };
-        } else {
-            encode = new String[] { null, "ASCII85" };
-        }
-        pattern.inlineImage(image, null, encode);
+        pattern.inlineImage(image, null, e.writeAs);
         pdf.close(pattern);
     }
 

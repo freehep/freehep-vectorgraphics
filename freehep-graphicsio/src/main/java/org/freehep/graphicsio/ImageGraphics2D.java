@@ -44,9 +44,9 @@ import org.freehep.graphicsio.raw.RawImageWriteParam;
 
 /**
  * Generic class for generating bitmap outputs from an image.
- * 
+ *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java d7c75c135a1d 2007/01/09 00:32:55 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java 2fa79ac3a135 2007/01/09 18:18:57 duns $
  */
 public class ImageGraphics2D extends PixelGraphics2D {
 
@@ -321,7 +321,7 @@ public class ImageGraphics2D extends PixelGraphics2D {
     /**
      * Handles an exception which has been caught. Dispatches exception to
      * writeWarning for UnsupportedOperationExceptions and writeError for others
-     * 
+     *
      * @param exception to be handled
      */
     protected void handleException(Exception exception) {
@@ -452,7 +452,7 @@ public class ImageGraphics2D extends PixelGraphics2D {
                 }
         		return 3;
         	}
-        	
+
         	public int compare(Object arg0, Object arg1) {
         		int order0 = order(arg0);
         		int order1 = order(arg1);
@@ -463,8 +463,8 @@ public class ImageGraphics2D extends PixelGraphics2D {
             imageWriters.add((ImageWriter) iterator.next());
         }
         return imageWriters;
-    }	
-    
+    }
+
     public static BufferedImage readImage(String format, InputStream is)
             throws IOException {
         Iterator iterator = ImageIO.getImageReadersByFormatName(format.toLowerCase());
@@ -499,6 +499,7 @@ public class ImageGraphics2D extends PixelGraphics2D {
     /**
      * @param bkg Background color for the image
      * @return Properties used to create a RAW image
+     * @param code Color encoding, e.g. {@link ImageConstants#COLOR_MODEL_RGB}
      */
     public static UserProperties getRAWProperties(Color bkg, String code) {
         UserProperties result = new UserProperties();
@@ -512,7 +513,7 @@ public class ImageGraphics2D extends PixelGraphics2D {
      * Converts a given image to byte[]
      *
      * @throws IOException thrown by {@link #writeImage(java.awt.image.RenderedImage, String, java.util.Properties, java.io.OutputStream)}
-     * @param image Image to vonvert
+     * @param image Image to convert
      * @param format e.g. {@link ImageConstants#JPG}, {@link ImageConstants#PNG, {@link ImageConstants#RAW}
      * @param props Properties for writing, e.g. {@link org.freehep.graphicsio.raw.RawImageWriteParam#BACKGROUND}
      * @param encoding {@link ImageConstants#ENCODING_ASCII85}, {@link ImageConstants#ENCODING_FLATE} or null
@@ -527,11 +528,13 @@ public class ImageGraphics2D extends PixelGraphics2D {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         OutputStream os = bos;
 
-        if (ImageConstants.ENCODING_ASCII85.equals(encoding) || ImageConstants.ENCODING_FLATE_ASCII85.equals(encoding)) {
+        if (ImageConstants.ENCODING_ASCII85.equals(encoding)
+            || ImageConstants.ENCODING_FLATE_ASCII85.equals(encoding)) {
             os = new ASCII85OutputStream(os);
         }
 
-        if (ImageConstants.ENCODING_FLATE.equals(encoding)) {
+        if (ImageConstants.ENCODING_FLATE.equals(encoding)
+            || ImageConstants.ENCODING_FLATE_ASCII85.equals(encoding)) {
             os = new FlateOutputStream(os);
         }
 

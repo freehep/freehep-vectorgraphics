@@ -56,7 +56,7 @@ import org.freehep.util.UserProperties;
  * 
  * @author Simon Fischer
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java d7c75c135a1d 2007/01/09 00:32:55 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java 2fa79ac3a135 2007/01/09 18:18:57 duns $
  */
 public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 		MultiPageDocument, FontUtilities.ShowString {
@@ -518,7 +518,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 
 		if (thumbnail != null) {
 			PDFStream thumbnailStream = os.openStream("Thumb" + currentPage);
-			thumbnailStream.image(thumbnail, Color.black, COMPRESS_FILTERS);
+			thumbnailStream.image(thumbnail, Color.black, ImageConstants.ZLIB);
 			os.close(thumbnailStream);
 		}
 
@@ -711,23 +711,6 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 			} else {
 				pageStream.fill();
 			}
-		} catch (IOException e) {
-			handleException(e);
-		}
-	}
-
-	// TODO: Does not use current stroke yet
-	public void fillAndDraw(Shape s, Color fillColor) {
-		try {
-			writeGraphicsSave();
-			setNonStrokeColor(fillColor);
-			boolean eofill = pageStream.drawPath(s);
-			if (eofill) {
-				pageStream.fillEvenOddAndStroke();
-			} else {
-				pageStream.fillAndStroke();
-			}
-			writeGraphicsRestore();
 		} catch (IOException e) {
 			handleException(e);
 		}
@@ -954,12 +937,6 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 	public GraphicsConfiguration getDeviceConfiguration() {
 		writeWarning(getClass() + ": getDeviceConfiguration() not implemented.");
 		return null;
-	}
-
-	public boolean hit(Rectangle rect, Shape s, boolean onStroke) {
-		writeWarning(getClass()
-				+ ": hit(Rectangle, Shape, boolean) not implemented.");
-		return false;
 	}
 
 	public void writeComment(String comment) throws IOException {

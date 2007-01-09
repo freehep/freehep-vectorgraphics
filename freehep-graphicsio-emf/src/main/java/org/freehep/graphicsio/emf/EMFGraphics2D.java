@@ -74,7 +74,7 @@ import org.freehep.util.UserProperties;
  * Enhanced Metafile Format Graphics 2D driver.
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java e5b4b9730048 2007/01/05 22:51:59 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java 2fa79ac3a135 2007/01/09 18:18:57 duns $
  */
 public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         EMFConstants {
@@ -603,13 +603,6 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         writeWarning(getClass() + ": getDeviceConfiguration() not implemented.");
         // Mostly unimplemented
         return null;
-    }
-
-    public boolean hit(Rectangle rect, Shape s, boolean onStroke) {
-        writeWarning(getClass()
-                + ": hit(Rectangle, Shape, boolean) not implemented.");
-        // Mostly unimplemented
-        return false;
     }
 
     public void writeComment(String comment) throws IOException {

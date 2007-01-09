@@ -58,7 +58,7 @@ import org.freehep.xml.util.XMLWriter;
  * The current implementation is based on REC-SVG11-20030114
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java d7c75c135a1d 2007/01/09 00:32:55 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java 2fa79ac3a135 2007/01/09 18:18:57 duns $
  */
 public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
@@ -977,12 +977,6 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
     public GraphicsConfiguration getDeviceConfiguration() {
         writeWarning(getClass() + ": getDeviceConfiguration() not implemented.");
         return null;
-    }
-
-    public boolean hit(Rectangle rect, Shape s, boolean onStroke) {
-        writeWarning(getClass()
-                + ": hit(Rectangle, Shape, boolean) not implemented.");
-        return false;
     }
 
     public void writeComment(String s) throws IOException {

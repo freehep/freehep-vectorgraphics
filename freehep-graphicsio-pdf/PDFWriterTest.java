@@ -4,9 +4,8 @@ import java.awt.*;
 import java.io.*;
 import java.util.*;
 
-import javax.swing.*;
-
 import org.freehep.graphicsio.pdf.*;
+import org.freehep.graphicsio.ImageConstants;
 import org.freehep.util.images.*;
 
 /**
@@ -15,7 +14,7 @@ import org.freehep.util.images.*;
  * some text and graphics.
  * <p>
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/PDFWriterTest.java 967bf3619090 2005/12/01 05:41:40 duns $
+ * @version $Id: freehep-graphicsio-pdf/PDFWriterTest.java 2fa79ac3a135 2007/01/09 18:18:57 duns $
  */
 public class PDFWriterTest {
 
@@ -121,13 +120,20 @@ public class PDFWriterTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        secondThumb.image(ImageUtilities.createRenderedImage(image2, null, Color.BLACK),
-                          Color.BLACK, new String[] { "Flate", "ASCII85" });
+        secondThumb.image(
+            ImageUtilities.createRenderedImage(
+                image2, null, Color.BLACK),
+                Color.BLACK,
+                ImageConstants.ZLIB);
         pdf.close(secondThumb);
 
-
         // second page content
-        PDFStream second = pdf.openStream("SecondPageContent", new String[] { "Flate", "ASCII85" });
+        PDFStream second = pdf.openStream(
+            "SecondPageContent",
+            new String[] {
+                ImageConstants.ENCODING_FLATE,
+                ImageConstants.ENCODING_ASCII85 });
+
         second.comment("Draw a black line segment, using the default line width.");
         second.move(150, 250);
         second.line(150, 350);
@@ -168,9 +174,10 @@ public class PDFWriterTest {
         PDFStream third = pdf.openStream("ThirdPageContent");
         third.save();
         third.matrix(32, 0, 0, 32, 298, 388);
-        third.inlineImage(ImageUtilities.createRenderedImage(image1, null, Color.BLACK),
-                          Color.BLACK,
-                          new String[] {"Flate", "ASCII85"});
+        third.inlineImage(
+            ImageUtilities.createRenderedImage(image1, null, Color.BLACK),
+            Color.BLACK,
+            ImageConstants.ZLIB);
         third.restore();
         pdf.close(third);
 

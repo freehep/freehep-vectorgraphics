@@ -20,6 +20,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -31,6 +32,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 
+import org.freehep.graphics2d.PrintColor;
 import org.freehep.graphics2d.TagString;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.FontConstants;
@@ -40,14 +42,17 @@ import org.freehep.graphicsio.InfoConstants;
 import org.freehep.graphicsio.MultiPageDocument;
 import org.freehep.graphicsio.PageConstants;
 import org.freehep.graphicsio.font.FontUtilities;
+import org.freehep.graphicsio.raw.RawImageWriteParam;
 import org.freehep.util.ScientificFormat;
 import org.freehep.util.UserProperties;
 import org.freehep.util.images.ImageUtilities;
+import org.freehep.util.io.ASCII85OutputStream;
+import org.freehep.util.io.FlateOutputStream;
 
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java d7c75c135a1d 2007/01/09 00:32:55 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java 2fa79ac3a135 2007/01/09 18:18:57 duns $
  */
 public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -142,31 +147,6 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
     private int currentPage;
 
     private int postscriptLevel = LEVEL_3;
-
-    // Private array to do lookups of the horizontal and vertical
-    // alignments.
-    private static String[][] psAlignments = new String[NUMBER_OF_HORIZ_ALIGNMENTS][NUMBER_OF_VERTICAL_ALIGNMENTS];
-
-    static {
-
-        for (int i = 0; i < NUMBER_OF_HORIZ_ALIGNMENTS; i++) {
-            for (int j = 0; j < NUMBER_OF_VERTICAL_ALIGNMENTS; j++) {
-                psAlignments[i][j] = "0";
-            }
-        }
-        psAlignments[TEXT_LEFT][TEXT_TOP] = "0";
-        psAlignments[TEXT_LEFT][TEXT_CENTER] = "1";
-        psAlignments[TEXT_LEFT][TEXT_BASELINE] = "2";
-        psAlignments[TEXT_LEFT][TEXT_BOTTOM] = "3";
-        psAlignments[TEXT_RIGHT][TEXT_TOP] = "4";
-        psAlignments[TEXT_RIGHT][TEXT_CENTER] = "5";
-        psAlignments[TEXT_RIGHT][TEXT_BASELINE] = "6";
-        psAlignments[TEXT_RIGHT][TEXT_BOTTOM] = "7";
-        psAlignments[TEXT_CENTER][TEXT_TOP] = "8";
-        psAlignments[TEXT_CENTER][TEXT_CENTER] = "9";
-        psAlignments[TEXT_CENTER][TEXT_BASELINE] = "10";
-        psAlignments[TEXT_CENTER][TEXT_BOTTOM] = "11";
-    }
 
     /*
      * ================================================================================ |
@@ -628,7 +608,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
             imageBytes = ImageGraphics2D.toByteArray(
                 image,
                 ImageConstants.RAW,
-                ImageConstants.ENCODING_FLATE,
+                ImageConstants.ENCODING_FLATE_ASCII85,
                 ImageGraphics2D.getRAWProperties(bkg, ImageConstants.COLOR_MODEL_RGB));
         }
 
@@ -744,6 +724,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
     /**
      * Write the path of the current shape to the output file. Return a boolean
      * indicating whether or not the even-odd rule for filling should be used.
+     *
      * @return path by PSPathConstructor
      * @param s Shape to convert
      * @throws java.io.IOException thrown by created path
@@ -858,7 +839,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
 
     /* 8.3. */
     protected void writeFont(Font font) {
-	// written when needed
+	    // written when needed
     }
 
     /*
@@ -869,12 +850,6 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
     public GraphicsConfiguration getDeviceConfiguration() {
         writeWarning(getClass() + ": getDeviceConfiguration() not implemented.");
         return null;
-    }
-
-    public boolean hit(Rectangle rect, Shape s, boolean onStroke) {
-        writeWarning(getClass()
-                + ": hit(Rectangle, Shape, boolean) not implemented.");
-        return false;
     }
 
     /**
@@ -1020,21 +995,6 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
             }
         }
     }
-
-    /**
-     * Utility converts the vertical and horizontal alignments in VectorGraphics
-     * to the appropriate number for the PS header code.
-     */
-/*
-    private String getPSAlignment(int vertical, int horizontal) {
-        if (vertical >= 0 && vertical < NUMBER_OF_VERTICAL_ALIGNMENTS
-                && horizontal >= 0 && horizontal < NUMBER_OF_HORIZ_ALIGNMENTS) {
-            return psAlignments[horizontal][vertical];
-        } else {
-            return "0";
-        }
-    }
-*/
     
     private ScientificFormat scientific = new ScientificFormat(6, 9, false);
 
