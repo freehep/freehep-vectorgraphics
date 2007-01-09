@@ -10,7 +10,6 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import java.awt.Paint;
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.TexturePaint;
@@ -29,6 +28,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Hashtable;
@@ -36,6 +37,7 @@ import java.util.Properties;
 import java.util.Stack;
 import java.util.Enumeration;
 import java.util.Map;
+import java.util.Locale;
 import java.util.zip.GZIPOutputStream;
 
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
@@ -44,7 +46,6 @@ import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.graphicsio.InfoConstants;
 import org.freehep.graphicsio.PageConstants;
-import org.freehep.util.ScientificFormat;
 import org.freehep.util.UserProperties;
 import org.freehep.util.Value;
 import org.freehep.util.io.Base64OutputStream;
@@ -58,7 +59,7 @@ import org.freehep.xml.util.XMLWriter;
  * The current implementation is based on REC-SVG11-20030114
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java 2fa79ac3a135 2007/01/09 18:18:57 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java bfd076a3b2e9 2007/01/09 18:24:29 duns $
  */
 public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
@@ -1241,9 +1242,20 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         return result.toString();
     }
 
-    private static ScientificFormat scientific = new ScientificFormat(5, 8,
-            false);
+    /**
+     * for fixedPrecision(double d), SVG does not understand "1E-7"
+     * we have to use ".0000007" instead
+     */
+    private static DecimalFormat scientific = new DecimalFormat(
+        "#.####################",
+        new DecimalFormatSymbols(Locale.US));
 
+    /**
+     * converts the double value to a representing string
+     *
+     * @param d double value to convert
+     * @return same as string
+     */
     public static String fixedPrecision(double d) {
         return scientific.format(d);
     }
