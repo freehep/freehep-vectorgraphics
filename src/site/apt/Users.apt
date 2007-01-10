@@ -13,11 +13,14 @@ Users
   
     * {{{http://wired.freehep.org}WIRED}} - WWW Interactive Remote Event Display
   
-    * {{{http://genetics.stanford.edu/~ihab/caryoscope/}Caryoscope}} 
+    * {{{http://dahlia.stanford.edu:8080/caryoscope/index.html}Caryoscope}} 
       is a Java program for viewing gene expression data in a
       whole-genome context. It is being developed by
       {{{http://smd.stanford.edu/}SMD (Stanford Microarray Database)}} as a reusable
       component for the {{{http://www.gmod.org/}GMOD (Generic Model Organism Database)}} project.
+
+    * {{{http://genoviz.sourceforge.net/}GenoViz}} - Tools for Genomics Data Visualization
+      including the Integrated Genome Browser (IGB).
     
     * {{{mailto:Jeremy_Stein@elementk.com}Jeremy Stein}}, internal project
 
