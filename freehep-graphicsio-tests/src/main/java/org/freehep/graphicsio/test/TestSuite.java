@@ -26,7 +26,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java e908a30ae307 2007/01/13 00:45:55 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 084155cb8c5d 2007/01/13 01:17:35 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -245,7 +245,7 @@ public class TestSuite extends junit.framework.TestSuite {
         tests.add(new Test("TestAll", on));
         tests.add(new Test("TestClip", on));
         tests.add(new Test("TestColors", on));
-        tests.add(new Test("TestCustomStrokes", on && !onMacOSXandJDK15));
+        tests.add(new Test("TestCustomStrokes", on)); // && !onMacOSXandJDK15));
         tests.add(new Test("TestFonts", on));
         tests.add(new Test("TestFontDerivation", on));
         tests.add(new Test("TestGraphicsContexts", on));
