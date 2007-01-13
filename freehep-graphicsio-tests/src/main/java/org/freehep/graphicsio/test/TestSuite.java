@@ -26,7 +26,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java c7daa1d65b55 2007/01/09 19:19:22 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java e908a30ae307 2007/01/13 00:45:55 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -258,6 +258,7 @@ public class TestSuite extends junit.framework.TestSuite {
         tests.add(new Test("TestOffset", on));
         tests.add(new Test("TestPaint", on));
         tests.add(new Test("TestPrintColors", on));
+        tests.add(new Test("TestRenderingHints", on));
         tests.add(new Test("TestResolution", on));
         tests.add(new Test("TestScatterPlot", on));
         tests.add(new Test("TestShapes", on));
@@ -631,7 +632,7 @@ public class TestSuite extends junit.framework.TestSuite {
             w.println("        </div>");
             w.println("        <div id=\"footer\">");
             w.println("          <div class=\"xright\">&#169;");
-            w.println("              2000-2006");
+            w.println("              2000-2007");
             w.println("              FreeHEP");
             w.println("          </div>");
             w.println("          <div class=\"clear\">");

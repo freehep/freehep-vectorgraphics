@@ -5,7 +5,7 @@ import java.awt.Dimension;
 
 /**
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestApplication.java 01495574e746 2006/11/30 18:47:55 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestApplication.java e908a30ae307 2007/01/13 00:45:55 duns $
  */
 public class TestApplication {
 
@@ -37,6 +37,7 @@ public class TestApplication {
         frame.addPanel("Tagged String", new TestTaggedString(null));
         frame.addPanel("Transforms", new TestTransforms(null));
         frame.addPanel("Transparency", new TestTransparency(null));
+        frame.addPanel("Rendering", new TestRenderingHints(null));
 
         // Give the frame a size and make it visible.
         frame.pack();

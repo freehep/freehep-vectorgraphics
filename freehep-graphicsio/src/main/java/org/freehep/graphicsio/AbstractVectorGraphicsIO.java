@@ -53,7 +53,7 @@ import org.freehep.util.images.ImageUtilities;
  * @author Charles Loomis
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 9d9f8caaff82 2007/01/09 18:20:50 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java e908a30ae307 2007/01/13 00:45:55 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -636,21 +636,24 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
                     sb.append(c);
 
                 } else {
-                    // draw sb if font is changed
-                    drawString(sb.toString(), x, y);
-
-                    // change the x offset for the next drawing
-                    // FIXME: change y offset for vertical text
-                    TextLayout tl = new TextLayout(
-                        sb.toString(),
-                        attributes,
-                        getFontRenderContext());
-
-                    // calculate real width
-                    x = x + Math.max(
-                        tl.getAdvance(),
-                        (float)tl.getBounds().getWidth());
-
+                    // TextLayout does not like 0 length strings
+                    if (sb.length() > 0) {
+                        // draw sb if font is changed
+                        drawString(sb.toString(), x, y);
+    
+                        // change the x offset for the next drawing
+                        // FIXME: change y offset for vertical text
+                        TextLayout tl = new TextLayout(
+                            sb.toString(),
+                            attributes,
+                            getFontRenderContext());
+    
+                        // calculate real width
+                        x = x + Math.max(
+                            tl.getAdvance(),
+                            (float)tl.getBounds().getWidth());
+                    }
+                    
                     // empty sb
                     sb = new StringBuffer();
                     sb.append(c);

@@ -1,4 +1,4 @@
-// Copyright 2002-2006, FreeHEP.
+// Copyright 2002-2007, FreeHEP.
 package org.freehep.graphicsio.test;
 
 import java.awt.BasicStroke;
@@ -11,9 +11,13 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.MediaTracker;
 import java.awt.TexturePaint;
+import java.awt.Rectangle;
+import java.awt.font.TextAttribute;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.text.AttributedString;
 
 import org.freehep.graphics2d.TagString;
 import org.freehep.graphics2d.VectorGraphics;
@@ -22,7 +26,7 @@ import org.freehep.util.images.ImageHandler;
 
 /**
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestAll.java 5893ccf212fd 2006/11/27 23:16:44 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestAll.java e908a30ae307 2007/01/13 00:45:55 duns $
  */
 public class TestAll extends TestingPanel implements VectorGraphicsConstants {
 
@@ -91,16 +95,55 @@ public class TestAll extends TestingPanel implements VectorGraphicsConstants {
         vg.setFont(new Font("TimesRoman", Font.PLAIN, 11));
         // vg.setFont(new Font("Arial", Font.PLAIN, 11));
 
-        vg
-                .drawString(
-                        new TagString(
-                                "The <i>drawString</i> methods in <i>VectorGraphics</i> support"),
-                        fx + 3 * width / 16, fy - width / 8 + 10);
-        vg
-                .drawString(
-                        new TagString(
-                                "output of strings using a subset of the <b>HTML language</b>."),
-                        fx + 3 * width / 16, fy - width / 8 + 24);
+        vg.drawString(
+            new TagString("The <i>drawString</i> methods in <i>VectorGraphics</i> support"),
+            fx + 3 * width / 16,
+            fy - width / 8 + 10);
+        vg.drawString(
+            new TagString("output of strings using a subset of the <b>HTML language</b>."),
+            fx + 3 * width / 16,
+            fy - width / 8 + 24);
+
+        String text = "The direct output of attributed strings is supported too.";
+        AttributedString as = new AttributedString(text);
+        as.addAttribute(
+            TextAttribute.FAMILY,
+            "TimesRoman");
+        as.addAttribute(
+            TextAttribute.SIZE,
+            new Float(11));
+        // make "output" italic
+        as.addAttribute(
+            TextAttribute.POSTURE,
+            TextAttribute.POSTURE_OBLIQUE,
+            text.indexOf("output"),
+            text.indexOf("output") + "output".length());
+        // make "attributed" bold
+        as.addAttribute(
+            TextAttribute.WEIGHT,
+            TextAttribute.WEIGHT_BOLD,
+            text.indexOf("attributed"),
+            text.indexOf("attributed") + "attributed".length());
+        // make "supported" bold
+        as.addAttribute(
+            TextAttribute.TRANSFORM,
+            AffineTransform.getTranslateInstance(0, 5),
+            text.indexOf("supported"),
+            text.indexOf("supported") + "supported".length());
+        as.addAttribute(
+            TextAttribute.FOREGROUND,
+            Color.red,
+            text.indexOf("strings"),
+            text.indexOf("strings") + "strings".length());
+        as.addAttribute(
+            TextAttribute.BACKGROUND,
+            new TexturePaint(sky, new Rectangle(0, 0, 100, 100)),
+            text.indexOf("direct"),
+            text.indexOf("direct") + "direct".length());
+        vg.drawString(
+            as.getIterator(),
+            (float)(fx + 3 * width / 16),
+            (float)(fy - width / 8 + 38));
 
         vg.setColor(Color.red);
         double sx = width / 2;
@@ -117,7 +160,7 @@ public class TestAll extends TestingPanel implements VectorGraphicsConstants {
         vg.fillRect(mx, my, width / 2, height / 2);
         vg.setPaint(Color.black);
         vg.setFont(new Font("Impact", Font.BOLD, 60));
-        vg.drawString("\u2729Impact\u2729", mx + width / 4, my + height / 4,
+        vg.drawString("\u25C4Impact\u25BA", mx + width / 4, my + height / 4,
                 VectorGraphicsConstants.TEXT_CENTER, VectorGraphicsConstants.TEXT_BASELINE);
 
         GeneralPath shape = new GeneralPath();

@@ -24,6 +24,8 @@ import java.awt.TexturePaint;
 import java.awt.Toolkit;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
+import java.awt.font.ImageGraphicAttribute;
+import java.awt.font.ShapeGraphicAttribute;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
@@ -32,6 +34,9 @@ import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.awt.image.ImageObserver;
 import java.awt.image.RenderedImage;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.ConvolveOp;
+import java.awt.image.Kernel;
 import java.awt.image.renderable.RenderableImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -40,6 +45,9 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.BufferedOutputStream;
+import java.io.StringWriter;
 import java.text.AttributedCharacterIterator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -48,6 +56,7 @@ import java.util.Properties;
 import java.util.SortedSet;
 import java.util.TooManyListenersException;
 import java.util.TreeSet;
+import java.util.HashSet;
 
 import org.freehep.graphics2d.TagString;
 import org.freehep.graphics2d.VectorGraphics;
@@ -76,7 +85,7 @@ import org.freehep.util.io.LineNumberWriter;
  * </ul>
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-java/src/main/java/org/freehep/graphicsio/java/JAVAGraphics2D.java 35198018c7cc 2006/03/09 18:45:26 duns $
+ * @version $Id: freehep-graphicsio-java/src/main/java/org/freehep/graphicsio/java/JAVAGraphics2D.java e908a30ae307 2007/01/13 00:45:55 duns $
  */
 public class JAVAGraphics2D extends VectorGraphics implements
         LineNumberWriter.LineNumberListener {
@@ -137,9 +146,37 @@ public class JAVAGraphics2D extends VectorGraphics implements
 
     public static final String PACKAGE_NAME = rootKey + ".PackageName";
 
+    /**
+     * if set to true image in the resulting .java file
+     * are referenced by complete path of creation,
+     * default false
+     */
+    public static final String COMPLETE_IMAGE_PATHS = rootKey + ".CompleteImagePath";
+
+    /**
+     * if set to true images are stored as byte[] inside the .java file,
+     * default false.
+     * Setting this option to true can lead to a not compilable .java file
+     * because of the its size.
+     */
+    public static final String EMBED_IMAGES = rootKey + ".EmbedImages";
+
     private static final UserProperties defaultProperties = new UserProperties();
+
+    /**
+     * file name prefix for external images include the full path
+     */
+    private final static String imagePrefix = "-image-";
+
+    /**
+     * Path to store the class and its images in with a "/" at the end
+     */
+    private String classPath;
+
     static {
         defaultProperties.setProperty(PACKAGE_NAME, "");
+        defaultProperties.setProperty(COMPLETE_IMAGE_PATHS, false);
+        defaultProperties.setProperty(EMBED_IMAGES, false);
     }
 
     public static Properties getDefaultProperties() {
@@ -184,8 +221,13 @@ public class JAVAGraphics2D extends VectorGraphics implements
 
     private void init(File file) {
         init();
-        className = file.getName().substring(0,
-                file.getName().lastIndexOf(".java"));
+
+        // determine className
+        String name = file.getName();
+        className = name.substring(0, name.lastIndexOf(".java"));
+
+        // determine path for external images
+        classPath = file.getParentFile().getAbsolutePath().replace('\\', '/') + "/";
     }
 
     private void init(OutputStream os) {
@@ -205,7 +247,7 @@ public class JAVAGraphics2D extends VectorGraphics implements
     }
 
     private void init() {
-        properties = new UserProperties();
+        initProperties(getDefaultProperties());
         isDeviceIndependent = false;
         composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER);
     }
@@ -519,10 +561,7 @@ public class JAVAGraphics2D extends VectorGraphics implements
     }
 
     public void drawString(AttributedCharacterIterator iterator, int x, int y) {
-        out
-                .println("System.err.println(\""
-                        + getClass()
-                        + ": drawString(AttributedCharacterIterator, int int) not implemented.\");");
+        drawString(iterator, (float)x, (float)y);
     }
 
     public void drawString(String str, int x, int y) {
@@ -535,6 +574,7 @@ public class JAVAGraphics2D extends VectorGraphics implements
 
     public void finalize() {
         out.println(vg() + ".finalize();");
+        super.finalize();
     }
 
     public Shape getClip() {
@@ -640,8 +680,13 @@ public class JAVAGraphics2D extends VectorGraphics implements
     }
 
     public void addRenderingHints(Map hints) {
-        // FIXME call should be written out
+        // store hints
         hints.putAll(hints);
+
+        // write hints out
+        out.print(vg() + ".addRenderingHints(");
+        writeHintMap(hints);
+        out.println(");");
     }
 
     public void clip(Shape s) {
@@ -666,20 +711,118 @@ public class JAVAGraphics2D extends VectorGraphics implements
     }
 
     public void drawImage(BufferedImage img, BufferedImageOp op, int x, int y) {
-        out
-                .println("System.err.println(\""
-                        + getClass()
-                        + ": drawImage(BufferedImage, BufferedImageOp, int, int) not implemented.\");");
+        if (op instanceof AffineTransformOp) {
+            out.print(vg() + ".drawImage(");
+            out.indent();
+            write(img);
+            out.println(",");
+            write((AffineTransformOp)op);
+            out.println(",");
+            out.println(x + ", " + y + ");");
+            out.outdent();
+        } else if (op instanceof ConvolveOp) {
+            out.print(vg() + ".drawImage(");
+            out.indent();
+            write(img);
+            out.println(",");
+            write((ConvolveOp)op);
+            out.println(",");
+            out.println(x + ", " + y + ");");
+            out.outdent();
+        } else {
+            out.println(
+                "System.err.println(\""
+                + getClass()
+                + ": drawImage(BufferedImage, BufferedImageOp, int, int) not implemented.\");");
+        }
+    }
+
+    private void write(ConvolveOp op) {
+        if (op == null) {
+            out.print("null");
+            return;
+        }
+
+        imports.add("java.awt.image.ConvolveOp");
+        out.print("new ConvolveOp(");
+        write(op.getKernel());
+        out.print(", ");
+        out.print(op.getEdgeCondition());
+        out.print(", ");
+
+        if (op.getRenderingHints() != null) {
+            out.print("new RenderingHints(");
+            writeHintMap(op.getRenderingHints());
+            out.print(")");
+        } else {
+            out.print("null");
+        }
+
+        out.print(")");
+    }
+
+    private void writeHintMap(Map hints) {
+        if (hints == null) {
+            out.print("null");
+            return;
+        }
+
+        imports.add("org.freehep.graphicsio.java.JAVAArrayMap");
+        out.print("new JAVAArrayMap(new Object[] {");
+
+        Iterator keys = hints.keySet().iterator();
+        while(keys.hasNext()) {
+            Object key = keys.next();
+            String keyString = (String) JAVAArrayMap.HINTS.get(key);
+            if (keyString == null) {
+                continue;
+            }
+
+            Object value = hints.get(key);
+            String valueString = (String) JAVAArrayMap.HINTS.get(value);
+            if (valueString == null) {
+                continue;
+            }
+
+            out.print(keyString);
+            out.print(", ");
+            out.print(valueString);
+            if (keys.hasNext()) {
+                out.print(", ");
+            }
+        }
+        out.print("})");
+    }
+
+    private void write(Kernel kernel) {
+        imports.add("java.awt.image.Kernel");
+        out.print("new Kernel(");
+        out.print(kernel.getWidth());
+        out.print(", ");
+        out.print(kernel.getHeight());
+        out.print(", ");
+        write(kernel.getKernelData(null));
+        out.print(")");
+    }
+
+    private void write(AffineTransformOp op) {
+        imports.add("java.awt.image.AffineTransformOp");
+        out.print("new AffineTransformOp(");
+        write(op.getTransform());
+        out.print(", ");
+        out.print(op.getInterpolationType());
+        out.print(")");
     }
 
     public boolean drawImage(Image img, AffineTransform xform, ImageObserver obs) {
-        block();
-        out.print(vg() + ".drawImage(");
+        out.println(vg() + ".drawImage(");
+        out.indent();
         write(img);
-        out.print(", ");
+        out.println(",");
         write(xform);
-        unblock();
-        out.println(", " + "null" + ");");
+        out.println(",");
+        out.println("null);");
+        out.outdent();
         return true;
     }
 
@@ -697,17 +840,256 @@ public class JAVAGraphics2D extends VectorGraphics implements
                         + ": drawRenderedImage(RenderedImage, AffineTransform) not implemented.\");");
     }
 
-    public void drawString(AttributedCharacterIterator iterator, float x,
-            float y) {
-        // NOTE: ignores all attributes,
-        // a better implementation can be found at:
-        // http://cvs.sourceforge.net/viewcvs.py/itext/src/com/lowagie/text/pdf/PdfGraphics2D.java?rev=1.27&view=auto
-        StringBuffer sb = new StringBuffer();
-        for (char c = iterator.first(); c != AttributedCharacterIterator.DONE; c = iterator
-                .next()) {
-            sb.append(c);
+    /**
+     * converts all textAttributes in the AttributedCharacterIterator
+     * to a java-line that adds this attribute to an AttributedString.
+     * To avoid double Attributes this method stores the lines in a
+     * HashSet and returns them to
+     * {@link #drawString(java.text.AttributedCharacterIterator, float, float)}.
+     * To do so the IndentPrintWriter out for this object is temporary
+     * redirected to an IndentPrintWriter of this method.
+     *
+     * @param iterator the AttributedCharacterIterator
+     * @param imports list of imported classes
+     * @param text will be filled with chars from the iterator
+     * @return HashSet with entries like "addAttribute(TextAttribute.FONT, new Font("Arial", 11f), 10, 20)"
+     */
+    private HashSet getAttributes(
+        AttributedCharacterIterator iterator,
+        HashSet imports,
+        StringBuffer text) {
+
+        // return this later
+        HashSet result = new HashSet(0);
+
+        // iterate the Characters
+        for (
+            char c = iterator.first();
+            c != AttributedCharacterIterator.DONE;
+            c = iterator.next()) {
+
+            // append the char
+            text.append(c);
+
+            Map /*<Attribute, Object>*/ attributes = iterator.getAttributes();
+            Iterator /*<Attribute>*/ keys = attributes.keySet().iterator();
+            while (keys.hasNext()) {
+                StringBuffer attribute = new StringBuffer();
+
+                // define key and value
+                AttributedCharacterIterator.Attribute key =
+                    (AttributedCharacterIterator.Attribute) keys.next();
+                Object value = attributes.get(key);
+
+                String className = key.getClass().getName();
+
+                attribute.append(".addAttribute(");
+                attribute.append(className.substring(className.lastIndexOf(".") + 1));
+                attribute.append(".");
+
+                imports.add(className);
+
+                // taken from Attribute.toString() toString is
+                // getClass().getName() + "(" + name + ")";
+                String keyName = key.toString().substring(
+                    key.toString().lastIndexOf("(") + 1,
+                    key.toString().lastIndexOf(")"));
+                attribute.append(keyName.toUpperCase());
+                attribute.append(", ");
+
+                // redirect the output
+                IndentPrintWriter old = out;
+                StringWriter s = new StringWriter(0);
+                out = new IndentPrintWriter(s);
+
+                // write out the value
+                if (value instanceof String || value == null) {
+                    write((String)value);
+                } else if (value instanceof Float) {
+                    write((Float)value);
+                } else if (value instanceof Double) {
+                    write((Double)value);
+                } else if (value instanceof Integer) {
+                    write((Integer)value);
+                } else if (value instanceof Byte) {
+                    write((Byte)value);
+                } else if (value instanceof Boolean) {
+                    write((Boolean)value);
+                } else if (value instanceof Paint) {
+                    // FIXME: TexturePaint writes multiple images
+                    // even so they can't be changed between calls of this method
+                    write((Paint)value);
+                } else if (value instanceof Dimension) {
+                    write((Dimension)value);
+                } else if (value instanceof AffineTransform) {
+                    write((AffineTransform)value);
+                } else if (value instanceof Font) {
+                    write((Font)value);
+                } else if (value instanceof ImageGraphicAttribute) {
+                    write((ImageGraphicAttribute)value);
+                } else if (value instanceof ShapeGraphicAttribute) {
+                    write((ShapeGraphicAttribute)value);
+                } else {
+                    write(value.toString());
+                }
+
+                // write content of out
+                out.close();
+                attribute.append(s.getBuffer());
+
+                // redirect out to old IndentPrintWriter
+                out = old;
+
+                // append the range of the TextAttribute
+                attribute.append(", ");
+                attribute.append(iterator.getRunStart(key));
+                attribute.append(", ");
+                attribute.append(iterator.getRunLimit(key));
+                attribute.append(");");
+
+                // store the result
+                result.add(attribute.toString());
+            }
         }
-        drawString(sb.toString(), x, y);
+
+        // return all lines of code
+        return result;
+    }
+
+    /**
+     * needed to create unique instances of AttributedString
+     */
+    private static int attributedStringCounter = 0;
+
+    /**
+     * Creates an Java-output using an AttributedString.
+     * Each textAttribute is added to this one.
+     *
+     * @param iterator String with TextAttributes
+     * @param x x-position for drawing
+     * @param y y-position for drawing
+     */
+    public void drawString(
+        AttributedCharacterIterator iterator,
+        float x,
+        float y) {
+
+        imports.add("java.text.AttributedString");
+
+        // define a name for an AttributedString
+        String asName = "as" + (attributedStringCounter++);
+
+        // filled by {@link #getAttributes()}
+        StringBuffer attributeName = new StringBuffer();
+        HashSet attributeImports = new HashSet(0);
+
+        // get Attributes and fill attributeName and attributeImports
+        Iterator attributes = getAttributes(
+            iterator,
+            attributeImports,
+            attributeName).iterator();
+
+        // add the collected imports
+        imports.addAll(attributeImports);
+
+        // write something like:
+        // AttributedString as243 = new AttributedString("attributed_text");
+        out.print("AttributedString ");
+        out.print(asName);
+        out.print("= new AttributedString(\"");
+        out.print(attributeName.toString());
+        out.println("\");");
+
+        // add all TextAttributes by writing the attribute lines of code
+        while (attributes.hasNext()) {
+            out.print(asName);
+            out.println(attributes.next());
+        }
+        
+        // write something like:
+        // vg[0].drawString(as243, 23, 24);
+        out.print(vg());
+        out.print(".drawString(");
+        out.print(asName);
+        out.print(".getIterator(), ");
+        out.print(x);
+        out.print("f, ");
+        out.print(y);
+        out.println("f);");
+    }
+
+    private void write(Boolean b) {
+        if (b.booleanValue()) {
+            out.print("Boolean.TRUE");
+        } else {
+            out.print("Boolean.FALSE");
+        }
+    }
+
+    private void write(Byte b) {
+        out.print("new Byte(");
+        out.print(b.byteValue());
+        out.print("b)");
+    }
+
+    private void write(Float f) {
+        out.print("new Float(");
+        out.print(f.floatValue());
+        out.print("f)");
+    }
+
+    private void write(Double d) {
+        out.print("new Double(");
+        out.print(d.doubleValue());
+        out.print(")");
+    }
+
+    private void write(Integer i) {
+        out.print("new Integer(");
+        out.print(i.intValue());
+        out.print(")");
+    }
+
+    private void write(Dimension d) {
+        imports.add("java.awt.Dimension");
+        out.print("new Dimension(");
+        out.print(d.getWidth());
+        out.print(", ");
+        out.print(d.getHeight());
+        out.print(")");
+    }
+
+    private void write(ImageGraphicAttribute iga) {
+        // ImageGraphicAttribute has no getImage() so
+        // it can't be fully supported
+
+        imports.add("java.awt.font.ImageGraphicAttribute");
+        out.print("new ImageGraphicAttribute(");
+        write(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB));
+        out.print("/* ImageGraphicAttribute.getImage() not supported */");
+        out.print(", ");
+        out.print(iga.getAlignment());
+        out.print(", ");
+        out.print(- iga.getBounds().getX());
+        out.print(", ");
+        out.print(- iga.getBounds().getY());
+        out.print(")");
+    }
+
+    private void write(ShapeGraphicAttribute sga) {
+        // ShapeGraphicAttribute has no getShape()
+        // and getStroke() so it can't be fully supported
+
+        imports.add("java.awt.font.ShapeGraphicAttribute");
+        out.print("new ShapeGraphicAttribute(");
+        write(sga.getBounds().getBounds2D());
+        out.print("/* ShapeGraphicAttribute.getShape() not supported */");
+        out.print(", ");
+        out.print(sga.getAlignment());
+        out.print(", ");
+        write(new BasicStroke());
+        out.print("/* ShapeGraphicAttribute.getStroke() not supported */");
+        out.print(")");
     }
 
     public void drawString(String str, float x, float y) {
@@ -805,44 +1187,55 @@ public class JAVAGraphics2D extends VectorGraphics implements
     }
 
     public void setPaint(Paint p) {
-        if (p instanceof Color) {
-            block();
-            out.print(vg() + ".setPaint(");
-            write((Color) p);
-            unblock();
-            out.println(");");
-        } else if (p instanceof GradientPaint) {
-            block();
-            out.print(vg() + ".setPaint(");
-            write((GradientPaint) p);
-            unblock();
-            out.println(");");
-        } else if (p instanceof TexturePaint) {
-            block();
-            out.print(vg() + ".setPaint(");
-            write((TexturePaint) p);
-            unblock();
-            out.println(");");
-        } else {
-            out.println("System.err.println(\"" + getClass()
-                    + ": setPaint(Paint) not implemented for class '"
-                    + p.getClass() + "'.\");");
-        }
+        block();
+        out.print(vg() + ".setPaint(");
+        write(p);
+        unblock();
+        out.println(");");
         paint = p;
     }
 
     public void setRenderingHint(RenderingHints.Key hintKey, Object hintValue) {
-        // FIXME call should be written out
+        // store hints
         if (hintValue != null) {
             hints.put(hintKey, hintValue);
         } else {
             hints.remove(hintKey);
         }
+
+        // RenderingHints --> String
+        String key = (String) JAVAArrayMap.HINTS.get(hintKey);
+        if (key == null) {
+             out.println("System.err.println(\"" + getClass()
+                    + ": setRenderingHint(RenderingHints.Key, Object) key not supported '"
+                    + hintKey + "'.\");");
+            return;
+        }
+
+        String value = (String) JAVAArrayMap.HINTS.get(hintValue);
+        if (value == null) {
+             out.println("System.err.println(\"" + getClass()
+                    + ": setRenderingHint(RenderingHints.Key, Object) key not supported '"
+                    + hintKey + "'.\");");
+            return;
+        }
+
+        // write out
+        imports.add("java.awt.RenderingHints");
+        out.print(vg() + ".setRenderingHint(");
+        out.print(key);
+        out.print(", ");
+        out.print(value);
+        out.println(");");
     }
 
     public void setRenderingHints(Map hints) {
-        // FIXME call should be written out
         this.hints = new RenderingHints(hints);
+
+        // write them out
+        out.print(vg() + ".setRenderingHints(");
+        writeHintMap(hints);
+        out.println(");");
     }
 
     public void setStroke(Stroke s) {
@@ -1131,6 +1524,7 @@ public class JAVAGraphics2D extends VectorGraphics implements
     public void startExport() {
         block();
         imports.add("java.awt.Graphics");
+        imports.add("java.io.IOException");
         imports.add("org.freehep.graphics2d.VectorGraphics");
         imports.add("org.freehep.graphicsio.test.TestingPanel");
                 
@@ -1155,7 +1549,18 @@ public class JAVAGraphics2D extends VectorGraphics implements
         out.print("vg[0].setCreator(");
         write(creator);
         out.println(");");
+
+        out.println("try {");
+        out.indent();
         out.println("Paint0s" + paintSequenceNo.getInt() + ".paint(vg);");
+        out.outdent();
+        out.println("} catch (IOException e) {");
+        out.indent();
+        out.println("e.printStackTrace();");
+        out.outdent();
+        out.println("}");
+
+
         out.outdent();
         out.println("} // paint");
         out.println();
@@ -1209,8 +1614,9 @@ public class JAVAGraphics2D extends VectorGraphics implements
         if (!block()) {
             lineWriter.setLineNumber(1);
 
-            out.println("Paint0s" + (paintSequenceNo.getInt() + 1)
-                    + ".paint(vg);");
+            out.println(
+                "Paint0s" + (paintSequenceNo.getInt() + 1) + ".paint(vg);");
+
             endClass();
 
             paintSequenceNo.set(paintSequenceNo.getInt() + 1);
@@ -1235,7 +1641,7 @@ public class JAVAGraphics2D extends VectorGraphics implements
         out.println("private static class Paint0s" + paintSequenceNo.getInt()
                 + " {");
         out.indent();
-        out.println("public static void paint(VectorGraphics[] vg) {");
+        out.println("public static void paint(VectorGraphics[] vg) throws IOException {");
         out.indent();
         unblock();
     }
@@ -1374,11 +1780,15 @@ public class JAVAGraphics2D extends VectorGraphics implements
             return;
         }
 
-        out.println("new float[] {");
+        out.print("new float[] {");
         out.indent();
         for (int i = 0; i < length; i++) {
-            if (i != 0)
+            if (i % 10 == 0) {
+                out.println();
+            }
+            if (i != 0) {
                 out.print(", ");
+            }
             out.print(a[i] + "f");
         }
         out.outdent();
@@ -1400,11 +1810,15 @@ public class JAVAGraphics2D extends VectorGraphics implements
             return;
         }
 
-        out.println("new int[] {");
+        out.print("new int[] {");
         out.indent();
         for (int i = 0; i < length; i++) {
-            if (i != 0)
+            if (i % 10 == 0) {
+                out.println();
+            }
+            if (i != 0) {
                 out.print(", ");
+            }
             out.print(a[i]);
         }
         out.outdent();
@@ -1412,7 +1826,6 @@ public class JAVAGraphics2D extends VectorGraphics implements
         out.print("}");
     }
 
-/*
     private void write(byte[] a) {
         if (a == null) {
             out.print("null");
@@ -1420,19 +1833,23 @@ public class JAVAGraphics2D extends VectorGraphics implements
         }
         write(a, a.length);
     }
-*/
+
     private void write(byte[] a, int length) {
         if (a == null) {
             out.print("null");
             return;
         }
 
-        out.println("new byte[] {");
+        out.print("new byte[] {");
         out.indent();
         for (int i = 0; i < length; i++) {
-            if (i != 0)
+            if (i % 10 == 0) {
+                out.println();
+            }
+            if (i != 0) {
                 out.print(", ");
-            out.print("(byte)0x" + Integer.toHexString(a[i]));
+            }
+            out.print(a[i]);
         }
         out.outdent();
         out.println();
@@ -1459,9 +1876,8 @@ public class JAVAGraphics2D extends VectorGraphics implements
         for (int i = 0; i < length; i++) {
             if (i != 0)
                 out.print(", ");
-            char c = (char) a[i];
             out.print("'");
-            switch (c) {
+            switch (a[i]) {
             case '\b':
                 out.print("\\b");
                 break;
@@ -1487,10 +1903,13 @@ public class JAVAGraphics2D extends VectorGraphics implements
                 out.print("\\\\");
                 break;
             default:
-                out.print(toUnicode(c));
+                out.print(toUnicode(a[i]));
                 break;
             }
             out.print("'");
+            if (i % 10 == 0) {
+                out.println();
+            }
         }
         out.outdent();
         out.println();
@@ -1514,37 +1933,70 @@ public class JAVAGraphics2D extends VectorGraphics implements
         out.print(")");
     }
 
+    private static int imageCounter = 0;
+
     private void write(Image image) {
         if (image == null) {
             out.print("null");
             return;
         }
 
-        PNGEncoder encoder = new PNGEncoder(image, true,
-                PNGEncoder.FILTER_NONE, 9);
+        // prepare the image encoder
+        PNGEncoder encoder = new PNGEncoder(image, true, PNGEncoder.FILTER_NONE, 9);
 
-        /* byte[] data = */ encoder.pngEncode();
-        // if (data == null) {
-        imports.add("java.awt.image.BufferedImage");
-        out.print("new BufferedImage(" + image.getWidth(null) + ", "
-                + image.getHeight(null) + ", BufferedImage.TYPE_INT_ARGB)");
-        return;
-        // }
-        /*
-         * out.println("new ImageIcon("); out.indent(); System.out.println("png =
-         * "+data.length+" "+image.getWidth(null)+" "+image.getHeight(null));
-         * 
-         * try { ByteArrayOutputStream ba = new ByteArrayOutputStream(); if
-         * (javax.imageio.ImageIO.write((RenderedImage)image, "jpg", ba)) {
-         * 
-         * System.out.println("jpg = "+ba.size()); if (ba.size() < data.length) {
-         * System.out.println("***** JPEG"); } } } catch (IOException ioe) {
-         * System.out.println(ioe); }
-         * 
-         * write(data);
-         * 
-         * out.outdent(); out.println(").getImage()");
-         */
+        // embed the image
+        if (isProperty(EMBED_IMAGES)) {
+            imports.add("javax.imageio.ImageIO");
+            imports.add("java.io.ByteArrayInputStream");
+            out.println("ImageIO.read(new ByteArrayInputStream(");
+            out.indent();
+            write(encoder.pngEncode());
+            out.outdent();
+            out.print("))");
+        }
+
+        // write as external file
+        else {
+            // we do not reuse any written images because
+            // they could be changed between write operations
+
+            // determin path to image
+            String imageName = className + imagePrefix  + (imageCounter ++) + ".png";
+            if (isProperty(COMPLETE_IMAGE_PATHS)) {
+                imageName = classPath + imageName;
+            }
+
+            // write the image
+            try {
+                FileOutputStream fos = new FileOutputStream(imageName);
+                BufferedOutputStream bos = new BufferedOutputStream(fos);
+                bos.write(encoder.pngEncode());
+                bos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            imports.add("javax.imageio.ImageIO");
+            imports.add("java.io.File");
+            out.print("ImageIO.read(new File(\"" + imageName + "\"))");
+        }
+    }
+
+    private void write(Paint p) {
+        if (p == null) {
+            out.print("(Paint)null");
+        } else if (p instanceof Color) {
+            write((Color)p);
+        } else if (p instanceof TexturePaint) {
+            write((TexturePaint)p);
+        } else if (p instanceof GradientPaint) {
+            write((GradientPaint)p);
+        } else {
+            write(Color.red);
+            out.print("/* not supported '");
+            out.print(p.toString());
+            out.print("' */");
+        }
     }
 
     private void write(GradientPaint gp) {
@@ -1577,7 +2029,6 @@ public class JAVAGraphics2D extends VectorGraphics implements
         imports.add("java.awt.TexturePaint");
         out.println("new TexturePaint(");
         out.indent();
-        out.println("(BufferedImage)");
         write(tp.getImage());
         out.print(", ");
         write(tp.getAnchorRect());
