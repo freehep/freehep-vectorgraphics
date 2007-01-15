@@ -13,7 +13,7 @@ import org.freehep.graphicsio.emf.EMFTag;
  * Polygon16 TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/Polygon16.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/Polygon16.java 11783e27e55b 2007/01/15 16:30:03 duns $
  */
 public class Polygon16 extends EMFTag {
 
@@ -49,6 +49,10 @@ public class Polygon16 extends EMFTag {
         emf.writePOINTS(numberOfPoints, points);
     }
 
+    public Point[] getPoints() {
+        return points;
+    }
+    
     public String toString() {
         return super.toString() + "\n" + "  bounds: " + bounds + "\n"
                 + "  #points: " + numberOfPoints;

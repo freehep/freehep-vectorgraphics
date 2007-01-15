@@ -12,7 +12,7 @@ import org.freehep.graphicsio.emf.EMFOutputStream;
  * EMF LogFontW
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/LogFontW.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/LogFontW.java 11783e27e55b 2007/01/15 16:30:03 duns $
  */
 public class LogFontW implements EMFConstants {
 
@@ -113,6 +113,20 @@ public class LogFontW implements EMFConstants {
         emf.writeBYTE(quality);
         emf.writeBYTE(pitchAndFamily);
         emf.writeWCHAR(faceFamily, 32);
+    }
+
+    public Font getFont() {
+        int style = 0;
+        if (italic)
+        {
+            style |= Font.ITALIC;
+        }
+        if (weight > 400) // 400 is considered to be normal.
+        {
+            style |= Font.BOLD;
+        }
+        int size = Math.abs(height);
+        return new Font(faceFamily, style, size);
     }
 
     public String toString() {

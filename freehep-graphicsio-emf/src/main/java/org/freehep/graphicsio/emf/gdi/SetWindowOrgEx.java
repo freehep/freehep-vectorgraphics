@@ -12,7 +12,7 @@ import org.freehep.graphicsio.emf.EMFTag;
  * SetWindowOrgEx TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetWindowOrgEx.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetWindowOrgEx.java 11783e27e55b 2007/01/15 16:30:03 duns $
  */
 public class SetWindowOrgEx extends EMFTag {
 
@@ -32,6 +32,10 @@ public class SetWindowOrgEx extends EMFTag {
 
         SetWindowOrgEx tag = new SetWindowOrgEx(emf.readPOINTL());
         return tag;
+    }
+
+    public Point getPoint() {
+        return point;
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {

@@ -12,7 +12,7 @@ import org.freehep.graphicsio.emf.EMFTag;
  * SetTextAlign TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetTextAlign.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetTextAlign.java 11783e27e55b 2007/01/15 16:30:03 duns $
  */
 public class SetTextAlign extends EMFTag implements EMFConstants {
 
@@ -36,6 +36,10 @@ public class SetTextAlign extends EMFTag implements EMFConstants {
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
         emf.writeDWORD(mode);
+    }
+
+    public int getMode() {
+        return mode;
     }
 
     public String toString() {

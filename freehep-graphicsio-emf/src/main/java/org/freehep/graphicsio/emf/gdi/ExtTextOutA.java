@@ -13,9 +13,9 @@ import org.freehep.graphicsio.emf.EMFTag;
  * ExtTextOutA TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtTextOutA.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtTextOutA.java 11783e27e55b 2007/01/15 16:30:03 duns $
  */
-public class ExtTextOutA extends EMFTag implements EMFConstants {
+public class ExtTextOutA extends AbstractExtTextOut implements EMFConstants {
 
     private Rectangle bounds;
 
@@ -43,7 +43,7 @@ public class ExtTextOutA extends EMFTag implements EMFConstants {
             throws IOException {
 
         ExtTextOutA tag = new ExtTextOutA(emf.readRECTL(), emf.readDWORD(), emf
-                .readFLOAT(), emf.readFLOAT(), new Text(emf));
+                .readFLOAT(), emf.readFLOAT(), TextA.read(emf));
         return tag;
     }
 
@@ -53,6 +53,10 @@ public class ExtTextOutA extends EMFTag implements EMFConstants {
         emf.writeFLOAT(xScale);
         emf.writeFLOAT(yScale);
         text.write(emf);
+    }
+
+    public Text getText() {
+        return text;
     }
 
     public String toString() {

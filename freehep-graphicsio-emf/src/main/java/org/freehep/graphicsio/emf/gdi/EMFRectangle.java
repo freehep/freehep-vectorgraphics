@@ -12,7 +12,7 @@ import org.freehep.graphicsio.emf.EMFTag;
  * Rectangle TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/EMFRectangle.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/EMFRectangle.java 11783e27e55b 2007/01/15 16:30:03 duns $
  */
 public class EMFRectangle extends EMFTag {
 
@@ -36,6 +36,10 @@ public class EMFRectangle extends EMFTag {
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
         emf.writeRECTL(bounds);
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
     }
 
     public String toString() {
