@@ -1,3 +1,4 @@
+// Copyright 2007 FreeHEP
 package org.freehep.graphicsio.emf.gdi;
 
 import java.awt.Color;
@@ -14,7 +15,7 @@ import org.freehep.graphicsio.emf.EMFConstants;
  * Company:
  *
  * @author Daniel Noll daniel@nuix.com
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/StockObjects.java 11783e27e55b 2007/01/15 16:30:03 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/StockObjects.java 86ef08292548 2007/01/17 23:15:57 duns $
  */
 
 public class StockObjects {

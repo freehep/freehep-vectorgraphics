@@ -1,8 +1,7 @@
-// Copyright 2000-2006 FreeHEP
+// Copyright 2000-2007 FreeHEP
 package org.freehep.graphicsio.emf;
 
 import java.awt.Component;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Properties;
@@ -11,12 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.exportchooser.AbstractExportFileType;
 import org.freehep.graphicsio.exportchooser.BackgroundPanel;
-import org.freehep.graphicsio.exportchooser.OptionCheckBox;
-import org.freehep.graphicsio.exportchooser.OptionPanel;
 import org.freehep.graphicsio.exportchooser.FontPanel;
-import org.freehep.graphicsio.AbstractVectorGraphicsIO;
+import org.freehep.graphicsio.exportchooser.OptionPanel;
 import org.freehep.swing.layout.TableLayout;
 import org.freehep.util.UserProperties;
 
@@ -24,11 +22,11 @@ import org.freehep.util.UserProperties;
  * // FIXME, check all options
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFExportFileType.java 9d9f8caaff82 2007/01/09 18:20:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFExportFileType.java 86ef08292548 2007/01/17 23:15:57 duns $
  */
 public class EMFExportFileType extends AbstractExportFileType {
 
-    private OptionCheckBox compress;
+//    private OptionCheckBox compress;
 
     public String getDescription() {
         return "Windows Enhanced Metafile";

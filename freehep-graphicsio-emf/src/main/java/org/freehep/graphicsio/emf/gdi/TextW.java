@@ -1,11 +1,10 @@
-// Copyright 2002, FreeHEP.
+// Copyright 2002-2007, FreeHEP.
 package org.freehep.graphicsio.emf.gdi;
 
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.IOException;
 
-import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 
@@ -13,7 +12,7 @@ import org.freehep.graphicsio.emf.EMFOutputStream;
  * EMF Text
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/TextW.java 11783e27e55b 2007/01/15 16:30:03 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/TextW.java 86ef08292548 2007/01/17 23:15:57 duns $
  */
 public class TextW extends Text {
 

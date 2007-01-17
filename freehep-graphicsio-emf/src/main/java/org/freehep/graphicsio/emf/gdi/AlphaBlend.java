@@ -7,21 +7,19 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.RenderedImage;
 import java.io.IOException;
 
-import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.graphicsio.ImageConstants;
+import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
-import org.freehep.graphicsio.raw.RawImageWriteParam;
-import org.freehep.util.UserProperties;
 import org.freehep.util.io.NoCloseOutputStream;
 
 /**
  * PNG and JPG seem not to work.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AlphaBlend.java d7c75c135a1d 2007/01/09 00:32:55 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AlphaBlend.java 86ef08292548 2007/01/17 23:15:57 duns $
  */
 public class AlphaBlend extends EMFTag implements EMFConstants {
 

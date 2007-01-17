@@ -1,56 +1,57 @@
+// Copyright 2007 FreeHEP
 package org.freehep.graphicsio.emf;
 
-import java.io.IOException;
-import java.awt.Graphics2D;
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Paint;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.BasicStroke;
 import java.awt.Stroke;
-import java.awt.Paint;
-import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
+import java.io.IOException;
 import java.util.logging.Logger;
 
-import org.freehep.util.io.Tag;
+import org.freehep.graphicsio.emf.gdi.AbstractExtTextOut;
 import org.freehep.graphicsio.emf.gdi.Arc;
 import org.freehep.graphicsio.emf.gdi.ArcTo;
 import org.freehep.graphicsio.emf.gdi.BeginPath;
 import org.freehep.graphicsio.emf.gdi.Chord;
 import org.freehep.graphicsio.emf.gdi.CloseFigure;
+import org.freehep.graphicsio.emf.gdi.CreateBrushIndirect;
 import org.freehep.graphicsio.emf.gdi.CreatePen;
-import org.freehep.graphicsio.emf.gdi.LogPen;
+import org.freehep.graphicsio.emf.gdi.DeleteObject;
+import org.freehep.graphicsio.emf.gdi.EMFRectangle;
+import org.freehep.graphicsio.emf.gdi.EOF;
 import org.freehep.graphicsio.emf.gdi.Ellipse;
+import org.freehep.graphicsio.emf.gdi.ExtCreateFontIndirectW;
+import org.freehep.graphicsio.emf.gdi.ExtLogFontW;
+import org.freehep.graphicsio.emf.gdi.GDIComment;
 import org.freehep.graphicsio.emf.gdi.LineTo;
+import org.freehep.graphicsio.emf.gdi.LogBrush32;
+import org.freehep.graphicsio.emf.gdi.LogFontW;
+import org.freehep.graphicsio.emf.gdi.LogPen;
 import org.freehep.graphicsio.emf.gdi.MoveToEx;
 import org.freehep.graphicsio.emf.gdi.Pie;
 import org.freehep.graphicsio.emf.gdi.Polygon16;
 import org.freehep.graphicsio.emf.gdi.SelectObject;
-import org.freehep.graphicsio.emf.gdi.DeleteObject;
-import org.freehep.graphicsio.emf.gdi.CreateBrushIndirect;
-import org.freehep.graphicsio.emf.gdi.LogBrush32;
-import org.freehep.graphicsio.emf.gdi.StockObjects;
-import org.freehep.graphicsio.emf.gdi.SetWindowOrgEx;
-import org.freehep.graphicsio.emf.gdi.AbstractExtTextOut;
-import org.freehep.graphicsio.emf.gdi.Text;
 import org.freehep.graphicsio.emf.gdi.SetTextAlign;
-import org.freehep.graphicsio.emf.gdi.LogFontW;
 import org.freehep.graphicsio.emf.gdi.SetTextColor;
-import org.freehep.graphicsio.emf.gdi.ExtCreateFontIndirectW;
-import org.freehep.graphicsio.emf.gdi.ExtLogFontW;
-import org.freehep.graphicsio.emf.gdi.GDIComment;
-import org.freehep.graphicsio.emf.gdi.EOF;
-import org.freehep.graphicsio.emf.gdi.EMFRectangle;
+import org.freehep.graphicsio.emf.gdi.SetWindowOrgEx;
+import org.freehep.graphicsio.emf.gdi.StockObjects;
+import org.freehep.graphicsio.emf.gdi.Text;
+import org.freehep.util.io.Tag;
 
 /**
  * Standalone EMF renderer.
  *
  * @author Daniel Noll (daniel@nuix.com)
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFRenderer.java 11783e27e55b 2007/01/15 16:30:03 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFRenderer.java 86ef08292548 2007/01/17 23:15:57 duns $
  */
 public class EMFRenderer {
     private static final Logger logger = Logger.getLogger("org.freehep.graphicsio.emf");
