@@ -1,3 +1,4 @@
+// Copyright 2000-2007 FreeHEP
 package org.freehep.graphicsio.emf;
 
 /**
@@ -9,7 +10,7 @@ package org.freehep.graphicsio.emf;
  * Company:      ATLANTEC Enterprise Solutions GmbH<p>
  *
  * @author Carsten Zerbst carsten.zerbst@atlantec-es.com
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFDisplay.java 11783e27e55b 2007/01/15 16:30:03 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFDisplay.java c73d46623edf 2007/01/18 00:37:20 duns $
  */
 
 import java.awt.BorderLayout;
