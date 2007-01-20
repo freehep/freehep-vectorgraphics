@@ -13,7 +13,7 @@ import org.freehep.graphicsio.emf.EMFTag;
  * ModifyWorldTransform TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ModifyWorldTransform.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ModifyWorldTransform.java 63c8d910ece7 2007/01/20 15:30:50 duns $
  */
 public class ModifyWorldTransform extends EMFTag implements EMFConstants {
 
@@ -42,6 +42,10 @@ public class ModifyWorldTransform extends EMFTag implements EMFConstants {
     public void write(int tagID, EMFOutputStream emf) throws IOException {
         emf.writeXFORM(transform);
         emf.writeDWORD(mode);
+    }
+
+    public AffineTransform getTransform() {
+        return transform;
     }
 
     public String toString() {

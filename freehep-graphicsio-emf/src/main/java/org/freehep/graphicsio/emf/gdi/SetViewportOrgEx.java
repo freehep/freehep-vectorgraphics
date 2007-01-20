@@ -12,7 +12,7 @@ import org.freehep.graphicsio.emf.EMFTag;
  * SetViewportOrgEx TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetViewportOrgEx.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetViewportOrgEx.java 63c8d910ece7 2007/01/20 15:30:50 duns $
  */
 public class SetViewportOrgEx extends EMFTag {
 
@@ -40,5 +40,9 @@ public class SetViewportOrgEx extends EMFTag {
 
     public String toString() {
         return super.toString() + "\n" + "  point: " + point;
+    }
+
+    public Point getPoint() {
+        return point;
     }
 }

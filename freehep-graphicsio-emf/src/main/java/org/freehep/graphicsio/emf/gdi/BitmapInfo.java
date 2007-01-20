@@ -10,7 +10,7 @@ import org.freehep.graphicsio.emf.EMFOutputStream;
  * EMF BitmapInfo
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/BitmapInfo.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/BitmapInfo.java 63c8d910ece7 2007/01/20 15:30:50 duns $
  */
 public class BitmapInfo {
 
@@ -32,5 +32,9 @@ public class BitmapInfo {
 
     public String toString() {
         return "  BitmapInfo\n" + header.toString();
+    }
+
+    public BitmapInfoHeader getHeader() {
+        return header;
     }
 }

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.RenderedImage;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import org.freehep.graphicsio.ImageGraphics2D;
@@ -12,6 +13,7 @@ import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
+import org.freehep.graphicsio.emf.EMFImageLoader;
 import org.freehep.graphicsio.raw.RawImageWriteParam;
 import org.freehep.util.UserProperties;
 import org.freehep.util.io.NoCloseOutputStream;
@@ -22,7 +24,7 @@ import org.freehep.util.io.NoCloseOutputStream;
  * of visual C++.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/BitBlt.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/BitBlt.java 63c8d910ece7 2007/01/20 15:30:50 duns $
  */
 public class BitBlt extends EMFTag implements EMFConstants {
 
@@ -44,14 +46,14 @@ public class BitBlt extends EMFTag implements EMFConstants {
 
     private BitmapInfo bmi;
 
-    private RenderedImage image;
+    private BufferedImage image;
 
     public BitBlt() {
         super(76, 1);
     }
 
     public BitBlt(Rectangle bounds, int x, int y, int width, int height,
-            AffineTransform transform, RenderedImage image, Color bkg) {
+            AffineTransform transform, BufferedImage image, Color bkg) {
         this();
         this.bounds = bounds;
         this.x = x;
@@ -72,6 +74,7 @@ public class BitBlt extends EMFTag implements EMFConstants {
             throws IOException {
 
         BitBlt tag = new BitBlt();
+
         tag.bounds = emf.readRECTL(); // 16
         tag.x = emf.readLONG(); // 20
         tag.y = emf.readLONG(); // 24
@@ -90,11 +93,24 @@ public class BitBlt extends EMFTag implements EMFConstants {
         /* int bitmapOffset = */ emf.readDWORD(); // 88
         int bitmapSize = emf.readDWORD(); // 92
 
-        // FIXME: this size can differ and can be placed somewhere else
-        bmi = (bmiSize > 0) ? new BitmapInfo(emf) : null;
+        // read bmi
+        if (bmiSize > 0) {
+            tag.bmi = new BitmapInfo(emf);
+        } else {
+            tag.bmi = null;
+        }
 
-        // FIXME: need to decode image into java Image.
-        /* int[] bytes = */ emf.readUnsignedByte(bitmapSize);
+        if (bitmapSize > 0 && tag.bmi != null) {
+            tag.image = EMFImageLoader.readImage(
+                tag.bmi.getHeader(),
+                tag.width,
+                tag.height,
+                emf,
+                bitmapSize, null);
+        } else {
+            tag.image = null;
+        }
+
         return tag;
     }
 
@@ -120,14 +136,15 @@ public class BitBlt extends EMFTag implements EMFConstants {
         properties.setProperty(RawImageWriteParam.BACKGROUND, bkg);
         properties.setProperty(RawImageWriteParam.CODE, "BGR");
         properties.setProperty(RawImageWriteParam.PAD, 4);
-        ImageGraphics2D.writeImage(image, "raw", properties,
+        ImageGraphics2D.writeImage((RenderedImage)image, "raw", properties,
                 new NoCloseOutputStream(emf));
 
         // emf.writeImage(image, bkg, "BGR", 4);
         int length = emf.popBuffer();
 
-        BitmapInfoHeader header = new BitmapInfoHeader(image.getWidth(), image
-                .getHeight(), 24, BI_RGB, length, 0, 0, 0, 0);
+        BitmapInfoHeader header = new BitmapInfoHeader(
+            image.getWidth(),
+            image.getHeight(), 24, BI_RGB, length, 0, 0, 0, 0);
         bmi = new BitmapInfo(header);
         bmi.write(emf);
 
@@ -144,5 +161,53 @@ public class BitBlt extends EMFTag implements EMFConstants {
                 + transform + "\n" + "  bkg: " + bkg + "\n" + "  usage: "
                 + usage + "\n"
                 + ((bmi != null) ? bmi.toString() : "  bitmap: null");
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getDwROP() {
+        return dwROP;
+    }
+
+    public int getXSrc() {
+        return xSrc;
+    }
+
+    public int getYSrc() {
+        return ySrc;
+    }
+
+    public AffineTransform getTransform() {
+        return transform;
+    }
+
+    public Color getBkg() {
+        return bkg;
+    }
+
+    public int getUsage() {
+        return usage;
+    }
+
+    public BitmapInfo getBmi() {
+        return bmi;
+    }
+
+    public BufferedImage getImage() {
+        return image;
     }
 }

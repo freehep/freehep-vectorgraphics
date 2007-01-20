@@ -13,7 +13,7 @@ import org.freehep.graphicsio.emf.EMFTag;
  * PolyPolygon16 TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/PolyPolygon16.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/PolyPolygon16.java 63c8d910ece7 2007/01/20 15:30:50 duns $
  */
 public class PolyPolygon16 extends EMFTag {
 
@@ -28,6 +28,8 @@ public class PolyPolygon16 extends EMFTag {
     public PolyPolygon16() {
         super(91, 1);
     }
+
+
 
     public PolyPolygon16(Rectangle bounds, int numberOfPolys,
             int[] numberOfPoints, Point[][] points) {
@@ -76,5 +78,17 @@ public class PolyPolygon16 extends EMFTag {
     public String toString() {
         return super.toString() + "\n" + "  bounds: " + bounds + "\n"
                 + "  #polys: " + numberOfPolys;
+    }
+
+    public int getNumberOfPolys() {
+        return numberOfPolys;
+    }
+
+    public int[] getNumberOfPoints() {
+        return numberOfPoints;
+    }
+
+    public Point[][] getPoints() {
+        return points;
     }
 }

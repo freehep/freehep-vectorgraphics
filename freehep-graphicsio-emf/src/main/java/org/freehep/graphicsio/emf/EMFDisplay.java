@@ -10,54 +10,48 @@ package org.freehep.graphicsio.emf;
  * Company:      ATLANTEC Enterprise Solutions GmbH<p>
  *
  * @author Carsten Zerbst carsten.zerbst@atlantec-es.com
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFDisplay.java c73d46623edf 2007/01/18 00:37:20 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFDisplay.java 63c8d910ece7 2007/01/20 15:30:50 duns $
  */
+
+import org.freehep.swing.ExtensionFileFilter;
+import org.freehep.swing.AllSupportedFileFilter;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.geom.AffineTransform;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JComponent;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 
 /**
  * A simple interpreter displaying an EMF file read in by the EMFInputStream in
  * a JPanel
  */
-public class EMFDisplay extends JPanel {
-    private EMFRenderer renderer;
-
-    public EMFDisplay(EMFInputStream is) throws IOException {
-        renderer = new EMFRenderer(is);
-
-        // Set the size and background color.
-        this.setSize(renderer.getSize());
-        this.setBackground(Color.white);
-    }
-
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        renderer.paint((Graphics2D) g);
-    }
+public class EMFDisplay {
 
     public static void main(String[] args) {
         try {
-            FileInputStream fis = new FileInputStream(args[0]);
-            EMFInputStream emf = new EMFInputStream(fis);
-
-            JFrame frame = new JFrame("EMF " + args[0]);
-            JScrollPane sp = new JScrollPane(new EMFDisplay(emf));
-            frame.getContentPane().setLayout(new BorderLayout());
-            frame.getContentPane().add(sp, BorderLayout.CENTER);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            frame.setSize(550, 400);
-            frame.setVisible(true);
+            EMFViewer emfViewer = new EMFViewer();
+            if (args[0] != null) {
+                emfViewer.show(new File(args[0]));
+            }
         } catch (Exception exp) {
             exp.printStackTrace();
         }

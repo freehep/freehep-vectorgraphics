@@ -12,7 +12,7 @@ import org.freehep.graphicsio.emf.EMFOutputStream;
  * EMF ExtLogFontW
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtLogFontW.java 11783e27e55b 2007/01/15 16:30:03 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtLogFontW.java 63c8d910ece7 2007/01/20 15:30:50 duns $
  */
 public class ExtLogFontW implements EMFConstants {
 
@@ -72,6 +72,8 @@ public class ExtLogFontW implements EMFConstants {
         culture = emf.readDWORD();
         panose = new Panose(emf);
         emf.readWORD(); // Pad to 4-byte boundary
+        // to avoid an eception
+        emf.popBuffer();
     }
 
     public void write(EMFOutputStream emf) throws IOException {

@@ -12,7 +12,7 @@ import org.freehep.graphicsio.emf.EMFOutputStream;
  * EMF LogFontW
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/LogFontW.java 11783e27e55b 2007/01/15 16:30:03 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/LogFontW.java 63c8d910ece7 2007/01/20 15:30:50 duns $
  */
 public class LogFontW implements EMFConstants {
 
@@ -43,6 +43,11 @@ public class LogFontW implements EMFConstants {
     private int pitchAndFamily;
 
     private String faceFamily;
+
+    /**
+     * cache for getFont()
+     */
+    private Font font;
 
     public LogFontW(int height, int width, int escapement, int orientation,
             int weight, boolean italic, boolean underline, boolean strikeout,
@@ -116,17 +121,22 @@ public class LogFontW implements EMFConstants {
     }
 
     public Font getFont() {
-        int style = 0;
-        if (italic)
-        {
-            style |= Font.ITALIC;
+        if (font == null) {
+            int style = 0;
+            if (italic) {
+                style |= Font.ITALIC;
+            }
+
+            // 400 is considered to be normal.
+            if (weight > 400) {
+                style |= Font.BOLD;
+            }
+
+            int size = Math.abs(height);
+            font = new Font(faceFamily, style, size);
+
         }
-        if (weight > 400) // 400 is considered to be normal.
-        {
-            style |= Font.BOLD;
-        }
-        int size = Math.abs(height);
-        return new Font(faceFamily, style, size);
+        return font;
     }
 
     public String toString() {

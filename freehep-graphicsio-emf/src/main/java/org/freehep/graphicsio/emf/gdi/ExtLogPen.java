@@ -2,6 +2,7 @@
 package org.freehep.graphicsio.emf.gdi;
 
 import java.awt.Color;
+import java.awt.Paint;
 import java.io.IOException;
 
 import org.freehep.graphicsio.emf.EMFConstants;
@@ -12,7 +13,7 @@ import org.freehep.graphicsio.emf.EMFOutputStream;
  * EMF ExtLogPen
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtLogPen.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtLogPen.java 63c8d910ece7 2007/01/20 15:30:50 duns $
  */
 public class ExtLogPen implements EMFConstants {
 
@@ -76,5 +77,21 @@ public class ExtLogPen implements EMFConstants {
             s.append("      style[" + i + "]: " + style[i] + "\n");
         }
         return s.toString();
+    }
+
+    public int getPenStyle() {
+        return penStyle;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public int[] getStyle() {
+        return style;
     }
 }

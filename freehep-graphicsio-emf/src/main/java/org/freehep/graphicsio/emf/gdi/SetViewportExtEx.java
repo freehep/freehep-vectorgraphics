@@ -12,7 +12,7 @@ import org.freehep.graphicsio.emf.EMFTag;
  * SetViewportExtEx TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetViewportExtEx.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetViewportExtEx.java 63c8d910ece7 2007/01/20 15:30:50 duns $
  */
 public class SetViewportExtEx extends EMFTag {
 
@@ -40,5 +40,9 @@ public class SetViewportExtEx extends EMFTag {
 
     public String toString() {
         return super.toString() + "\n" + "  size: " + size;
+    }
+
+    public Dimension getSize() {
+        return size;
     }
 }

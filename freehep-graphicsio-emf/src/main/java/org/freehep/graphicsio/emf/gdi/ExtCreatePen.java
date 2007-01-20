@@ -11,7 +11,7 @@ import org.freehep.graphicsio.emf.EMFTag;
  * ExtCreatePen TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtCreatePen.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtCreatePen.java 63c8d910ece7 2007/01/20 15:30:50 duns $
  */
 public class ExtCreatePen extends EMFTag {
 
@@ -53,5 +53,13 @@ public class ExtCreatePen extends EMFTag {
     public String toString() {
         return super.toString() + "\n" + "  index: 0x"
                 + Integer.toHexString(index) + "\n" + pen.toString();
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public ExtLogPen getPen() {
+        return pen;
     }
 }

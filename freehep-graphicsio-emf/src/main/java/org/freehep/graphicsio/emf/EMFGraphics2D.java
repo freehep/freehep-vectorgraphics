@@ -19,6 +19,7 @@ import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.image.RenderedImage;
+import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -69,12 +70,13 @@ import org.freehep.graphicsio.emf.gdi.TextW;
 import org.freehep.graphicsio.font.FontTable;
 import org.freehep.graphicsio.font.FontUtilities;
 import org.freehep.util.UserProperties;
+import org.freehep.util.images.ImageUtilities;
 
 /**
  * Enhanced Metafile Format Graphics 2D driver.
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java 2fa79ac3a135 2007/01/09 18:18:57 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java 63c8d910ece7 2007/01/20 15:30:50 duns $
  */
 public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         EMFConstants {
@@ -407,14 +409,24 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
             Color bkg) throws IOException {
         os.writeTag(new SaveDC());
 
-        AffineTransform imageTransform = new AffineTransform(1.0, 0.0, 0.0,
-                -1.0, 0.0, image.getHeight());
+        AffineTransform imageTransform = new AffineTransform(
+            1.0, 0.0, 0.0, -1.0, 0.0, image.getHeight());
         imageTransform.preConcatenate(xform);
         writeTransform(imageTransform);
 
-        os.writeTag(new AlphaBlend(imageBounds, toUnit(0), toUnit(0),
-                toUnit(image.getWidth()), toUnit(image.getHeight()),
-                new AffineTransform(), image, bkg));
+        BufferedImage bufferedImage = ImageUtilities.createBufferedImage(
+            image, null, null);
+        AlphaBlend alphaBlend = new AlphaBlend(
+            imageBounds,
+            toUnit(0),
+            toUnit(0),
+            toUnit(image.getWidth()),
+            toUnit(image.getHeight()),
+            new AffineTransform(),
+            bufferedImage,
+            bkg);
+
+        os.writeTag(alphaBlend);
         os.writeTag(new RestoreDC());
     }
 

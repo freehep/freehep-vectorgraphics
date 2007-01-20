@@ -113,9 +113,13 @@ public class EMFTest extends JPanel {
             e.printStackTrace();
         }
         emf.add(new SetStretchBltMode(EMFConstants.COLORONCOLOR));
-        emf.add(new StretchDIBits(bounds, 0, 0, image.getWidth(this), image
-                .getHeight(this), ImageUtilities.createRenderedImage(image,
-                this, Color.BLACK), Color.BLACK));
+        emf.add(new StretchDIBits(
+            bounds,
+            0, 0,
+            image.getWidth(this),
+            image.getHeight(this),
+            ImageUtilities.createBufferedImage(image, this, Color.BLACK), 
+            Color.BLACK));
         /*
          * emf.add(new GDIComment("Text")); emf.add(new ModifyWorldTransform(new
          * AffineTransform(1, 0, 0, 1, 0, 200),

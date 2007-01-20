@@ -11,7 +11,7 @@ import org.freehep.graphicsio.emf.EMFOutputStream;
  * EMF BitmapInfoHeader
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/BitmapInfoHeader.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/BitmapInfoHeader.java 63c8d910ece7 2007/01/20 15:30:50 duns $
  */
 public class BitmapInfoHeader implements EMFConstants {
 
@@ -54,7 +54,6 @@ public class BitmapInfoHeader implements EMFConstants {
 
     public BitmapInfoHeader(EMFInputStream emf) throws IOException {
         int len = emf.readDWORD(); // seems fixed
-        System.out.println(len);
         width = emf.readLONG();
         height = emf.readLONG();
         planes = emf.readWORD();
@@ -90,5 +89,17 @@ public class BitmapInfoHeader implements EMFConstants {
                 + "\n" + "    yPelsPerMeter: " + yPelsPerMeter + "\n"
                 + "    clrUsed: " + clrUsed + "\n" + "    clrImportant: "
                 + clrImportant;
+    }
+
+    public int getBitCount() {
+        return bitCount;
+    }
+
+    public int getCompression() {
+        return compression;
+    }
+
+    public int getClrUsed() {
+        return clrUsed;
     }
 }

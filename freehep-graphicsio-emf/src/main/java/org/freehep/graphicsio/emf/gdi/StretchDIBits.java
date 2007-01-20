@@ -4,14 +4,16 @@ package org.freehep.graphicsio.emf.gdi;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.image.RenderedImage;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.ImageGraphics2D;
+import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
+import org.freehep.graphicsio.emf.EMFImageLoader;
 import org.freehep.util.io.NoCloseOutputStream;
 
 /**
@@ -20,7 +22,7 @@ import org.freehep.util.io.NoCloseOutputStream;
  * WINGDI.H file of visual C++.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/StretchDIBits.java 86ef08292548 2007/01/17 23:15:57 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/StretchDIBits.java 63c8d910ece7 2007/01/20 15:30:50 duns $
  */
 public class StretchDIBits extends EMFTag implements EMFConstants {
 
@@ -38,14 +40,14 @@ public class StretchDIBits extends EMFTag implements EMFConstants {
 
     private BitmapInfo bmi;
 
-    private RenderedImage image;
+    private BufferedImage image;
 
     public StretchDIBits() {
         super(81, 1);
     }
 
     public StretchDIBits(Rectangle bounds, int x, int y, int width, int height,
-            RenderedImage image, Color bkg) {
+            BufferedImage image, Color bkg) {
         this();
         this.bounds = bounds;
         this.x = x;
@@ -89,8 +91,13 @@ public class StretchDIBits extends EMFTag implements EMFConstants {
         // FIXME: this size can differ and can be placed somewhere else
         tag.bmi = new BitmapInfo(emf);
 
-        // FIXME: need to decode image into java Image.
-        /* int[] bytes = */ emf.readUnsignedByte(len - 72 - BitmapInfoHeader.size);
+        tag.image = EMFImageLoader.readImage(
+            tag.bmi.getHeader(),
+            tag.width,
+            tag.height,
+            emf,
+            len - 72 - BitmapInfoHeader.size, null);
+
         return tag;
     }
 
@@ -113,7 +120,7 @@ public class StretchDIBits extends EMFTag implements EMFConstants {
         encode = BI_RGB;
 
         ImageGraphics2D.writeImage(
-            image,
+            (RenderedImage) image,
             ImageConstants.RAW.toLowerCase(),
             ImageGraphics2D.getRAWProperties(bkg, "BGR"),
             new NoCloseOutputStream(emf));
@@ -149,5 +156,33 @@ public class StretchDIBits extends EMFTag implements EMFConstants {
                 + ySrc + " " + widthSrc + " " + heightSrc + "\n" + "  usage: "
                 + usage + "\n" + "  dwROP: " + dwROP + "\n" + "  bkg: " + bkg
                 + "\n" + bmi.toString();
+    }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getWidthSrc() {
+        return widthSrc;
+    }
+
+    public int getHeightSrc() {
+        return heightSrc;
     }
 }

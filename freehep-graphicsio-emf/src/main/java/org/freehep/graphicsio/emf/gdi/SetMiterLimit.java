@@ -11,7 +11,7 @@ import org.freehep.graphicsio.emf.EMFTag;
  * SetMiterLimit TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetMiterLimit.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetMiterLimit.java 63c8d910ece7 2007/01/20 15:30:50 duns $
  */
 public class SetMiterLimit extends EMFTag {
 
@@ -39,5 +39,9 @@ public class SetMiterLimit extends EMFTag {
 
     public String toString() {
         return super.toString() + "\n" + "  limit: " + limit;
+    }
+
+    public int getMiterLimit() {
+        return limit;
     }
 }

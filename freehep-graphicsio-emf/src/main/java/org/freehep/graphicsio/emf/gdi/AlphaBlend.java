@@ -3,23 +3,26 @@ package org.freehep.graphicsio.emf.gdi;
 
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.RenderedImage;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.ImageGraphics2D;
+import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
+import org.freehep.graphicsio.emf.EMFImageLoader;
 import org.freehep.util.io.NoCloseOutputStream;
 
 /**
  * PNG and JPG seem not to work.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AlphaBlend.java 86ef08292548 2007/01/17 23:15:57 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AlphaBlend.java 63c8d910ece7 2007/01/20 15:30:50 duns $
  */
 public class AlphaBlend extends EMFTag implements EMFConstants {
 
@@ -41,14 +44,14 @@ public class AlphaBlend extends EMFTag implements EMFConstants {
 
     private BitmapInfo bmi;
 
-    private RenderedImage image;
+    private BufferedImage image;
 
     public AlphaBlend() {
         super(114, 1);
     }
 
     public AlphaBlend(Rectangle bounds, int x, int y, int width, int height,
-            AffineTransform transform, RenderedImage image, Color bkg) {
+            AffineTransform transform, BufferedImage image, Color bkg) {
         this();
         this.bounds = bounds;
         this.x = x;
@@ -91,10 +94,16 @@ public class AlphaBlend extends EMFTag implements EMFConstants {
         /* int height = */ emf.readLONG(); // 100
 
         // FIXME: this size can differ and can be placed somewhere else
-        bmi = (bmiSize > 0) ? new BitmapInfo(emf) : null;
+        tag.bmi = (bmiSize > 0) ? new BitmapInfo(emf) : null;
 
-        // FIXME: need to decode image into java Image.
-        /* int[] bytes = */ emf.readUnsignedByte(bitmapSize);
+        tag.image = EMFImageLoader.readImage(
+            tag.bmi.getHeader(),
+            tag.width,
+            tag.height,
+            emf,
+            bitmapSize,
+            tag.dwROP);
+
         return tag;
     }
 
@@ -120,7 +129,7 @@ public class AlphaBlend extends EMFTag implements EMFConstants {
         // plain
         encode = BI_RGB;
         ImageGraphics2D.writeImage(
-            image,
+            (RenderedImage) image,
             ImageConstants.RAW.toLowerCase(),
             ImageGraphics2D.getRAWProperties(bkg, "*BGRA"),
             new NoCloseOutputStream(emf));
@@ -155,5 +164,25 @@ public class AlphaBlend extends EMFTag implements EMFConstants {
                 + " " + ySrc + "\n" + "  transform: " + transform + "\n"
                 + "  bkg: " + bkg + "\n" + "  usage: " + usage + "\n"
                 + ((bmi != null) ? bmi.toString() : "  bitmap: null");
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }
