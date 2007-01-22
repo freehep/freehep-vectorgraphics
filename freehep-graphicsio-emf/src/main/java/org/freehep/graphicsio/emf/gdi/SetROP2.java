@@ -7,12 +7,13 @@ import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * SetROP2 TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetROP2.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetROP2.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class SetROP2 extends EMFTag implements EMFConstants {
 
@@ -30,8 +31,7 @@ public class SetROP2 extends EMFTag implements EMFConstants {
     public EMFTag read(int tagID, EMFInputStream emf, int len)
             throws IOException {
 
-        SetROP2 tag = new SetROP2(emf.readDWORD());
-        return tag;
+        return new SetROP2(emf.readDWORD());
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
@@ -39,10 +39,20 @@ public class SetROP2 extends EMFTag implements EMFConstants {
     }
 
     public String toString() {
-        return super.toString() + "\n" + "  mode: " + mode;
+        return super.toString() + "\n  mode: " + mode;
     }
 
-    public int getMode() {
-        return mode;
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        // The SetROP2 function sets the current foreground mix mode.
+        // GDI uses the foreground mix mode to combine pens and interiors
+        // of filled objects with the colors already on the screen. The
+        // foreground mix mode defines how colors from the brush or pen
+        // and the colors in the existing image are to be combined.
+        renderer.setRop2(mode);
     }
 }

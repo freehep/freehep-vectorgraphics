@@ -76,7 +76,7 @@ import org.freehep.util.images.ImageUtilities;
  * Enhanced Metafile Format Graphics 2D driver.
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         EMFConstants {
@@ -342,11 +342,6 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
      * ================================================================================
      */
     /* 5.1.4. shapes */
-    Point[] points = new Point[] { new Point(0, 0), new Point(0, 0),
-            new Point(0, 0), new Point(0, 0) };
-
-    Color invisible = new Color(0, 0, 0, 0);
-
     public void draw(Shape shape) {
         try {
             if (getStroke() instanceof BasicStroke) {

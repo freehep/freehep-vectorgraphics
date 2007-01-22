@@ -15,7 +15,7 @@ import org.freehep.graphicsio.emf.EMFConstants;
  * Company:
  *
  * @author Daniel Noll daniel@nuix.com
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/StockObjects.java 86ef08292548 2007/01/17 23:15:57 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/StockObjects.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 
 public class StockObjects {
@@ -46,7 +46,7 @@ public class StockObjects {
     private static final int DC_BRUSH            = 18;
     private static final int DC_PEN              = 19;
 
-    private static final Object[] objects = new Object[20];
+    private static final GDIObject[] objects = new GDIObject[20];
     static {
         Color nullColor = new Color(0, 0, 0, 0);
 
@@ -79,7 +79,7 @@ public class StockObjects {
      * @param value the value.
      * @return the stock object.
      */
-    public static Object getStockObject(int value) {
+    public static GDIObject getStockObject(int value) {
         if (value >= 0) {
             throw new IllegalArgumentException("Value does not represent a stock object: " + value);
         }
@@ -90,7 +90,7 @@ public class StockObjects {
             throw new IllegalArgumentException("Stock object is out of bounds: " + value);
         }
 
-        Object object = objects[value];
+        GDIObject object = objects[value];
         if (object == null) {
             throw new UnsupportedOperationException("Stock object not yet supported: " + value);
         }

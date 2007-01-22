@@ -3,35 +3,31 @@ package org.freehep.graphicsio.emf.gdi;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.geom.GeneralPath;
 import java.io.IOException;
 
 import org.freehep.graphicsio.emf.EMFInputStream;
-import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * PolylineTo TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/PolylineTo.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/PolylineTo.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
-public class PolylineTo extends EMFTag {
-
-    private Rectangle bounds;
-
-    private int numberOfPoints;
-
-    private Point[] points;
+public class PolylineTo extends AbstractPolygon {
 
     public PolylineTo() {
-        super(6, 1);
+        super(6, 1, null, 0, null);
     }
 
     public PolylineTo(Rectangle bounds, int numberOfPoints, Point[] points) {
-        this();
-        this.bounds = bounds;
-        this.numberOfPoints = numberOfPoints;
-        this.points = points;
+        this(6, 1, bounds, numberOfPoints, points);
+    }
+
+    protected PolylineTo (int id, int version, Rectangle bounds, int numberOfPoints, Point[] points) {
+        super(id, version, bounds, numberOfPoints, points);
     }
 
     public EMFTag read(int tagID, EMFInputStream emf, int len)
@@ -39,26 +35,26 @@ public class PolylineTo extends EMFTag {
 
         Rectangle r = emf.readRECTL();
         int n = emf.readDWORD();
-        PolylineTo tag = new PolylineTo(r, n, emf.readPOINTL(n));
-        return tag;
+        return new PolylineTo(r, n, emf.readPOINTL(n));
     }
 
-    public void write(int tagID, EMFOutputStream emf) throws IOException {
-        emf.writeRECTL(bounds);
-        emf.writeDWORD(numberOfPoints);
-        emf.writePOINTL(numberOfPoints, points);
-    }
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        Point[] points = getPoints();
+        int numberOfPoints = getNumberOfPoints();
+        GeneralPath currentFigure = renderer.getFigure();
 
-    public String toString() {
-        return super.toString() + "\n" + "  bounds: " + bounds + "\n"
-                + "  #points: " + numberOfPoints;
-    }
-
-    public Point[] getPoints() {
-        return points;
-    }
-
-    public int getNumberOfPoints() {
-        return numberOfPoints;
+        if (points != null) {
+            for (int point = 0; point < numberOfPoints; point ++) {
+                // add a point to gp
+                currentFigure.lineTo(
+                    (float) points[point].getX(),
+                    (float) points[point].getY());
+            }
+        }
     }
 }

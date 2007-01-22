@@ -13,7 +13,7 @@ import org.freehep.graphicsio.emf.EMFTag;
  * PolyPolyline TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/PolyPolyline.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/PolyPolyline.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class PolyPolyline extends EMFTag {
 
@@ -54,8 +54,7 @@ public class PolyPolyline extends EMFTag {
         for (int i = 0; i < np; i++) {
             points[i] = emf.readPOINTL(pc[i]);
         }
-        PolyPolyline tag = new PolyPolyline(bounds, 0, np - 1, pc, points);
-        return tag;
+        return new PolyPolyline(bounds, 0, np - 1, pc, points);
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
@@ -75,7 +74,8 @@ public class PolyPolyline extends EMFTag {
     }
 
     public String toString() {
-        return super.toString() + "\n" + "  bounds: " + bounds + "\n"
-                + "  #polys: " + (end - start);
+        return super.toString() +
+            "\n  bounds: " + bounds +
+            "\n  #polys: " + (end - start);
     }
 }

@@ -14,6 +14,7 @@ import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
 import org.freehep.graphicsio.emf.EMFImageLoader;
+import org.freehep.graphicsio.emf.EMFRenderer;
 import org.freehep.util.io.NoCloseOutputStream;
 
 /**
@@ -22,7 +23,7 @@ import org.freehep.util.io.NoCloseOutputStream;
  * WINGDI.H file of visual C++.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/StretchDIBits.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/StretchDIBits.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class StretchDIBits extends EMFTag implements EMFConstants {
 
@@ -150,39 +151,29 @@ public class StretchDIBits extends EMFTag implements EMFConstants {
     }
 
     public String toString() {
-        return super.toString() + "\n" + "  bounds: " + bounds + "\n"
-                + "  x, y, w, h: " + x + " " + y + " " + width + " " + height
-                + "\n" + "  xSrc, ySrc, widthSrc, heightSrc: " + xSrc + " "
-                + ySrc + " " + widthSrc + " " + heightSrc + "\n" + "  usage: "
-                + usage + "\n" + "  dwROP: " + dwROP + "\n" + "  bkg: " + bkg
-                + "\n" + bmi.toString();
+        return super.toString() +
+            "\n  bounds: " + bounds +
+            "\n  x, y, w, h: " + x + " " + y + " " + width + " " + height +
+            "\n  xSrc, ySrc, widthSrc, heightSrc: " + xSrc + " "
+                + ySrc + " " + widthSrc + " " + heightSrc +
+            "\n  usage: " + usage +
+            "\n  dwROP: " + dwROP +
+            "\n  bkg: " + bkg +
+            "\n" + bmi.toString();
     }
 
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getWidthSrc() {
-        return widthSrc;
-    }
-
-    public int getHeightSrc() {
-        return heightSrc;
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        // The StretchDIBits function copies the color data for a rectangle of pixels in a
+        // DIB to the specified destination rectangle. If the destination rectangle is larger
+        // than the source rectangle, this function stretches the rows and columns of color
+        // data to fit the destination rectangle. If the destination rectangle is smaller
+        // than the source rectangle, this function compresses the rows and columns by using
+        // the specified raster operation.
+        renderer.drawImage(image, x, y, widthSrc, heightSrc);
     }
 }

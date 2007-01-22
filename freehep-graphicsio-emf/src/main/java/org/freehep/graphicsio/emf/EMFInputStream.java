@@ -18,24 +18,21 @@ import org.freehep.util.io.TaggedInputStream;
  * primitives from the stream and to read TagHeaders.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFInputStream.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFInputStream.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class EMFInputStream extends TaggedInputStream implements EMFConstants {
 
     public static int DEFAULT_VERSION = 1;
 
-    public EMFInputStream(InputStream is) throws IOException {
-
+    public EMFInputStream(InputStream is) {
         this(is, DEFAULT_VERSION);
     }
 
-    public EMFInputStream(InputStream is, int version) throws IOException {
-
+    public EMFInputStream(InputStream is, int version) {
         this(is, new EMFTagSet(version));
     }
 
-    public EMFInputStream(InputStream is, EMFTagSet tagSet) throws IOException {
-
+    public EMFInputStream(InputStream is, EMFTagSet tagSet)  {
         // EMF is little-endian
         super(is, tagSet, null, true);
     }
@@ -151,7 +148,7 @@ public class EMFInputStream extends TaggedInputStream implements EMFConstants {
     }
 
     public boolean readBOOLEAN() throws IOException {
-        return (readBYTE() != 0) ? true : false;
+        return (readBYTE() != 0);
     }
 
     public String readWCHAR(int size) throws IOException {

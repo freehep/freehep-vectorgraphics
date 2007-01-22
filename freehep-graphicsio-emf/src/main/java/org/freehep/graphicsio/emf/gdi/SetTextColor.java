@@ -7,12 +7,13 @@ import java.io.IOException;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * SetTextColor TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetTextColor.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetTextColor.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class SetTextColor extends EMFTag {
 
@@ -30,8 +31,7 @@ public class SetTextColor extends EMFTag {
     public EMFTag read(int tagID, EMFInputStream emf, int len)
             throws IOException {
 
-        SetTextColor tag = new SetTextColor(emf.readCOLORREF());
-        return tag;
+        return new SetTextColor(emf.readCOLORREF());
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
@@ -39,10 +39,15 @@ public class SetTextColor extends EMFTag {
     }
 
     public String toString() {
-        return super.toString() + "\n" + "  color: " + color;
+        return super.toString() + "\n  color: " + color;
     }
 
-    public Color getColor() {
-        return color;
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        renderer.setTextColor(color);
     }
 }

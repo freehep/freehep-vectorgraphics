@@ -137,17 +137,7 @@ public class EMFViewer extends JFrame {
         public void actionPerformed(ActionEvent e) {
             int result = fileChooser.showOpenDialog(EMFViewer.this);
             if (result == JFileChooser.APPROVE_OPTION) {
-                try {
-                    File file = fileChooser.getSelectedFile();
-                    FileInputStream fis = new FileInputStream(file);
-                    EMFInputStream emf = new EMFInputStream(new BufferedInputStream(fis));
-
-                    EMFRenderer renderer = new EMFRenderer(emf);
-                    emfPanel.setRenderer(renderer);
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+                show(fileChooser.getSelectedFile());
             }
         }
     }

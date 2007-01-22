@@ -40,5 +40,10 @@
       <artifactId>aida</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+        <groupId>org.freehep</groupId>
+        <artifactId>freehep-graphicsio-svg</artifactId>
+      <version>${version}</version>
+    </dependency>
   </dependencies>
 </project>

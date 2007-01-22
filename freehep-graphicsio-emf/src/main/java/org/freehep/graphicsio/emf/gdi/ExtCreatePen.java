@@ -6,12 +6,13 @@ import java.io.IOException;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * ExtCreatePen TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtCreatePen.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtCreatePen.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class ExtCreatePen extends EMFTag {
 
@@ -37,8 +38,7 @@ public class ExtCreatePen extends EMFTag {
         /* int bmiSize = */ emf.readDWORD();
         /* int brushOffset = */ emf.readDWORD();
         /* int brushSize = */ emf.readDWORD();
-        ExtCreatePen tag = new ExtCreatePen(index, new ExtLogPen(emf));
-        return tag;
+        return new ExtCreatePen(index, new ExtLogPen(emf));
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
@@ -51,15 +51,17 @@ public class ExtCreatePen extends EMFTag {
     }
 
     public String toString() {
-        return super.toString() + "\n" + "  index: 0x"
-                + Integer.toHexString(index) + "\n" + pen.toString();
+        return super.toString() +
+            "\n  index: 0x" + Integer.toHexString(index) +
+            "\n" + pen.toString();
     }
 
-    public int getIndex() {
-        return index;
-    }
-
-    public ExtLogPen getPen() {
-        return pen;
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        renderer.storeGDIObject(index, pen);
     }
 }

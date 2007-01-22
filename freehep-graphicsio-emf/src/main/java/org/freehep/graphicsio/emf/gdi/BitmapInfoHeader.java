@@ -11,7 +11,7 @@ import org.freehep.graphicsio.emf.EMFOutputStream;
  * EMF BitmapInfoHeader
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/BitmapInfoHeader.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/BitmapInfoHeader.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class BitmapInfoHeader implements EMFConstants {
 
@@ -53,7 +53,7 @@ public class BitmapInfoHeader implements EMFConstants {
     }
 
     public BitmapInfoHeader(EMFInputStream emf) throws IOException {
-        int len = emf.readDWORD(); // seems fixed
+        /*int len = */ emf.readDWORD(); // seems fixed
         width = emf.readLONG();
         height = emf.readLONG();
         planes = emf.readWORD();
@@ -81,14 +81,17 @@ public class BitmapInfoHeader implements EMFConstants {
     }
 
     public String toString() {
-        return "    size: " + size + "\n" + "    width: " + width + "\n"
-                + "    height: " + height + "\n" + "    planes: " + planes
-                + "\n" + "    bitCount: " + bitCount + "\n"
-                + "    compression: " + compression + "\n" + "    sizeImage: "
-                + sizeImage + "\n" + "    xPelsPerMeter: " + xPelsPerMeter
-                + "\n" + "    yPelsPerMeter: " + yPelsPerMeter + "\n"
-                + "    clrUsed: " + clrUsed + "\n" + "    clrImportant: "
-                + clrImportant;
+        return "    size: " + size +
+            "\n    width: " + width +
+            "\n    height: " + height +
+            "\n    planes: " + planes +
+            "\n    bitCount: " + bitCount +
+            "\n    compression: " + compression +
+            "\n    sizeImage: " + sizeImage +
+            "\n    xPelsPerMeter: " + xPelsPerMeter +
+            "\n    yPelsPerMeter: " + yPelsPerMeter +
+            "\n    clrUsed: " + clrUsed +
+            "\n    clrImportant: " + clrImportant;
     }
 
     public int getBitCount() {

@@ -7,15 +7,16 @@ import java.io.IOException;
 import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * EMF LogBrush32
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/LogBrush32.java f2f1115939ae 2006/12/07 07:50:41 duns $ see
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/LogBrush32.java c0f15e7696d3 2007/01/22 19:26:48 duns $ see
  *          http://msdn.microsoft.com/library/default.asp?url=/library/en-us/gdi/brushes_8yk2.asp
  */
-public class LogBrush32 implements EMFConstants {
+public class LogBrush32 implements EMFConstants, GDIObject {
 
     private int style;
 
@@ -42,19 +43,30 @@ public class LogBrush32 implements EMFConstants {
     }
 
     public String toString() {
-        return "  LogBrush32\n" + "    style: " + style + "\n" + "    color: "
-                + color + "\n" + "    hatch: " + hatch;
+        return "  LogBrush32\n" + "    style: " + style +
+            "\n    color: " + color +
+            "\n    hatch: " + hatch;
     }
 
-    public int getStyle() {
-        return style;
-    }
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        if (style == EMFConstants.BS_SOLID) {
+            renderer.setBrushPaint(color);
+        } else if (style == EMFConstants.BS_NULL) {
+            // note: same value as BS_HOLLOW
+            // Should probably do this by making a paint implementation that does nothing,
+            // but a 100% transparent color works just as well for now.
+            renderer.setBrushPaint(new Color(0, 0, 0, 0));
 
-    public Color getColor() {
-        return color;
-    }
-
-    public int getHatch() {
-        return hatch;
+            // TODO: Support pattern types
+            // TODO: Support hatching
+            // TODO: Support DIB types
+        } else {
+            renderer.setBrushPaint(color);
+        }
     }
 }

@@ -7,14 +7,15 @@ import java.io.IOException;
 import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * EMF ExtLogFontW
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtLogFontW.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtLogFontW.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
-public class ExtLogFontW implements EMFConstants {
+public class ExtLogFontW implements EMFConstants, GDIObject {
 
     private LogFontW font;
 
@@ -90,16 +91,25 @@ public class ExtLogFontW implements EMFConstants {
         emf.writeWORD(0);
     }
 
-    public LogFontW getFont() {
-        return font;
+    public String toString() {
+        return super.toString() +
+            "\n  LogFontW\n" + font.toString() +
+            "\n    fullname: " + fullName +
+            "\n    style: " + style +
+            "\n    version: " + version +
+            "\n    stylesize: " + styleSize +
+            "\n    match: " + match +
+            "\n    vendorID: " + vendorID +
+            "\n    culture: "  + culture +
+            "\n" + panose.toString();
     }
 
-    public String toString() {
-        return super.toString() + "\n" + "  LogFontW\n" + font.toString()
-                + "\n" + "    fullname: " + fullName + "\n" + "    style: "
-                + style + "\n" + "    version: " + version + "\n"
-                + "    stylesize: " + styleSize + "\n" + "    match: " + match
-                + "\n" + "    vendorID: " + vendorID + "\n" + "    culture: "
-                + culture + "\n" + panose.toString();
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        renderer.setFont(font.getFont());
     }
 }

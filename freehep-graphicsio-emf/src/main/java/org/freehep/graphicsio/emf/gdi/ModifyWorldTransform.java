@@ -8,12 +8,13 @@ import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * ModifyWorldTransform TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ModifyWorldTransform.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ModifyWorldTransform.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class ModifyWorldTransform extends EMFTag implements EMFConstants {
 
@@ -34,9 +35,9 @@ public class ModifyWorldTransform extends EMFTag implements EMFConstants {
     public EMFTag read(int tagID, EMFInputStream emf, int len)
             throws IOException {
 
-        ModifyWorldTransform tag = new ModifyWorldTransform(emf.readXFORM(),
-                emf.readDWORD());
-        return tag;
+        return new ModifyWorldTransform(
+            emf.readXFORM(),
+            emf.readDWORD());
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
@@ -44,12 +45,29 @@ public class ModifyWorldTransform extends EMFTag implements EMFConstants {
         emf.writeDWORD(mode);
     }
 
-    public AffineTransform getTransform() {
-        return transform;
+    public String toString() {
+        return super.toString() +
+            "\n  transform: " + transform +
+            "\n  mode: " + mode;
     }
 
-    public String toString() {
-        return super.toString() + "\n" + "  transform: " + transform + "\n"
-                + "  mode: " + mode;
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        // TODO: this fixes an extra offset for embedded
+        // EMF graphics, not quite clear why
+        if (mode != EMFConstants.MWT_LEFTMULTIPLY) {
+            return;
+        }
+
+        if (renderer.getPath() != null) {
+            renderer.getPathTransform().concatenate(transform);
+            renderer.transform(transform);
+        } else {
+            renderer.transform(transform);
+        }
     }
 }

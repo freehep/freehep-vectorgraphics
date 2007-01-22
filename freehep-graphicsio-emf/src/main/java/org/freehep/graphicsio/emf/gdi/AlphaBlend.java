@@ -3,7 +3,6 @@ package org.freehep.graphicsio.emf.gdi;
 
 import java.awt.Color;
 import java.awt.Rectangle;
-import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.RenderedImage;
 import java.awt.image.BufferedImage;
@@ -16,17 +15,18 @@ import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
 import org.freehep.graphicsio.emf.EMFImageLoader;
+import org.freehep.graphicsio.emf.EMFRenderer;
 import org.freehep.util.io.NoCloseOutputStream;
 
 /**
  * PNG and JPG seem not to work.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AlphaBlend.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AlphaBlend.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class AlphaBlend extends EMFTag implements EMFConstants {
 
-    public final static int size = 108;
+    private final static int size = 108;
 
     private Rectangle bounds;
 
@@ -50,8 +50,16 @@ public class AlphaBlend extends EMFTag implements EMFConstants {
         super(114, 1);
     }
 
-    public AlphaBlend(Rectangle bounds, int x, int y, int width, int height,
-            AffineTransform transform, BufferedImage image, Color bkg) {
+    public AlphaBlend(
+        Rectangle bounds,
+        int x,
+        int y,
+        int width,
+        int height,
+        AffineTransform transform,
+        BufferedImage image,
+        Color bkg) {
+
         this();
         this.bounds = bounds;
         this.x = x;
@@ -158,31 +166,26 @@ public class AlphaBlend extends EMFTag implements EMFConstants {
     }
 
     public String toString() {
-        return super.toString() + "\n" + "  bounds: " + bounds + "\n"
-                + "  x, y, w, h: " + x + " " + y + " " + width + " " + height
-                + "\n" + "  dwROP: " + dwROP + "\n" + "  xSrc, ySrc: " + xSrc
-                + " " + ySrc + "\n" + "  transform: " + transform + "\n"
-                + "  bkg: " + bkg + "\n" + "  usage: " + usage + "\n"
-                + ((bmi != null) ? bmi.toString() : "  bitmap: null");
+        return super.toString() +
+            "\n  bounds: " + bounds +
+            "\n  x, y, w, h: " + x + " " + y + " " + width + " " + height +
+            "\n  dwROP: " + dwROP +
+            "\n  xSrc, ySrc: " + xSrc + " " + ySrc +
+            "\n  transform: " + transform +
+            "\n  bkg: " + bkg +
+            "\n  usage: " + usage +
+            "\n" + ((bmi != null) ? bmi.toString() : "  bitmap: null");
     }
 
-    public Image getImage() {
-        return image;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        // This function displays bitmaps that have transparent or semitransparent pixels.
+        if (image != null) {
+            renderer.drawImage(image, x, y, width, height);
+        }
     }
 }

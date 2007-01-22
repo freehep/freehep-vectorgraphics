@@ -12,7 +12,7 @@ import org.freehep.graphicsio.emf.EMFTag;
  * OffsetClipRgn TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/OffsetClipRgn.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/OffsetClipRgn.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class OffsetClipRgn extends EMFTag {
 
@@ -30,8 +30,7 @@ public class OffsetClipRgn extends EMFTag {
     public EMFTag read(int tagID, EMFInputStream emf, int len)
             throws IOException {
 
-        OffsetClipRgn tag = new OffsetClipRgn(emf.readPOINTL());
-        return tag;
+        return new OffsetClipRgn(emf.readPOINTL());
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
@@ -39,6 +38,6 @@ public class OffsetClipRgn extends EMFTag {
     }
 
     public String toString() {
-        return super.toString() + "\n" + "  offset: " + offset;
+        return super.toString() + "\n  offset: " + offset;
     }
 }

@@ -7,12 +7,13 @@ import java.io.IOException;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * SetBrushOrgEx TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetBrushOrgEx.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetBrushOrgEx.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class SetBrushOrgEx extends EMFTag {
 
@@ -30,8 +31,7 @@ public class SetBrushOrgEx extends EMFTag {
     public EMFTag read(int tagID, EMFInputStream emf, int len)
             throws IOException {
 
-        SetBrushOrgEx tag = new SetBrushOrgEx(emf.readPOINTL());
-        return tag;
+        return new SetBrushOrgEx(emf.readPOINTL());
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
@@ -39,10 +39,18 @@ public class SetBrushOrgEx extends EMFTag {
     }
 
     public String toString() {
-        return super.toString() + "\n" + "  point: " + point;
+        return super.toString() + "\n  point: " + point;
     }
 
-    public Point getPoint() {
-        return point;
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        // The SetBrushOrgEx function sets the brush origin that GDI assigns to
+        // the next (only to the next!) brush an application selects into the specified
+        // device context.
+        renderer.setBrushOrigin(point);
     }
 }

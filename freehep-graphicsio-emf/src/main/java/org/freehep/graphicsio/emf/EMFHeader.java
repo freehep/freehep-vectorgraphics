@@ -9,7 +9,7 @@ import java.io.IOException;
  * EMF File Header.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFHeader.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFHeader.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class EMFHeader implements EMFConstants {
     private static final Dimension screenMM = new Dimension(320, 240);
@@ -98,7 +98,7 @@ public class EMFHeader implements EMFConstants {
         if ((length - (2 * dLen)) > 88) {
             emf.readDWORD(); // 92
             emf.readDWORD(); // 96
-            openGL = (emf.readDWORD() != 0) ? true : false; // 100
+            openGL = (emf.readDWORD() != 0); // 100
             if ((length - (2 * dLen)) > 100) {
                 micrometers = emf.readSIZEL(); // 108
             }
@@ -148,28 +148,30 @@ public class EMFHeader implements EMFConstants {
         }
     }
 
-    /** size of emf file in bytes ? */
+    /**
+     * @return size of emf file in bytes ?
+     */
     public int size() {
         return 108 + (2 * description.length());
     }
 
     public String toString() {
         StringBuffer s = new StringBuffer("EMF Header\n");
-        s.append("  bounds: " + bounds + "\n");
-        s.append("  frame: " + frame + "\n");
-        s.append("  signature: " + signature + "\n");
-        s.append("  versionMajor: " + versionMajor + "\n");
-        s.append("  versionMinor: " + versionMinor + "\n");
-        s.append("  #bytes: " + bytes + "\n");
-        s.append("  #records: " + records + "\n");
-        s.append("  #handles: " + handles + "\n");
-        s.append("  description: " + description + "\n");
-        s.append("  #palEntries: " + palEntries + "\n");
-        s.append("  device: " + device + "\n");
-        s.append("  millimeters: " + millimeters + "\n");
+        s.append("  bounds: ").append(bounds).append("\n");
+        s.append("  frame: ").append(frame).append("\n");
+        s.append("  signature: ").append(signature).append("\n");
+        s.append("  versionMajor: ").append(versionMajor).append("\n");
+        s.append("  versionMinor: ").append(versionMinor).append("\n");
+        s.append("  #bytes: ").append(bytes).append("\n");
+        s.append("  #records: ").append(records).append("\n");
+        s.append("  #handles: ").append(handles).append("\n");
+        s.append("  description: ").append(description).append("\n");
+        s.append("  #palEntries: ").append(palEntries).append("\n");
+        s.append("  device: ").append(device).append("\n");
+        s.append("  millimeters: ").append(millimeters).append("\n");
 
-        s.append("  openGL: " + openGL + "\n");
-        s.append("  micrometers: " + micrometers);
+        s.append("  openGL: ").append(openGL).append("\n");
+        s.append("  micrometers: ").append(micrometers);
 
         return s.toString();
     }
@@ -179,6 +181,7 @@ public class EMFHeader implements EMFConstants {
      * can be drawn around the picture stored in the metafile. This rectangle is
      * supplied by graphics device interface (GDI). Its dimensions include the
      * right and bottom edges.
+     * @return bounds of device
      */
     public Rectangle getBounds() {
         return bounds;
@@ -189,6 +192,7 @@ public class EMFHeader implements EMFConstants {
      * surrounds the picture stored in the metafile. This rectangle must be
      * supplied by the application that creates the metafile. Its dimensions
      * include the right and bottom edges.
+     * @return bounds of frame
      */
     public Rectangle getFrame() {
         return frame;
@@ -197,22 +201,31 @@ public class EMFHeader implements EMFConstants {
     /**
      * Specifies a double word signature. This member must specify the value
      * assigned to the ENHMETA_SIGNATURE constant.
+     * @return signature
      */
     public String getSignature() {
         return signature;
     }
 
-    /** the description of the enhanced metafile's contents */
+    /**
+     * @return the description of the enhanced metafile's contents
+     */
     public String getDescription() {
         return description;
     }
 
-    /** Specifies the resolution of the reference device, in pixels. */
+    /**
+     * Specifies the resolution of the reference device, in pixels.
+     * @return resolution of the reference device, in pixels
+     */
     public Dimension getDevice() {
         return device;
     }
 
-    /** Specifies the resolution of the reference device, in millimeters. */
+    /**
+     * Specifies the resolution of the reference device, in millimeters.
+     * @return size in millimeters
+     */
     public Dimension getMillimeters() {
         return millimeters;
     }
@@ -220,6 +233,7 @@ public class EMFHeader implements EMFConstants {
     /**
      * Windows 98/Me, Windows 2000/XP: Size of the reference device in
      * micrometers.
+     * @return size in micrometers
      */
     public Dimension getMicrometers() {
         return micrometers;
@@ -231,6 +245,8 @@ public class EMFHeader implements EMFConstants {
      * you can use to determine whether an enhanced metafile requires OpenGL
      * handling. When a metafile contains OpenGL records, bOpenGL is TRUE;
      * otherwise it is FALSE.
+     *
+     * @return false is default
      */
     public boolean isOpenGL() {
         return openGL;

@@ -13,7 +13,7 @@ import org.freehep.graphicsio.emf.EMFTag;
  * GradientFill TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/GradientFill.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/GradientFill.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class GradientFill extends EMFTag implements EMFConstants {
 
@@ -56,8 +56,7 @@ public class GradientFill extends EMFTag implements EMFConstants {
                 gradients[i] = new GradientRectangle(emf);
             }
         }
-        GradientFill tag = new GradientFill(bounds, mode, vertices, gradients);
-        return tag;
+        return new GradientFill(bounds, mode, vertices, gradients);
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
@@ -75,14 +74,27 @@ public class GradientFill extends EMFTag implements EMFConstants {
 
     public String toString() {
         StringBuffer s = new StringBuffer();
-        s.append(super.toString() + "\n");
-        s.append("  bounds: " + bounds + "\n");
-        s.append("  mode: " + mode + "\n");
+        s.append(super.toString());
+        s.append("\n");
+        s.append("  bounds: ");
+        s.append(bounds);
+        s.append("\n");
+        s.append("  mode: ");
+        s.append(mode);
+        s.append("\n");
         for (int i = 0; i < vertices.length; i++) {
-            s.append("  vertex[" + i + "]: " + vertices[i] + "\n");
+            s.append("  vertex[");
+            s.append(i);
+            s.append("]: ");
+            s.append(vertices[i]);
+            s.append("\n");
         }
         for (int i = 0; i < gradients.length; i++) {
-            s.append("  gradient[" + i + "]: " + gradients[i] + "\n");
+            s.append("  gradient[");
+            s.append(i);
+            s.append("]: ");
+            s.append(gradients[i]);
+            s.append("\n");
         }
         return s.toString();
     }

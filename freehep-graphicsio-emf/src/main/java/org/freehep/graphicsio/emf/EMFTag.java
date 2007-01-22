@@ -2,18 +2,25 @@
 package org.freehep.graphicsio.emf;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import org.freehep.util.io.Tag;
 import org.freehep.util.io.TaggedInputStream;
 import org.freehep.util.io.TaggedOutputStream;
+import org.freehep.graphicsio.emf.gdi.GDIObject;
 
 /**
  * EMF specific tag, from which all other EMF Tags inherit.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFTag.java f24bd43ca24b 2005/12/02 00:39:35 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFTag.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
-public abstract class EMFTag extends Tag {
+public abstract class EMFTag extends Tag implements GDIObject {
+
+    /**
+     * logger for all instances
+     */
+    protected static final Logger logger = Logger.getLogger("org.freehep.graphicsio.emf");
 
     /**
      * Constructs a EMFTag.
@@ -45,6 +52,7 @@ public abstract class EMFTag extends Tag {
      * 
      * @param tagID id of the tag
      * @param emf Binary CGM output stream
+     * @throws java.io.IOException thrown by EMFOutputStream
      */
     public void write(int tagID, EMFOutputStream emf) throws IOException {
         // empty
@@ -55,5 +63,14 @@ public abstract class EMFTag extends Tag {
      */
     public String toString() {
         return "EMFTag " + getName() + " (" + getTag() + ")";
+    }
+
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        logger.warning("EMF tag not supported: " + toString());
     }
 }

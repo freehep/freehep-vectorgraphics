@@ -13,55 +13,39 @@ import org.freehep.graphicsio.emf.EMFTag;
  * ExtTextOutW TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtTextOutW.java 11783e27e55b 2007/01/15 16:30:03 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtTextOutW.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class ExtTextOutW extends AbstractExtTextOut implements EMFConstants {
-
-    private Rectangle bounds;
-
-    private int mode;
-
-    private float xScale, yScale;
 
     private TextW text;
 
     public ExtTextOutW() {
-        super(84, 1);
+        super(84, 1, null, 0, 1, 1);
     }
 
-    public ExtTextOutW(Rectangle bounds, int mode, float xScale, float yScale,
-            TextW text) {
-        this();
-        this.bounds = bounds;
-        this.mode = mode;
-        this.xScale = xScale;
-        this.yScale = yScale;
+    public ExtTextOutW(
+        Rectangle bounds,
+        int mode,
+        float xScale,
+        float yScale,
+        TextW text) {
+
+        super(84, 1, bounds, mode, xScale, yScale);
         this.text = text;
     }
 
     public EMFTag read(int tagID, EMFInputStream emf, int len)
             throws IOException {
 
-        ExtTextOutW tag = new ExtTextOutW(emf.readRECTL(), emf.readDWORD(), emf
-                .readFLOAT(), emf.readFLOAT(), TextW.read(emf));
-        return tag;
+        return new ExtTextOutW(
+            emf.readRECTL(),
+            emf.readDWORD(),
+            emf.readFLOAT(),
+            emf.readFLOAT(),
+            TextW.read(emf));
     }
 
-    public void write(int tagID, EMFOutputStream emf) throws IOException {
-        emf.writeRECTL(bounds);
-        emf.writeDWORD(mode);
-        emf.writeFLOAT(xScale);
-        emf.writeFLOAT(yScale);
-        text.write(emf);
-    }
-
-    public Text getText() {
+    protected Text getText() {
         return text;
-    }
-
-    public String toString() {
-        return super.toString() + "\n" + "  bounds: " + bounds + "\n"
-                + "  mode: " + mode + "\n" + "  xScale: " + xScale + "\n"
-                + "  yScale: " + yScale + "\n" + text.toString();
     }
 }

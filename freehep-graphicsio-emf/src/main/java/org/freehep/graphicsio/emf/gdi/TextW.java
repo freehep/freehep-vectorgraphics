@@ -12,7 +12,7 @@ import org.freehep.graphicsio.emf.EMFOutputStream;
  * EMF Text
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/TextW.java 86ef08292548 2007/01/17 23:15:57 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/TextW.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class TextW extends Text {
 
@@ -60,12 +60,16 @@ public class TextW extends Text {
 
     public String toString() {
         StringBuffer widthsS = new StringBuffer();
-        for (int i = 0; i < string.length(); i++)
-            widthsS.append("," + widths[i]);
+        for (int i = 0; i < string.length(); i++) {
+            widthsS.append(",");
+            widthsS.append(widths[i]);
+        }
         widthsS.append(']');
         widthsS.setCharAt(0, '[');
-        return "  TextW\n" + "    pos: " + pos + "\n" + "    options: "
-                + options + "\n" + "    bounds: " + bounds + "\n"
-                + "    string: " + string + "\n" + "    widths: " + widthsS;
+        return "  TextW\n" + "    pos: " + pos +
+            "\n    options: " + options +
+            "\n    bounds: " + bounds +
+            "\n    string: " + string +
+            "\n    widths: " + widthsS;
     }
 }

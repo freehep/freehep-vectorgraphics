@@ -7,12 +7,13 @@ import java.io.IOException;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * Rectangle TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/EMFRectangle.java 11783e27e55b 2007/01/15 16:30:03 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/EMFRectangle.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class EMFRectangle extends EMFTag {
 
@@ -30,19 +31,23 @@ public class EMFRectangle extends EMFTag {
     public EMFTag read(int tagID, EMFInputStream emf, int len)
             throws IOException {
 
-        EMFRectangle tag = new EMFRectangle(emf.readRECTL());
-        return tag;
+        return new EMFRectangle(emf.readRECTL());
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
         emf.writeRECTL(bounds);
     }
 
-    public Rectangle getBounds() {
-        return bounds;
+    public String toString() {
+        return super.toString() + "\n  bounds: " + bounds;
     }
 
-    public String toString() {
-        return super.toString() + "\n" + "  bounds: " + bounds;
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        renderer.fillAndDrawOrAppend(bounds);
     }
 }

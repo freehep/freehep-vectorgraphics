@@ -2,19 +2,20 @@
 package org.freehep.graphicsio.emf.gdi;
 
 import java.awt.Color;
+import java.awt.BasicStroke;
 import java.io.IOException;
 
-import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * EMF LogPen
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/LogPen.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/LogPen.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
-public class LogPen implements EMFConstants {
+public class LogPen extends AbstractPen {
 
     private int penStyle;
 
@@ -43,19 +44,25 @@ public class LogPen implements EMFConstants {
     }
 
     public String toString() {
-        return "  LogPen\n" + "    penstyle: " + penStyle + "\n"
-                + "    width: " + width + "\n" + "    color: " + color;
+        return "  LogPen\n" + "    penstyle: " + penStyle +
+            "\n    width: " + width +
+            "\n    color: " + color;
     }
 
-    public int getPenStyle() {
-        return penStyle;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public Color getColor() {
-        return color;
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        renderer.setUseCreatePen(true);
+        renderer.setPenPaint(color);
+        renderer.setPenStroke(new BasicStroke(
+            width,
+            getCap(penStyle),
+            getJoin(penStyle),
+            renderer.getMeterLimit(),
+            getDash(penStyle, null),
+            0));
     }
 }

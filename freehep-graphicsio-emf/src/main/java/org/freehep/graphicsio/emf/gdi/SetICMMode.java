@@ -7,12 +7,13 @@ import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * SetICMMode TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetICMMode.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetICMMode.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class SetICMMode extends EMFTag implements EMFConstants {
 
@@ -30,8 +31,7 @@ public class SetICMMode extends EMFTag implements EMFConstants {
     public EMFTag read(int tagID, EMFInputStream emf, int len)
             throws IOException {
 
-        SetICMMode tag = new SetICMMode(emf.readDWORD());
-        return tag;
+        return new SetICMMode(emf.readDWORD());
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
@@ -39,6 +39,15 @@ public class SetICMMode extends EMFTag implements EMFConstants {
     }
 
     public String toString() {
-        return super.toString() + "\n" + "  mode: " + mode;
+        return super.toString() + "\n  mode: " + mode;
+    }
+
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        // do nothing
     }
 }

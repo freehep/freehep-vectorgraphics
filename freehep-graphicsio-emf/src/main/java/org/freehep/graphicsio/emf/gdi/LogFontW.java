@@ -7,14 +7,15 @@ import java.io.IOException;
 import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * EMF LogFontW
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/LogFontW.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/LogFontW.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
-public class LogFontW implements EMFConstants {
+public class LogFontW implements EMFConstants, GDIObject {
 
     private int height;
 
@@ -140,14 +141,28 @@ public class LogFontW implements EMFConstants {
     }
 
     public String toString() {
-        return "  LogFontW\n" + "    height: " + height + "\n" + "    width: "
-                + width + "\n" + "    orientation: " + orientation + "\n"
-                + "    weight: " + weight + "\n" + "    italic: " + italic
-                + "\n" + "    underline: " + underline + "\n"
-                + "    strikeout: " + strikeout + "\n" + "    charSet: "
-                + charSet + "\n" + "    outPrecision: " + outPrecision + "\n"
-                + "    clipPrecision: " + clipPrecision + "\n"
-                + "    quality: " + quality + "\n" + "    pitchAndFamily: "
-                + pitchAndFamily + "\n" + "    faceFamily: " + faceFamily;
+        return "  LogFontW\n" + "    height: " + height +
+            "\n    width: " + width +
+            "\n    orientation: " + orientation +
+            "\n    weight: " + weight +
+            "\n    italic: " + italic +
+            "\n    underline: " + underline +
+            "\n    strikeout: " + strikeout +
+            "\n    charSet: " + charSet +
+            "\n    outPrecision: " + outPrecision +
+            "\n    clipPrecision: " + clipPrecision +
+            "\n    quality: " + quality +
+            "\n    pitchAndFamily: " + pitchAndFamily +
+            "\n    faceFamily: " + faceFamily;
+    }
+
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        // TODO: See if this ever happens.
+        renderer.setFont(font);
     }
 }

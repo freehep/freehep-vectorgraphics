@@ -14,7 +14,7 @@ import org.freehep.graphicsio.emf.EMFTag;
  * PolyDraw16 TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/PolyDraw16.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/PolyDraw16.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class PolyDraw16 extends EMFTag implements EMFConstants {
 
@@ -39,9 +39,10 @@ public class PolyDraw16 extends EMFTag implements EMFConstants {
             throws IOException {
 
         int n;
-        PolyDraw16 tag = new PolyDraw16(emf.readRECTL(), emf.readPOINTS(n = emf
-                .readDWORD()), emf.readBYTE(n));
-        return tag;
+        return new PolyDraw16(
+            emf.readRECTL(),
+            emf.readPOINTS(n = emf.readDWORD()),
+            emf.readBYTE(n));
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
@@ -52,7 +53,8 @@ public class PolyDraw16 extends EMFTag implements EMFConstants {
     }
 
     public String toString() {
-        return super.toString() + "\n" + "  bounds: " + bounds + "\n"
-                + "  #points: " + points.length;
+        return super.toString() +
+            "\n  bounds: " + bounds +
+            "\n  #points: " + points.length;
     }
 }

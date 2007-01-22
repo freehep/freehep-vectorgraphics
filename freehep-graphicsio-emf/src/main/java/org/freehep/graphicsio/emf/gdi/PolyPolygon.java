@@ -3,40 +3,38 @@ package org.freehep.graphicsio.emf.gdi;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.geom.GeneralPath;
 import java.io.IOException;
 
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * PolyPolygon TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/PolyPolygon.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/PolyPolygon.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
-public class PolyPolygon extends EMFTag {
-
-    private Rectangle bounds;
+public class PolyPolygon extends AbstractPolyPolygon {
 
     private int start, end;
 
-    private int[] numberOfPoints;
-
-    private Point[][] points;
-
     public PolyPolygon() {
-        super(8, 1);
+        super(8, 1, null, null, null);
     }
 
-    public PolyPolygon(Rectangle bounds, int start, int end,
-            int[] numberOfPoints, Point[][] points) {
-        this();
-        this.bounds = bounds;
+    public PolyPolygon(
+        Rectangle bounds,
+        int start,
+        int end,
+        int[] numberOfPoints,
+        Point[][] points) {
+
+        super(8, 1, bounds, numberOfPoints, points);
         this.start = start;
         this.end = end;
-        this.numberOfPoints = numberOfPoints;
-        this.points = points;
     }
 
     public EMFTag read(int tagID, EMFInputStream emf, int len)
@@ -54,12 +52,14 @@ public class PolyPolygon extends EMFTag {
         for (int i = 0; i < np; i++) {
             points[i] = emf.readPOINTL(pc[i]);
         }
-        PolyPolygon tag = new PolyPolygon(bounds, 0, np - 1, pc, points);
-        return tag;
+        return new PolyPolygon(bounds, 0, np - 1, pc, points);
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
-        emf.writeRECTL(bounds);
+        int[] numberOfPoints = getNumberOfPoints();
+        Point[][] points = getPoints();
+
+        emf.writeRECTL(getBounds());
         emf.writeDWORD(end - start + 1);
         int c = 0;
         for (int i = start; i < end + 1; i++) {
@@ -72,10 +72,5 @@ public class PolyPolygon extends EMFTag {
         for (int i = start; i < end + 1; i++) {
             emf.writePOINTL(numberOfPoints[i], points[i]);
         }
-    }
-
-    public String toString() {
-        return super.toString() + "\n" + "  bounds: " + bounds + "\n"
-                + "  #polys: " + (end - start + 1);
     }
 }

@@ -10,6 +10,7 @@ import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
 import org.freehep.graphicsio.emf.EMFConstants;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 import javax.imageio.ImageIO;
 
@@ -17,7 +18,7 @@ import javax.imageio.ImageIO;
  * GDIComment TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/GDIComment.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/GDIComment.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class GDIComment extends EMFTag {
 
@@ -48,7 +49,7 @@ public class GDIComment extends EMFTag {
         // not documented, but embedded GIF / PNG images
         // start with that tag
         if (result.type == 726027589) {
-            byte[] bytes = emf.readByte(l - 4);
+            /*byte[] bytes = */ emf.readByte(l - 4);
             if (l % 4 != 0) {
                 emf.readBYTE(4 - l % 4);
             }
@@ -148,6 +149,15 @@ public class GDIComment extends EMFTag {
     }
 
     public String toString() {
-        return super.toString() + "\n" + "  length: " + comment.length();
+        return super.toString() + "\n  length: " + comment.length();
+    }
+
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        // do nothing
     }
 }

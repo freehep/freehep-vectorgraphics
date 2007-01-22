@@ -2,20 +2,20 @@
 package org.freehep.graphicsio.emf.gdi;
 
 import java.awt.Color;
-import java.awt.Paint;
+import java.awt.BasicStroke;
 import java.io.IOException;
 
-import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * EMF ExtLogPen
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtLogPen.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtLogPen.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
-public class ExtLogPen implements EMFConstants {
+public class ExtLogPen extends AbstractPen {
 
     private int penStyle;
 
@@ -29,8 +29,14 @@ public class ExtLogPen implements EMFConstants {
 
     private int[] style;
 
-    public ExtLogPen(int penStyle, int width, int brushStyle, Color color,
-            int hatch, int[] style) {
+    public ExtLogPen(
+        int penStyle,
+        int width,
+        int brushStyle,
+        Color color,
+        int hatch,
+        int[] style) {
+
         this.penStyle = penStyle;
         this.width = width;
         this.brushStyle = brushStyle;
@@ -68,30 +74,45 @@ public class ExtLogPen implements EMFConstants {
     public String toString() {
         StringBuffer s = new StringBuffer();
         s.append("  ExtLogPen\n");
-        s.append("    penStyle: " + Integer.toHexString(penStyle) + "\n");
-        s.append("    width: " + width + "\n");
-        s.append("    brushStyle: " + brushStyle + "\n");
-        s.append("    color: " + color + "\n");
-        s.append("    hatch: " + hatch + "\n");
+        s.append("    penStyle: ");
+        s.append(Integer.toHexString(penStyle));
+        s.append("\n");
+        s.append("    width: ");
+        s.append(width);
+        s.append("\n");
+        s.append("    brushStyle: ");
+        s.append(brushStyle);
+        s.append("\n");
+        s.append("    color: ");
+        s.append(color);
+        s.append("\n");
+        s.append("    hatch: ");
+        s.append(hatch);
+        s.append("\n");
         for (int i = 0; i < style.length; i++) {
-            s.append("      style[" + i + "]: " + style[i] + "\n");
+            s.append("      style[");
+            s.append(i);
+            s.append("]: ");
+            s.append(style[i]);
+            s.append("\n");
         }
         return s.toString();
     }
 
-    public int getPenStyle() {
-        return penStyle;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public float getWidth() {
-        return width;
-    }
-
-    public int[] getStyle() {
-        return style;
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        renderer.setUseCreatePen(false);
+        renderer.setPenPaint(color);
+        renderer.setPenStroke(new BasicStroke(
+            width,
+            getCap(penStyle),
+            getJoin(penStyle),
+            renderer.getMeterLimit(),
+            getDash(penStyle, style),
+            0));
     }
 }

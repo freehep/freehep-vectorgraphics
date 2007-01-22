@@ -13,25 +13,16 @@ import org.freehep.graphicsio.emf.EMFTag;
  * Polygon16 TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/Polygon16.java 11783e27e55b 2007/01/15 16:30:03 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/Polygon16.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
-public class Polygon16 extends EMFTag {
-
-    private Rectangle bounds;
-
-    private int numberOfPoints;
-
-    private Point[] points;
+public class Polygon16 extends EMFPolygon {
 
     public Polygon16() {
-        super(86, 1);
+        super(86, 1, null, 0, null);
     }
 
     public Polygon16(Rectangle bounds, int numberOfPoints, Point[] points) {
-        this();
-        this.bounds = bounds;
-        this.numberOfPoints = numberOfPoints;
-        this.points = points;
+        super(86, 1, bounds, numberOfPoints, points);
     }
 
     public EMFTag read(int tagID, EMFInputStream emf, int len)
@@ -39,22 +30,12 @@ public class Polygon16 extends EMFTag {
 
         Rectangle r = emf.readRECTL();
         int n = emf.readDWORD();
-        Polygon16 tag = new Polygon16(r, n, emf.readPOINTS(n));
-        return tag;
+        return new Polygon16(r, n, emf.readPOINTS(n));
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
-        emf.writeRECTL(bounds);
-        emf.writeDWORD(numberOfPoints);
-        emf.writePOINTS(numberOfPoints, points);
-    }
-
-    public Point[] getPoints() {
-        return points;
-    }
-    
-    public String toString() {
-        return super.toString() + "\n" + "  bounds: " + bounds + "\n"
-                + "  #points: " + numberOfPoints;
+        emf.writeRECTL(getBounds());
+        emf.writeDWORD(getNumberOfPoints());
+        emf.writePOINTS(getNumberOfPoints(), getPoints());
     }
 }

@@ -7,12 +7,13 @@ import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * SetBkMode TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetBkMode.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SetBkMode.java c0f15e7696d3 2007/01/22 19:26:48 duns $
  */
 public class SetBkMode extends EMFTag implements EMFConstants {
 
@@ -30,8 +31,7 @@ public class SetBkMode extends EMFTag implements EMFConstants {
     public EMFTag read(int tagID, EMFInputStream emf, int len)
             throws IOException {
 
-        SetBkMode tag = new SetBkMode(emf.readDWORD());
-        return tag;
+        return new SetBkMode(emf.readDWORD());
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
@@ -39,10 +39,18 @@ public class SetBkMode extends EMFTag implements EMFConstants {
     }
 
     public String toString() {
-        return super.toString() + "\n" + "  mode: " + mode;
+        return super.toString() + "\n  mode: " + mode;
     }
 
-    public int getMode() {
-        return mode;
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        // The SetBkMode function affects the line styles for lines drawn using a
+        // pen created by the CreatePen function. SetBkMode does not affect lines
+        // drawn using a pen created by the ExtCreatePen function.
+        renderer.setBkMode(mode);
     }
 }

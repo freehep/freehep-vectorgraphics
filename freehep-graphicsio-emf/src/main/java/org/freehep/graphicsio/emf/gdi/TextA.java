@@ -52,12 +52,16 @@ public class TextA extends Text {
 
     public String toString() {
         StringBuffer widthsS = new StringBuffer();
-        for (int i = 0; i < string.length(); i++)
-            widthsS.append("," + widths[i]);
+        for (int i = 0; i < string.length(); i++) {
+            widthsS.append(",");
+            widthsS.append(widths[i]);
+        }
         widthsS.append(']');
         widthsS.setCharAt(0, '[');
-        return "  TextA\n" + "    pos: " + pos + "\n" + "    options: "
-                + options + "\n" + "    bounds: " + bounds + "\n"
-                + "    string: " + string + "\n" + "    widths: " + widthsS;
+        return "  TextA\n" + "    pos: " + pos +
+            "\n    options: " + options +
+            "\n    bounds: " + bounds +
+            "\n    string: " + string +
+            "\n    widths: " + widthsS;
     }
 }
