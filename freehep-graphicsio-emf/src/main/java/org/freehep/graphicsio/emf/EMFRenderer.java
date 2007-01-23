@@ -29,7 +29,7 @@ import org.freehep.graphicsio.emf.gdi.GDIObject;
  * Standalone EMF renderer.
  *
  * @author Daniel Noll (daniel@nuix.com)
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFRenderer.java c0f15e7696d3 2007/01/22 19:26:48 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFRenderer.java cb17a8f71934 2007/01/23 15:44:34 duns $
  */
 public class EMFRenderer {
     private static final Logger logger = Logger.getLogger("org.freehep.graphicsio.emf");
@@ -164,7 +164,7 @@ public class EMFRenderer {
 
     /**
      * The brush origin is a pair of coordinates specifying the location of one
-     *pixel in the bitmap. The default brush origin coordinates are (0,0). For 
+     * pixel in the bitmap. The default brush origin coordinates are (0,0). For
      * horizontal coordinates, the value 0 corresponds to the leftmost column
      * of pixels; the width corresponds to the rightmost column. For vertical
      * coordinates, the value 0 corresponds to the uppermost row of pixels;
@@ -179,7 +179,7 @@ public class EMFRenderer {
     private Vector tags = new Vector(0);
 
     /**
-     * Created by BeginPath and closed by EndPath. 
+     * Created by BeginPath and closed by EndPath.
      */
     private GeneralPath path = null;
 
@@ -197,6 +197,11 @@ public class EMFRenderer {
      * an Instance of DC if saveDC is read. RestoreDC pops an object.
      */
     private Stack dcStack = new Stack();
+
+    /**
+     * default direction is counterclockwise
+     */
+    private int arcDirection = EMFConstants.AD_COUNTERCLOCKWISE;
 
     /**
      * Class the encapsulate the state of a Graphics2D object.
@@ -299,7 +304,7 @@ public class EMFRenderer {
 
         // apply all default settings
         resetTransformation(g2);
-        
+
         // determin initial clip after all basic transformations
         initialClip = g2.getClip();
 
@@ -336,7 +341,7 @@ public class EMFRenderer {
         } else {
             g2.setTransform(new AffineTransform());
         }
-        
+
         if (mapModeTransform != null) {
             g2.transform(mapModeTransform);
         }
@@ -354,7 +359,7 @@ public class EMFRenderer {
                 - viewportOrigin.getY());
         }
 
-        // TWIP_SCALE by windo and viewport size
+        // TWIP_SCALE by window and viewport size
         if (viewportSize != null && windowSize != null) {
             double scaleX =
                 viewportSize.getWidth() /
@@ -831,5 +836,13 @@ public class EMFRenderer {
 
     public void setBrushOrigin(Point brushOrigin) {
         this.brushOrigin = brushOrigin;
+    }
+
+    public void setArcDirection(int arcDirection) {
+        this.arcDirection = arcDirection;
+}
+
+    public int getArcDirection() {
+        return arcDirection;
     }
 }

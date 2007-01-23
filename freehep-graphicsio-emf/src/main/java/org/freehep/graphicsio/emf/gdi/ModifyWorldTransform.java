@@ -14,7 +14,7 @@ import org.freehep.graphicsio.emf.EMFRenderer;
  * ModifyWorldTransform TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ModifyWorldTransform.java c0f15e7696d3 2007/01/22 19:26:48 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ModifyWorldTransform.java cb17a8f71934 2007/01/23 15:44:34 duns $
  */
 public class ModifyWorldTransform extends EMFTag implements EMFConstants {
 
@@ -57,17 +57,53 @@ public class ModifyWorldTransform extends EMFTag implements EMFConstants {
      * @param renderer EMFRenderer storing the drawing session data
      */
     public void render(EMFRenderer renderer) {
-        // TODO: this fixes an extra offset for embedded
-        // EMF graphics, not quite clear why
-        if (mode != EMFConstants.MWT_LEFTMULTIPLY) {
-            return;
+        // MWT_IDENTITY 	Resets the current world transformation by using
+        // the identity matrix. If this mode is specified, the XFORM structure
+        // pointed to by lpXform is ignored.
+        if (mode == EMFConstants.MWT_IDENTITY) {
+            if (renderer.getPath() != null) {
+                renderer.setPathTransform(new AffineTransform());
+            } else {
+                renderer.resetTransformation();
+            }
         }
 
-        if (renderer.getPath() != null) {
-            renderer.getPathTransform().concatenate(transform);
-            renderer.transform(transform);
-        } else {
-            renderer.transform(transform);
+        // MWT_LEFTMULTIPLY 	Multiplies the current transformation by the
+        // data in the XFORM structure. (The data in the XFORM structure becomes
+        // the left multiplicand, and the data for the current transformation
+        // becomes the right multiplicand.)
+        else if (mode == EMFConstants.MWT_LEFTMULTIPLY) {
+            if (renderer.getPath() != null) {
+                renderer.getPathTransform().concatenate(transform);
+                renderer.transform(transform);
+            } else {
+                renderer.transform(transform);
+            }
+        }
+
+        // MWT_RIGHTMULTIPLY 	Multiplies the current transformation by the data
+        // in the XFORM structure. (The data in the XFORM structure becomes the
+        // right multiplicand, and the data for the current transformation
+        // becomes the left multiplicand.)
+        else if (mode != EMFConstants.MWT_RIGHTMULTIPLY) {
+            // TODO expected that this should work but it doesn't
+            // doing nothing renders the right emf embedding
+
+            /* if (renderer.getPath() != null) {
+                AffineTransform transform = new AffineTransform(this.transform);
+                transform.concatenate(renderer.getPathTransform());
+                renderer.setPathTransform(transform);
+            } else {
+                AffineTransform transform = new AffineTransform(this.transform);
+                transform.concatenate(renderer.getTransform());
+                renderer.resetTransformation();
+                renderer.transform(transform);
+            }*/
+        }
+
+        // Unknown mode
+        else {
+            logger.warning("unsupport transform mode " + toString());
         }
     }
 }

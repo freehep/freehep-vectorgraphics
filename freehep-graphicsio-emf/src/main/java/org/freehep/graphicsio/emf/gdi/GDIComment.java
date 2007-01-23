@@ -18,7 +18,7 @@ import javax.imageio.ImageIO;
  * GDIComment TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/GDIComment.java c0f15e7696d3 2007/01/22 19:26:48 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/GDIComment.java cb17a8f71934 2007/01/23 15:44:34 duns $
  */
 public class GDIComment extends EMFTag {
 
@@ -131,10 +131,15 @@ public class GDIComment extends EMFTag {
         } else {
             l = l - 4;
 
-            result.comment = new String(emf.readBYTE(l));
-            // Align to 4-byte boundary
-            if (l % 4 != 0)
-                emf.readBYTE(4 - l % 4);
+            if (l > 0) {
+                result.comment = new String(emf.readBYTE(l));
+                // Align to 4-byte boundary
+                if (l % 4 != 0) {
+                    emf.readBYTE(4 - l % 4);
+                }
+            } else {
+                comment = "";
+            }
         }
         return result;
     }

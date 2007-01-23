@@ -3,6 +3,7 @@ package org.freehep.graphicsio.emf.gdi;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
@@ -11,9 +12,9 @@ import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * EMF LogBrush32
- * 
+ *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/LogBrush32.java c0f15e7696d3 2007/01/22 19:26:48 duns $ see
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/LogBrush32.java cb17a8f71934 2007/01/23 15:44:34 duns $ see
  *          http://msdn.microsoft.com/library/default.asp?url=/library/en-us/gdi/brushes_8yk2.asp
  */
 public class LogBrush32 implements EMFConstants, GDIObject {
@@ -66,6 +67,8 @@ public class LogBrush32 implements EMFConstants, GDIObject {
             // TODO: Support hatching
             // TODO: Support DIB types
         } else {
+            Logger logger = Logger.getLogger("org.freehep.graphicsio.emf");
+            logger.warning("LogBrush32 style not supported: " + toString());
             renderer.setBrushPaint(color);
         }
     }

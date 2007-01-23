@@ -40,7 +40,7 @@ public class EMFPanel extends JComponent {
 
     /**
      * sets the renderer an resets size
-     * @param renderer
+     * @param renderer EMFRenderer to display
      */
     public void setRenderer(EMFRenderer renderer) {
         this.renderer = renderer;
@@ -49,9 +49,13 @@ public class EMFPanel extends JComponent {
     }
 
     /**
-     * @return {@link EMFRenderer#getSize()}
+     * @return {@link EMFRenderer#getSize()} for the renderer
      */
     public Dimension getPreferredSize() {
+        if (renderer == null) {
+            return new Dimension(0, 0);
+        }
+
         Dimension bounds = renderer.getSize();
         return new Dimension(
             (int)Math.ceil(bounds.width * scale),
@@ -64,8 +68,11 @@ public class EMFPanel extends JComponent {
      */
     public void paintComponent(Graphics g) {
         Graphics2D g2 = ((Graphics2D)g);
-
         super.paintComponent(g2);
+
+        if (renderer == null) {
+            return;
+        }
 
         // to restore AffineTransform
         AffineTransform at = g2.getTransform();

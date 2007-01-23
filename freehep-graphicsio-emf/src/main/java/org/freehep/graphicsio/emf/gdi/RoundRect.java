@@ -3,17 +3,19 @@ package org.freehep.graphicsio.emf.gdi;
 
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * RoundRect TAG.
- * 
+ *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/RoundRect.java c0f15e7696d3 2007/01/22 19:26:48 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/RoundRect.java cb17a8f71934 2007/01/23 15:44:34 duns $
  */
 public class RoundRect extends EMFTag {
 
@@ -46,5 +48,20 @@ public class RoundRect extends EMFTag {
         return super.toString() +
             "\n  bounds: " + bounds +
             "\n  corner: " + corner;
+    }
+
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        renderer.fillAndDrawOrAppend(new RoundRectangle2D.Double(
+            bounds.getX(),
+            bounds.getX(),
+            bounds.getWidth(),
+            bounds.getHeight(),
+            corner.getWidth(),
+            corner.getHeight()));
     }
 }
