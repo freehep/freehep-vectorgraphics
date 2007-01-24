@@ -76,7 +76,7 @@ import org.freehep.util.images.ImageUtilities;
  * Enhanced Metafile Format Graphics 2D driver.
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java c0f15e7696d3 2007/01/22 19:26:48 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java 1f907e13cce8 2007/01/24 15:10:42 duns $
  */
 public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         EMFConstants {
@@ -538,8 +538,17 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
      * ================================================================================
      */
     protected void writeSetClip(Shape s) throws IOException {
-        if (s == null || !isProperty(CLIP)) {
+        if (!isProperty(CLIP)) {
             return;
+        }
+
+        // if s == null the clip is reset to the imageBounds
+        if (s == null && imageBounds != null) {
+            s = new Rectangle(imageBounds);
+            AffineTransform at = getTransform();
+            if (at != null) {
+                s = at.createTransformedShape(s);
+            }
         }
 
         writePath(s);

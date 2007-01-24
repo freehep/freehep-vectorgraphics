@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AbstractPolygon.java c0f15e7696d3 2007/01/22 19:26:48 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AbstractPolygon.java 1f907e13cce8 2007/01/24 15:10:42 duns $
  */
 public abstract class AbstractPolygon extends EMFTag {
 
@@ -39,8 +39,19 @@ public abstract class AbstractPolygon extends EMFTag {
     }
 
     public String toString() {
-        return super.toString() + "\n  bounds: " + bounds + "\n"
-                + "  #points: " + numberOfPoints;
+        String result = super.toString() +
+            "\n  bounds: " + bounds +
+            "\n  #points: " + numberOfPoints;
+        if (points != null) {
+            result += "\n  points: ";
+            for (int i = 0; i < points.length; i++) {
+                result += "[" + points[i].x + "," + points[i].y + "]";
+                if (i < points.length - 1) {
+                    result += ", ";
+                }
+            }
+        }
+        return result;
     }
 
     protected Rectangle getBounds() {
