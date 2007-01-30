@@ -13,34 +13,34 @@ import org.freehep.graphicsio.emf.EMFTag;
  * PolyPolyline TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/PolyPolyline.java c0f15e7696d3 2007/01/22 19:26:48 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/PolyPolyline.java 9c0688d78e6b 2007/01/30 23:58:16 duns $
  */
-public class PolyPolyline extends EMFTag {
-
-    private Rectangle bounds;
+public class PolyPolyline extends AbstractPolyPolyline {
 
     private int start, end;
 
-    private int[] numberOfPoints;
-
-    private Point[][] points;
-
     public PolyPolyline() {
-        super(7, 1);
+        super(7, 1, null, null, null);
     }
 
-    public PolyPolyline(Rectangle bounds, int start, int end,
-            int[] numberOfPoints, Point[][] points) {
-        this();
-        this.bounds = bounds;
+    public PolyPolyline(
+        Rectangle bounds,
+        int start,
+        int end,
+        int[] numberOfPoints,
+        Point[][] points) {
+
+        super(7, 1, bounds, numberOfPoints, points);
+
         this.start = start;
         this.end = Math.min(end, numberOfPoints.length - 1);
-        this.numberOfPoints = numberOfPoints;
-        this.points = points;
     }
 
-    public EMFTag read(int tagID, EMFInputStream emf, int len)
-            throws IOException {
+    public EMFTag read(
+        int tagID,
+        EMFInputStream emf,
+        int len)
+        throws IOException {
 
         Rectangle bounds = emf.readRECTL();
         int np = emf.readDWORD();
@@ -58,7 +58,10 @@ public class PolyPolyline extends EMFTag {
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
-        emf.writeRECTL(bounds);
+        int[] numberOfPoints = getNumberOfPoints();
+        Point[][] points = getPoints();
+
+        emf.writeRECTL(getBounds());
         emf.writeDWORD(end - start + 1);
         int c = 0;
         for (int i = start; i < end + 1; i++) {
@@ -71,11 +74,5 @@ public class PolyPolyline extends EMFTag {
         for (int i = start; i < end + 1; i++) {
             emf.writePOINTL(numberOfPoints[i], points[i]);
         }
-    }
-
-    public String toString() {
-        return super.toString() +
-            "\n  bounds: " + bounds +
-            "\n  #polys: " + (end - start);
     }
 }

@@ -23,7 +23,7 @@ import org.freehep.util.io.NoCloseOutputStream;
  * WINGDI.H file of visual C++.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/StretchDIBits.java c0f15e7696d3 2007/01/22 19:26:48 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/StretchDIBits.java 9c0688d78e6b 2007/01/30 23:58:16 duns $
  */
 public class StretchDIBits extends EMFTag implements EMFConstants {
 
@@ -174,6 +174,8 @@ public class StretchDIBits extends EMFTag implements EMFConstants {
         // data to fit the destination rectangle. If the destination rectangle is smaller
         // than the source rectangle, this function compresses the rows and columns by using
         // the specified raster operation.
-        renderer.drawImage(image, x, y, widthSrc, heightSrc);
+        if (image != null) {
+            renderer.drawImage(image, x, y, widthSrc, heightSrc);
+        }
     }
 }

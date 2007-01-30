@@ -8,7 +8,7 @@ import java.awt.color.ColorSpace;
  * Print color for printing and display in color, grayscale and black/white.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/PrintColor.java 7aee336a8992 2005/11/25 23:19:05 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/PrintColor.java 9c0688d78e6b 2007/01/30 23:58:16 duns $
  */
 public class PrintColor extends Color {
 
@@ -34,7 +34,7 @@ public class PrintColor extends Color {
             rangeError = true;
             badComponentString = badComponentString + " asGray";
         }
-        if (rangeError == true) {
+        if (rangeError) {
             throw new IllegalArgumentException(
                     "PrintColor parameter outside of expected range:"
                             + badComponentString);
@@ -91,13 +91,18 @@ public class PrintColor extends Color {
     }
 
     public static PrintColor createPrintColor(Color color) {
+        if (color == null) {
+            return null;
+        }
+
         if (color instanceof PrintColor) {
             return (PrintColor) color;
         }
 
         // convert a awt.Color to some reasonable PrintColor.
         // pure white converts to black, and vice versa.
-        float[] gray = ColorSpace.getInstance(ColorSpace.CS_GRAY).fromRGB(
+        float[] gray = ColorSpace.getInstance(
+            ColorSpace.CS_GRAY).fromRGB(
                 color.getRGBComponents(null));
         if (gray[0] == 0.0f) {
             gray[0] = 1.0f;

@@ -13,29 +13,24 @@ import org.freehep.graphicsio.emf.EMFTag;
  * PolyPolyline16 TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/PolyPolyline16.java c0f15e7696d3 2007/01/22 19:26:48 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/PolyPolyline16.java 9c0688d78e6b 2007/01/30 23:58:16 duns $
  */
-public class PolyPolyline16 extends EMFTag {
-
-    private Rectangle bounds;
+public class PolyPolyline16 extends AbstractPolyPolyline {
 
     private int numberOfPolys;
 
-    private int[] numberOfPoints;
-
-    private Point[][] points;
-
     public PolyPolyline16() {
-        super(90, 1);
+        super(90, 1, null, null, null);
     }
 
-    public PolyPolyline16(Rectangle bounds, int numberOfPolys,
-            int[] numberOfPoints, Point[][] points) {
-        this();
-        this.bounds = bounds;
+    public PolyPolyline16(
+        Rectangle bounds,
+        int numberOfPolys,
+        int[] numberOfPoints,
+        Point[][] points) {
+
+        super(90, 1, bounds, numberOfPoints, points);
         this.numberOfPolys = numberOfPolys;
-        this.numberOfPoints = numberOfPoints;
-        this.points = points;
     }
 
     public EMFTag read(int tagID, EMFInputStream emf, int len)
@@ -57,7 +52,10 @@ public class PolyPolyline16 extends EMFTag {
     }
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
-        emf.writeRECTL(bounds);
+        int[] numberOfPoints = getNumberOfPoints();
+        Point[][] points = getPoints();
+        
+        emf.writeRECTL(getBounds());
         emf.writeDWORD(numberOfPolys);
         int c = 0;
         for (int i = 0; i < numberOfPolys; i++) {
@@ -70,11 +68,5 @@ public class PolyPolyline16 extends EMFTag {
         for (int i = 0; i < numberOfPolys; i++) {
             emf.writePOINTS(numberOfPoints[i], points[i]);
         }
-    }
-
-    public String toString() {
-        return super.toString() +
-            "\n  bounds: " + bounds +
-            "\n  #polys: " + numberOfPolys;
     }
 }

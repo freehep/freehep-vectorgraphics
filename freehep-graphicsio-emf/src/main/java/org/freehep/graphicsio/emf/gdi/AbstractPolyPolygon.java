@@ -12,7 +12,7 @@ import java.awt.geom.GeneralPath;
  * abstract parent for PolyPolygon drawing
  *
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AbstractPolyPolygon.java c0f15e7696d3 2007/01/22 19:26:48 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AbstractPolyPolygon.java 9c0688d78e6b 2007/01/30 23:58:16 duns $
  */
 public abstract class AbstractPolyPolygon extends EMFTag {
 
@@ -62,11 +62,22 @@ public abstract class AbstractPolyPolygon extends EMFTag {
     }
 
     /**
-     * displays the tag using the renderer
+     * displays the tag using the renderer. The default behavior
+     * is to close and fill the polgygons for rendering.
      *
      * @param renderer EMFRenderer storing the drawing session data
      */
     public void render(EMFRenderer renderer) {
+        render(renderer,  true);
+    }
+
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     * @param closePath if true the path is closed and filled
+     */
+    protected void render(EMFRenderer renderer, boolean closePath) {
         // create a GeneralPath containing GeneralPathes
         GeneralPath path = new GeneralPath(
             renderer.getWindingRule());
@@ -89,11 +100,18 @@ public abstract class AbstractPolyPolygon extends EMFTag {
             }
 
             // close the member, add it to path
-            gp.closePath();
+            if (closePath) {
+                gp.closePath();
+            }
+
             path.append(gp, false);
         }
 
         // draw the complete path
-        renderer.fillAndDrawOrAppend(path);
+        if (closePath) {
+            renderer.fillAndDrawOrAppend(path);
+        } else {
+            renderer.drawOrAppend(path);
+        }
     }
 }
