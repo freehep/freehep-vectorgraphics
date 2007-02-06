@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.freehep.graphics2d.font.CharTable;
+import org.freehep.graphics2d.font.FontUtilities;
 import org.freehep.graphics2d.font.Lookup;
 import org.freehep.graphicsio.FontConstants;
 import org.freehep.graphicsio.font.FontEmbedderType1;
@@ -24,7 +25,7 @@ import org.freehep.graphicsio.font.FontTable;
  * standard font. If it is unknown it is not substituted.
  * 
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSFontTable.java 7cb75bc60b0e 2006/11/14 22:29:00 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSFontTable.java 59372df5e0d9 2007/02/06 21:11:19 duns $
  */
 public class PSFontTable extends FontTable {
 
@@ -107,7 +108,7 @@ public class PSFontTable extends FontTable {
      * @return derived font
      */
     protected Font substituteFont(Font font) {
-        Map attributes = font.getAttributes();
+        Map attributes = FontUtilities.getAttributes(font);
         // change names
         // normalize(attributes);
         // remove transformations
@@ -122,7 +123,7 @@ public class PSFontTable extends FontTable {
      * Uses {@link #normalize(java.util.Map)}
      */
     protected String createFontReference(Font font) {
-        Map /*<TextAttribute, ?>*/ attributes = font.getAttributes();
+        Map /*<TextAttribute, ?>*/ attributes = FontUtilities.getAttributes(font);
         normalize(attributes);
 
         // replace the name

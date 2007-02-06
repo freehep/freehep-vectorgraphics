@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.freehep.graphics2d.TagString;
+import org.freehep.graphics2d.font.FontUtilities;
 import org.freehep.graphics2d.font.Lookup;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.FontConstants;
@@ -43,7 +44,6 @@ import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.graphicsio.InfoConstants;
 import org.freehep.graphicsio.MultiPageDocument;
 import org.freehep.graphicsio.PageConstants;
-import org.freehep.graphicsio.font.FontUtilities;
 import org.freehep.util.UserProperties;
 
 /**
@@ -56,7 +56,7 @@ import org.freehep.util.UserProperties;
  * 
  * @author Simon Fischer
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java 2fa79ac3a135 2007/01/09 18:18:57 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFGraphics2D.java 59372df5e0d9 2007/02/06 21:11:19 duns $
  */
 public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 		MultiPageDocument, FontUtilities.ShowString {
@@ -965,7 +965,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 	 * 
 	 * @see FontUtilities#showString(java.awt.Font, String,
 	 *      org.freehep.graphics2d.font.CharTable,
-	 *      org.freehep.graphicsio.font.FontUtilities.ShowString)
+	 *      org.freehep.graphics2d.font.FontUtilities.ShowString)
 	 */
 	private void showCharacterCodes(String str) throws IOException {
 		FontUtilities.showString(getFont(), str, Lookup.getInstance().getTable(

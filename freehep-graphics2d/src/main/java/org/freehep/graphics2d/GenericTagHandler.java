@@ -1,7 +1,10 @@
-// Copyright FreeHEP, 2000-2006
+// Copyright FreeHEP, 2000-2007
 package org.freehep.graphics2d;
 
+import org.freehep.graphics2d.font.FontUtilities;
+
 import java.awt.Graphics2D;
+import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
@@ -15,7 +18,7 @@ import java.util.Vector;
  *
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/GenericTagHandler.java 850fba8b8008 2006/12/07 00:29:46 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/GenericTagHandler.java 59372df5e0d9 2007/02/06 21:11:19 duns $
  */
 public class GenericTagHandler extends TagHandler {
 
@@ -77,6 +80,7 @@ public class GenericTagHandler extends TagHandler {
      * @param s string to print using the stored graphics
      * @param x coordinate for drawing
      * @param y coordinate for drawing
+     * @param superscriptCorrection correction for to high / to low text
      */
     public void print(TagString s, double x, double y, double superscriptCorrection) {
 
@@ -98,7 +102,7 @@ public class GenericTagHandler extends TagHandler {
         // with current font settings
         AttributedString attributedString = new AttributedString(
             clearedText.toString(),
-            graphics.getFont().getAttributes());
+            FontUtilities.getAttributes(graphics.getFont()));
 
         // aplly attributes
         for (int i = 0; i < attributes.size(); i++) {
@@ -134,7 +138,7 @@ public class GenericTagHandler extends TagHandler {
         // with current font settings
         AttributedString attributedString = new AttributedString(
             clearedText.toString(),
-            graphics.getFont().getAttributes());
+            FontUtilities.getAttributes(graphics.getFont()));
 
         // aplly attributes
         for (int i = 0; i < attributes.size(); i++) {

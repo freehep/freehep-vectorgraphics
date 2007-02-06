@@ -9,13 +9,14 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import org.freehep.graphics2d.font.CharTable;
+import org.freehep.graphics2d.font.FontUtilities;
 import org.freehep.graphics2d.font.Lookup;
 
 /**
  * A table to remember which fonts were used while writing a document.
  * 
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/font/FontTable.java eec28a0c4108 2007/01/03 18:33:24 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/font/FontTable.java 59372df5e0d9 2007/02/06 21:11:19 duns $
  */
 public abstract class FontTable {
 
@@ -30,7 +31,7 @@ public abstract class FontTable {
 
         private Entry(Font f, CharTable encoding) {
             // get attributes of font for the stored default font
-            Map/*<TextAttribute,?>*/ attributes = f.getAttributes();
+            Map/*<TextAttribute,?>*/ attributes = FontUtilities.getAttributes(f);
 
             // set default font size
             attributes.put(TextAttribute.SIZE, new Float(FontEmbedder.FONT_SIZE));
@@ -135,7 +136,7 @@ public abstract class FontTable {
      * @return something like Helvetica[BOLD:1][ITALIC:0][UNDERLINE:1]
      */
     private String getKey(Font font) {
-        Map/*<TextAttribute,?>*/ attributes = font.getAttributes();
+        Map/*<TextAttribute,?>*/ attributes = FontUtilities.getAttributes(font);
 
         StringBuffer result = new StringBuffer(font.getName());
 

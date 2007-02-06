@@ -1,7 +1,9 @@
 // Copyright 2001-2006, FreeHEP.
 package org.freehep.graphicsio.svg;
 
+import org.freehep.graphics2d.font.FontUtilities;
 import org.freehep.graphicsio.font.FontTable;
+
 import java.awt.geom.AffineTransform;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
@@ -22,7 +24,7 @@ import java.util.Properties;
  * in <text> tags.
  *
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGFontTable.java 7cb75bc60b0e 2006/11/14 22:29:00 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGFontTable.java 59372df5e0d9 2007/02/06 21:11:19 duns $
  */
 public class SVGFontTable {
 
@@ -127,7 +129,7 @@ public class SVGFontTable {
             Font font = (Font) fonts.nextElement();
 
             // replace font family for svg
-            Map /*<TextAttribute, ?>*/ attributes = font.getAttributes();
+            Map /*<TextAttribute, ?>*/ attributes = FontUtilities.getAttributes(font);
 
             // Dialog -> Helvetica
             normalize(attributes);
@@ -215,7 +217,7 @@ public class SVGFontTable {
     }
 
     /**
-     * creates a font based on the parameter. The size will be {@link SVGGlyph.FONT_SIZE}
+     * creates a font based on the parameter. The size will be {@link SVGGlyph#FONT_SIZE}
      * and transformation will be removed. Example:<BR>
      * <code>java.awt.Font[family=SansSerif,name=SansSerif,style=plain,size=30]</code><BR>
      * will result to:<BR>
@@ -228,7 +230,7 @@ public class SVGFontTable {
      */
     private Font untransform(Font font) {
         // replace font family
-        Map /*<TextAttribute, ?>*/ attributes = font.getAttributes();
+        Map /*<TextAttribute, ?>*/ attributes = FontUtilities.getAttributes(font);
 
         // set default font size
         attributes.put(TextAttribute.SIZE, new Float(SVGGlyph.FONT_SIZE));

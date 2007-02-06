@@ -1,16 +1,20 @@
-package org.freehep.graphicsio.font;
+// Copyright FreeHEP, 2003-2007
+package org.freehep.graphics2d.font;
 
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.font.TextAttribute;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.Hashtable;
 
-import org.freehep.graphics2d.font.CharTable;
-import org.freehep.graphics2d.font.FontEncoder;
-import org.freehep.graphics2d.font.Lookup;
-
+/**
+ * 
+ * @author Mark Donszelmann
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/font/FontUtilities.java 59372df5e0d9 2007/02/06 21:11:19 duns $
+ */
 public class FontUtilities {
 
     private FontUtilities() {
@@ -135,5 +139,44 @@ public class FontUtilities {
         }
 
         device.showString(STANDARD_FONT[lastTable], out);
+    }
+
+    /**
+     * there is a bug in the jdk 1.6 which makes
+     * Font.getAttributes() not work correctly. The
+     * method does not return all values. What we dow here
+     * is using the old JDK 1.5 method.
+     *
+     * @param font font
+     * @return Attributes of font
+     */
+    public static Hashtable getAttributes(Font font) {
+        Hashtable result = new Hashtable(7, (float)0.9);
+        result.put(
+            TextAttribute.TRANSFORM,
+            font.getTransform());
+        result.put(
+            TextAttribute.FAMILY,
+            font.getName());
+        result.put(
+            TextAttribute.SIZE,
+            new Float(font.getSize2D()));
+        result.put(
+            TextAttribute.WEIGHT,
+            (font.getStyle() & Font.BOLD) != 0 ?
+                 TextAttribute.WEIGHT_BOLD :
+                 TextAttribute.WEIGHT_REGULAR);
+        result.put(
+            TextAttribute.POSTURE,
+                 (font.getStyle() & Font.ITALIC) != 0 ?
+                 TextAttribute.POSTURE_OBLIQUE :
+                 TextAttribute.POSTURE_REGULAR);
+        result.put(
+            TextAttribute.SUPERSCRIPT,
+            new Integer(0 /* no getter! */));
+        result.put(
+            TextAttribute.WIDTH,
+            new Float(1 /* no getter */));
+        return result;
     }
 }

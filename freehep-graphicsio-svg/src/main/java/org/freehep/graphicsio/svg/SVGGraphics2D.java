@@ -40,12 +40,14 @@ import java.util.Map;
 import java.util.Locale;
 import java.util.zip.GZIPOutputStream;
 
+import org.freehep.graphics2d.font.FontUtilities;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.FontConstants;
 import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.graphicsio.InfoConstants;
 import org.freehep.graphicsio.PageConstants;
+import org.freehep.graphicsio.font.FontTable;
 import org.freehep.util.UserProperties;
 import org.freehep.util.Value;
 import org.freehep.util.io.Base64OutputStream;
@@ -59,7 +61,7 @@ import org.freehep.xml.util.XMLWriter;
  * The current implementation is based on REC-SVG11-20030114
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java bfd076a3b2e9 2007/01/09 18:24:29 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java 59372df5e0d9 2007/02/06 21:11:19 duns $
  */
 public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 
@@ -704,7 +706,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         Properties result = new Properties();
 
         // attribute for font properties
-        Map /*<TextAttribute, ?>*/ attributes = font.getAttributes();
+        Map /*<TextAttribute, ?>*/ attributes = FontUtilities.getAttributes(font);
 
         // dialog.bold -> Helvetica with TextAttribute.WEIGHT_BOLD
         SVGFontTable.normalize(attributes);
@@ -726,7 +728,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             result.put("font-style", "normal");
         }
 
-        Object ul = font.getAttributes().get(TextAttribute.UNDERLINE);
+        Object ul = attributes.get(TextAttribute.UNDERLINE);
         if (ul != null) {
             // underline style, only supported by CSS 3
             if (TextAttribute.UNDERLINE_LOW_DOTTED.equals(ul)) {
@@ -741,7 +743,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             result.put("text-decoration", "underline");
         }
 
-        if (font.getAttributes().get(TextAttribute.STRIKETHROUGH) != null) {
+        if (attributes.get(TextAttribute.STRIKETHROUGH) != null) {
             // is the property allready witten?
             if  (ul == null) {
                 result.put("text-decoration", "underline, line-through");

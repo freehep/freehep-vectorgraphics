@@ -20,7 +20,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -32,8 +31,8 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 
-import org.freehep.graphics2d.PrintColor;
 import org.freehep.graphics2d.TagString;
+import org.freehep.graphics2d.font.FontUtilities;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.FontConstants;
 import org.freehep.graphicsio.ImageConstants;
@@ -41,8 +40,6 @@ import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.graphicsio.InfoConstants;
 import org.freehep.graphicsio.MultiPageDocument;
 import org.freehep.graphicsio.PageConstants;
-import org.freehep.graphicsio.font.FontUtilities;
-import org.freehep.graphicsio.raw.RawImageWriteParam;
 import org.freehep.util.ScientificFormat;
 import org.freehep.util.UserProperties;
 import org.freehep.util.images.ImageUtilities;
@@ -52,7 +49,7 @@ import org.freehep.util.io.FlateOutputStream;
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java 2fa79ac3a135 2007/01/09 18:18:57 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java 59372df5e0d9 2007/02/06 21:11:19 duns $
  */
 public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {
@@ -872,7 +869,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
      * Write the string <code>str</code> the the stream. Method is used by
      * {@link FontUtilities#showString(java.awt.Font, String,
      * org.freehep.graphics2d.font.CharTable,
-     * org.freehep.graphicsio.font.FontUtilities.ShowString)} or
+     * org.freehep.graphics2d.font.FontUtilities.ShowString)} or
      * {@link #showCharacterCodes(String, double, double)} depending on the
      * settings font embedding.
      *
@@ -881,7 +878,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
      */
     public void showString(Font font, String str) {
         StringBuffer result = new StringBuffer();
-        Map /*<TextAttribute,?>*/ attributes = font.getAttributes();
+        Map /*<TextAttribute,?>*/ attributes = FontUtilities.getAttributes(font);
         PSFontTable.normalize(attributes);
         // write font name
         String fontName = fontTable.fontReference(
@@ -915,7 +912,7 @@ public class PSGraphics2D extends AbstractVectorGraphicsIO implements
      * Draws <code>str</code> to the stream. Uses the font transformation and depending on
      * {@link PSGraphics2D#EMBED_FONTS} the method {@link #showString(java.awt.Font, String)}
      * or {@link FontUtilities#showString(java.awt.Font, String, org.freehep.graphics2d.font.CharTable,
-     * org.freehep.graphicsio.font.FontUtilities.ShowString)} ;
+     * org.freehep.graphics2d.font.FontUtilities.ShowString)} ;
      *
      * @param str string to draw
      * @param x coordinate for drawing

@@ -1,10 +1,9 @@
-// Copyright 2000-2006, FreeHEP.
+// Copyright 2000-2007, FreeHEP.
 package org.freehep.graphicsio.gif;
 
 import java.awt.Component;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Locale;
 import java.util.Properties;
 
 import javax.imageio.spi.IIORegistry;
@@ -22,7 +21,7 @@ import org.freehep.util.UserProperties;
 /**
  * 
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFExportFileType.java 1fdf0180916f 2006/12/03 16:40:02 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/gif/GIFExportFileType.java 59372df5e0d9 2007/02/06 21:11:19 duns $
  */
 public class GIFExportFileType extends ImageExportFileType {
 

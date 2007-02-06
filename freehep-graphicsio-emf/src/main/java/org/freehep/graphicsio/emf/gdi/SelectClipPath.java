@@ -2,10 +2,6 @@
 package org.freehep.graphicsio.emf.gdi;
 
 import java.io.IOException;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Area;
-import java.awt.geom.GeneralPath;
-import java.awt.Shape;
 
 import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
@@ -17,7 +13,7 @@ import org.freehep.graphicsio.emf.EMFRenderer;
  * SelectClipPath TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SelectClipPath.java 10ec7516e3ce 2007/02/06 18:42:34 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/SelectClipPath.java 59372df5e0d9 2007/02/06 21:11:19 duns $
  */
 public class SelectClipPath extends AbstractClipPath {
 

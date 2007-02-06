@@ -44,6 +44,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.freehep.graphics2d.font.FontEncoder;
+import org.freehep.graphics2d.font.FontUtilities;
 import org.freehep.util.images.ImageUtilities;
 
 /**
@@ -53,7 +54,7 @@ import org.freehep.util.images.ImageUtilities;
  * @author Charles Loomis
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java e908a30ae307 2007/01/13 00:45:55 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 59372df5e0d9 2007/02/06 21:11:19 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -620,7 +621,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
             // initial attributes, we us TextAttribute.equals() rather
             // than Font.equals() because using Font.equals() we do
             // not get a 'false' if underline etc. is changed
-            Map/*<TextAttribute, ?>*/ attributes = font.getAttributes();
+            Map/*<TextAttribute, ?>*/ attributes = FontUtilities.getAttributes(font);
 
             // stores all characters which are written with the same font
             // if font is changed the buffer will be written and cleared

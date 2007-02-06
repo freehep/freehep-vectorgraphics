@@ -4,15 +4,13 @@ package org.freehep.graphicsio.exportchooser;
 import java.awt.Component;
 import java.util.Properties;
 
-import javax.swing.JLabel;
-
 import org.freehep.graphicsio.FontConstants;
 import org.freehep.swing.layout.TableLayout;
 
 /**
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/FontPanel.java 4c8a70ee7b57 2007/01/09 19:58:39 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/FontPanel.java 59372df5e0d9 2007/02/06 21:11:19 duns $
  */
 public class FontPanel extends OptionPanel {
 

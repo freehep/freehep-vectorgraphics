@@ -13,16 +13,17 @@ import java.awt.Stroke;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Arc2D;
+import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
-import java.awt.geom.Area;
 import java.text.AttributedCharacterIterator;
 import java.util.Properties;
 
+import org.freehep.graphics2d.font.FontUtilities;
 import org.freehep.util.UserProperties;
 
 /**
@@ -34,7 +35,7 @@ import org.freehep.util.UserProperties;
  * @author Simon Fischer
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/AbstractVectorGraphics.java d7c75c135a1d 2007/01/09 00:32:55 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/AbstractVectorGraphics.java 59372df5e0d9 2007/02/06 21:11:19 duns $
  */
 public abstract class AbstractVectorGraphics extends VectorGraphics {
 
@@ -474,7 +475,7 @@ public abstract class AbstractVectorGraphics extends VectorGraphics {
         // FIXME: change y offset for vertical text
         TextLayout tl = new TextLayout(
             str,
-            getFont().getAttributes(),
+            FontUtilities.getAttributes(getFont()),
             getFontRenderContext());
 
         // draw the frame

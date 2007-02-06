@@ -1,11 +1,9 @@
-// Copyright 2003-2006 FreeHEP
+// Copyright 2003-2007 FreeHEP
 package org.freehep.graphicsio.exportchooser;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriter;
@@ -26,7 +24,7 @@ import org.freehep.util.export.ExportFileTypeRegistry;
  * overwrites the first one with the second and so on. Sun Bug #Submitted.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageIOExportFileType.java 1fdf0180916f 2006/12/03 16:40:02 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageIOExportFileType.java 59372df5e0d9 2007/02/06 21:11:19 duns $
  */
 public class ImageIOExportFileType implements RegisterableService {
 

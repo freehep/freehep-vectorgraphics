@@ -19,7 +19,6 @@ import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.awt.image.RenderedImage;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -34,6 +33,7 @@ import java.util.Properties;
 import org.freehep.graphics2d.PrintColor;
 import org.freehep.graphics2d.VectorGraphics;
 import org.freehep.graphics2d.font.FontEncoder;
+import org.freehep.graphics2d.font.FontUtilities;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.PageConstants;
 import org.freehep.graphicsio.emf.gdi.AlphaBlend;
@@ -69,7 +69,6 @@ import org.freehep.graphicsio.emf.gdi.StrokeAndFillPath;
 import org.freehep.graphicsio.emf.gdi.StrokePath;
 import org.freehep.graphicsio.emf.gdi.TextW;
 import org.freehep.graphicsio.font.FontTable;
-import org.freehep.graphicsio.font.FontUtilities;
 import org.freehep.util.UserProperties;
 import org.freehep.util.images.ImageUtilities;
 
@@ -77,7 +76,7 @@ import org.freehep.util.images.ImageUtilities;
  * Enhanced Metafile Format Graphics 2D driver.
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java 9c0688d78e6b 2007/01/30 23:58:16 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFGraphics2D.java 59372df5e0d9 2007/02/06 21:11:19 duns $
  */
 public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         EMFConstants {
@@ -451,7 +450,7 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         }
 
         // dialog.bold -> Dialog with TextAttribute.WEIGHT_BOLD
-        Map attributes = getFont().getAttributes();
+        Map attributes = FontUtilities.getAttributes(getFont());
         FontTable.normalize(attributes);
         Font font = new Font(attributes);
 
