@@ -7,26 +7,24 @@ import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
 import org.freehep.graphicsio.emf.EMFOutputStream;
 import org.freehep.graphicsio.emf.EMFTag;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 /**
  * ExtSelectClipRgn TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtSelectClipRgn.java c0f15e7696d3 2007/01/22 19:26:48 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtSelectClipRgn.java 10ec7516e3ce 2007/02/06 18:42:34 duns $
  */
-public class ExtSelectClipRgn extends EMFTag implements EMFConstants {
-
-    private int mode;
+public class ExtSelectClipRgn extends AbstractClipPath {
 
     private Region rgn;
 
     public ExtSelectClipRgn() {
-        super(75, 1);
+        super(75, 1, EMFConstants.RGN_COPY);
     }
 
     public ExtSelectClipRgn(int mode, Region rgn) {
-        this();
-        this.mode = mode;
+        super(75, 1, mode);
         this.rgn = rgn;
     }
 
@@ -42,13 +40,20 @@ public class ExtSelectClipRgn extends EMFTag implements EMFConstants {
 
     public void write(int tagID, EMFOutputStream emf) throws IOException {
         emf.writeDWORD(rgn.length());
-        emf.writeDWORD(mode);
+        emf.writeDWORD(getMode());
         rgn.write(emf);
     }
 
-    public String toString() {
-        return super.toString() +
-            "\n  mode: " + mode +
-            "\n" + rgn;
+    /**
+     * displays the tag using the renderer
+     *
+     * @param renderer EMFRenderer storing the drawing session data
+     */
+    public void render(EMFRenderer renderer) {
+        if (rgn == null || rgn.getBounds() == null) {
+            return;
+        }
+
+        render(renderer, rgn.getBounds());
     }
 }

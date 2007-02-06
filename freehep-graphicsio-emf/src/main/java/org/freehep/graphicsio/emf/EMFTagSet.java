@@ -11,6 +11,7 @@ import org.freehep.graphicsio.emf.gdi.BitBlt;
 import org.freehep.graphicsio.emf.gdi.Chord;
 import org.freehep.graphicsio.emf.gdi.CloseFigure;
 import org.freehep.graphicsio.emf.gdi.CreateBrushIndirect;
+import org.freehep.graphicsio.emf.gdi.CreateDIBPatternBrushPt;
 import org.freehep.graphicsio.emf.gdi.CreatePen;
 import org.freehep.graphicsio.emf.gdi.DeleteObject;
 import org.freehep.graphicsio.emf.gdi.EMFPolygon;
@@ -84,13 +85,14 @@ import org.freehep.graphicsio.emf.gdi.StretchDIBits;
 import org.freehep.graphicsio.emf.gdi.StrokeAndFillPath;
 import org.freehep.graphicsio.emf.gdi.StrokePath;
 import org.freehep.graphicsio.emf.gdi.WidenPath;
+
 import org.freehep.util.io.TagSet;
 
 /**
  * EMF specific tagset.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFTagSet.java f2f1115939ae 2006/12/07 07:50:41 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFTagSet.java 10ec7516e3ce 2007/02/06 18:42:34 duns $
  */
 public class EMFTagSet extends TagSet {
 
@@ -189,7 +191,7 @@ public class EMFTagSet extends TagSet {
             addTag(new PolyPolygon16()); // 91 5b
             addTag(new PolyDraw16()); // 92 5c
             // addTag(new CreateMonoBrush()); // 93 5d
-            // addTag(new CreateDIBPatternBrushPt()); // 94 5e
+            addTag(new CreateDIBPatternBrushPt()); // 94 5e
             addTag(new ExtCreatePen()); // 95 5f
             // addTag(new PolyTextOutA()); // 96 60
             // addTag(new PolyTextOutW()); // 97 61

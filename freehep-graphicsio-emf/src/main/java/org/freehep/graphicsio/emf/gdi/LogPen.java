@@ -2,7 +2,6 @@
 package org.freehep.graphicsio.emf.gdi;
 
 import java.awt.Color;
-import java.awt.BasicStroke;
 import java.io.IOException;
 
 import org.freehep.graphicsio.emf.EMFInputStream;
@@ -13,7 +12,7 @@ import org.freehep.graphicsio.emf.EMFRenderer;
  * EMF LogPen
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/LogPen.java c0f15e7696d3 2007/01/22 19:26:48 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/LogPen.java 10ec7516e3ce 2007/02/06 18:42:34 duns $
  */
 public class LogPen extends AbstractPen {
 
@@ -57,12 +56,7 @@ public class LogPen extends AbstractPen {
     public void render(EMFRenderer renderer) {
         renderer.setUseCreatePen(true);
         renderer.setPenPaint(color);
-        renderer.setPenStroke(new BasicStroke(
-            width,
-            getCap(penStyle),
-            getJoin(penStyle),
-            renderer.getMeterLimit(),
-            getDash(penStyle, null),
-            0));
+        renderer.setPenStroke(
+            createStroke(renderer,  penStyle, null, width));
     }
 }

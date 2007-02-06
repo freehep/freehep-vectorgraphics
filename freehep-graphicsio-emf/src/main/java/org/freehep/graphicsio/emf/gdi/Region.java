@@ -48,4 +48,8 @@ public class Region {
         return "  Region\n" + "    bounds: " + bounds +
             "\n    region: " + region;
     }
+
+    public Rectangle getBounds() {
+        return bounds;
+    }
 }

@@ -13,7 +13,7 @@ import java.util.Arrays;
  * a byte[].
  *
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFImageLoader.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFImageLoader.java 10ec7516e3ce 2007/02/06 18:42:34 duns $
  */
 public class EMFImageLoader {
 
@@ -38,7 +38,82 @@ public class EMFImageLoader {
         int len,
         BlendFunction blendFunction) throws IOException {
 
-        if ((bmi.getBitCount() == 8) &&
+        // 0    Windows 98/Me, Windows 2000/XP: The number of bits-per-pixel
+        // is specified or is implied by the JPEG or PNG format.
+
+        if (bmi.getBitCount() == 1) {
+            // 1 	The bitmap is monochrome, and the bmiColors
+            // member of BITMAPINFO contains two entries. Each
+            // bit in the bitmap array represents a pixel. If
+            // the bit is clear, the pixel is displayed with
+            // the color of the first entry in the bmiColors
+            // table; if the bit is set, the pixel has the color
+            // of the second entry in the table.
+            // byte[] bytes = emf.readByte(len);
+
+            int blue = emf.readUnsignedByte();
+            int green = emf.readUnsignedByte();
+            int red = emf.readUnsignedByte();
+            /*int unused =*/ emf.readUnsignedByte();
+
+            int color1 = new Color(red, green, blue).getRGB();
+
+            blue = emf.readUnsignedByte();
+            green = emf.readUnsignedByte();
+            red = emf.readUnsignedByte();
+            /*unused = */ emf.readUnsignedByte();
+
+            int color2 = new Color(red, green, blue).getRGB();
+
+            BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+            int[] data = emf.readUnsignedByte(len - 8);
+
+            // TODO: this is highly experimental and does
+            // not work for the tested examples
+            int strangeOffset = width % 8;
+            if (strangeOffset != 0) {
+                strangeOffset = 8 - strangeOffset;
+            }
+
+            // iterator for pixel data
+            int pixel = 0;
+
+            // mask for getting the bits from a pixel data byte
+            int[] mask = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
+
+            // image data are swapped compared to java standard
+            for (int y = height - 1; y > -1; y--) {
+                for (int x = 0; x < width; x++) {
+                    int pixelDataGroup = data[pixel / 8];
+                    int pixelData = pixelDataGroup & mask[pixel % 8];
+                    pixel ++;
+
+                    if (pixelData > 0) {
+                        result.setRGB(x, y, color2);
+                    } else {
+                        result.setRGB(x, y, color1);
+                    }
+                }
+                // add the extra width
+                pixel = pixel + strangeOffset;
+            }
+
+            /* for debugging: shows every loaded image
+            javax.swing.JFrame f = new javax.swing.JFrame("test");
+            f.getContentPane().setBackground(Color.green);
+            f.getContentPane().setLayout(
+                new java.awt.BorderLayout(0, 0));
+            f.getContentPane().add(
+                java.awt.BorderLayout.CENTER,
+                new javax.swing.JLabel(
+                    new javax.swing.ImageIcon(result)));
+            f.setSize(new java.awt.Dimension(width + 20, height + 20));
+            f.setVisible(true);*/
+
+            return result;
+
+        } else if ((bmi.getBitCount() == 8) &&
             (bmi.getCompression() == EMFConstants.BI_RGB)) {
             // 8 	The bitmap has a maximum of 256 colors, and the bmiColors member
             // of BITMAPINFO contains up to 256 entries. In this case, each byte in

@@ -2,15 +2,77 @@
 package org.freehep.graphicsio.emf.gdi;
 
 import org.freehep.graphicsio.emf.EMFConstants;
+import org.freehep.graphicsio.emf.EMFRenderer;
 
 import java.util.logging.Logger;
 import java.awt.BasicStroke;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 
 /**
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AbstractPen.java c0f15e7696d3 2007/01/22 19:26:48 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AbstractPen.java 10ec7516e3ce 2007/02/06 18:42:34 duns $
  */
 public abstract class AbstractPen implements EMFConstants, GDIObject {
+
+    /**
+     * Represents a stroke that draws inside the given shape.
+     * Used if EMFConstants.PS_INSIDEFRAME is used
+     */
+    private class InsideFrameStroke implements Stroke {
+
+        private BasicStroke stroke;
+
+        public InsideFrameStroke (
+            float width,
+            int cap,
+            int join,
+            float miterlimit,
+            float dash[],
+            float dash_phase) {
+
+            stroke = new BasicStroke(width, cap, join, miterlimit, dash, dash_phase);
+        }
+
+        public Shape createStrokedShape(Shape shape) {
+            if (shape == null) {
+                return null;
+            }
+
+            Rectangle2D oldBounds = shape.getBounds2D();
+            float witdh = stroke.getLineWidth();
+
+            // calcute a transformation for inside drawing
+            // based on the stroke width
+            AffineTransform at = new AffineTransform();
+            if (oldBounds.getWidth() > 0) {
+                at.scale(
+                    (oldBounds.getWidth() - witdh) /
+                        oldBounds.getWidth(), 1);
+            }
+
+            if (oldBounds.getHeight() > 0) {
+                at.scale(1,
+                    (oldBounds.getHeight() - witdh)
+                        / oldBounds.getHeight());
+            }
+
+            // recalculate shape and its oldBounds
+            shape = at.createTransformedShape(shape);
+            Rectangle2D newBounds = shape.getBounds2D();
+
+            // move the shape to the old origin + the line width offset
+            AffineTransform moveBackTransform = AffineTransform.getTranslateInstance(
+                oldBounds.getX() - newBounds.getX() + witdh / 2,
+                oldBounds.getY() - newBounds.getY() + witdh / 2);
+            shape = moveBackTransform.createTransformedShape(shape);
+
+            // outline the shape using the simple basic stroke
+            return stroke.createStrokedShape(shape);
+        }
+    }
 
     /**
      * logger for all instances
@@ -75,6 +137,10 @@ public abstract class AbstractPen implements EMFConstants, GDIObject {
                 return new float[] { 5, 2, 1, 2 };
             case EMFConstants.PS_DASHDOTDOT:
                 return new float[] { 5, 2, 1, 2, 1, 2 };
+            case EMFConstants.PS_INSIDEFRAME:
+                // Represents a pen style that consists of a solid
+                // pen that is drawn from within any given bounding rectangle
+                return null;
             case EMFConstants.PS_NULL:
                 // do not use float[] { 1 }
                 // it's _slow_
@@ -94,6 +160,39 @@ public abstract class AbstractPen implements EMFConstants, GDIObject {
                 // do not use float[] { 1 }
                 // it's _slow_
                 return null;
+        }
+    }
+
+    /**
+     * @param penStyle stored pen style
+     * @return true if PS_INSIDEFRAME is set
+     */
+    private boolean isInsideFrameStroke(int penStyle) {
+        return (penStyle & 0xFF) == EMFConstants.PS_INSIDEFRAME;
+    }
+
+    protected Stroke createStroke(
+        EMFRenderer renderer,
+        int penStyle,
+        int[] style,
+        float width) {
+
+        if (isInsideFrameStroke(penStyle)) {
+            return new InsideFrameStroke(
+                width,
+                getCap(penStyle),
+                getJoin(penStyle),
+                renderer.getMeterLimit(),
+                getDash(penStyle, style),
+                0);
+        } else {
+            return new BasicStroke(
+                width,
+                getCap(penStyle),
+                getJoin(penStyle),
+                renderer.getMeterLimit(),
+                getDash(penStyle, style),
+                0);
         }
     }
 }

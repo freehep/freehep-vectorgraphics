@@ -11,7 +11,7 @@ import org.freehep.graphicsio.emf.EMFOutputStream;
  * EMF BitmapInfoHeader
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/BitmapInfoHeader.java c0f15e7696d3 2007/01/22 19:26:48 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/BitmapInfoHeader.java 10ec7516e3ce 2007/02/06 18:42:34 duns $
  */
 public class BitmapInfoHeader implements EMFConstants {
 
@@ -104,5 +104,13 @@ public class BitmapInfoHeader implements EMFConstants {
 
     public int getClrUsed() {
         return clrUsed;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }

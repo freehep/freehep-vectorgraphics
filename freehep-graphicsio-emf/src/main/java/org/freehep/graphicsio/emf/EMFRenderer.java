@@ -29,7 +29,7 @@ import org.freehep.graphicsio.emf.gdi.GDIObject;
  * Standalone EMF renderer.
  *
  * @author Daniel Noll (daniel@nuix.com)
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFRenderer.java cb17a8f71934 2007/01/23 15:44:34 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFRenderer.java 10ec7516e3ce 2007/02/06 18:42:34 duns $
  */
 public class EMFRenderer {
     private static final Logger logger = Logger.getLogger("org.freehep.graphicsio.emf");
@@ -245,10 +245,13 @@ public class EMFRenderer {
      * @return the size.
      */
     public Dimension getSize() {
-        Dimension bounds = header.getBounds().getSize();
-        return new Dimension(
+        return header.getBounds().getSize();
+        // TODO see the mapModePart of resetTransformation()
+        // if uncommented size is too small
+        /* Dimension bounds = header.getBounds().getSize();
+            return new Dimension(
             (int)Math.ceil(bounds.width * TWIP_SCALE),
-            (int)Math.ceil(bounds.height * TWIP_SCALE));
+            (int)Math.ceil(bounds.height * TWIP_SCALE));*/
     }
 
     /**
@@ -342,9 +345,10 @@ public class EMFRenderer {
             g2.setTransform(new AffineTransform());
         }
 
+        /* TODO mapModeTransform dows not work correctly
         if (mapModeTransform != null) {
             g2.transform(mapModeTransform);
-        }
+        }*/
 
         // move to window origin
         if (windowOrigin != null) {
@@ -744,6 +748,10 @@ public class EMFRenderer {
 
     public void setMapModeIsotropic(boolean mapModeIsotropic) {
         this.mapModeIsotropic = mapModeIsotropic;
+    }
+
+    public AffineTransform getMapModeTransform() {
+        return mapModeTransform;
     }
 
     public void setMapModeTransform(AffineTransform mapModeTransform) {
