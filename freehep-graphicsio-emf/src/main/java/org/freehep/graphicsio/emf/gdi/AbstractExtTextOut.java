@@ -12,7 +12,7 @@ import java.io.IOException;
  * Abstraction of commonality between the {@link ExtTextOutA} and {@link ExtTextOutW} tags.
  *
  * @author Daniel Noll (daniel@nuix.com)
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AbstractExtTextOut.java c0f15e7696d3 2007/01/22 19:26:48 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AbstractExtTextOut.java bc3667e817e0 2007/02/11 23:24:28 duns $
  */
 public abstract class AbstractExtTextOut extends EMFTag implements EMFConstants {
 
@@ -47,7 +47,7 @@ public abstract class AbstractExtTextOut extends EMFTag implements EMFConstants 
         this.yScale = yScale;
     }
 
-    protected abstract Text getText();
+    public abstract Text getText();
 
     public String toString() {
         return super.toString() +
