@@ -9,7 +9,7 @@ import java.io.IOException;
  * EMF File Header.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFHeader.java c0f15e7696d3 2007/01/22 19:26:48 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFHeader.java 39340faa2114 2007/02/12 08:14:31 duns $
  */
 public class EMFHeader implements EMFConstants {
     private static final Dimension screenMM = new Dimension(320, 240);
@@ -91,25 +91,35 @@ public class EMFHeader implements EMFConstants {
         emf.readWORD(); // 60
 
         int dLen = emf.readDWORD(); // 64
-        /* int dOffset = */ emf.readDWORD(); // 68
+        int dOffset = emf.readDWORD(); // 68
         palEntries = emf.readDWORD(); // 72
         device = emf.readSIZEL(); // 80
         millimeters = emf.readSIZEL(); // 88
-        if ((length - (2 * dLen)) > 88) {
+
+        int bytesRead = 88;
+        if (dOffset > 88) {
             emf.readDWORD(); // 92
             emf.readDWORD(); // 96
-            openGL = (emf.readDWORD() != 0); // 100
-            if ((length - (2 * dLen)) > 100) {
+            openGL = (emf.readDWORD() != 0) ? true : false; // 100
+            bytesRead += 12;
+            if (dOffset > 100) {
                 micrometers = emf.readSIZEL(); // 108
+                bytesRead += 8;
             }
         }
 
-        // FIXME: dOffset ignored
-        description = emf.readWCHAR(dLen);
+        // Discard any bytes leading up to the description (usually zero, but safer not to assume.)
+        if (bytesRead < dOffset) {
+            emf.skipBytes(dOffset - bytesRead);
+            bytesRead = dOffset;
+        }
 
-        // the rest...
-        if ((length - (2 * dLen)) > 108) {
-            emf.readUnsignedByte(length - (2 * dLen) - 108);
+        description = emf.readWCHAR(dLen);
+        bytesRead += dLen * 2;
+
+        // Discard bytes after the description up to the end of the header.
+        if (bytesRead < length) {
+            emf.skipBytes(length - bytesRead);
         }
     }
 
