@@ -1,4 +1,4 @@
-// Copyright 2002, FreeHEP.
+// Copyright 2002-2007, FreeHEP.
 package org.freehep.graphicsio.emf.gdi;
 
 import java.awt.Rectangle;
@@ -12,7 +12,7 @@ import org.freehep.graphicsio.emf.EMFTag;
  * ExtTextOutW TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtTextOutW.java cb17a8f71934 2007/01/23 15:44:34 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/ExtTextOutW.java bdaaed6f344d 2007/02/12 04:08:30 duns $
  */
 public class ExtTextOutW extends AbstractExtTextOut implements EMFConstants {
 
@@ -44,7 +44,7 @@ public class ExtTextOutW extends AbstractExtTextOut implements EMFConstants {
             TextW.read(emf));
     }
 
-    protected Text getText() {
+    public Text getText() {
         return text;
     }
 }

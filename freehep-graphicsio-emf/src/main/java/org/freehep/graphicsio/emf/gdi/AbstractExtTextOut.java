@@ -1,3 +1,4 @@
+// Copyright 2007, FreeHEP
 package org.freehep.graphicsio.emf.gdi;
 
 import org.freehep.graphicsio.emf.EMFConstants;
@@ -12,7 +13,7 @@ import java.io.IOException;
  * Abstraction of commonality between the {@link ExtTextOutA} and {@link ExtTextOutW} tags.
  *
  * @author Daniel Noll (daniel@nuix.com)
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AbstractExtTextOut.java bc3667e817e0 2007/02/11 23:24:28 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AbstractExtTextOut.java bdaaed6f344d 2007/02/12 04:08:30 duns $
  */
 public abstract class AbstractExtTextOut extends EMFTag implements EMFConstants {
 
