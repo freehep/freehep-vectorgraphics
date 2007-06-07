@@ -11,7 +11,7 @@ import java.awt.geom.Rectangle2D;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-java/src/main/java/org/freehep/graphicsio/java/JAVAGeneralPath.java 01c7a0af1b3a 2005/12/05 06:02:47 duns $
+ * @version $Id: freehep-graphicsio-java/src/main/java/org/freehep/graphicsio/java/JAVAGeneralPath.java 4d2239eafa4d 2007/06/07 18:07:57 duns $
  */
 public class JAVAGeneralPath implements Shape {
     private int rule;
@@ -296,13 +296,13 @@ public class JAVAGeneralPath implements Shape {
 
             public int currentSegment(float[] coords) {
                 int type = path[index].currentSegment(coords);
-                transform.transform(coords, 0, coords, 0, coords.length / 2);
+                if (transform != null) transform.transform(coords, 0, coords, 0, coords.length / 2);
                 return type;
             }
 
             public int currentSegment(double[] coords) {
                 int type = path[index].currentSegment(coords);
-                transform.transform(coords, 0, coords, 0, coords.length / 2);
+                if (transform != null) transform.transform(coords, 0, coords, 0, coords.length / 2);
                 return type;
             }
         };
