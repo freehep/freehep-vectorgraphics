@@ -54,7 +54,7 @@ import org.freehep.util.images.ImageUtilities;
  * @author Charles Loomis
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 59372df5e0d9 2007/02/06 21:11:19 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java c7486ace72ac 2007/06/08 21:43:44 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -803,10 +803,11 @@ s     *
     protected void writeSetTransform(AffineTransform transform) throws IOException {
     	try {
 	    	AffineTransform deltaTransform = new AffineTransform(transform);
-	        transform.concatenate(oldTransform.createInverse());
+	        deltaTransform.concatenate(oldTransform.createInverse());
 	    	writeTransform(deltaTransform);
     	} catch (NoninvertibleTransformException e) {
     		// ignored...
+    		System.err.println("Warning: (ignored) Could not invert matrix: "+oldTransform);
     	}
     }
 
