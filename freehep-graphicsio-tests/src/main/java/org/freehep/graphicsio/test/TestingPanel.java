@@ -1,4 +1,4 @@
-// Copyright 2000-2005, FreeHEP.
+// Copyright 2000-2007, FreeHEP.
 package org.freehep.graphicsio.test;
 
 import java.awt.Component;
@@ -20,7 +20,7 @@ import org.freehep.util.UserProperties;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestingPanel.java 00143e69ce01 2006/11/16 01:02:20 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestingPanel.java 344e3292515f 2007/06/08 22:23:13 duns $
  */
 public class TestingPanel extends JPanel {
 
@@ -106,6 +106,7 @@ public class TestingPanel extends JPanel {
             } else {
                 try {
                     File file = new File(args[1]);
+//                    System.err.println(file);
                     Class cls = Class.forName(args[0]);
                     Constructor constructor = cls.getConstructor(new Class[] {
                             File.class, Component.class });

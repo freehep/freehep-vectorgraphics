@@ -26,7 +26,7 @@ import org.freehep.util.io.FlateOutputStream;
  * <p>
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFStream.java 2fa79ac3a135 2007/01/09 18:18:57 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/main/java/org/freehep/graphicsio/pdf/PDFStream.java 344e3292515f 2007/06/08 22:23:13 duns $
  */
 public class PDFStream extends PDFDictionary implements PDFConstants {
 
@@ -159,7 +159,7 @@ public class PDFStream extends PDFDictionary implements PDFConstants {
         object.close();
         
         if (gStates > 0) {
-            System.err.println("PDFStream: unbalanced saves()/restores(), too many saves: "+gStates);            
+            System.err.println("PDFStream: unbalanced saves()/restores(), too many saves: "+gStates);
         }
     }
 

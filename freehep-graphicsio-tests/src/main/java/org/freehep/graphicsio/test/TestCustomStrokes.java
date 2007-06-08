@@ -27,7 +27,7 @@ import org.freehep.graphics2d.VectorGraphics;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestCustomStrokes.java 5f67cfd19710 2006/08/10 23:06:37 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestCustomStrokes.java 344e3292515f 2007/06/08 22:23:13 duns $
  */
 public class TestCustomStrokes extends TestingPanel {
 
@@ -52,7 +52,7 @@ public class TestCustomStrokes extends TestingPanel {
 
     public void paintComponent(Graphics g) {
 
-        VectorGraphics vg = VectorGraphics.create(g.create());
+        VectorGraphics vg = VectorGraphics.create(g);
         
         // Get a shape to work with. Here we'll use the letter B
         Font f = new Font("Serif", Font.BOLD, 150);
