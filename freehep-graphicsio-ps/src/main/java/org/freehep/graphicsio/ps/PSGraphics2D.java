@@ -43,13 +43,11 @@ import org.freehep.graphicsio.PageConstants;
 import org.freehep.util.ScientificFormat;
 import org.freehep.util.UserProperties;
 import org.freehep.util.images.ImageUtilities;
-import org.freehep.util.io.ASCII85OutputStream;
-import org.freehep.util.io.FlateOutputStream;
 
 /**
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java 59372df5e0d9 2007/02/06 21:11:19 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSGraphics2D.java 4c4708a97391 2007/06/12 22:32:31 duns $
  */
 public class PSGraphics2D extends AbstractVectorGraphicsIO implements
         MultiPageDocument, FontUtilities.ShowString {

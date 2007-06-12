@@ -1,10 +1,7 @@
 // Copyright FreeHEP, 2000-2007
 package org.freehep.graphics2d;
 
-import org.freehep.graphics2d.font.FontUtilities;
-
 import java.awt.Graphics2D;
-import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
@@ -13,12 +10,14 @@ import java.util.Hashtable;
 import java.util.Stack;
 import java.util.Vector;
 
+import org.freehep.graphics2d.font.FontUtilities;
+
 /**
  * The class converts HTML tags like <u> in instances of {@link TextAttribute}.
  *
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/GenericTagHandler.java 59372df5e0d9 2007/02/06 21:11:19 duns $
+ * @version $Id: freehep-graphics2d/src/main/java/org/freehep/graphics2d/GenericTagHandler.java 4c4708a97391 2007/06/12 22:32:31 duns $
  */
 public class GenericTagHandler extends TagHandler {
 

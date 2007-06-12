@@ -1,20 +1,20 @@
 // Copyright 2001-2006, FreeHEP.
 package org.freehep.graphicsio.svg;
 
-import org.freehep.graphics2d.font.FontUtilities;
-import org.freehep.graphicsio.font.FontTable;
-
-import java.awt.geom.AffineTransform;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
-import java.util.Map;
-import java.util.Hashtable;
+import java.awt.geom.AffineTransform;
 import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
+
+import org.freehep.graphics2d.font.FontUtilities;
+import org.freehep.graphicsio.font.FontTable;
 
 /**
  * A table to remember which glyphs were used while writing a svg file.
@@ -24,7 +24,7 @@ import java.util.Properties;
  * in <text> tags.
  *
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGFontTable.java 59372df5e0d9 2007/02/06 21:11:19 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGFontTable.java 4c4708a97391 2007/06/12 22:32:31 duns $
  */
 public class SVGFontTable {
 

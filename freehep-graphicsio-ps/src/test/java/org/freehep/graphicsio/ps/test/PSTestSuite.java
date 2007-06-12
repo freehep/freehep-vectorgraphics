@@ -1,13 +1,11 @@
 // Copyright 2005, FreeHEP.
 package org.freehep.graphicsio.ps.test;
 
-import java.util.Properties;
-
 import org.freehep.graphicsio.test.TestSuite;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-ps/src/test/java/org/freehep/graphicsio/ps/test/PSTestSuite.java 3e3b6c4e40de 2006/11/18 00:33:39 duns $
+ * @version $Id: freehep-graphicsio-ps/src/test/java/org/freehep/graphicsio/ps/test/PSTestSuite.java 4c4708a97391 2007/06/12 22:32:31 duns $
  */
 public class PSTestSuite extends TestSuite {
 /*

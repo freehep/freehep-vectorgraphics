@@ -2,9 +2,6 @@
 package org.freehep.graphicsio.emf;
 
 import java.applet.Applet;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -13,7 +10,7 @@ import java.net.URL;
  * Applet to render EMF files on any platform in a browser.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFApplet.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFApplet.java 4c4708a97391 2007/06/12 22:32:31 duns $
  */
 public class EMFApplet extends Applet {
 

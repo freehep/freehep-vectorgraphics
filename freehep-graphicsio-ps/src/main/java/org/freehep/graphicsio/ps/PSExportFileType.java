@@ -1,11 +1,11 @@
-// Copyright 2003-2006, FreeHEP.
+// Copyright 2003-2007, FreeHEP.
 package org.freehep.graphicsio.ps;
 
 
 /**
  * @author Mark Donszelmann
  * @author Charles Loomis, Simon Fischer
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSExportFileType.java 6fc90d16bd14 2006/11/30 18:48:36 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/PSExportFileType.java 4c4708a97391 2007/06/12 22:32:31 duns $
  */
 public class PSExportFileType extends AbstractPSExportFileType {
 

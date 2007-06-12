@@ -1,13 +1,11 @@
 // Copyright 2005, FreeHEP.
 package org.freehep.graphicsio.pdf.test;
 
-import java.util.Properties;
-
 import org.freehep.graphicsio.test.TestSuite;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-pdf/src/test/java/org/freehep/graphicsio/pdf/test/PDFTestSuite.java 64a68957eb04 2006/11/18 00:29:37 duns $
+ * @version $Id: freehep-graphicsio-pdf/src/test/java/org/freehep/graphicsio/pdf/test/PDFTestSuite.java 4c4708a97391 2007/06/12 22:32:31 duns $
  */
 public class PDFTestSuite extends TestSuite {
 

@@ -15,10 +15,10 @@ import java.awt.Stroke;
 import java.awt.TexturePaint;
 import java.awt.font.TextAttribute;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.GeneralPath;
 import java.awt.image.RenderedImage;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -32,12 +32,12 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Stack;
-import java.util.Enumeration;
-import java.util.Map;
-import java.util.Locale;
 import java.util.zip.GZIPOutputStream;
 
 import org.freehep.graphics2d.font.FontUtilities;
@@ -47,7 +47,6 @@ import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.graphicsio.InfoConstants;
 import org.freehep.graphicsio.PageConstants;
-import org.freehep.graphicsio.font.FontTable;
 import org.freehep.util.UserProperties;
 import org.freehep.util.Value;
 import org.freehep.util.io.Base64OutputStream;
@@ -61,7 +60,7 @@ import org.freehep.xml.util.XMLWriter;
  * The current implementation is based on REC-SVG11-20030114
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java 59372df5e0d9 2007/02/06 21:11:19 duns $
+ * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGGraphics2D.java 4c4708a97391 2007/06/12 22:32:31 duns $
  */
 public class SVGGraphics2D extends AbstractVectorGraphicsIO {
 

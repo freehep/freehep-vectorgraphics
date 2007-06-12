@@ -1,24 +1,23 @@
 // Copyright 2001, FreeHEP.
 package org.freehep.graphicsio.emf.gdi;
 
-import java.io.IOException;
-import java.io.ByteArrayInputStream;
 import java.awt.Image;
-import java.awt.Rectangle;
-
-import org.freehep.graphicsio.emf.EMFInputStream;
-import org.freehep.graphicsio.emf.EMFOutputStream;
-import org.freehep.graphicsio.emf.EMFTag;
-import org.freehep.graphicsio.emf.EMFConstants;
-import org.freehep.graphicsio.emf.EMFRenderer;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import org.freehep.graphicsio.emf.EMFConstants;
+import org.freehep.graphicsio.emf.EMFInputStream;
+import org.freehep.graphicsio.emf.EMFOutputStream;
+import org.freehep.graphicsio.emf.EMFRenderer;
+import org.freehep.graphicsio.emf.EMFTag;
 
 /**
  * GDIComment TAG.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/GDIComment.java cb17a8f71934 2007/01/23 15:44:34 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/GDIComment.java 4c4708a97391 2007/06/12 22:32:31 duns $
  */
 public class GDIComment extends EMFTag {
 

@@ -1,21 +1,17 @@
-// Copyright 2000-2006, FreeHEP.
+// Copyright 2000-2007, FreeHEP.
 package org.freehep.graphicsio.ps;
 
-import java.awt.Component;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Properties;
 
 import javax.swing.JPanel;
 
-import org.freehep.graphics2d.VectorGraphics;
 import org.freehep.util.UserProperties;
 
 /**
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/EPSExportFileType.java 6fc90d16bd14 2006/11/30 18:48:36 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/EPSExportFileType.java 4c4708a97391 2007/06/12 22:32:31 duns $
  */
 public class EPSExportFileType extends AbstractPSExportFileType {
 
@@ -33,11 +29,5 @@ public class EPSExportFileType extends AbstractPSExportFileType {
         JPanel panel = super.createOptionPanel(options);
         preview.setVisible(true);
         return panel;
-    }
-
-    public VectorGraphics getGraphics(OutputStream os, Component target)
-            throws IOException {
-
-        return new PSGraphics2D(os, target);
     }
 }

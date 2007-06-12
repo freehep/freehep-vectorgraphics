@@ -6,7 +6,6 @@ import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.image.ImageObserver;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Vector;

@@ -6,8 +6,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
 
-import javax.swing.ImageIcon;
-
 import org.freehep.graphics2d.VectorGraphics;
 import org.freehep.util.images.ImageHandler;
 
@@ -15,7 +13,7 @@ import org.freehep.util.images.ImageHandler;
  * 
  * @author Mark Donszelmann
  * @author Charles Loomis
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestImages.java 13b7f42bf621 2006/11/15 19:57:01 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestImages.java 4c4708a97391 2007/06/12 22:32:31 duns $
  */
 public class TestImages extends TestingPanel {
 

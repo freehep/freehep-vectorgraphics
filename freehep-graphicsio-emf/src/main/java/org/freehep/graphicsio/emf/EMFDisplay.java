@@ -10,35 +10,10 @@ package org.freehep.graphicsio.emf;
  * Company:      ATLANTEC Enterprise Solutions GmbH<p>
  *
  * @author Carsten Zerbst carsten.zerbst@atlantec-es.com
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFDisplay.java 63c8d910ece7 2007/01/20 15:30:50 duns $
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFDisplay.java 4c4708a97391 2007/06/12 22:32:31 duns $
  */
 
-import org.freehep.swing.ExtensionFileFilter;
-import org.freehep.swing.AllSupportedFileFilter;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Shape;
-import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.geom.AffineTransform;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JComponent;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 
 /**
  * A simple interpreter displaying an EMF file read in by the EMFInputStream in

@@ -1,7 +1,8 @@
-// Copyright 2000-2006 FreeHEP
+// Copyright 2000-2007 FreeHEP
 package org.freehep.graphicsio.java;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -21,67 +22,74 @@ import javax.swing.JLabel;
  * // FIXME, check all options
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-java/src/main/java/org/freehep/graphicsio/java/JAVAExportFileType.java e908a30ae307 2007/01/13 00:45:55 duns $
+ * @version $Id: freehep-graphicsio-java/src/main/java/org/freehep/graphicsio/java/JAVAExportFileType.java 4c4708a97391 2007/06/12 22:32:31 duns $
  */
 public class JAVAExportFileType extends AbstractExportFileType {
 
-    public String getDescription() {
-        return "Java Source File (for Testing)";
-    }
+	public String getDescription() {
+		return "Java Source File (for Testing)";
+	}
 
-    public String[] getExtensions() {
-        return new String[] { "java" };
-    }
+	public String[] getExtensions() {
+		return new String[] { "java" };
+	}
 
-    public String[] getMIMETypes() {
-        return new String[] { "application/java" };
-    }
+	public String[] getMIMETypes() {
+		return new String[] { "application/java" };
+	}
 
-    public boolean hasOptionPanel() {
-        return true;
-    }
+	public boolean hasOptionPanel() {
+		return true;
+	}
 
-    public VectorGraphics getGraphics(File file, Component target)
-            throws IOException {
+	public VectorGraphics getGraphics(File file, Component target)
+			throws IOException {
 
-        return new JAVAGraphics2D(file, target);
-    }
+		return new JAVAGraphics2D(file, target);
+	}
 
-    public JPanel createOptionPanel(Properties user) {
-        UserProperties options = new UserProperties(
-            user, JAVAGraphics2D.getDefaultProperties());
+	public VectorGraphics getGraphics(File file, Dimension dimension)
+			throws IOException {
 
-        // Make the full panel.
-        OptionPanel optionsPanel = new OptionPanel();
+		return new JAVAGraphics2D(file, dimension);
+	}
 
-        // Image settings
-        OptionPanel imagePanel = new OptionPanel("Images");
-        optionsPanel.add(
-            "0 0 [5 5 5 5] wt",
-            imagePanel);
+	public JPanel createOptionPanel(Properties user) {
+		UserProperties options = new UserProperties(user, JAVAGraphics2D
+				.getDefaultProperties());
 
-        OptionCheckBox embedOptionCheckBox = new OptionCheckBox(
-            options,
-            JAVAGraphics2D.EMBED_IMAGES,
-            "Embed imagePanel as byte[]");
-        imagePanel.add(TableLayout.FULL, embedOptionCheckBox);
+		// Make the full panel.
+		OptionPanel optionsPanel = new OptionPanel();
 
-        OptionCheckBox pathOptionCheckBox = new OptionCheckBox(
-            options,
-            JAVAGraphics2D.COMPLETE_IMAGE_PATHS,
-            "Write complete path to image");
-        imagePanel.add(TableLayout.FULL, pathOptionCheckBox);
-        embedOptionCheckBox.disables(pathOptionCheckBox);
+		// Image settings
+		OptionPanel imagePanel = new OptionPanel("Images");
+		optionsPanel.add("0 0 [5 5 5 5] wt", imagePanel);
 
-        optionsPanel.add(TableLayout.COLUMN_FILL, new JLabel());
+		OptionCheckBox embedOptionCheckBox = new OptionCheckBox(options,
+				JAVAGraphics2D.EMBED_IMAGES, "Embed imagePanel as byte[]");
+		imagePanel.add(TableLayout.FULL, embedOptionCheckBox);
 
-        return optionsPanel;
-    }
+		OptionCheckBox pathOptionCheckBox = new OptionCheckBox(options,
+				JAVAGraphics2D.COMPLETE_IMAGE_PATHS,
+				"Write complete path to image");
+		imagePanel.add(TableLayout.FULL, pathOptionCheckBox);
+		embedOptionCheckBox.disables(pathOptionCheckBox);
 
-    public VectorGraphics getGraphics(OutputStream os, Component target)
-            throws IOException {
+		optionsPanel.add(TableLayout.COLUMN_FILL, new JLabel());
 
-        return new JAVAGraphics2D(os, target);
-    }
+		return optionsPanel;
+	}
+
+	public VectorGraphics getGraphics(OutputStream os, Component target)
+			throws IOException {
+
+		return new JAVAGraphics2D(os, target);
+	}
+
+	public VectorGraphics getGraphics(OutputStream os, Dimension dimension)
+			throws IOException {
+
+		return new JAVAGraphics2D(os, dimension);
+	}
 
 }
