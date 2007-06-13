@@ -18,8 +18,8 @@
 	The registration is done by scanning each of the jar files on the
 	classpath for the file META-INF/services/org.freehep.util.export.ExportFileType.
 	This file contains the names of all the ExportFileTypes it should
-register, normally only one per jar file, but sometimes more, in the case of 
-PS and EPS for instance.
+	register, normally only one per jar file, but sometimes more, in the case of 
+	PS and EPS for instance.
         </p>
 
         <p>
@@ -42,14 +42,14 @@ PS and EPS for instance.
       </question>
       <answer>
         <p>Indeed in PostScript and PDF one can only reduce the clipping region.
-VectorGraphics has no protection for you setting a larger region and exporting
-to PostScript or PDF. However, both format can save the graphics state, reduce
-the clipping region and then restore the graphics state (including the initially
-larger clipping region).
+	VectorGraphics has no protection for you setting a larger region and exporting
+	to PostScript or PDF. However, both format can save the graphics state, reduce
+	the clipping region and then restore the graphics state (including the initially
+	larger clipping region).
         </p>
         
 	<p>You do not have direct control over save/restore, but creating a 
-sub-graphics context is used to do a save/restore, as shown in the code below:
+	sub-graphics context is used to do a save/restore, as shown in the code below:
 	</p>
 
         <source>
@@ -66,8 +66,8 @@ tempg.dispose();
 	</source>
         
         <p>
-Note that it is important to call tempg.dispose(); at the end, otherwise the 
-newly created graphics object will remain as a memory leak.
+	Note that it is important to call tempg.dispose(); at the end, otherwise the 
+	newly created graphics object will remain as a memory leak.
 	</p>
       </answer>
     </faq>

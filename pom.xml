@@ -167,10 +167,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <!-- Version 2.1.3 works up to mvn 2.0.5 -->
-	<!-- Version 2.2 does not run suites -->
-        <!-- Version 2.3 fails to find export file types -->
-	<version>2.3</version>
+        <!-- Version 2.3 fine with FVG-312 fixed -->
         <configuration>
           <forkMode>pertest</forkMode>
           <includes>
