@@ -26,7 +26,7 @@ import org.freehep.util.io.UniquePrintStream;
 
 /**
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 084155cb8c5d 2007/01/13 01:17:35 duns $
+ * @version $Id: freehep-graphicsio-tests/src/main/java/org/freehep/graphicsio/test/TestSuite.java 3589e18d30b9 2007/06/13 17:26:00 duns $
  */
 public class TestSuite extends junit.framework.TestSuite {
 
@@ -359,6 +359,7 @@ public class TestSuite extends junit.framework.TestSuite {
 //            Class cls = Class.forName(gioPackage + fmt.getLowerCaseName() + "."
 //                    + fmt.getName() + "ExportFileType");
 //            ExportFileType fileType = (ExportFileType) cls.newInstance();
+        	ExportFileType.setClassLoader(getClass().getClassLoader());
         	List fileTypes = ExportFileType.getExportFileTypes(fmt.getLowerCaseName());
         	if (fileTypes.size() <= 0) throw new AssertionFailedError("No ExportFileType found for format '"+fmt.getLowerCaseName()+"'");
         	String[] mimeTypes = ((ExportFileType)fileTypes.get(0)).getMIMETypes();
