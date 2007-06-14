@@ -1,22 +1,26 @@
 Below the informal release procedure to be run
 as Release Candidate for all items with a star (*)
 and if successful again for all items.
-							Time (MacOS)
+							Time (MacOS 2.3 GHz Intel/MacOS Pro*)
 1.  *Update News Item in VectorGraphics				-
+    *Update Release Notes
+    *Check output files
+    *Update reference plots
 2.  *Commit							-
 3.  *mvn -DdryRun release:prepare				?
-4.  *mvn release:clean						 0:10
-5.  *mvn release:prepare					 4:36
-6.  *mvn release:perform					26:33
+4.  *mvn release:clean						 0:10*
+5.  *mvn release:prepare					 4:36*
+6.  *mvn release:perform					26:33*
+    *mvn deploy
 7.  *log into Windows/Unix and check out tag, and run 	     (Linux)     (Win)
 7.a   *mvn -Dvg.local=false					 1:43	 4:03
 7.b   *mvn site:site						 6:22	 2:25
 7.c   *mvn site:deploy						 2:04    3:11
 8.  *check out tag						-
-9.  *mvn javadoc:javadoc					 1:24
-10. *mvn site:site						 2:03
-11. *mvn -Dvg.local=false					 3:21
-12. *mvn -Dvg.local=false package assembly:attached		 3:16
+9.  *mvn javadoc:javadoc					 0:41
+10. *mvn site:site						 0:59
+11. *mvn -Dvg.local=false					 1:47
+12. *mvn -Dvg.local=false package assembly:attached		 1:52
 13. *check tar and zip files					-
 14. copy tar and zip files					-
 15. update jira project						-

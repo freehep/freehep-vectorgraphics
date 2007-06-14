@@ -1,10 +1,10 @@
 export VG=/Users/duns/svn/freehep/vectorgraphics
-export V=2.1-SNAPSHOT
+export V=2.1.1-SNAPSHOT
 export CLASSPATH=.
-export CLASSPATH=${CLASSPATH}:${VG}/../base/freehep-io/target/freehep-io-2.0.2-SNAPSHOT.jar
-export CLASSPATH=${CLASSPATH}:${VG}/../base/freehep-export/target/freehep-export-2.0.4-SNAPSHOT.jar
-export CLASSPATH=${CLASSPATH}:${VG}/../base/freehep-swing/target/freehep-swing-2.0.3-SNAPSHOT.jar
-export CLASSPATH=${CLASSPATH}:${VG}/../base/freehep-util/target/freehep-util-2.0.2-SNAPSHOT.jar
+export CLASSPATH=${CLASSPATH}:${VG}/../base/freehep-io/target/freehep-io-2.0.2.jar
+export CLASSPATH=${CLASSPATH}:${VG}/../base/freehep-export/target/freehep-export-2.1.jar
+export CLASSPATH=${CLASSPATH}:${VG}/../base/freehep-swing/target/freehep-swing-2.0.3.jar
+export CLASSPATH=${CLASSPATH}:${VG}/../base/freehep-util/target/freehep-util-2.0.2.jar
 export CLASSPATH=${CLASSPATH}:${VG}/freehep-graphics2d/target/freehep-graphics2d-${V}.jar
 export CLASSPATH=${CLASSPATH}:${VG}/freehep-graphicsio/target/freehep-graphicsio-${V}.jar
 export CLASSPATH=${CLASSPATH}:${VG}/freehep-graphicsio-tests/target/freehep-graphicsio-tests-${V}.jar
