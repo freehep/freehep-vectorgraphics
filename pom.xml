@@ -103,7 +103,10 @@
     </contributor>  
     <contributor>
       <name>Steffen Greiffenberg</name>
-      <organizationUrl>mailto:steffen.greiffenberg@semture.de</organizationUrl>
+      <organization>Semture - Business Excellence Engineering/organization>
+      <organizationUrl>http://www.semture.com</organizationUrl>
+      <email>mailto:steffen.greiffenberg@semture.de</email>
+      <timezone>+1</timezone>
     </contributor>  
   </contributors>
   <build>
