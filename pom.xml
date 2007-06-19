@@ -9,7 +9,7 @@
   <artifactId>vectorgraphics</artifactId>
   <packaging>pom</packaging>
   <name>FreeHEP Vector Graphics</name>
-  <version>2.1.1</version>
+  <version>2.1.2-SNAPSHOT</version>
   <description>FreeHEP Vector Graphics Library</description>
   <repositories>
      <repository>
@@ -250,7 +250,7 @@
       <dependency>
         <groupId>org.freehep</groupId>
         <artifactId>freehep-graphicsio-tests</artifactId>
-	<version>2.1.1</version>
+	<version>2.1.2-SNAPSHOT</version>
         <scope>provided</scope>
       </dependency>
     </dependencies>
@@ -280,9 +280,4 @@
     <module>freehep-graphicsio-swf</module>
     <module>freehep-graphicsio-tests</module>
   </modules>
-
-  <scm>
-    <connection>scm:svn:svn://svn.freehep.org/svn/freehep/tags/vectorgraphics-2.1.1</connection>
-    <developerConnection>scm:svn:svn://svn.freehep.org/svn/freehep/tags/vectorgraphics-2.1.1</developerConnection>
-  </scm>
 </project>
