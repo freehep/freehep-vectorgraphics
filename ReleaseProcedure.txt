@@ -7,6 +7,9 @@ and if successful again for all items.
     *Check output files
     *Update reference plots
 2.  *Commit							-
+2.a *Try "mvn; mvn package assembly:attached" and check zip and tar files.
+no duplicate versions in -bin should exist. The current assembly plugin 2.2-beta-1
+may include those. Make sure all dependencies just point to the same version of a jar.  
 3.  *mvn -DdryRun release:prepare				?
 4.  *mvn release:clean						 0:10*
 5.  *mvn release:prepare					 4:36*
