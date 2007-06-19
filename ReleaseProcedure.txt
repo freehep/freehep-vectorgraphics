@@ -1,33 +1,33 @@
 Below the informal release procedure to be run
 as Release Candidate for all items with a star (*)
 and if successful again for all items.
-							Time (MacOS 2.3 GHz Intel/MacOS Pro*)
+							Time (MacOS 2.3 GHz Intel)
 1.  *Update News Item in VectorGraphics				-
-    *Update Release Notes
-    *Check output files
-    *Update reference plots
-2.  *Commit							-
-2.a *Try "mvn; mvn package assembly:attached" and check zip and tar files.
-no duplicate versions in -bin should exist. The current assembly plugin 2.2-beta-1
-may include those. Make sure all dependencies just point to the same version of a jar.  
-3.  *mvn -DdryRun release:prepare				 2:12
-4.  *mvn release:clean						 0:10*
-5.  *mvn release:prepare					 4:36*
-6.  *mvn release:perform					26:33*
-    *mvn deploy
-7.  *log into Windows/Unix and check out tag, and run 	     (Linux)     (Win)
-7.a   *mvn -Dvg.local=false					 1:43	 4:03
-7.b   *mvn site:site						 6:22	 2:25
-7.c   *mvn site:deploy						 2:04    3:11
-8.  *check out tag						-
-9.  *mvn javadoc:javadoc					 0:41
-10. *mvn site:site						 0:59
-11. *mvn -Dvg.local=false					 1:47
-12. *mvn -Dvg.local=false package assembly:attached		 1:52
-13. *check tar and zip files					-
-14. copy tar and zip files					-
-15. update jira project						-
-16. update news main site					-
-17. announce forum						-
-18. announce mailing list					-
+2.  *Update Release Notes
+3.  *Check output files
+4.  *Update reference plots
+5.  *Commit							-
+6.  *Try "mvn; mvn package assembly:attached" and check zip and tar files.
+    no duplicate versions in -bin should exist. The current assembly plugin 2.2-beta-1
+    may include those. Make sure all dependencies just point to the same version of a jar.  
+7.  *mvn -DdryRun release:prepare				 2:12
+8.  *mvn release:clean						 0:10
+9.  *mvn release:prepare					 2:19
+10. *mvn release:perform					25:00
+11. *mvn deploy                                                  9:40
+12. *log into Windows/Unix and check out tag, and run 	     (Linux)     (Win)
+12a.   *mvn -Dvg.local=false					 1:43	 4:03
+12b.   *mvn site:site						 6:22	 2:25
+12c.   *mvn site:deploy						 2:04    3:11
+13. *check out tag						-
+14. *mvn javadoc:javadoc					 0:41
+15. *mvn site:site						 0:59
+16. *mvn -Dvg.local=false					 1:47
+17. *mvn -Dvg.local=false package assembly:attached		 1:52
+18. *check tar and zip files					-
+19. copy tar and zip files					-
+20. update jira project						-
+21. update news main site					-
+22. announce forum						-
+23. announce mailing list					-
  
