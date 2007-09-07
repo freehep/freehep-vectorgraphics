@@ -54,7 +54,7 @@ import org.freehep.util.images.ImageUtilities;
  * @author Charles Loomis
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java c7486ace72ac 2007/06/08 21:43:44 duns $
+ * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 9f187494f42c 2007/09/07 22:05:57 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -1236,8 +1236,13 @@ s     *
      * @param hints table to be set
      */
     public void setRenderingHints(Map hints) {
-        hints.clear();
-        hints.putAll(hints);
+        this.hints.clear();
+        if (hints instanceof RenderingHints) {
+        	RenderingHints renderingHints = (RenderingHints)hints;
+        	this.hints.putAll((Map)renderingHints.clone());
+        } else {
+        	this.hints.putAll(hints);
+        }
     }
 
     /**
