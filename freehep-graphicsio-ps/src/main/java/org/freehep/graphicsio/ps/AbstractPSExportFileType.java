@@ -30,7 +30,7 @@ import org.freehep.util.UserProperties;
 /**
  * 
  * @author Charles Loomis, Simon Fischer
- * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/AbstractPSExportFileType.java 4c4708a97391 2007/06/12 22:32:31 duns $
+ * @version $Id: freehep-graphicsio-ps/src/main/java/org/freehep/graphicsio/ps/AbstractPSExportFileType.java bed5e3a39f35 2007/09/10 18:13:00 duns $
  */
 public abstract class AbstractPSExportFileType extends AbstractExportFileType {
 
@@ -102,17 +102,5 @@ public abstract class AbstractPSExportFileType extends AbstractExportFileType {
 		optionsPanel.add(TableLayout.COLUMN_FILL, new JLabel());
 
 		return optionsPanel;
-	}
-
-	public VectorGraphics getGraphics(OutputStream os, Component target)
-			throws IOException {
-
-		return new PSGraphics2D(os, target);
-	}
-
-	public VectorGraphics getGraphics(OutputStream os, Dimension dimension)
-			throws IOException {
-
-		return new PSGraphics2D(os, dimension);
 	}
 }
