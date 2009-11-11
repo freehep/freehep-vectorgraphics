@@ -1,4 +1,4 @@
-FREEHEP - Copyright 2000-2005
+FREEHEP - Copyright 2000-2009
 
 Copyright Holders:
 
@@ -6,6 +6,10 @@ CERN, Geneva, Switzerland
 SLAC, Stanford, California, U.S.A.
 University of California Santa Cruz, U.S.A.
 
-This software is distributed under the LGPL license, see
-the file LGPL.txt
+This software is dual licensed under:
+
+- The LGPL license, see the file LGPL.txt
+- The Apache license, see the file APACHE-LICENSE-2.0.txt
+
+
 
