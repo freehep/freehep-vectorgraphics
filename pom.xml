@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.freehep</groupId>
@@ -68,7 +69,7 @@
         <role>Architect</role>
       </roles>
       <timezone>+1</timezone>
-    </developer>  
+    </developer>
   </developers>
   <contributors>
     <contributor>
@@ -78,7 +79,7 @@
       <roles>
         <role>Summer Student 2001</role>
       </roles>
-    </contributor>  
+    </contributor>
     <contributor>
       <name>Andre Bach</name>
       <organization>SLAC - Stanford Linear Accelerator Center</organization>
@@ -86,7 +87,7 @@
       <roles>
         <role>Summer Student 2004</role>
       </roles>
-    </contributor>  
+    </contributor>
     <contributor>
       <name>Partick Hellwig</name>
       <organization>CERN - European Organization for Nuclear Research</organization>
@@ -94,7 +95,7 @@
       <roles>
         <role>Summer Student 2000</role>
       </roles>
-    </contributor>  
+    </contributor>
     <contributor>
       <name>Sami Kama</name>
       <organization>CERN - European Organization for Nuclear Research</organization>
@@ -103,22 +104,22 @@
         <role>Summer Student 2001</role>
       </roles>
       <timezone />
-    </contributor>  
+    </contributor>
     <contributor>
       <name>Ian Graham</name>
       <organizationUrl>mailto:ian@kelman.com</organizationUrl>
-     </contributor>  
+    </contributor>
     <contributor>
       <name>Carsten Zerbst</name>
       <organizationUrl>mailto:carsten.zerbst@atlantec-es.com</organizationUrl>
-    </contributor>  
+    </contributor>
     <contributor>
       <name>Steffen Greiffenberg</name>
       <organization>Semture - Business Excellence Engineering</organization>
       <organizationUrl>http://www.semture.com</organizationUrl>
       <email>mailto:steffen.greiffenberg@semture.de</email>
       <timezone>+1</timezone>
-    </contributor>  
+    </contributor>
   </contributors>
 
   <build>
@@ -173,39 +174,31 @@
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-<!--
-        <configuration>
-          <forkMode>pertest</forkMode>
-          <includes>
-            <include>**/*TestSuite.java</include>
-          </includes>
-          <excludes>
-            <exclude>**/TestSuite.java</exclude>
-          </excludes>
-        </configuration>
--->
+        <!--
+          <configuration> <forkMode>pertest</forkMode> <includes>
+          <include>**/*TestSuite.java</include> </includes> <excludes>
+          <exclude>**/TestSuite.java</exclude> </excludes>
+          </configuration>
+        -->
       </plugin>
     </plugins>
   </build>
   <reporting>
     <plugins>
-<!--
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-        <configuration>
-          <aggregate>true</aggregate>
-        </configuration>
-      </plugin>
--->
+      <!--
+        <plugin> <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId> <configuration>
+        <aggregate>true</aggregate> </configuration> </plugin>
+      -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
-          <aggregate>true</aggregate>  
-<!-- bug in javadoc plugin 2.0, maybe next version will work       
-          <overview>overview.html</overview>
--->
+          <aggregate>true</aggregate>
+          <!--
+            bug in javadoc plugin 2.0, maybe next version will work
+            <overview>overview.html</overview>
+          -->
           <groups>
             <group>
               <title>VectorGraphics</title>
@@ -222,7 +215,7 @@
           </groups>
         </configuration>
       </plugin>
-    </plugins>  
+    </plugins>
   </reporting>
   <dependencyManagement>
     <dependencies>
@@ -244,23 +237,23 @@
       <dependency>
         <groupId>org.freehep</groupId>
         <artifactId>freehep-graphicsio-tests</artifactId>
-	<version>${version}</version>
+        <version>${version}</version>
       </dependency>
       <dependency>
         <groupId>org.jdom</groupId>
         <artifactId>jdom</artifactId>
-	<version>1.1</version>
+        <version>1.1</version>
       </dependency>
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-	<version>3.8.2</version>
+        <version>3.8.2</version>
         <scope>compile</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
+
   <modules>
-    <module>freehep-graphics-base</module>
     <module>freehep-graphics2d</module>
     <module>freehep-graphicsio</module>
     <module>freehep-graphicsio-emf</module>
@@ -271,4 +264,59 @@
     <module>freehep-graphicsio-swf</module>
     <module>freehep-graphicsio-tests</module>
   </modules>
+
+  <profiles>
+    <profile>
+      <id>default</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+
+    <profile>
+      <id>freehep</id>
+
+      <repositories>
+        <repository>
+          <id>freehep-maven</id>
+          <name>Maven FreeHEP</name>
+          <url>http://java.freehep.org/maven2</url>
+        </repository>
+      </repositories>
+
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>org.freehep</groupId>
+            <artifactId>freehep-util</artifactId>
+            <version>2.0.2</version>
+          </dependency>
+          <dependency>
+            <groupId>org.freehep</groupId>
+            <artifactId>freehep-io</artifactId>
+            <version>2.0.2</version>
+          </dependency>
+          <dependency>
+            <groupId>org.freehep</groupId>
+            <artifactId>freehep-export</artifactId>
+            <version>2.1.1</version>
+          </dependency>
+          <dependency>
+            <groupId>org.freehep</groupId>
+            <artifactId>freehep-xml</artifactId>
+            <version>2.1.1</version>
+          </dependency>
+          <dependency>
+            <groupId>org.freehep</groupId>
+            <artifactId>freehep-swing</artifactId>
+            <version>2.0.3</version>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+
+      <modules>
+        <module>freehep-graphics-base</module>
+      </modules>
+    </profile>
+  </profiles>
 </project>

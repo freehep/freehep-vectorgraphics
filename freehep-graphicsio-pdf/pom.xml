@@ -1,26 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
   <parent>
     <artifactId>vectorgraphics</artifactId>
     <groupId>org.freehep</groupId>
     <version>2.1.2-SNAPSHOT</version>
   </parent>
+
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.freehep</groupId>
+
   <artifactId>freehep-graphicsio-pdf</artifactId>
+
   <name>FreeHEP PDF Driver</name>
   <description>FreeHEP Portable Document Format Driver</description>
-  <repositories>
-    <repository>
-      <id>freehep-maven</id>
-      <name>Maven FreeHEP</name>
-      <url>http://java.freehep.org/maven2</url>
-    </repository>
-  </repositories>
+
   <dependencies>
-    <dependency>
-      <groupId>org.freehep</groupId>
-      <artifactId>freehep-graphics-base</artifactId>
-    </dependency>
     <dependency>
       <groupId>org.freehep</groupId>
       <artifactId>freehep-graphics2d</artifactId>
@@ -34,4 +27,23 @@
         <artifactId>freehep-graphicsio-tests</artifactId>
     </dependency>
   </dependencies>
+
+  <profiles>
+    <profile>
+      <id>default</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.freehep</groupId>
+          <artifactId>freehep-graphics-base</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>freehep</id>
+    </profile>
+  </profiles>
 </project>
