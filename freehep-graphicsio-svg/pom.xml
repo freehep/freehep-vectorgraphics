@@ -44,6 +44,12 @@
 
     <profile>
       <id>freehep</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.freehep</groupId>
+          <artifactId>freehep-xml</artifactId>
+        </dependency>
+      </dependencies>
     </profile>
   </profiles>
 </project>
