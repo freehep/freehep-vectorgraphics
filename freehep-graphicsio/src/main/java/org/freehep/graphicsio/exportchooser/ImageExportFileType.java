@@ -17,8 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.freehep.graphics2d.VectorGraphics;
-import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.graphicsio.ImageConstants;
+import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.swing.layout.TableLayout;
 import org.freehep.util.UserProperties;
 

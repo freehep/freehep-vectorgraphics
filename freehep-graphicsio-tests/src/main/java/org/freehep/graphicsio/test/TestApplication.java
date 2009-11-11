@@ -21,7 +21,7 @@ public class TestApplication {
         frame.addPanel("Custom Strokes", new TestCustomStrokes(null));
         frame.addPanel("FontDerivation", new TestFontDerivation(null));
         frame.addPanel("Fonts", new TestFonts(null));
-        frame.addPanel("Histogram", new TestHistogram(null));
+//        frame.addPanel("Histogram", new TestHistogram(null));
         frame.addPanel("HTML", new TestHTML(null));
         frame.addPanel("Image2D", new TestImage2D(null));
         frame.addPanel("Images", new TestImages(null));
@@ -30,7 +30,7 @@ public class TestApplication {
         frame.addPanel("Offset", new TestOffset(null));
         frame.addPanel("Paint", new TestPaint(null));
         frame.addPanel("PrintColors", new TestPrintColors(null));
-        frame.addPanel("Scatter Plot", new TestScatterPlot(null));
+//        frame.addPanel("Scatter Plot", new TestScatterPlot(null));
         frame.addPanel("Shapes", new TestShapes(null));
         frame.addPanel("Symbols", new TestSymbols2D(null));
         frame.addPanel("Text2D", new TestText2D(null));

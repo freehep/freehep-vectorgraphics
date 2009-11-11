@@ -1,0 +1,69 @@
+Idle> /vis/scene/create
+Idle> /vis/open HepRep
+G4HepRepSceneHandler::G4HepRepSceneHandler: 1
+0 HepRep scene handlers extanct.
+WARNING: objects with visibility flag set to "false" will not be drawn!
+  "/vis/set/culling off" to Draw such objects.
+  Also see other "/vis/set" commands.
+Idle> /vis/scene/add/trajectories
+Idle> /vis/scene/add/hits
+Idle> /run/beamOn 2
+
+>>> Event 0 >>> Simulation truth : e+ (15.3593,0,993.198)
+Hodoscope 1 has 1 hits.
+  Hodoscope[7] 4.98737 (nsec)
+Hodoscope 2 has 1 hits.
+  Hodoscope[10] 43.3934 (nsec)
+Drift Chamber 1 has 5 hits.
+  Layer[0] : time 6.67178 (nsec) --- local (x,y) 31.162, 3.28589
+  Layer[1] : time 8.33984 (nsec) --- local (x,y) 39.2208, 5.83581
+  Layer[2] : time 10.0079 (nsec) --- local (x,y) 47.1582, 8.21818
+  Layer[3] : time 11.6759 (nsec) --- local (x,y) 55.1988, 10.4779
+  Layer[4] : time 13.344 (nsec) --- local (x,y) 63.2974, 12.95
+Drift Chamber 2 has 5 hits.
+  Layer[0] : time 35.0509 (nsec) --- local (x,y) -55.4342, 31.7825
+  Layer[1] : time 36.7227 (nsec) --- local (x,y) -90.0998, 33.0307
+  Layer[2] : time 38.3946 (nsec) --- local (x,y) -124.84, 34.3552
+  Layer[3] : time 40.0663 (nsec) --- local (x,y) -159.163, 35.7569
+  Layer[4] : time 41.7381 (nsec) --- local (x,y) -193.348, 36.9011
+EM Calorimeter has 8 hits. Total Edep is 931.959 (MeV)
+Hadron Calorimeter has 0 hits. Total Edep is 0 (MeV)
+G4Scene::AddWorldIfEmpty: The scene was empty,
+   "world" has been added.
+WARNING: G4VisManager: the scene was empty, "world" has been
+  added and the view parameters have been reset.
+G4HepRepSceneHandler::open(G4Output-0.heprep)
+G4HepRepViewer::ShowView
+G4HepRepSceneHandler::close()
+
+>>> Event 1 >>> Simulation truth : mu+ (-10.7804,0,979.927)
+Hodoscope 1 has 1 hits.
+  Hodoscope[7] 5.01597 (nsec)
+Hodoscope 2 has 1 hits.
+  Hodoscope[8] 43.3069 (nsec)
+Drift Chamber 1 has 5 hits.
+  Layer[0] : time 6.71002 (nsec) --- local (x,y) -20.7036, 0.411097
+  Layer[1] : time 8.38763 (nsec) --- local (x,y) -25.7662, 1.06724
+  Layer[2] : time 10.0652 (nsec) --- local (x,y) -30.8135, 1.81038
+  Layer[3] : time 11.7429 (nsec) --- local (x,y) -35.9321, 2.49463
+  Layer[4] : time 13.4205 (nsec) --- local (x,y) -40.9426, 3.05739
+Drift Chamber 2 has 5 hits.
+  Layer[0] : time 34.9164 (nsec) --- local (x,y) -250.688, 11.7331
+  Layer[1] : time 36.5978 (nsec) --- local (x,y) -284.472, 12.6951
+  Layer[2] : time 38.2792 (nsec) --- local (x,y) -318.308, 13.6141
+  Layer[3] : time 39.9606 (nsec) --- local (x,y) -352.234, 14.5495
+  Layer[4] : time 41.642 (nsec) --- local (x,y) -386.18, 15.5419
+EM Calorimeter has 3 hits. Total Edep is 190.003 (MeV)
+Hadron Calorimeter has 2 hits. Total Edep is 25.7177 (MeV)
+G4HepRepSceneHandler::open(G4Output-0.heprep)
+G4HepRepViewer::ShowView
+G4HepRepSceneHandler::close()
+Idle> /vis/viewer/flush
+G4HepRepViewer::SetView
+G4HepRepViewer::ClearView
+G4HepRepViewer::DrawView
+G4HepRepViewer::SetView
+G4HepRepSceneHandler::open(G4Output-0.heprep)
+G4HepRepViewer::ShowView
+G4HepRepSceneHandler::close()
+Idle>

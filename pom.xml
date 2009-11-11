@@ -1,29 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <parent>
-    <artifactId>global</artifactId>
-    <groupId>org.freehep</groupId>
-    <version>8</version>
-  </parent>
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>org.freehep</groupId>
   <artifactId>vectorgraphics</artifactId>
-  <packaging>pom</packaging>
-  <name>FreeHEP Vector Graphics</name>
   <version>2.1.2-SNAPSHOT</version>
+
+  <packaging>pom</packaging>
+
+  <name>FreeHEP Vector Graphics</name>
   <description>FreeHEP Vector Graphics Library</description>
-  <repositories>
-     <repository>
-      <id>freehep-maven</id>
-      <name>Maven FreeHEP</name>
-      <url>http://java.freehep.org/maven2</url>
-    </repository>
-  </repositories>
-  <distributionManagement>
-    <site>
-      <id>freehep-web-deploy</id>
-      <url>scpexe://svn.freehep.org/nfs/slac/g/jas/workspace/freehep/__star__/web/freehep/vectorgraphics</url>
-    </site>
-  </distributionManagement>
+
   <developers>
     <developer>
       <id>duns</id>
@@ -109,13 +95,15 @@
       <timezone>+1</timezone>
     </contributor>  
   </contributors>
+
   <build>
+    <defaultGoal>install</defaultGoal>
     <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.freehep</groupId>
-          <artifactId>freehep-chartableconverter-plugin</artifactId>
-          <version>2.0</version>
+          <artifactId>freehep-chartable-converter-plugin</artifactId>
+          <version>2.0.1-SNAPSHOT</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -143,17 +131,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.freehep</groupId>
-        <artifactId>freehep-one-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>generate-dependencies</goal>
-            </goals>
-          </execution>
-        </executions>      
-      </plugin>
-      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.0.2</version>
@@ -171,7 +148,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <!-- Version 2.3 fine with FVG-312 fixed -->
+<!--
         <configuration>
           <forkMode>pertest</forkMode>
           <includes>
@@ -181,11 +158,13 @@
             <exclude>**/TestSuite.java</exclude>
           </excludes>
         </configuration>
+-->
       </plugin>
     </plugins>
   </build>
   <reporting>
     <plugins>
+<!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
@@ -193,6 +172,7 @@
           <aggregate>true</aggregate>
         </configuration>
       </plugin>
+-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -223,54 +203,40 @@
     <dependencies>
       <dependency>
         <groupId>org.freehep</groupId>
-        <artifactId>freehep-export</artifactId>
-        <version>2.1.1</version>
+        <artifactId>freehep-graphics-base</artifactId>
+        <version>${version}</version>
       </dependency>
       <dependency>
         <groupId>org.freehep</groupId>
-        <artifactId>freehep-io</artifactId>
-        <version>2.0.2</version>
+        <artifactId>freehep-graphics2d</artifactId>
+        <version>${version}</version>
       </dependency>
       <dependency>
         <groupId>org.freehep</groupId>
-        <artifactId>freehep-util</artifactId>
-        <version>2.0.2</version>
-      </dependency>
-      <dependency>
-        <groupId>org.freehep</groupId>
-        <artifactId>freehep-xml</artifactId>
-        <version>2.1.1</version>
-      </dependency>
-      <dependency>
-        <groupId>hep.aida</groupId>
-        <artifactId>aida</artifactId>
-        <version>3.3</version>
-        <scope>test</scope>
+        <artifactId>freehep-graphicsio</artifactId>
+        <version>${version}</version>
       </dependency>
       <dependency>
         <groupId>org.freehep</groupId>
         <artifactId>freehep-graphicsio-tests</artifactId>
-	<version>2.1.2-SNAPSHOT</version>
-        <scope>provided</scope>
+	<version>${version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jdom</groupId>
+        <artifactId>jdom</artifactId>
+	<version>1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+	<version>3.8.2</version>
+        <scope>compile</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
-  <!-- necessary for surefire 2.3 -->
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.2</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
   <modules>
+    <module>freehep-graphics-base</module>
     <module>freehep-graphics2d</module>
-<!--
-    <module>freehep-graphics3d</module>
-    <module>freehep-graphicsio-cgm</module>
-    <module>freehep-graphicsio-latex</module>
--->
     <module>freehep-graphicsio</module>
     <module>freehep-graphicsio-emf</module>
     <module>freehep-graphicsio-java</module>

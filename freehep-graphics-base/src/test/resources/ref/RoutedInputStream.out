@@ -1,0 +1,22 @@
+StartDThis is part of the main stream,[StartA:StartAbut this is part of the A stream.EndA]while this
+is again part of the main stream.
+
+Of course it could be more difficult:
+
+SStStaStarStart[StartB:StartBis where stream B starts
+and this can be several lines long
+and ends when we see EndB]
+
+and...
+
+[StartC:StartC
+Lets see if this ends up again in the main stream
+EndC]StartE, because it should not...
+EndE
+
+and the next one should be
+
+[EarlyClosed:SClose]
+
+and this is the end.
+EndD

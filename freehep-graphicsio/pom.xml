@@ -9,14 +9,8 @@
   <artifactId>freehep-graphicsio</artifactId>
   <name>FreeHEP GraphicsIO</name>
   <description>FreeHEP GraphicsIO Base Library</description>
-  <repositories>
-    <repository>
-      <id>freehep-maven</id>
-      <name>Maven FreeHEP</name>
-      <url>http://java.freehep.org/maven2</url>
-    </repository>
-  </repositories>
   <build>
+    <defaultGoal>install</defaultGoal>
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -38,16 +32,11 @@
   <dependencies>
     <dependency>
       <groupId>org.freehep</groupId>
+      <artifactId>freehep-graphics-base</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.freehep</groupId>
       <artifactId>freehep-graphics2d</artifactId>
-      <version>2.1.2-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>org.freehep</groupId>
-      <artifactId>freehep-export</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.freehep</groupId>
-      <artifactId>freehep-io</artifactId>
     </dependency>
   </dependencies>
 </project>

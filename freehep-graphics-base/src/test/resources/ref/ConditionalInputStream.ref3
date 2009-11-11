@@ -1,0 +1,34 @@
+Here is a small file to test the ConditionalInputStream.
+
+It is all based on the statements:
+
+-  @ifdef
+-  @ifndef
+-  @else
+-  @endif
+
+which can be escaped like \ @ifdef
+
+So:
+
+              
+FREEHEP is defined
+            
+FREEHEP and WIRED are defined
+     
+                                   
+      
+     
+                 
+      
+
+some other @cvs and @java signs
+
+             
+                     
+      
+
+moreover, empty lines and spaces should be output for every character removed.
+
+
+This is line number 34.

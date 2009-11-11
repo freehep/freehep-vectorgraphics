@@ -9,13 +9,6 @@
   <artifactId>freehep-graphicsio-tests</artifactId>
   <name>FreeHEP GraphicsIO Tests</name>
   <description>FreeHEP GraphicsIO Test Library</description>
-  <repositories>
-    <repository>
-      <id>freehep-maven</id>
-      <name>Maven FreeHEP</name>
-      <url>http://java.freehep.org/maven2</url>
-    </repository>
-  </repositories>
   <build>
     <plugins>
       <plugin>
@@ -45,23 +38,19 @@
     <dependencies>
         <dependency>
             <groupId>org.freehep</groupId>
-            <artifactId>freehep-export</artifactId>
+            <artifactId>freehep-graphics-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.freehep</groupId>
+            <artifactId>freehep-graphics2d</artifactId>
         </dependency>
         <dependency>
             <groupId>org.freehep</groupId>
             <artifactId>freehep-graphicsio</artifactId>
-            <version>2.1.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>compile</scope>
-        </dependency>
-    <dependency>
-      <groupId>org.freehep</groupId>
-      <artifactId>jas-plotter</artifactId>
-      <version>2.2</version>
-      <scope>compile</scope>
-    </dependency>
+        </dependency>        
     </dependencies>
 </project>

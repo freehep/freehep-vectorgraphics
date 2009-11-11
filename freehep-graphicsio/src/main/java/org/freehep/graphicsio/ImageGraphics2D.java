@@ -10,13 +10,13 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Enumeration;
@@ -36,11 +36,11 @@ import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
 
 import org.freehep.graphics2d.PixelGraphics2D;
+import org.freehep.graphicsio.raw.RawImageWriteParam;
 import org.freehep.util.UserProperties;
+import org.freehep.util.images.ImageUtilities;
 import org.freehep.util.io.ASCII85OutputStream;
 import org.freehep.util.io.FlateOutputStream;
-import org.freehep.util.images.ImageUtilities;
-import org.freehep.graphicsio.raw.RawImageWriteParam;
 
 /**
  * Generic class for generating bitmap outputs from an image.
