@@ -1,4 +1,4 @@
-// Copyright 2001-2005 freehep
+// Copyright 2001-2009 freehep
 package org.freehep.graphicsio.font;
 
 import java.awt.Shape;
@@ -43,7 +43,7 @@ public class FontEmbedderType1 extends FontEmbedder {
      * Ghostview crashes when set to true. The freehep ps interpreter handles it
      * correctly.
      */
-    private static final boolean HEX_ENC_CHARSTRINGS = false;
+    private static boolean HEX_ENC_CHARSTRINGS = false;
 
     private PrintStream fontFile, encrypted;
 

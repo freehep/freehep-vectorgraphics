@@ -1,19 +1,14 @@
-// Copyright 2003-2007, FreeHEP.
+// Copyright 2003-2009, FreeHEP.
 package org.freehep.graphicsio.ps;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Properties;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.InfoConstants;
-import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.exportchooser.AbstractExportFileType;
 import org.freehep.graphicsio.exportchooser.BackgroundPanel;
 import org.freehep.graphicsio.exportchooser.FontPanel;

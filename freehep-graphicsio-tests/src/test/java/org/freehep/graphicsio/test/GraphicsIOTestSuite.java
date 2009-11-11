@@ -1,7 +1,6 @@
-// Copyright 2005-2007, FreeHEP.
+// Copyright 2005-2009, FreeHEP.
 package org.freehep.graphicsio.test;
 
-import org.freehep.graphicsio.ImageConstants;
 
 
 /**
