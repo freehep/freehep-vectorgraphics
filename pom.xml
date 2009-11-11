@@ -4,24 +4,49 @@
   <groupId>org.freehep</groupId>
   <artifactId>vectorgraphics</artifactId>
   <version>2.1.2-SNAPSHOT</version>
-
   <packaging>pom</packaging>
 
   <name>FreeHEP Vector Graphics</name>
   <description>FreeHEP Vector Graphics Library</description>
+  <url>http://duns.github.com/maven-nar-plugin/</url>
+
+  <!-- temporarily until we have a fixed site -->
+  <distributionManagement>
+    <site>
+      <id>local</id>
+      <url>file:///Users/duns/freehep/git/freehep-vectorgraphics-site</url>
+    </site>
+  </distributionManagement>
+
+  <prerequisites>
+    <maven>2.0.9</maven>
+  </prerequisites>
+
+  <scm>
+    <connection>scm:git:git://github.com/freehep/freehep-vectorgraphics.git</connection>
+    <developerConnection>scm:git:git@github.com:freehep/freehep-vectorgraphics.git</developerConnection>
+    <url>http://github.com/freehep/freehep-vectorgraphics</url>
+  </scm>
+  <issueManagement>
+    <system>jira</system>
+    <url>http://bugs.freehep.org/browse/FVG</url>
+  </issueManagement>
+
+  <properties>
+    <mavenVersion>2.0.9</mavenVersion>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
   <developers>
     <developer>
       <id>duns</id>
       <name>Mark Donszelmann</name>
-      <email>Mark.Donszelmann@slac.stanford.edu</email>
-      <organization>SLAC - Stanford Linear Accelerator Center</organization>
-      <organizationUrl>http://www.slac.stanford.edu</organizationUrl>
+      <email>Mark.Donszelmann@gmail.com</email>
       <roles>
         <role>Architect</role>
         <role>Release Manager</role>
       </roles>
-      <timezone>-8</timezone>
+      <timezone>+1</timezone>
     </developer>
     <developer>
       <id>tonyj</id>
