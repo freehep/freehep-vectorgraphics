@@ -271,6 +271,10 @@
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
+
+      <modules>
+        <module>freehep-graphics-base</module>
+      </modules>
     </profile>
 
     <profile>
@@ -314,9 +318,6 @@
         </dependencies>
       </dependencyManagement>
 
-      <modules>
-        <module>freehep-graphics-base</module>
-      </modules>
     </profile>
   </profiles>
 </project>
