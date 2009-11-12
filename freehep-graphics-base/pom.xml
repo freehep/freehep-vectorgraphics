@@ -19,7 +19,11 @@
   <build>
     <defaultGoal>install</defaultGoal>
   </build>
-  <dependencies>
+  <dependencies>     
+  	<dependency>
+  		<groupId>org.freehep</groupId>
+  		<artifactId>freehep-io</artifactId>
+  	</dependency>
   	<dependency>
   		<groupId>junit</groupId>
   		<artifactId>junit</artifactId>
