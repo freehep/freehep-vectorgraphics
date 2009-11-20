@@ -14,6 +14,13 @@
   <name>FreeHEP Graphics2D</name>
   <description>FreeHEP Graphics 2D Library</description>
 
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+  </dependencies>
+
   <profiles>
     <profile>
       <id>default</id>

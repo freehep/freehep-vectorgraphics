@@ -1,7 +1,7 @@
 // Copyright 2005-2009, FreeHEP.
 package org.freehep.graphicsio.test;
 
-
+import org.freehep.graphicsio.ImageConstants;
 
 /**
  * @author Mark Donszelmann
@@ -9,7 +9,7 @@ package org.freehep.graphicsio.test;
  */
 public class GraphicsIOTestSuite extends TestSuite {
 
-/* FIXME re-enable ?
+/*
     public static TestSuite suite() {
         GraphicsIOTestSuite suite = new GraphicsIOTestSuite();
         suite.addTests(ImageConstants.BMP);
