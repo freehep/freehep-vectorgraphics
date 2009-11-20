@@ -222,22 +222,22 @@
       <dependency>
         <groupId>org.freehep</groupId>
         <artifactId>freehep-graphics-base</artifactId>
-        <version>${version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>org.freehep</groupId>
         <artifactId>freehep-graphics2d</artifactId>
-        <version>${version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>org.freehep</groupId>
         <artifactId>freehep-graphicsio</artifactId>
-        <version>${version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>org.freehep</groupId>
         <artifactId>freehep-graphicsio-tests</artifactId>
-        <version>${version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>org.jdom</groupId>
