@@ -36,11 +36,9 @@ public abstract class TTFTable {
 
     public void read() throws IOException {
         ttf.pushPos();
-        System.out.print("[" + getTag());
         ttf.seek(0);
         readTable();
         isRead = true;
-        System.out.print("]");
         ttf.popPos();
     }
 

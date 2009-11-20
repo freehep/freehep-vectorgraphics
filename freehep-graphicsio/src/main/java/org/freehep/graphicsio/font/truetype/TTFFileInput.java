@@ -1,3 +1,4 @@
+// Copyright FreeHEP, 2001-2009
 package org.freehep.graphicsio.font.truetype;
 
 import java.io.IOException;

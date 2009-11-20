@@ -1,4 +1,4 @@
-// Copyright 2001, FreeHEP.
+// Copyright 2001-2009, FreeHEP.
 package org.freehep.graphicsio.font.truetype;
 
 import java.io.IOException;
@@ -26,17 +26,18 @@ public abstract class TTFFont {
         TTFTable table = null;
         for (int i = 0; i < TTFTable.TT_TAGS.length; i++) {
             if (name.equals(TTFTable.TT_TAGS[i])) {
-                try {
-                    table = (TTFTable) TTFTable.TABLE_CLASSES[i].newInstance();
+                    try {
+						table = (TTFTable) TTFTable.TABLE_CLASSES[i].newInstance();
+					} catch (InstantiationException e) {
+						throw new IOException(e);
+					} catch (IllegalAccessException e) {
+						throw new IOException(e);
+					}
                     table.init(this, input);
                     return table;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
             }
         }
-        System.err.println("Table '" + name + "' ignored.");
+//        System.err.println("Table '" + name + "' ignored.");
         return null;
     }
 

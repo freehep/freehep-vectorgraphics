@@ -1,4 +1,4 @@
-// Copyright 2001-2006, FreeHEP.
+// Copyright 2001-2009, FreeHEP.
 package org.freehep.graphicsio.font.truetype;
 
 import java.awt.Rectangle;
@@ -324,9 +324,8 @@ public class TTFGlyfTable extends TTFVersionTable {
                     try {
                         getGlyph(i);
                     } catch (IOException e) {
-                        System.err.println("While reading glyph #" + i
-                                + " (offset " + offsets[i] + "):");
-                        e.printStackTrace();
+                        throw new IOException("While reading glyph #" + i
+                                + " (offset " + offsets[i] + "):", e);
                     }
                 }
             }

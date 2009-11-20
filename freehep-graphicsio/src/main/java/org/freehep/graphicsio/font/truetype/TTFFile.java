@@ -1,4 +1,4 @@
-// Copyright 2001, FreeHEP.
+// Copyright 2001-2009, FreeHEP.
 package org.freehep.graphicsio.font.truetype;
 
 import java.io.FileNotFoundException;
