@@ -10,7 +10,7 @@ import org.freehep.graphicsio.ImageConstants;
 public class GraphicsIOTestSuite extends TestSuite {
 
 /*
-    public static TestSuite suite() {
+    public static TestSuite testSuite() {
         GraphicsIOTestSuite suite = new GraphicsIOTestSuite();
         suite.addTests(ImageConstants.BMP);
         suite.addTests(ImageConstants.GIF);
