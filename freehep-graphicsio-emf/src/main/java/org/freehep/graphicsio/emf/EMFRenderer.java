@@ -176,7 +176,7 @@ public class EMFRenderer {
      * stores the parsed tags. Filled by the constructor. Read by
      * {@link #paint(java.awt.Graphics2D)}
      */
-    private Vector tags = new Vector(0);
+    private Vector<Tag> tags = new Vector<Tag>(0);
 
     /**
      * Created by BeginPath and closed by EndPath.
@@ -196,7 +196,7 @@ public class EMFRenderer {
      * {@link org.freehep.graphicsio.emf.gdi.SaveDC} stores
      * an Instance of DC if saveDC is read. RestoreDC pops an object.
      */
-    private Stack dcStack = new Stack();
+    private Stack<DC> dcStack = new Stack<DC>();
 
     /**
      * default direction is counterclockwise
@@ -265,7 +265,7 @@ public class EMFRenderer {
         // store at leat clip and transformation
         Shape clip = g2.getClip();
         AffineTransform at = g2.getTransform();
-        Map hints = g2.getRenderingHints();
+        Map<?, ?> hints = g2.getRenderingHints();
 
         // some quality settings
         g2.setRenderingHint(
@@ -314,7 +314,7 @@ public class EMFRenderer {
         // iterate and render all tags
         Tag tag;
         for (int i = 0; i < tags.size(); i++) {
-            tag = (Tag) tags.get(i);
+            tag = tags.get(i);
             if (tag instanceof EMFTag) {
                 ((EMFTag) tags.get(i)).render(this);
             } else {
@@ -405,7 +405,7 @@ public class EMFRenderer {
         // is somethoing stored?
         if (!dcStack.empty()) {
             // read it
-            DC dc = (DC) dcStack.pop();
+            DC dc = dcStack.pop();
 
             // use it
             meterLimit = dc.meterLimit;

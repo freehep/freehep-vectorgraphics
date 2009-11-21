@@ -7,6 +7,7 @@ import java.awt.font.GlyphVector;
 import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
+import java.text.AttributedCharacterIterator.Attribute;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -32,8 +33,8 @@ public class SVGFontTable {
      * Stores fonts and a glyph-hashtable. The font key ist normalized using
      * {@link #untransform(java.awt.Font)}
      */
-    private Hashtable/*<Font, Hashtable<String, SVGGlyph>*/ glyphs =
-        new Hashtable/*<Font, Hashtable<String SVGGlyph>>*/();
+    private Hashtable/*<Font, Hashtable<String, SVGGlyph>*/<Font, Hashtable<String, SVGGlyph>> glyphs =
+        new Hashtable/*<Font, Hashtable<String SVGGlyph>>*/<Font, Hashtable<String, SVGGlyph>>();
 
     /**
      * creates a glyph for the string character
@@ -44,10 +45,10 @@ public class SVGFontTable {
      */
     private SVGGlyph addGlyph(int c, Font font) {
         // is the font stored?
-        Hashtable/*<String, SVGGlyph>*/ glyphs = getGlyphs(font);
+        Hashtable/*<String, SVGGlyph>*/<String, SVGGlyph> glyphs = getGlyphs(font);
 
         // does a glyph allready exist?
-        SVGGlyph result = (SVGGlyph) glyphs.get(String.valueOf(c));
+        SVGGlyph result = glyphs.get(String.valueOf(c));
 
         // create a new one?
         if (result == null) {
@@ -97,14 +98,14 @@ public class SVGFontTable {
      * @param font
      * @return glyph vectors for font
      */
-    private Hashtable/*<String SVGGlyph>*/ getGlyphs(Font font) {
+    private Hashtable/*<String SVGGlyph>*/<String, SVGGlyph> getGlyphs(Font font) {
         // derive a default font for the font table
         font = untransform(font);
 
-        Hashtable/*<String SVGGlyph>*/ result =
-            (Hashtable/*<String SVGGlyph>*/) glyphs.get(font);
+        Hashtable/*<String SVGGlyph>*/<String, SVGGlyph> result =
+            glyphs.get(font);
         if (result == null) {
-            result = new Hashtable/*<String SVGGlyph>*/();
+            result = new Hashtable/*<String SVGGlyph>*/<String, SVGGlyph>();
             glyphs.put(font, result);
         }
         return result;
@@ -124,12 +125,12 @@ public class SVGFontTable {
     public String toString() {
         StringBuffer result = new StringBuffer();
 
-        Enumeration/*<Font>*/ fonts = this.glyphs.keys();
+        Enumeration/*<Font>*/<Font> fonts = this.glyphs.keys();
         while (fonts.hasMoreElements()) {
-            Font font = (Font) fonts.nextElement();
+            Font font = fonts.nextElement();
 
             // replace font family for svg
-            Map /*<TextAttribute, ?>*/ attributes = FontUtilities.getAttributes(font);
+            Map /*<TextAttribute, ?>*/<Attribute, Object> attributes = FontUtilities.getAttributes(font);
 
             // Dialog -> Helvetica
             normalize(attributes);
@@ -203,7 +204,7 @@ public class SVGFontTable {
             result.append("/>\n");
 
             // regular glyphs
-            Iterator glyphs = getGlyphs(font).values().iterator();
+            Iterator<SVGGlyph> glyphs = getGlyphs(font).values().iterator();
             while (glyphs.hasNext()) {
                 result.append(glyphs.next().toString());
                 result.append("\n");
@@ -230,7 +231,7 @@ public class SVGFontTable {
      */
     private Font untransform(Font font) {
         // replace font family
-        Map /*<TextAttribute, ?>*/ attributes = FontUtilities.getAttributes(font);
+        Map<Attribute, Object> attributes = FontUtilities.getAttributes(font);
 
         // set default font size
         attributes.put(TextAttribute.SIZE, new Float(SVGGlyph.FONT_SIZE));
@@ -274,7 +275,7 @@ public class SVGFontTable {
      *
      * @param attributes with font name to change
      */
-    public static void normalize(Map /*<TextAttribute, ?>*/ attributes) {
+    public static void normalize(Map /*<TextAttribute, ?>*/<Attribute, Object> attributes) {
         // dialog.bold -> Dialog with TextAttribute.WEIGHT_BOLD
         FontTable.normalize(attributes);
 

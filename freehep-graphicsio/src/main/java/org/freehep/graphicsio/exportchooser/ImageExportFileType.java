@@ -51,7 +51,7 @@ public class ImageExportFileType extends AbstractExportFileType {
 	protected OptionTextField compressQuality;
 
 	protected ImageExportFileType(String format) {
-		Iterator iterator = ImageIO.getImageWritersByFormatName(format);
+		Iterator<?> iterator = ImageIO.getImageWritersByFormatName(format);
 		if (iterator.hasNext()) {
 			ImageWriter writer = (ImageWriter) iterator.next();
 			this.format = format;
@@ -107,7 +107,7 @@ public class ImageExportFileType extends AbstractExportFileType {
 
 	private static ImageExportFileType exportFileType(String className) {
 		try {
-			Class clazz = Class.forName(className);
+			Class<?> clazz = Class.forName(className);
 			return (ImageExportFileType) clazz.newInstance();
 		} catch (Exception e) {
 			System.out.println(e);

@@ -1,4 +1,4 @@
-// Copyright 2006, FreeHEP
+// Copyright 2006-2009, FreeHEP
 package org.freehep.util.export;
 
 import java.util.HashSet;
@@ -7,16 +7,15 @@ import java.util.Set;
 /**
  * 
  * @author duns
- * @version $Id: src/main/java/org/freehep/util/export/MimeTypes.java 63d0cafb1b73 2006/12/04 16:11:32 duns $
  */
 public class MimeTypes {
 
-    private static Set bitmaps;
-    private static Set vectors;
-    private static Set others;
+    private static Set<String> bitmaps;
+    private static Set<String> vectors;
+    private static Set<String> others;
     
     static {
-        bitmaps = new HashSet();
+        bitmaps = new HashSet<String>();
         bitmaps.add("image/bmp");
         bitmaps.add("image/x-bmp");
         bitmaps.add("image/gif");
@@ -38,7 +37,7 @@ public class MimeTypes {
         bitmaps.add("image/x-windows-bmp");
         bitmaps.add("image/vnd.wap.wbmp");
         
-        vectors = new HashSet();
+        vectors = new HashSet<String>();
         vectors.add("image/cgm");
         vectors.add("image/x-emf");
         vectors.add("image/tex");
@@ -47,7 +46,7 @@ public class MimeTypes {
         vectors.add("image/svg+xml");
         vectors.add("application/x-shockwave-flash");
         
-        others = new HashSet();
+        others = new HashSet<String>();
         others.add("application/java");
     }
     

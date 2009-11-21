@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.AttributedCharacterIterator.Attribute;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -100,9 +101,9 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
 
     private Color brushColor = null;
 
-    private Map fontTable; // java fonts
+    private Map<Font, Integer> fontTable; // java fonts
 
-    private Map unitFontTable; // windows fonts
+    private Map<Font, Font> unitFontTable; // windows fonts
 
     private EMFPathConstructor pathConstructor;
 
@@ -180,8 +181,8 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
     }
 
     private void init(OutputStream os) {
-        fontTable = new HashMap();
-        unitFontTable = new HashMap();
+        fontTable = new HashMap<Font, Integer>();
+        unitFontTable = new HashMap<Font, Font>();
         evenOdd = false;
 
         handleManager = new EMFHandleManager();
@@ -450,13 +451,13 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         }
 
         // dialog.bold -> Dialog with TextAttribute.WEIGHT_BOLD
-        Map attributes = FontUtilities.getAttributes(getFont());
+        Map<Attribute, Object> attributes = FontUtilities.getAttributes(getFont());
         FontTable.normalize(attributes);
         Font font = new Font(attributes);
 
-        Font unitFont = (Font) unitFontTable.get(font);
+        Font unitFont = unitFontTable.get(font);
 
-        Integer fontIndex = (Integer) fontTable.get(font);
+        Integer fontIndex = fontTable.get(font);
         if (fontIndex == null) {
             // for special fonts (Symbol, ZapfDingbats) we choose a standard
             // font and

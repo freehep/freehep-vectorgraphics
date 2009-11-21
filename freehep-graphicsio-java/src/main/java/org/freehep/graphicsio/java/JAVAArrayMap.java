@@ -10,12 +10,12 @@ import java.awt.RenderingHints;
  * @author Steffen Greiffenberg
  * @version $Revision$
  */
-public class JAVAArrayMap extends HashMap {
+public class JAVAArrayMap extends HashMap<Object, Object> {
 
     /**
      * Stores the string representation for JDK 1.5 Rendering Hints
      */
-    public static HashMap HINTS = new HashMap();
+    public static HashMap<Object, String> HINTS = new HashMap<Object, String>();
     static {
         HINTS.put(RenderingHints.KEY_ANTIALIASING,"RenderingHints.KEY_ANTIALIASING");
         HINTS.put(RenderingHints.VALUE_ANTIALIAS_ON,"RenderingHints.VALUE_ANTIALIAS_ON");

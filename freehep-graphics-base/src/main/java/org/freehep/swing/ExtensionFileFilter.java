@@ -43,7 +43,7 @@ public class ExtensionFileFilter extends FileFilter {
     private String fullDescription = null;
     private boolean useExtensionsInDescription = true;
 
-    private LinkedList endings = null;
+    private LinkedList<String> endings = null;
 
     /**
      * Creates a file filter. If no filters are added, then all
@@ -52,7 +52,7 @@ public class ExtensionFileFilter extends FileFilter {
      * @see #addExtension
      */
     public ExtensionFileFilter() {
-        this.endings = new LinkedList();
+        this.endings = new LinkedList<String>();
     }
 
     /**
@@ -128,9 +128,9 @@ public class ExtensionFileFilter extends FileFilter {
 
     	if (f!=null) {
     	    String filename = f.getName();
-            Iterator i = endings.iterator();
+            Iterator<String> i = endings.iterator();
             while (i.hasNext()) {
-                String end = (String) i.next();
+                String end = i.next();
                 if (filename.endsWith(end)) return end;
     	    }
     	}
@@ -161,9 +161,9 @@ public class ExtensionFileFilter extends FileFilter {
     	    if (description == null || isExtensionListInDescription()) {
      		    fullDescription = description==null ? "(" : description + " (";
     		    // build the description from the extension list
-    		    Iterator i = endings.iterator();
+    		    Iterator<String> i = endings.iterator();
     		    while (i.hasNext()) {
-    		        fullDescription += (String) i.next();
+    		        fullDescription += i.next();
                     if (i.hasNext()) fullDescription += ", ";
     		    }
     		    fullDescription += ")";

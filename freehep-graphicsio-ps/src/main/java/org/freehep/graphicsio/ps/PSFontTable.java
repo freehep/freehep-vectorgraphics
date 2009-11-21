@@ -7,6 +7,7 @@ import java.awt.font.TextAttribute;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.text.AttributedCharacterIterator.Attribute;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
@@ -94,7 +95,7 @@ public class PSFontTable extends FontTable {
      * fonts that have no TextAttribute.WEIGHT and TextAttribute.POSTURE,
      * used by {@link #createFontReference(java.awt.Font)}
      */
-    private static final HashSet ignoreAtributes = new HashSet();
+    private static final HashSet<String> ignoreAtributes = new HashSet<String>();
     static {
         ignoreAtributes.add("Symbol");
         ignoreAtributes.add("ZapfDingbats");
@@ -107,14 +108,15 @@ public class PSFontTable extends FontTable {
      * @param font
      * @return derived font
      */
+    @SuppressWarnings( "unchecked" )
     protected Font substituteFont(Font font) {
-        Map attributes = FontUtilities.getAttributes(font);
+        Map<?, ?> attributes = FontUtilities.getAttributes(font);
         // change names
         // normalize(attributes);
         // remove transformations
         attributes.remove(TextAttribute.TRANSFORM);
         attributes.remove(TextAttribute.SUPERSCRIPT);
-        return new Font(attributes);
+        return new Font((Map<? extends Attribute, ?>) attributes);
     }
 
     /**
@@ -123,7 +125,7 @@ public class PSFontTable extends FontTable {
      * Uses {@link #normalize(java.util.Map)}
      */
     protected String createFontReference(Font font) {
-        Map /*<TextAttribute, ?>*/ attributes = FontUtilities.getAttributes(font);
+        Map /*<TextAttribute, ?>*/<Attribute, Object> attributes = FontUtilities.getAttributes(font);
         normalize(attributes);
 
         // replace the name
@@ -237,7 +239,7 @@ public class PSFontTable extends FontTable {
      *
      * @param attributes with font name to change
      */
-    public static void normalize(Map /*<TextAttribute, ?>*/ attributes) {
+    public static void normalize(Map /*<TextAttribute, ?>*/<Attribute, Object> attributes) {
         // dialog.bold -> Dialog with TextAttribute.WEIGHT_BOLD
         FontTable.normalize(attributes);
 

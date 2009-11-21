@@ -114,7 +114,7 @@ public class XMLWriter implements XMLTagWriter
 	            StringBuffer sb = new StringBuffer("Not all tags were closed before closing XML document:\n");
 	            while (!openTags.isEmpty()) {
 	                sb.append("   </");
-	                sb.append((String)openTags.pop());
+	                sb.append(openTags.pop());
 	                sb.append(">\n");
 	            }
 	            throw new RuntimeException(sb.toString());
@@ -257,7 +257,7 @@ public class XMLWriter implements XMLTagWriter
 	{
 		int width = tagLength + 1;
 		boolean extraIndent = false;
-		Enumeration e = attributes.keys();
+		Enumeration<String> e = attributes.keys();
 		while (e.hasMoreElements())
 		{
 			String key = e.nextElement().toString();
@@ -448,8 +448,8 @@ public class XMLWriter implements XMLTagWriter
 
     protected boolean closed = true;
     private String dtdName = null;
-	private Hashtable attributes = new Hashtable();
-	private Stack openTags = new Stack();
+	private Hashtable<String, String> attributes = new Hashtable<String, String>();
+	private Stack<String> openTags = new Stack<String>();
 	protected IndentPrintWriter writer;
     protected String defaultNameSpace;
 }

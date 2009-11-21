@@ -52,16 +52,16 @@ public class UserProperties extends Properties {
         this.altDefaults = altDefaults;
     }
 
-    public Enumeration propertyNames() {
+    public Enumeration<?> propertyNames() {
         
-        List list = new ArrayList();
+        List<String> list = new ArrayList<String>();
 
-        for (Enumeration e = super.propertyNames(); e.hasMoreElements(); ) {
-            list.add(e.nextElement());
+        for (Enumeration<?> e = super.propertyNames(); e.hasMoreElements(); ) {
+            list.add((String)e.nextElement());
         }
         if (altDefaults != null) {
-            for (Enumeration e = altDefaults.propertyNames(); e.hasMoreElements(); ) {
-                list.add(e.nextElement());
+            for (Enumeration<?> e = altDefaults.propertyNames(); e.hasMoreElements(); ) {
+                list.add((String)e.nextElement());
             }
         }
 
@@ -72,7 +72,7 @@ public class UserProperties extends Properties {
      * Copies properties, including its defaults into this UserProperties
      */
     public void setProperties(Properties properties) {
-        for (Enumeration e=properties.propertyNames(); e.hasMoreElements(); ) {
+        for (Enumeration<?> e=properties.propertyNames(); e.hasMoreElements(); ) {
             String key = (String)e.nextElement();
             setProperty(key, properties.getProperty(key));
         }

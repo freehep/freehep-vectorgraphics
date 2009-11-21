@@ -16,14 +16,14 @@ public class DefineFont extends DefinitionTag {
 
     private int character;
 
-    private List /* SWFShape */shapes;
+    private List /* SWFShape */<SWFShape>shapes;
 
     private DefineFontInfo info;
 
     public DefineFont(int id) {
         this();
         character = id;
-        this.shapes = new ArrayList();
+        this.shapes = new ArrayList<SWFShape>();
     }
 
     public void add(SWFShape shape) {
@@ -51,7 +51,7 @@ public class DefineFont extends DefinitionTag {
             offsets[i] = swf.readUnsignedShort();
         }
 
-        tag.shapes = new ArrayList();
+        tag.shapes = new ArrayList<SWFShape>();
         for (int i = 0; i < glyphCount; i++) {
             tag.shapes.add(new SWFShape(swf));
         }
@@ -65,7 +65,7 @@ public class DefineFont extends DefinitionTag {
 
         for (int i = 0; i < shapes.size(); i++) {
             offsets[i] = swf.getBufferLength();
-            ((SWFShape) shapes.get(i)).write(swf);
+            shapes.get(i).write(swf);
         }
 
         swf.popBuffer();

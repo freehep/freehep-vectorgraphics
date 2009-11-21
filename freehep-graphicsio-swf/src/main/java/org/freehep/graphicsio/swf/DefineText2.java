@@ -16,7 +16,7 @@ import java.util.Vector;
 public class DefineText2 extends DefineText {
 
     public DefineText2(int id, Rectangle2D bounds, AffineTransform matrix,
-            Vector text) {
+            Vector<Record> text) {
         this();
         character = id;
         this.bounds = bounds;

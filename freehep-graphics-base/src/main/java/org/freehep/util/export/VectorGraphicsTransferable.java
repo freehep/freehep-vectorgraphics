@@ -31,8 +31,8 @@ public class VectorGraphicsTransferable implements ClipboardOwner, Transferable
 {
    private Component component;
    private DataFlavor imageFlavor = new DataFlavor("image/x-java-image; class=java.awt.Image", "Image");
-   private Map types = new HashMap();
-   private static Map defaultTypes;
+   private Map<DataFlavor, ExportFileType> types = new HashMap<DataFlavor, ExportFileType>();
+   private static Map<DataFlavor, ExportFileType> defaultTypes;
    /**
     * Create a VectorGraphicsTransferable with the built-in flavor/ExportFileType associations
     * @param c The Component whose graphics will be transfered
@@ -64,7 +64,7 @@ public class VectorGraphicsTransferable implements ClipboardOwner, Transferable
       }
       else
       {
-         ExportFileType type = (ExportFileType) types.get(dataFlavor);
+         ExportFileType type = types.get(dataFlavor);
          if (type != null)
          {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -103,9 +103,9 @@ public class VectorGraphicsTransferable implements ClipboardOwner, Transferable
       if (defaultTypes == null) defaultTypes = createDefaultTypes();
       types.putAll(defaultTypes);
    }
-   private static Map createDefaultTypes()
+   private static Map<DataFlavor, ExportFileType> createDefaultTypes()
    {
-      Map result = new HashMap();
+      Map<DataFlavor, ExportFileType> result = new HashMap<DataFlavor, ExportFileType>();
       // TODO: It would make sense to check for services which implement some
       // interface, rather than having this hardwired here.
       addType(result, "ENHMETAFILE", "image/emf",
@@ -121,7 +121,7 @@ public class VectorGraphicsTransferable implements ClipboardOwner, Transferable
       return result;
    }
 
-   private static void addType(Map result, String atom, String mimeType, String description, String className)
+   private static void addType(Map<DataFlavor, ExportFileType> result, String atom, String mimeType, String description, String className)
    {
       try
       {
@@ -130,7 +130,7 @@ public class VectorGraphicsTransferable implements ClipboardOwner, Transferable
          map.addUnencodedNativeForFlavor(df, atom);
 
          ClassLoader loader = Thread.currentThread().getContextClassLoader();
-         Class cls = loader == null ? Class.forName(className) : loader.loadClass(className);
+         Class<? extends Object> cls = loader == null ? Class.forName(className) : loader.loadClass(className);
          ExportFileType type = (ExportFileType) cls.newInstance();
 
          result.put(df,type);

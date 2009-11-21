@@ -17,11 +17,11 @@ public class PDF {
 
     private int generationNumber = 0;
 
-    private Hashtable refsByName = new Hashtable(); // of PDFRefs stored by name
+    private Hashtable<String, PDFRef> refsByName = new Hashtable<String, PDFRef>(); // of PDFRefs stored by name
 
-    private Vector refsByNumber = new Vector(); // of PDFRefs stored by number
+    private Vector<PDFRef> refsByNumber = new Vector<PDFRef>(); // of PDFRefs stored by number
 
-    private Vector xrefsByNumber = new Vector(); // of offsets stored by
+    private Vector<Integer> xrefsByNumber = new Vector<Integer>(); // of offsets stored by
                                                     // refnumber
 
     private int startXref = 0;
@@ -42,7 +42,7 @@ public class PDF {
     public PDFRef ref(String name) {
         if (name == null)
             return null;
-        PDFRef ref = (PDFRef) refsByName.get(name);
+        PDFRef ref = refsByName.get(name);
         if (ref == null) {
             int refNumber = refsByNumber.size();
             ref = new PDFRef(name, refNumber, generationNumber);
@@ -80,13 +80,13 @@ public class PDF {
 
         // the used list
         for (int i = 1; i < xrefsByNumber.size(); i++) {
-            Integer offsetObject = (Integer) xrefsByNumber.get(i);
+            Integer offsetObject = xrefsByNumber.get(i);
             if (offsetObject != null) {
                 int offset = offsetObject.intValue();
                 out.printPlain(offsetFormat.format(offset) + " "
                         + linkFormat.format(0) + " n\r\n");
             } else {
-                PDFRef ref = (PDFRef) refsByNumber.get(i);
+                PDFRef ref = refsByNumber.get(i);
                 System.err.println("PDFWriter: PDFRef '" + ref.getName()
                         + "' is used but not defined.");
             }

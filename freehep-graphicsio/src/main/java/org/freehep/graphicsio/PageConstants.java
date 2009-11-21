@@ -70,7 +70,7 @@ public class PageConstants {
     }
 
     public static final Dimension getSize(String size, String orientation) {
-        Dimension d = (Dimension) sizeTable.get(size);
+        Dimension d = sizeTable.get(size);
         if (orientation.equals(PORTRAIT)) {
             return d;
         } else {
@@ -78,7 +78,7 @@ public class PageConstants {
         }
     }
 
-    private static final Map sizeTable = new HashMap();
+    private static final Map<String, Dimension> sizeTable = new HashMap<String, Dimension>();
     static {
         sizeTable.put(INTERNATIONAL, new Dimension(595, 791));
         sizeTable.put(A3, new Dimension(842, 1191));
@@ -100,7 +100,7 @@ public class PageConstants {
 
     public static final String LARGE = "Large";
 
-    private static final Map marginTable = new HashMap();
+    private static final Map<String, Insets> marginTable = new HashMap<String, Insets>();
     static {
         marginTable.put(SMALL, new Insets(20, 20, 20, 20));
         marginTable.put(MEDIUM, new Insets(30, 30, 30, 30));
@@ -108,7 +108,7 @@ public class PageConstants {
     }
 
     public static final Insets getMargins(String size) {
-        return (Insets) marginTable.get(size);
+        return marginTable.get(size);
     }
 
     public static final Insets getMargins(Insets insets, String orientation) {

@@ -56,14 +56,14 @@ public class PDFRedundanceTracker {
 
     private PDFWriter pdf;
 
-    private Map objects;
+    private Map<Object, Entry> objects;
 
-    private Vector orderedObjects; // to keep order
+    private Vector<Entry> orderedObjects; // to keep order
 
     public PDFRedundanceTracker(PDFWriter pdf) {
         this.pdf = pdf;
-        objects = new Hashtable();
-        orderedObjects = new Vector();
+        objects = new Hashtable<Object, Entry>();
+        orderedObjects = new Vector<Entry>();
     }
 
     /**
@@ -95,9 +95,9 @@ public class PDFRedundanceTracker {
      * several times then each times only the new objects are written.
      */
     public void writeAll() {
-        Iterator i = orderedObjects.iterator();
+        Iterator<Entry> i = orderedObjects.iterator();
         while (i.hasNext()) {
-            Entry entry = (Entry) i.next();
+            Entry entry = i.next();
             if (!entry.written) {
                 try {
                     // System.out.println("PDFRT: Writing: " + entry.object);
@@ -112,11 +112,11 @@ public class PDFRedundanceTracker {
     }
 
     /** Returns all objects belonging to a particular group. */
-    public Collection getGroup(Object groupID) {
-        Collection result = new LinkedList();
-        Iterator i = orderedObjects.iterator();
+    public Collection<Object> getGroup(Object groupID) {
+        Collection<Object> result = new LinkedList<Object>();
+        Iterator<Entry> i = orderedObjects.iterator();
         while (i.hasNext()) {
-            Entry entry = (Entry) i.next();
+            Entry entry = i.next();
             if (groupID.equals(entry.groupID)) {
                 result.add(entry.object);
             }

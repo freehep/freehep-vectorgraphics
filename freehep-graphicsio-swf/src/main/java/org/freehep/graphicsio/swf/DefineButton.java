@@ -17,11 +17,11 @@ public class DefineButton extends DefinitionTag {
 
     private int character;
 
-    private Vector buttons;
+    private Vector<ButtonRecord> buttons;
 
-    private Vector actions;
+    private Vector<Action> actions;
 
-    public DefineButton(int id, Vector buttons, Vector actions) {
+    public DefineButton(int id, Vector<ButtonRecord> buttons, Vector<Action> actions) {
         this();
         character = id;
         this.buttons = buttons;
@@ -39,14 +39,14 @@ public class DefineButton extends DefinitionTag {
         tag.character = swf.readUnsignedShort();
         swf.getDictionary().put(tag.character, tag);
 
-        tag.buttons = new Vector();
+        tag.buttons = new Vector<ButtonRecord>();
         ButtonRecord record = new ButtonRecord(swf, false);
         while (!record.isEndRecord()) {
             tag.buttons.add(record);
             record = new ButtonRecord(swf, false);
         }
 
-        tag.actions = new Vector();
+        tag.actions = new Vector<Action>();
         Action action = swf.readAction();
         while (action != null) {
             tag.actions.add(action);
@@ -59,13 +59,13 @@ public class DefineButton extends DefinitionTag {
 
         swf.writeUnsignedShort(character);
         for (int i = 0; i < buttons.size(); i++) {
-            ButtonRecord b = (ButtonRecord) buttons.get(i);
+            ButtonRecord b = buttons.get(i);
             b.write(swf);
         }
         swf.writeUnsignedByte(0);
 
         for (int i = 0; i < actions.size(); i++) {
-            Action a = (Action) actions.get(i);
+            Action a = actions.get(i);
             swf.writeAction(a);
         }
         swf.writeAction(null);

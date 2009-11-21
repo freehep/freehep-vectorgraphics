@@ -223,12 +223,12 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 
 	private Font footerFont;
 
-	private List titles;
+	private List<String> titles;
 
 	// extra pointers
 	int alphaIndex;
 
-	Map extGStates;
+	Map<Float, String> extGStates;
 
 	/*
 	 * ================================================================================ |
@@ -261,7 +261,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 
 		currentPage = 0;
 		multiPage = false;
-		titles = new ArrayList();
+		titles = new ArrayList<String>();
 		initProperties(defaultProperties);
 	}
 
@@ -363,7 +363,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 
 		// extra stuff
 		alphaIndex = 1;
-		extGStates = new HashMap();
+		extGStates = new HashMap<Float, String>();
 
 		// hide the multipage functionality to the user in case of single page
 		// output by opening the first and only page immediately
@@ -416,9 +416,9 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 		if (extGStates.size() > 0) {
 			PDFDictionary extGState = os.openDictionary("ExtGState");
 
-			for (Iterator i = extGStates.keySet().iterator(); i.hasNext();) {
-				Float alpha = (Float) i.next();
-				String alphaName = (String) extGStates.get(alpha);
+			for (Iterator<Float> i = extGStates.keySet().iterator(); i.hasNext();) {
+				Float alpha = i.next();
+				String alphaName = extGStates.get(alpha);
 				PDFDictionary alphaDictionary = extGState
 						.openDictionary(alphaName);
 				alphaDictionary.entry("ca", alpha.floatValue());
@@ -451,7 +451,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 		for (int i = 1; i <= currentPage; i++) {
 			String prev = i > 1 ? "Outline" + (i - 1) : null;
 			String next = i < currentPage ? "Outline" + (i + 1) : null;
-			PDFOutline outline = os.openOutline("Outline" + i, (String) titles
+			PDFOutline outline = os.openOutline("Outline" + i, titles
 					.get(i - 1), "Outlines", prev, next);
 			outline
 					.setDest(new Object[] { os.ref("Page" + i), os.name("Fit") });
@@ -886,7 +886,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 		float[] cc = c.getRGBComponents(null);
 		// System.out.println("alpha = "+cc[3]);
 		Float alpha = new Float(cc[3]);
-		String alphaName = (String) extGStates.get(alpha);
+		String alphaName = extGStates.get(alpha);
 		if (alphaName == null) {
 			alphaName = "Alpha" + alphaIndex;
 			alphaIndex++;

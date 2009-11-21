@@ -53,7 +53,7 @@ import java.util.List;
 
 public class PPMEncoder extends ImageEncoder {
 
-    private List comments = new ArrayList();
+    private List<String> comments = new ArrayList<String>();
 
     // / Constructor.
     // @param img The image to encode.
@@ -83,8 +83,8 @@ public class PPMEncoder extends ImageEncoder {
 
     protected void encodeStart(int width, int height) throws IOException {
         writeString("P6\n");
-        for (Iterator i = comments.iterator(); i.hasNext();) {
-            String comment = (String) i.next();
+        for (Iterator<String> i = comments.iterator(); i.hasNext();) {
+            String comment = i.next();
             writeString("# " + comment + "\n");
         }
         writeString(width + " " + height + "\n");

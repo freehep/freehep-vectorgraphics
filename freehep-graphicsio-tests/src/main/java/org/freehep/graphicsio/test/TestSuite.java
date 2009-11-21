@@ -92,7 +92,7 @@ public class TestSuite extends junit.framework.TestSuite {
         }
     }
 
-    private SortedMap bitmapFormats, vectorFormats;
+    private SortedMap<String, Format> bitmapFormats, vectorFormats;
     private static final String jiraURL = "http://bugs.freehep.org/secure/IssueNavigator.jspa?reset=true&mode=hide&sorter/order=DESC&sorter/field=priority&resolutionIds=-1";
     private static final int jiraProductId = 10170;
 
@@ -114,7 +114,7 @@ public class TestSuite extends junit.framework.TestSuite {
         }
     }
 
-    private List tests;
+    private List<Test> tests;
 
     private static final String gioPackage = "org.freehep.graphicsio.";
     private static final String testPackage = gioPackage + "test.";
@@ -158,7 +158,7 @@ public class TestSuite extends junit.framework.TestSuite {
                 out = baseDir + "/" + out;
             (new File(out)).mkdirs();
 
-            Class cls = Class.forName(fullName);
+            Class<?> cls = Class.forName(fullName);
             String targetName = out + name + "." + fmt.getExtension();
 
             Object args;
@@ -174,7 +174,7 @@ public class TestSuite extends junit.framework.TestSuite {
             }
 
             // Create Test Object
-            Constructor constructor = cls.getConstructor(new Class[] { args
+            Constructor<?> constructor = cls.getConstructor(new Class[] { args
                     .getClass() });
             Object test = constructor.newInstance(new Object[] { args });
 
@@ -192,7 +192,7 @@ public class TestSuite extends junit.framework.TestSuite {
 
         local = !System.getProperty("vg.local", "true").equals("false");
 
-        bitmapFormats = new TreeMap();
+        bitmapFormats = new TreeMap<String, Format>();
         bitmapFormats.put(
             ImageConstants.BMP.toLowerCase(),
             new Format(ImageConstants.BMP, null, "freehep-graphicsio-tests", true, true, 10241, null));
@@ -209,7 +209,7 @@ public class TestSuite extends junit.framework.TestSuite {
             ImageConstants.WBMP.toLowerCase(),
             new Format(ImageConstants.WBMP, null, "freehep-graphicsio-tests", true, true, 10241, null));
 
-        vectorFormats = new TreeMap();
+        vectorFormats = new TreeMap<String, Format>();
         // vectorFormats.put("cgm", new Format("CGM", null, false, false, 10230,
         // null));
         vectorFormats.put(
@@ -241,7 +241,7 @@ public class TestSuite extends junit.framework.TestSuite {
                 && System.getProperty("java.version").startsWith("1.5");
 
         
-        tests = new ArrayList();
+        tests = new ArrayList<Test>();
         tests.add(new Test("TestAll", on));
         tests.add(new Test("TestClip", on));
         tests.add(new Test("TestColors", on));
@@ -289,8 +289,8 @@ public class TestSuite extends junit.framework.TestSuite {
         if ((fmt == null) || !fmt.isEnabled())
             return;
 
-        for (Iterator i = tests.iterator(); i.hasNext();) {
-            Test test = (Test) i.next();
+        for (Iterator<Test> i = tests.iterator(); i.hasNext();) {
+            Test test = i.next();
             if (test.isEnabled()) {
                 addTest(new TestCase(test.getName(), fmt, testOutDir,
                         properties));
@@ -302,9 +302,9 @@ public class TestSuite extends junit.framework.TestSuite {
     }
 
     protected void addTests(String formatName, Properties properties) {
-    	Format fmt = (Format) bitmapFormats.get(formatName.toLowerCase());
+    	Format fmt = bitmapFormats.get(formatName.toLowerCase());
     	if (fmt == null) {
-    		fmt = (Format) vectorFormats.get(formatName.toLowerCase());
+    		fmt = vectorFormats.get(formatName.toLowerCase());
     	}
     	addTests(fmt, properties);
     }
@@ -319,12 +319,12 @@ public class TestSuite extends junit.framework.TestSuite {
                 addTests(args[i]);
             }
         } else {
-            for (Iterator i = bitmapFormats.keySet().iterator(); i.hasNext();) {
-            	Format fmt = (Format) bitmapFormats.get((String) i.next());
+            for (Iterator<String> i = bitmapFormats.keySet().iterator(); i.hasNext();) {
+            	Format fmt = bitmapFormats.get(i.next());
                 addTests(fmt, null);
             }
-            for (Iterator i = vectorFormats.keySet().iterator(); i.hasNext();) {
-                Format fmt = (Format) vectorFormats.get((String) i.next());
+            for (Iterator<String> i = vectorFormats.keySet().iterator(); i.hasNext();) {
+                Format fmt = vectorFormats.get(i.next());
 //                if (fmt.getUpperCaseName().equals("JAVA"))
                     addTests(fmt, null);
             }
@@ -360,7 +360,7 @@ public class TestSuite extends junit.framework.TestSuite {
 //                    + fmt.getName() + "ExportFileType");
 //            ExportFileType fileType = (ExportFileType) cls.newInstance();
         	ExportFileType.setClassLoader(getClass().getClassLoader());
-        	List fileTypes = ExportFileType.getExportFileTypes(fmt.getLowerCaseName());
+        	List<?> fileTypes = ExportFileType.getExportFileTypes(fmt.getLowerCaseName());
         	if (fileTypes.size() <= 0) throw new AssertionFailedError("No ExportFileType found for format '"+fmt.getLowerCaseName()+"'");
         	String[] mimeTypes = ((ExportFileType)fileTypes.get(0)).getMIMETypes();
         	if (mimeTypes.length <= 0) throw new AssertionFailedError("No MimeTypes found for ExportFileType '"+fmt.getLowerCaseName()+"'");
@@ -471,13 +471,13 @@ public class TestSuite extends junit.framework.TestSuite {
 
             w.println("            <h5>Vector Formats</h5>");
             w.println("            <ul>");
-            for (Iterator i = vectorFormats.keySet().iterator(); i.hasNext();) {
-                String key = (String) i.next();
+            for (Iterator<String> i = vectorFormats.keySet().iterator(); i.hasNext();) {
+                String key = i.next();
                 w.println("              <li class=\"none\">");
                 if (key.equalsIgnoreCase(fmt.getLowerCaseName())) {
                     w.println("                <strong>");
                 }
-                Format value = (Format) vectorFormats.get(key);
+                Format value = vectorFormats.get(key);
                 w.print("                  ");
                 if (value.isEnabled()) {
                     w.print("<a href=\"" + top + value.getModuleName() + "/"
@@ -497,13 +497,13 @@ public class TestSuite extends junit.framework.TestSuite {
             
             w.println("            <h5>Bitmap Formats</h5>");
             w.println("            <ul>");
-            for (Iterator i = bitmapFormats.keySet().iterator(); i.hasNext();) {
-                String key = (String) i.next();
+            for (Iterator<String> i = bitmapFormats.keySet().iterator(); i.hasNext();) {
+                String key = i.next();
                 w.println("              <li class=\"none\">");
                 if (key.equalsIgnoreCase(fmt.getLowerCaseName())) {
                     w.println("                <strong>");
                 }
-                Format value = (Format) bitmapFormats.get(key);
+                Format value = bitmapFormats.get(key);
                 w.print("                  ");
                 if (value.isEnabled()) {
                     w.print("<a href=\"" + top + value.getModuleName() + "/"
@@ -523,8 +523,8 @@ public class TestSuite extends junit.framework.TestSuite {
             
             w.println("            <h5>" + fmt.getName() + " Tests</h5>");
             w.println("            <ul>");
-            for (Iterator i = tests.iterator(); i.hasNext();) {
-                Test t = (Test) i.next();
+            for (Iterator<Test> i = tests.iterator(); i.hasNext();) {
+                Test t = i.next();
                 w.println("              <li class=\"none\">");
                 if (t.equals(test))
                     w.println("                <strong>");
@@ -577,7 +577,7 @@ public class TestSuite extends junit.framework.TestSuite {
                     + refFormat + "</a></td>");
             w.println("                </tr>");
             w.println("                <tr class=\"a\">");
-            Test[] testArray = (Test[]) tests.toArray(new Test[0]);
+            Test[] testArray = tests.toArray(new Test[0]);
             int testIndex = 0;
             while (testIndex < testArray.length) {
                 if (testArray[testIndex].equals(test))
@@ -652,7 +652,7 @@ public class TestSuite extends junit.framework.TestSuite {
         // get command line arguments from environment var (set by ANT)
         StringTokenizer st = new StringTokenizer(
                 System.getProperty("args", ""), " ");
-        List argList = new ArrayList();
+        List<String> argList = new ArrayList<String>();
         while (st.hasMoreTokens()) {
             String arg = st.nextToken();
             System.out.println(arg);

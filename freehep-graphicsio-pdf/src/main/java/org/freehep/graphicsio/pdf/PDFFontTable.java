@@ -38,10 +38,10 @@ public class PDFFontTable extends FontTable {
 
     /** Adds all fonts to a dictionary named "FontList". */
     public int addFontDictionary() throws IOException {
-        Collection fonts = getEntries();
+        Collection<?> fonts = getEntries();
         if (fonts.size() > 0) {
             PDFDictionary fontList = pdf.openDictionary("FontList");
-            for (Iterator i = fonts.iterator(); i.hasNext();) {
+            for (Iterator<?> i = fonts.iterator(); i.hasNext();) {
                 Entry e = (Entry) i.next();
                 fontList.entry(e.getReference(), pdf.ref(e.getReference()));
             }
@@ -53,8 +53,8 @@ public class PDFFontTable extends FontTable {
     /** Embeds all not yet embedded fonts to the file. */
     public void embedAll(FontRenderContext context, boolean embed,
             String embedAs) throws IOException {
-        Collection col = getEntries();
-        Iterator i = col.iterator();
+        Collection<?> col = getEntries();
+        Iterator<?> i = col.iterator();
         while (i.hasNext()) {
             Entry e = (Entry) i.next();
             if (!e.isWritten()) {

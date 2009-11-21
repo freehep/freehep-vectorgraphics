@@ -31,9 +31,9 @@ public class TestingPanel extends JPanel {
 
     protected VectorGraphics graphics;
 
-    protected List/* <String> */names = new ArrayList();
+    protected List/* <String> */<String>names = new ArrayList<String>();
 
-    protected List/* <JComponent> */pages = new ArrayList();
+    protected List/* <JComponent> */<JComponent>pages = new ArrayList<JComponent>();
 
     public TestingPanel(String[] args) throws Exception {
         this.args = args;
@@ -82,7 +82,7 @@ public class TestingPanel extends JPanel {
 
             if (names.size() > 0) {
                 for (int i = 0; i < names.size(); i++) {
-                    frame.addPanel((String) names.get(i), (JComponent) pages
+                    frame.addPanel(names.get(i), pages
                             .get(i));
                 }
                 frame.setSize(width, height);
@@ -107,8 +107,8 @@ public class TestingPanel extends JPanel {
                 try {
                     File file = new File(args[1]);
 //                    System.err.println(file);
-                    Class cls = Class.forName(args[0]);
-                    Constructor constructor = cls.getConstructor(new Class[] {
+                    Class<?> cls = Class.forName(args[0]);
+                    Constructor<?> constructor = cls.getConstructor(new Class[] {
                             File.class, Component.class });
                     graphics = (VectorGraphics) constructor
                             .newInstance(new Object[] { file, this });

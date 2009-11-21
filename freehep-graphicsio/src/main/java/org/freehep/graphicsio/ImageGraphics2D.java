@@ -1,4 +1,4 @@
-// Copyright 2003-2007, FreeHEP.
+// Copyright 2003-2009, FreeHEP.
 package org.freehep.graphicsio;
 
 import java.awt.Color;
@@ -46,7 +46,6 @@ import org.freehep.util.io.FlateOutputStream;
  * Generic class for generating bitmap outputs from an image.
  *
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/ImageGraphics2D.java 8475f837f0d0 2007/01/09 19:01:32 duns $
  */
 public class ImageGraphics2D extends PixelGraphics2D {
 
@@ -86,10 +85,10 @@ public class ImageGraphics2D extends PixelGraphics2D {
 
     public static final String COMPRESS_QUALITY = ".CompressQuality";
 
-    private static final Map /* UserProperties */defaultProperties = new HashMap();
+    private static final Map /* UserProperties */<String, UserProperties>defaultProperties = new HashMap<String, UserProperties>();
 
     public static Properties getDefaultProperties(String format) {
-        UserProperties properties = (UserProperties) defaultProperties
+        UserProperties properties = defaultProperties
                 .get(format);
         if (properties == null) {
             properties = new UserProperties();
@@ -165,7 +164,7 @@ public class ImageGraphics2D extends PixelGraphics2D {
 
         String formatKey = rootKey + "." + format;
         Properties formatProperties = new Properties();
-        for (Enumeration e = newProperties.propertyNames(); e.hasMoreElements();) {
+        for (Enumeration<?> e = newProperties.propertyNames(); e.hasMoreElements();) {
             String key = (String) e.nextElement();
             String value = newProperties.getProperty(key);
             if (key.indexOf("." + format) < 0) {
@@ -450,20 +449,20 @@ public class ImageGraphics2D extends PixelGraphics2D {
     }
 
     public static ImageWriter getPreferredImageWriter(String format) {
-        return (ImageWriter)getImageWriters(ImageIO
+        return getImageWriters(ImageIO
                 .getImageWritersByFormatName(format)).first();
     }
 
     public static ImageWriter getPreferredImageWriterForMIMEType(String mimeType) {
-        return (ImageWriter)getImageWriters(ImageIO
+        return getImageWriters(ImageIO
                 .getImageWritersByMIMEType(mimeType)).first();
     }
 
-    public static SortedSet/*<ImageWriter>*/ getImageWriters(Iterator iterator) {
+    public static SortedSet/*<ImageWriter>*/<ImageWriter> getImageWriters(Iterator<?> iterator) {
         // look for a writer that supports the given format,
         // BUT prefer our own "org.freehep."
         // over "com.sun.imageio." over "com.sun.media." over others
-        SortedSet imageWriters = new TreeSet(new Comparator() {
+        SortedSet<ImageWriter> imageWriters = new TreeSet<ImageWriter>(new Comparator<Object>() {
         	private int order(Object o) {
         		String className = o.getClass().getName();
         		if (className.startsWith("org.freehep.")) {
@@ -490,7 +489,7 @@ public class ImageGraphics2D extends PixelGraphics2D {
 
     public static BufferedImage readImage(String format, InputStream is)
             throws IOException {
-        Iterator iterator = ImageIO.getImageReadersByFormatName(format.toLowerCase());
+        Iterator<?> iterator = ImageIO.getImageReadersByFormatName(format.toLowerCase());
         if (!iterator.hasNext()) {
             throw new IOException(ImageGraphics2D.class
                     + ": No reader for format '" + format + "'.");

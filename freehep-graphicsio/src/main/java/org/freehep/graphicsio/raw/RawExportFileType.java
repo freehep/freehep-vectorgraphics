@@ -15,7 +15,7 @@ public class RawExportFileType extends ImageExportFileType {
 
     static {
         try {
-            Class clazz = Class
+            Class<?> clazz = Class
                     .forName("org.freehep.graphicsio.raw.RawImageWriterSpi");
             IIORegistry.getDefaultInstance().registerServiceProvider(
                     (ImageWriterSpi)clazz.newInstance(), ImageWriterSpi.class);

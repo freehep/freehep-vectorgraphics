@@ -2,6 +2,7 @@
 package org.freehep.graphicsio;
 
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.io.IOException;
 import java.util.Vector;
 
@@ -11,7 +12,7 @@ import java.util.Vector;
  */
 public abstract class PolylinePathConstructor extends
         CubicToLinePathConstructor {
-    private Vector polyline;
+    private Vector<Double> polyline;
 
     protected boolean closed;
 
@@ -29,7 +30,7 @@ public abstract class PolylinePathConstructor extends
 
     public void move(double x, double y) throws IOException {
         writePolyline();
-        polyline = new Vector();
+        polyline = new Vector<Double>();
         polyline.add(new Point2D.Double(x, y));
         super.move(x, y);
     }
@@ -53,5 +54,5 @@ public abstract class PolylinePathConstructor extends
         polyline = null;
     }
 
-    protected abstract void writePolyline(Vector polyline) throws IOException;
+    protected abstract void writePolyline(Vector<Double> polyline) throws IOException;
 }

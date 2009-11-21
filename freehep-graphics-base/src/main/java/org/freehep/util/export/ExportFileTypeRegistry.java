@@ -1,4 +1,4 @@
-// Copyright 2003-2006, FreeHEP.
+// Copyright 2003-2009, FreeHEP.
 package org.freehep.util.export;
 
 import java.util.ArrayList;
@@ -14,7 +14,6 @@ import org.freehep.util.Service;
 /**
  *
  * @author Mark Donszelmann
- * @version $Id: src/main/java/org/freehep/util/export/ExportFileTypeRegistry.java e26a31b64eb2 2007/06/12 22:18:45 duns $
  */
 public class ExportFileTypeRegistry {
 
@@ -22,9 +21,9 @@ public class ExportFileTypeRegistry {
     private static ClassLoader loader;
 
     private ServiceRegistry service;
-    private List/*<ExportFileType>*/ extraTypes;
+    private List<ExportFileType> extraTypes;
     
-    private static final Collection categories = new ArrayList(2);
+    private static final Collection<Class<?>> categories = new ArrayList<Class<?>>(2);
     static {
         categories.add(ExportFileType.class);
         categories.add(RegisterableService.class);
@@ -32,7 +31,7 @@ public class ExportFileTypeRegistry {
 
     private ExportFileTypeRegistry() {
         service = new ServiceRegistry(categories.iterator());
-        extraTypes = new ArrayList();
+        extraTypes = new ArrayList<ExportFileType>();
     }
 
     public static synchronized ExportFileTypeRegistry getDefaultInstance(ClassLoader loader) {
@@ -56,7 +55,7 @@ public class ExportFileTypeRegistry {
      * Returns a list of all registered ExportFileTypes in the order in which
      * they are found in jar files on the classpath.
      */
-    public List get() {
+    public List<ExportFileType> get() {
         return get(null);
     }
 
@@ -67,8 +66,8 @@ public class ExportFileTypeRegistry {
      * ExportFileType in the list. The list is for a particular
      * format, or all if format is null.
      */
-    public List/*<ExportFileType>*/ get(String format) {
-        List export = new ArrayList();
+    public List/*<ExportFileType>*/<ExportFileType> get(String format) {
+        List<ExportFileType> export = new ArrayList<ExportFileType>();
         
         // add all ExportFileTypes found in service
         addExportFileTypeToList(export, format, service.getServiceProviders(ExportFileType.class, true));
@@ -88,7 +87,7 @@ public class ExportFileTypeRegistry {
     	extraTypes.add(exportFileType);
     }
 
-    private void addExportFileTypeToList(List list, String format, Iterator iterator) {
+    private void addExportFileTypeToList(List<ExportFileType> list, String format, Iterator<?> iterator) {
         while (iterator.hasNext()) {
             ExportFileType type = (ExportFileType)iterator.next();
             if (format == null) {
@@ -109,19 +108,20 @@ public class ExportFileTypeRegistry {
         }    	
     }
     
+    @SuppressWarnings( "unchecked" )
     private static void addApplicationClasspathExportFileTypes(ExportFileTypeRegistry registry) {
 	    ClassLoader classLoader = (loader != null) ? loader : Thread.currentThread().getContextClassLoader();
 
-        Iterator iterator = categories.iterator();
+        Iterator<Class<?>> iterator = categories.iterator();
         while (iterator.hasNext()) {
-            Class category = (Class)iterator.next();
-            Iterator providers = Service.providers(category, classLoader).iterator();
+            Class<?> category = iterator.next();
+            Iterator<Object> providers = Service.providers(category, classLoader).iterator();
             Object previous = null;
             while (providers.hasNext()) {
                 Object current = providers.next();
                 registry.service.registerServiceProvider(current);
                 if (previous != null) {
-                    registry.service.setOrdering(category, previous, current);
+                    registry.service.setOrdering((Class<Object>)category, previous, current);
                 }
                 previous = current;
             }

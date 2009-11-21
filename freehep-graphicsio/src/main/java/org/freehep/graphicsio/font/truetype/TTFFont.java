@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public abstract class TTFFont {
 
-    private Map entry = new HashMap();
+    private Map<String, Object> entry = new HashMap<String, Object>();
 
     public abstract int getFontVersion();
 
@@ -43,7 +43,7 @@ public abstract class TTFFont {
 
     public void show() {
         System.out.println("Tables:");
-        for (Iterator i = entry.values().iterator(); i.hasNext();) {
+        for (Iterator<Object> i = entry.values().iterator(); i.hasNext();) {
             System.out.println(i.next());
         }
     }
@@ -62,7 +62,7 @@ public abstract class TTFFont {
      * it in order to print out all available information.
      */
     public void readAll() throws IOException {
-        Iterator i = entry.values().iterator();
+        Iterator<Object> i = entry.values().iterator();
         while (i.hasNext()) {
             TTFTable table = (TTFTable) i.next();
             if ((table != null) && (!table.isRead()))

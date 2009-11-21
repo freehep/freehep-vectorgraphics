@@ -15,7 +15,7 @@ import java.util.Stack;
  */
 public abstract class TTFInput {
 
-    private Stack filePosStack = new Stack();
+    private Stack<Long> filePosStack = new Stack<Long>();
 
     private int tempFlags;
 
@@ -30,7 +30,7 @@ public abstract class TTFInput {
     }
 
     public void popPos() throws IOException {
-        seek(((Long) filePosStack.pop()).longValue());
+        seek(filePosStack.pop().longValue());
     }
 
     // ---------- Simple Data Types --------------
@@ -123,17 +123,17 @@ public abstract class TTFInput {
     public abstract void readFully(byte[] b) throws IOException;
 
     public int[] readFFFFTerminatedUShortArray() throws IOException {
-        List values = new LinkedList();
+        List<Integer> values = new LinkedList<Integer>();
         int ushort = -1;
         do {
             ushort = readUShort();
             values.add(new Integer(ushort));
         } while (ushort != 0xFFFF);
         int[] shorts = new int[values.size()];
-        Iterator i = values.iterator();
+        Iterator<Integer> i = values.iterator();
         int j = 0;
         while (i.hasNext()) {
-            shorts[j++] = ((Integer) i.next()).intValue();
+            shorts[j++] = i.next().intValue();
         }
         return shorts;
     }

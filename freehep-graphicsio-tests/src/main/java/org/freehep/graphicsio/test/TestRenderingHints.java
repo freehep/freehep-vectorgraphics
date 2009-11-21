@@ -2,12 +2,13 @@
 package org.freehep.graphicsio.test;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.MediaTracker;
-import java.awt.Font;
 import java.awt.RenderingHints;
-import java.awt.Graphics2D;
+import java.awt.RenderingHints.Key;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
@@ -53,34 +54,34 @@ public class TestRenderingHints extends TestingPanel {
 
         vg.setFont(new Font("Dialog", Font.ITALIC, 20));
 
-        vg.setRenderingHints(new HashMap());
+        vg.setRenderingHints(new HashMap<Key, Object>());
         paint(vg, "No Hints");
 
-        vg.setRenderingHints(new HashMap());
+        vg.setRenderingHints(new HashMap<Key, Object>());
         vg.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         paint(vg, "ANTIALIAS_ON");
 
-        vg.setRenderingHints(new HashMap());
+        vg.setRenderingHints(new HashMap<Key, Object>());
         vg.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         paint(vg, "TEXT_ANTIALIAS_ON");
 
-        vg.setRenderingHints(new HashMap());
+        vg.setRenderingHints(new HashMap<Key, Object>());
         vg.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
         paint(vg, "STROKE_NORMALIZE");
 
-        vg.setRenderingHints(new HashMap());
+        vg.setRenderingHints(new HashMap<Key, Object>());
         vg.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
         paint(vg, "STROKE_PURE");
 
-        vg.setRenderingHints(new HashMap());
+        vg.setRenderingHints(new HashMap<Key, Object>());
         vg.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
         paint(vg, "INTERPOLATION_BICUBIC");
 
-        vg.setRenderingHints(new HashMap());
+        vg.setRenderingHints(new HashMap<Key, Object>());
         vg.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         paint(vg, "INTERPOLATION_NEAREST_NEIGHBOR");
 
-        vg.setRenderingHints(new HashMap());
+        vg.setRenderingHints(new HashMap<Key, Object>());
         vg.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
         paint(vg, "VALUE_DITHER_ENABLE");
 

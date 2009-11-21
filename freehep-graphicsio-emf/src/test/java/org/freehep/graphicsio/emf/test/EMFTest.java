@@ -42,7 +42,7 @@ public class EMFTest extends JPanel {
         Point p2[] = { new Point(20, 20), new Point(40, 60), new Point(30, 50),
                 new Point(00, 60) };
 */
-        Vector emf = new Vector();
+        Vector<EMFTag> emf = new Vector<EMFTag>();
 
         emf.add(new GDIComment("Settings"));
         emf.add(new SetMapMode(SetMapMode.MM_ANISOTROPIC));
@@ -144,7 +144,7 @@ public class EMFTest extends JPanel {
                 "EMFTest.emf"), bounds, new EMFHandleManager(), "EMFTest",
                 "TestFile", new Dimension(1024, 768));
         for (int i = 0; i < emf.size(); i++) {
-            out.writeTag((EMFTag) emf.get(i));
+            out.writeTag(emf.get(i));
         }
         out.close();
     }

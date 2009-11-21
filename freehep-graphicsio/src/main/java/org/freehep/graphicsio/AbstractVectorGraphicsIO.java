@@ -1,4 +1,4 @@
-// Copyright 2000-2007, FreeHEP
+// Copyright 2000-2009, FreeHEP
 package org.freehep.graphicsio;
 
 import java.awt.AlphaComposite;
@@ -40,6 +40,7 @@ import java.awt.image.renderable.RenderContext;
 import java.awt.image.renderable.RenderableImage;
 import java.io.IOException;
 import java.text.AttributedCharacterIterator;
+import java.text.AttributedCharacterIterator.Attribute;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -54,7 +55,6 @@ import org.freehep.util.images.ImageUtilities;
  * @author Charles Loomis
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/AbstractVectorGraphicsIO.java 9f187494f42c 2007/09/07 22:05:57 duns $
  */
 public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
 
@@ -621,7 +621,7 @@ public abstract class AbstractVectorGraphicsIO extends VectorGraphicsIO {
             // initial attributes, we us TextAttribute.equals() rather
             // than Font.equals() because using Font.equals() we do
             // not get a 'false' if underline etc. is changed
-            Map/*<TextAttribute, ?>*/ attributes = FontUtilities.getAttributes(font);
+            Map<Attribute, Object> attributes = FontUtilities.getAttributes(font);
 
             // stores all characters which are written with the same font
             // if font is changed the buffer will be written and cleared
@@ -1226,8 +1226,8 @@ s     *
      *
      * @param hints table to be added
      */
-    public void addRenderingHints(Map hints) {
-        hints.putAll(hints);
+    public void addRenderingHints(Map<?, ?> hints) {
+        this.hints.putAll(hints);
     }
 
     /**
@@ -1235,11 +1235,11 @@ s     *
      *
      * @param hints table to be set
      */
-    public void setRenderingHints(Map hints) {
+    public void setRenderingHints(Map<?, ?> hints) {
         this.hints.clear();
         if (hints instanceof RenderingHints) {
         	RenderingHints renderingHints = (RenderingHints)hints;
-        	this.hints.putAll((Map)renderingHints.clone());
+        	this.hints.putAll((Map<?, ?>)renderingHints.clone());
         } else {
         	this.hints.putAll(hints);
         }

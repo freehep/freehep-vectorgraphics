@@ -15,7 +15,7 @@ public class PPMExportFileType extends ImageExportFileType {
 
     static {
         try {
-            Class clazz = Class
+            Class<?> clazz = Class
                     .forName("org.freehep.graphicsio.ppm.PPMImageWriterSpi");
             IIORegistry.getDefaultInstance().registerServiceProvider(
                     (ImageWriterSpi)clazz.newInstance(), ImageWriterSpi.class);

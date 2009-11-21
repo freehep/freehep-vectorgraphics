@@ -27,7 +27,7 @@ public class EMFConverter {
      */
     protected static void export(String type, String srcFileName, String destFileName) {
         try {
-            List exportFileTypes = ExportFileType.getExportFileTypes(type);
+            List<?> exportFileTypes = ExportFileType.getExportFileTypes(type);
             if (exportFileTypes == null || exportFileTypes.size() == 0) {
                 System.out.println(
                     type + " library is not available. check your classpath!");

@@ -35,6 +35,7 @@ import org.freehep.graphics2d.font.FontEncoder;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.PageConstants;
+import org.freehep.graphicsio.swf.DefineText.Record;
 import org.freehep.util.UserProperties;
 import org.freehep.util.Value;
 
@@ -437,7 +438,7 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 		id.set(id.getInt() + 1);
 
 		// define Text
-		Vector text = new Vector();
+		Vector<Record> text = new Vector<Record>();
 		DefineText2.RecordType1 record1 = new DefineText2.RecordType1(fontID,
 				textColor, (int) (x * TWIPS), (int) (y * TWIPS), (int) (font
 						.getSize2D() * TWIPS));
@@ -657,7 +658,7 @@ public class SWFGraphics2D extends AbstractVectorGraphicsIO implements
 		double resolution = 0.5 / (TWIPS * Math.min(t.getScaleX(), t
 				.getScaleY()));
 
-		Vector path = new Vector();
+		Vector<org.freehep.graphicsio.swf.SWFShape.Record> path = new Vector<org.freehep.graphicsio.swf.SWFShape.Record>();
 		SWFPathConstructor pc = new SWFPathConstructor(path, stroke, fill0,
 				fill1, resolution);
 		pc.addPath(shape);

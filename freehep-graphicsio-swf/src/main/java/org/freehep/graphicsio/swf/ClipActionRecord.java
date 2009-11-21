@@ -4,6 +4,8 @@ package org.freehep.graphicsio.swf;
 import java.io.IOException;
 import java.util.Vector;
 
+import org.freehep.util.io.Action;
+
 /**
  * SWF Clip Action Record
  * 
@@ -19,7 +21,7 @@ public class ClipActionRecord {
 
     private int keyCode;
 
-    private Vector actions;
+    private Vector<Action> actions;
 
     /**
      * Read a ClipActionRecord from the stream.

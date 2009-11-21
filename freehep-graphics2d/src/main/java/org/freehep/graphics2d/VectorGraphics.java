@@ -219,7 +219,7 @@ public abstract class VectorGraphics extends Graphics2D implements
     // //
     // Methods from java.awt.Graphics2D (alphabetical)
     // //
-    public abstract void addRenderingHints(Map hints);
+    public abstract void addRenderingHints(Map<?, ?> hints);
 
     public abstract void clip(Shape s);
 
@@ -327,7 +327,7 @@ public abstract class VectorGraphics extends Graphics2D implements
     public abstract void setRenderingHint(RenderingHints.Key hintKey,
             Object hintValue);
 
-    public abstract void setRenderingHints(Map hints);
+    public abstract void setRenderingHints(Map<?, ?> hints);
 
     public abstract void setStroke(Stroke s);
 
@@ -541,7 +541,7 @@ public abstract class VectorGraphics extends Graphics2D implements
     }
 
     // STATIC stuff below
-    private static Hashtable symbols = new Hashtable(15);
+    private static Hashtable<String, Integer> symbols = new Hashtable<String, Integer>(15);
 
     static {
         symbols.put("vline", new Integer(SYMBOL_VLINE));
@@ -556,7 +556,7 @@ public abstract class VectorGraphics extends Graphics2D implements
         symbols.put("diamond", new Integer(SYMBOL_DIAMOND));
     }
 
-    private static Hashtable alignments = new Hashtable(6);
+    private static Hashtable<String, Integer> alignments = new Hashtable<String, Integer>(6);
 
     static {
         alignments.put("baseline", new Integer(TEXT_BASELINE));
@@ -569,12 +569,12 @@ public abstract class VectorGraphics extends Graphics2D implements
     }
 
     public static int getTextAlignment(String name) {
-        Integer i = (Integer) alignments.get(name.toLowerCase());
+        Integer i = alignments.get(name.toLowerCase());
         return (i != null) ? i.intValue() : TEXT_CENTER;
     }
 
     public static int getSymbol(String name) {
-        Integer i = (Integer) symbols.get(name.toLowerCase());
+        Integer i = symbols.get(name.toLowerCase());
         return (i != null) ? i.intValue() : SYMBOL_PLUS;
     }
 

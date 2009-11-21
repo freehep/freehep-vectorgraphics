@@ -62,14 +62,14 @@ public class ExportDialog extends JOptionPane
    public void addAllExportFileTypes()
    {
 	   ExportFileTypeGroups groups = new ExportFileTypeGroups(ExportFileType.getExportFileTypes());
-       for (Iterator i=groups.getGroupNames().iterator(); i.hasNext(); ) {
-    	   String group = (String)i.next();
-           List exportTypes = groups.getExportFileTypes(group);
+       for (Iterator<String> i=groups.getGroupNames().iterator(); i.hasNext(); ) {
+    	   String group = i.next();
+           List<ExportFileType> exportTypes = groups.getExportFileTypes(group);
            if (exportTypes.size() > 0) {
                list.add(new JLabel(groups.getLabel(group), SwingConstants.CENTER));
                Collections.sort(exportTypes);
-               for (Iterator j=exportTypes.iterator(); j.hasNext(); ) {
-                   addExportFileType((ExportFileType)j.next());
+               for (Iterator<ExportFileType> j=exportTypes.iterator(); j.hasNext(); ) {
+                   addExportFileType(j.next());
                }
            }
        }
@@ -261,7 +261,7 @@ public class ExportDialog extends JOptionPane
    private JComboBox type;
    private Component component;
    private boolean trusted = true;
-   private Vector list = new Vector();
+   private Vector<Object> list = new Vector<Object>();
    private Properties props = new Properties();
    private String baseDir = null;
 

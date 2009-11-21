@@ -454,7 +454,7 @@ public abstract class SWFAction extends Action {
 
         public static final int LOOKUP2 = 9;
 
-        private Vector values;
+        private Vector<Value> values;
 
         public static class Value {
             private byte type;
@@ -591,7 +591,7 @@ public abstract class SWFAction extends Action {
                 throws IOException {
 
             Push action = new Push();
-            action.values = new Vector();
+            action.values = new Vector<Value>();
 
             try {
                 while (true) {
@@ -606,7 +606,7 @@ public abstract class SWFAction extends Action {
                 throws IOException {
 
             for (int i = 0; i < values.size(); i++) {
-                ((Value) values.get(i)).write(swf);
+                values.get(i).write(swf);
             }
         }
 

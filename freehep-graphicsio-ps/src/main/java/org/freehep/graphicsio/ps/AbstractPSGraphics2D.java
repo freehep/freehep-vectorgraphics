@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.text.DateFormat;
+import java.text.AttributedCharacterIterator.Attribute;
 import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
@@ -657,7 +658,7 @@ public abstract class AbstractPSGraphics2D extends AbstractVectorGraphicsIO impl
      */
     public void showString(Font font, String str) {
         StringBuffer result = new StringBuffer();
-        Map /*<TextAttribute,?>*/ attributes = FontUtilities.getAttributes(font);
+        Map /*<TextAttribute,?>*/<Attribute, Object> attributes = FontUtilities.getAttributes(font);
         PSFontTable.normalize(attributes);
         // write font name
         String fontName = fontTable.fontReference(

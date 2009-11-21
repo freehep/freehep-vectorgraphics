@@ -80,7 +80,7 @@ public class PixelGraphics2D extends AbstractVectorGraphics {
     // fast symbol handling, FIXME: does not work for fillAndDraw
     private static final int MAX_BLIT_SIZE = 32;
 
-    private static Map /* <color, Image[fill][symbol][size]> */symbols;
+    private static Map /* <color, Image[fill][symbol][size]> */<WebColor, Image[][][]>symbols;
 
     private WebColor webColor;
 
@@ -90,15 +90,15 @@ public class PixelGraphics2D extends AbstractVectorGraphics {
     private static boolean displayLocal;
 
     static {
-        symbols = new HashMap();
+        symbols = new HashMap<WebColor, Image[][][]>();
 
         displayX11 = false;
         displayLocal = false;
         try {
-            Class clazz = Class.forName("sun.awt.X11GraphicsEnvironment");
+            Class<?> clazz = Class.forName("sun.awt.X11GraphicsEnvironment");
             displayX11 = true;
-            Method method = clazz.getMethod("isDisplayLocal", null);
-            Boolean result = (Boolean) method.invoke(null, null);
+            Method method = clazz.getMethod("isDisplayLocal");
+            Boolean result = (Boolean) method.invoke(null);
             displayLocal = result.booleanValue();
         } catch (ClassNotFoundException e) {
             // Windows case...
@@ -331,7 +331,7 @@ public class PixelGraphics2D extends AbstractVectorGraphics {
 
     private void blitSymbol(double x, double y, int size, int symbol,
             boolean fill) {
-        Image[][][] images = (Image[][][]) symbols.get(webColor);
+        Image[][][] images = symbols.get(webColor);
         if (images == null) {
             images = new Image[2][NUMBER_OF_SYMBOLS][MAX_BLIT_SIZE];
             symbols.put(webColor, images);
@@ -444,7 +444,7 @@ public class PixelGraphics2D extends AbstractVectorGraphics {
     // underlying host graphics context.
     // //
 
-    public void addRenderingHints(Map hints) {
+    public void addRenderingHints(Map<?, ?> hints) {
         hostGraphics.addRenderingHints(hints);
     }
 
@@ -551,7 +551,7 @@ public class PixelGraphics2D extends AbstractVectorGraphics {
         hostGraphics.setRenderingHint(hintKey, hintValue);
     }
 
-    public void setRenderingHints(Map hints) {
+    public void setRenderingHints(Map<?, ?> hints) {
         hostGraphics.setRenderingHints(hints);
     }
 

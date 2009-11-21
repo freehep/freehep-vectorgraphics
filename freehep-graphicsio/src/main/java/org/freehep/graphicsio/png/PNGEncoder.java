@@ -96,9 +96,9 @@ public class PNGEncoder extends Object implements ImageObserver {
 
     protected int compressionLevel;
 
-    protected List keys = new ArrayList();
+    protected List<String> keys = new ArrayList<String>();
 
-    protected List text = new ArrayList();
+    protected List<String> text = new ArrayList<String>();
 
     public PNGEncoder() {
         this(null, false, FILTER_NONE, 0);
@@ -239,9 +239,9 @@ public class PNGEncoder extends Object implements ImageObserver {
         bytePos = writeBytes(pngIdBytes, 0);
         hdrPos = bytePos;
         writeHeader();
-        for (Iterator ik = keys.iterator(), iv = text.iterator(); ik.hasNext()
+        for (Iterator<String> ik = keys.iterator(), iv = text.iterator(); ik.hasNext()
                 && iv.hasNext();) {
-            writeText((String) ik.next(), (String) iv.next());
+            writeText(ik.next(), iv.next());
         }
         dataPos = bytePos;
         if (writeImageData()) {

@@ -24,10 +24,10 @@ public class DefineText extends DefinitionTag {
 
     protected AffineTransform matrix;
 
-    protected Vector /* TextRecord */text;
+    protected Vector /* TextRecord */<Record>text;
 
     public DefineText(int id, Rectangle2D bounds, AffineTransform matrix,
-            Vector /* TextRecord */text) {
+            Vector /* TextRecord */<Record>text) {
         this();
         character = id;
         this.bounds = bounds;
@@ -61,7 +61,7 @@ public class DefineText extends DefinitionTag {
         int glyphBits = swf.readUnsignedByte();
         int advanceBits = swf.readUnsignedByte();
 
-        text = new Vector();
+        text = new Vector<Record>();
         boolean type1 = swf.readBitFlag();
         Record record = type1 ? (Record) new RecordType1(swf, glyphBits,
                 advanceBits, hasAlpha) : (Record) new RecordType0(swf,
@@ -89,7 +89,7 @@ public class DefineText extends DefinitionTag {
         int glyphBits = 0;
         int advanceBits = 0;
         for (int i = 0; i < text.size(); i++) {
-            Record t = (Record) text.get(i);
+            Record t = text.get(i);
             if (t instanceof RecordType0) {
                 RecordType0 t0 = (RecordType0) t;
                 glyphBits = Math.max(glyphBits, t0.getGlyphBits());
@@ -101,7 +101,7 @@ public class DefineText extends DefinitionTag {
         swf.writeUnsignedByte(advanceBits);
 
         for (int i = 0; i < text.size(); i++) {
-            Record t = (Record) text.get(i);
+            Record t = text.get(i);
             t.write(swf, glyphBits, advanceBits, hasAlpha);
         }
         swf.writeUnsignedByte(0);
@@ -134,10 +134,10 @@ public class DefineText extends DefinitionTag {
      * Text0 Record, for the actual glyphs.
      */
     public static class RecordType0 extends Record {
-        private Vector /* GlyphEntry */glyphs = null;
+        private Vector /* GlyphEntry */<GlyphEntry>glyphs = null;
 
         public RecordType0() {
-            this.glyphs = new Vector();
+            this.glyphs = new Vector<GlyphEntry>();
         }
 
         public void add(GlyphEntry glyph) {
@@ -151,7 +151,7 @@ public class DefineText extends DefinitionTag {
             if (glyphCount == 0)
                 return; // end record
 
-            glyphs = new Vector();
+            glyphs = new Vector<GlyphEntry>();
             for (int i = 0; i < glyphCount; i++) {
                 GlyphEntry entry = new GlyphEntry(swf, glyphBits, advanceBits);
                 glyphs.add(entry);
@@ -165,7 +165,7 @@ public class DefineText extends DefinitionTag {
             swf.writeUBits(0, 1); // type 0
             swf.writeUBits(glyphs.size(), 7);
             for (int i = 0; i < glyphs.size(); i++) {
-                ((GlyphEntry) glyphs.get(i)).write(swf, glyphBits, advanceBits);
+                glyphs.get(i).write(swf, glyphBits, advanceBits);
             }
             swf.byteAlign();
         }
@@ -177,7 +177,7 @@ public class DefineText extends DefinitionTag {
         public int getGlyphBits() {
             int glyphBits = 0;
             for (int i = 0; i < glyphs.size(); i++) {
-                glyphBits = Math.max(glyphBits, ((GlyphEntry) glyphs.get(i))
+                glyphBits = Math.max(glyphBits, glyphs.get(i)
                         .getGlyphBits());
             }
             return glyphBits;
@@ -187,7 +187,7 @@ public class DefineText extends DefinitionTag {
             int advanceBits = 0;
             for (int i = 0; i < glyphs.size(); i++) {
                 advanceBits = Math.max(advanceBits,
-                        ((GlyphEntry) glyphs.get(i)).getAdvanceBits());
+                        glyphs.get(i).getAdvanceBits());
             }
             return advanceBits;
         }
@@ -217,7 +217,7 @@ public class DefineText extends DefinitionTag {
         private int height; // in TWIPS
 
         // only for swf >= 7
-        private Vector /* GlyphEntry */glyphs = null;
+        private Vector /* GlyphEntry */<GlyphEntry>glyphs = null;
 
         public RecordType1(int fontID, Color color, int xOffset, int yOffset,
                 int height) {
@@ -227,7 +227,7 @@ public class DefineText extends DefinitionTag {
             this.yOffset = yOffset;
             this.height = height;
 
-            glyphs = new Vector();
+            glyphs = new Vector<GlyphEntry>();
         }
 
         // only for swf >= 7
@@ -254,7 +254,7 @@ public class DefineText extends DefinitionTag {
             if (hasFont)
                 height = input.readUnsignedShort();
 
-            glyphs = new Vector();
+            glyphs = new Vector<GlyphEntry>();
             if (input.getVersion() >= 7) {
                 int glyphCount = (int) input.readUnsignedByte();
                 for (int i = 0; i < glyphCount; i++) {
@@ -287,7 +287,7 @@ public class DefineText extends DefinitionTag {
             if (swf.getVersion() >= 7) {
                 swf.writeUnsignedByte(glyphs.size());
                 for (int i = 0; i < glyphs.size(); i++) {
-                    ((GlyphEntry) glyphs.get(i)).write(swf, glyphBits,
+                    glyphs.get(i).write(swf, glyphBits,
                             advanceBits);
                 }
             }
@@ -296,7 +296,7 @@ public class DefineText extends DefinitionTag {
         public int getGlyphBits() {
             int glyphBits = 0;
             for (int i = 0; i < glyphs.size(); i++) {
-                glyphBits = Math.max(glyphBits, ((GlyphEntry) glyphs.get(i))
+                glyphBits = Math.max(glyphBits, glyphs.get(i)
                         .getGlyphBits());
             }
             return glyphBits;
@@ -306,7 +306,7 @@ public class DefineText extends DefinitionTag {
             int advanceBits = 0;
             for (int i = 0; i < glyphs.size(); i++) {
                 advanceBits = Math.max(advanceBits,
-                        ((GlyphEntry) glyphs.get(i)).getAdvanceBits());
+                        glyphs.get(i).getAdvanceBits());
             }
             return advanceBits;
         }

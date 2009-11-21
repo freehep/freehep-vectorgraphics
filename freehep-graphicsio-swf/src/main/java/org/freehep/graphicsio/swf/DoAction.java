@@ -15,9 +15,9 @@ import org.freehep.util.io.Action;
  */
 public class DoAction extends ControlTag {
 
-    private Vector actions;
+    private Vector<Action> actions;
 
-    public DoAction(Vector actions) {
+    public DoAction(Vector<Action> actions) {
         this();
         this.actions = actions;
     }
@@ -30,7 +30,7 @@ public class DoAction extends ControlTag {
             throws IOException {
 
         DoAction tag = new DoAction();
-        tag.actions = new Vector();
+        tag.actions = new Vector<Action>();
         Action action = swf.readAction();
         while (action != null) {
             tag.actions.add(action);
@@ -41,7 +41,7 @@ public class DoAction extends ControlTag {
 
     public void write(int tagID, SWFOutputStream swf) throws IOException {
         for (int i = 0; i < actions.size(); i++) {
-            Action a = (Action) actions.get(i);
+            Action a = actions.get(i);
             swf.writeAction(a);
         }
         swf.writeAction(null);

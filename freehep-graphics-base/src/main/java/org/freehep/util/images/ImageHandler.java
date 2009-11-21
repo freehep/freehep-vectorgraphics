@@ -30,9 +30,9 @@ public class ImageHandler
     public static final Cursor brokenCursor;
     public static final Icon brokenIcon;
     private static String[] imageExtensions = { ".png", ".gif", ".jpeg", ".jpg" };
-    private static Hashtable imageCache = new Hashtable();
-    private static Hashtable cursorCache = new Hashtable();
-    private static Hashtable iconCache = new Hashtable();
+    private static Hashtable<URL, Image> imageCache = new Hashtable<URL, Image>();
+    private static Hashtable<URL, Cursor> cursorCache = new Hashtable<URL, Cursor>();
+    private static Hashtable<URL, Icon> iconCache = new Hashtable<URL, Icon>();
 
     // only static methods
     protected ImageHandler()
@@ -76,7 +76,7 @@ public class ImageHandler
     {
         Image image = null;
         if (url!=null) {
-            image = (Image) imageCache.get(url);
+            image = imageCache.get(url);
         } else {
             image = brokenImage;
         }
@@ -129,7 +129,7 @@ public class ImageHandler
     /**
      * Create the best cursor by  reading from a URL, with hotspot (0,0).
      */
-    public static Cursor getBestCursor(String name, Class clazz, int width, int height) {
+    public static Cursor getBestCursor(String name, Class<?> clazz, int width, int height) {
         return getBestCursor(name, clazz, width, height, 0, 0);
     }
     
@@ -149,7 +149,7 @@ public class ImageHandler
      * @return The cursor, the default cursor if custom cursors are not supported
      *         or brokenCursor if the cursor cannot be found
      */
-    public static Cursor getBestCursor(String name, Class clazz, int width, int height, int x, int y) {
+    public static Cursor getBestCursor(String name, Class<?> clazz, int width, int height, int x, int y) {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getBestCursorSize(width, height);
         if ((dimension.width == 0) && (dimension.height == 0)) return Cursor.getDefaultCursor();
@@ -176,7 +176,7 @@ public class ImageHandler
      */
     public static Cursor getCursor(URL url, int x, int y)
     {
-        Cursor cursor = (url!=null) ? (Cursor) cursorCache.get(url) : null;
+        Cursor cursor = (url!=null) ? cursorCache.get(url) : null;
         if (cursor == null)
         {
             Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -195,7 +195,7 @@ public class ImageHandler
      */
     public static Icon getIcon(URL url)
     {
-        Icon icon = (url!=null) ? (Icon) iconCache.get(url) : null;
+        Icon icon = (url!=null) ? iconCache.get(url) : null;
         if (icon == null)
         {
             Image image = getImage(url);
@@ -213,7 +213,7 @@ public class ImageHandler
      * @param clazz The class from which the address is based
      * @return The image, or brokenImage if no image is found.
      */
-    public static Image getImage(String name, Class clazz)
+    public static Image getImage(String name, Class<?> clazz)
     {
         if (name.indexOf('.') >= 0) return getImage(clazz.getResource(name));
         for (int i=0; i<imageExtensions.length; i++)
@@ -232,7 +232,7 @@ public class ImageHandler
      * @param clazz The class from which the address is based
      * @return The cursor, or brokenCursor if no cursor is found.
      */
-    public static Cursor getCursor(String name, Class clazz) {
+    public static Cursor getCursor(String name, Class<?> clazz) {
         return getCursor(name, clazz, 0, 0);
     }
     
@@ -246,7 +246,7 @@ public class ImageHandler
      * @param y hotspot
      * @return The cursor, or brokenCursor if no cursor is found.
      */
-    public static Cursor getCursor(String name, Class clazz, int x, int y)
+    public static Cursor getCursor(String name, Class<?> clazz, int x, int y)
     {
         if (name.indexOf('.') >= 0) return getCursor(clazz.getResource(name), x, y);
 
@@ -266,7 +266,7 @@ public class ImageHandler
      * @param clazz The class from which the address is based
      * @return The icon, or brokenIcon if no icon is found.
      */
-    public static Icon getIcon(String name, Class clazz)
+    public static Icon getIcon(String name, Class<?> clazz)
     {
         if (name.indexOf('.') >= 0) return getIcon(clazz.getResource(name));
 

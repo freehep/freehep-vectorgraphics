@@ -37,7 +37,7 @@ public class TestExportFileType {
                 System.exit(1);
             }
         } else {
-            Class clazz = Class.forName(args[0]);
+            Class<?> clazz = Class.forName(args[0]);
             type = (ExportFileType) clazz.newInstance();
         }
 

@@ -25,7 +25,7 @@ public class GIFGraphics2D extends ImageGraphics2D {
 
     static {
         try {
-            Class clazz = Class
+            Class<?> clazz = Class
                     .forName("org.freehep.graphicsio.gif.GIFImageWriterSpi");
             IIORegistry.getDefaultInstance().registerServiceProvider(
                     (ImageWriterSpi)clazz.newInstance(), ImageWriterSpi.class);

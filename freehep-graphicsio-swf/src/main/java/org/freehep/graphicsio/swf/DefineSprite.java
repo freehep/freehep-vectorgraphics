@@ -17,9 +17,9 @@ public class DefineSprite extends DefinitionTag {
 
     private int frameCount;
 
-    private Vector tags;
+    private Vector<SWFTag> tags;
 
-    public DefineSprite(int id, int frameCount, Vector tags) {
+    public DefineSprite(int id, int frameCount, Vector<SWFTag> tags) {
         this();
         character = id;
         this.frameCount = frameCount;
@@ -43,7 +43,7 @@ public class DefineSprite extends DefinitionTag {
         SWFInputStream sprite = new SWFInputStream(swf, new SWFSpriteTagSet(
                 version), new SWFActionSet(version));
 
-        tag.tags = new Vector();
+        tag.tags = new Vector<SWFTag>();
         SWFTag miniTag;
         do {
             miniTag = (SWFTag) sprite.readTag();
@@ -57,7 +57,7 @@ public class DefineSprite extends DefinitionTag {
         swf.writeUnsignedShort(character);
         swf.writeUnsignedShort(frameCount);
         for (int i = 0; i < tags.size(); i++) {
-            swf.writeTag((SWFTag) tags.get(i));
+            swf.writeTag(tags.get(i));
         }
     }
 

@@ -12,7 +12,7 @@ import java.util.Vector;
  */
 public class PDFPageTree extends PDFPageBase {
 
-    Vector pages = new Vector();
+    Vector<PDFRef> pages = new Vector<PDFRef>();
 
     PDFPageTree(PDF pdf, PDFByteWriter writer, PDFObject object, PDFRef parent)
             throws IOException {

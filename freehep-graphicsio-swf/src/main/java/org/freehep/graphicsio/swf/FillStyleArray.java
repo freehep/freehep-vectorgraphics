@@ -15,10 +15,10 @@ import java.util.List;
  */
 public class FillStyleArray {
 
-    protected List /* FillStyle */fillStyles;
+    protected List /* FillStyle */<FillStyle>fillStyles;
 
     public FillStyleArray() {
-        this.fillStyles = new ArrayList();
+        this.fillStyles = new ArrayList<FillStyle>();
     }
 
     public FillStyleArray(SWFInputStream swf, boolean isMorphStyle,
@@ -41,7 +41,7 @@ public class FillStyleArray {
     }
 
     public FillStyle get(int index) {
-        return (FillStyle) fillStyles.get(index);
+        return fillStyles.get(index);
     }
 
     public void write(SWFOutputStream swf, boolean isMorphStyle, boolean hasAlpha) throws IOException {
@@ -52,8 +52,8 @@ public class FillStyleArray {
         } else {
             swf.writeUnsignedByte(fillStyles.size());
         }
-        for (Iterator i = fillStyles.iterator(); i.hasNext();) {
-            ((FillStyle) i.next()).write(swf, isMorphStyle, hasAlpha);
+        for (Iterator<FillStyle> i = fillStyles.iterator(); i.hasNext();) {
+            i.next().write(swf, isMorphStyle, hasAlpha);
         }
     }
 
@@ -61,7 +61,7 @@ public class FillStyleArray {
         StringBuffer s = new StringBuffer();
         s.append("  fillStyles: " + fillStyles.size() + "\n");
         int n = 0;
-        for (Iterator i = fillStyles.iterator(); i.hasNext();) {
+        for (Iterator<FillStyle> i = fillStyles.iterator(); i.hasNext();) {
             s.append("    " + (n + 1) + " " + (i.next()) + "\n");
             n++;
         }

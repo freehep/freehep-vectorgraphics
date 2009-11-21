@@ -46,7 +46,7 @@ public class PDFPaintDelayQueue {
         }
     }
 
-    private List paintList;
+    private List<Entry> paintList;
 
     private PDFWriter pdf;
 
@@ -57,7 +57,7 @@ public class PDFPaintDelayQueue {
     /** Don't forget to call <tt>setPageMatrix()</tt>. */
     public PDFPaintDelayQueue(PDFWriter pdf, PDFImageDelayQueue imageDelayQueue) {
         this.pdf = pdf;
-        this.paintList = new LinkedList();
+        this.paintList = new LinkedList<Entry>();
 //        this.imageDelayQueue = imageDelayQueue;
         this.pageMatrix = new AffineTransform();
     }
@@ -81,9 +81,9 @@ public class PDFPaintDelayQueue {
 
     /** Creates a stream for every delayed image. */
     public void processAll() throws IOException {
-        ListIterator i = paintList.listIterator();
+        ListIterator<Entry> i = paintList.listIterator();
         while (i.hasNext()) {
-            Entry e = (Entry) i.next();
+            Entry e = i.next();
 
             if (!e.written) {
                 e.written = true;
@@ -108,9 +108,9 @@ public class PDFPaintDelayQueue {
     public int addPatterns() throws IOException {
         if (paintList.size() > 0) {
             PDFDictionary patterns = pdf.openDictionary("Pattern");
-            ListIterator i = paintList.listIterator();
+            ListIterator<Entry> i = paintList.listIterator();
             while (i.hasNext()) {
-                Entry e = (Entry) i.next();
+                Entry e = i.next();
                 patterns.entry(e.name, pdf.ref(e.name));
             }
             pdf.close(patterns);

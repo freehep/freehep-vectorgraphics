@@ -30,9 +30,9 @@ public class ScreenConstants {
 
     private static Dimension UNDEFINED = new Dimension(0, 0);
 
-    private static final Map sizes;
+    private static final Map<String, Dimension> sizes;
     static {
-        sizes = new HashMap();
+        sizes = new HashMap<String, Dimension>();
         sizes.put(VGA, new Dimension(640, 480));
         sizes.put(SVGA, new Dimension(800, 600));
         sizes.put(XGA, new Dimension(1024, 768));
@@ -42,7 +42,7 @@ public class ScreenConstants {
     }
 
     public static Dimension getSize(String size) {
-        Dimension d = (Dimension) sizes.get(size);
+        Dimension d = sizes.get(size);
         return d != null ? d : UNDEFINED;
     }
 }

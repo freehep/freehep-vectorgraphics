@@ -61,7 +61,7 @@
 
   <properties>
     <mavenVersion>2.0.9</mavenVersion>
-    <freehepIoVersion>2.0.5</freehepIoVersion>
+    <freehepIoVersion>2.1</freehepIoVersion>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -157,7 +157,7 @@
         <plugin>
           <groupId>org.freehep</groupId>
           <artifactId>freehep-chartable-converter-plugin</artifactId>
-          <version>2.0.2</version>
+          <version>2.2-SNAPSHOT</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -165,8 +165,8 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.4</source>
-          <target>1.4</target>
+          <source>1.5</source>
+          <target>1.5</target>
           <optimize>true</optimize>
         </configuration>
       </plugin>

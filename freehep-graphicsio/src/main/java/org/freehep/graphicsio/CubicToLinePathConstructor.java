@@ -30,7 +30,7 @@ public abstract class CubicToLinePathConstructor extends
                       double y3) throws IOException {
 
         // ControlSets are written at the end
-        Stack/*<ControlSet>*/ controls = new Stack/*<ControlSet>*/();
+        Stack/*<ControlSet>*/<ControlSet> controls = new Stack/*<ControlSet>*/<ControlSet>();
 
         // System.out.println("Cubic "+x1+" "+y1+" "+x2+" "+y2+" "+x3+" "+y3);
         Point2D p0 = new Point2D.Double(currentX, currentY);
@@ -39,11 +39,11 @@ public abstract class CubicToLinePathConstructor extends
         Point2D p3 = new Point2D.Double(x3, y3);
 
         // ControlSets to create the controls
-        Stack/*<ControlSet>*/ temps = new Stack/*<ControlSet>*/();
+        Stack/*<ControlSet>*/<ControlSet> temps = new Stack/*<ControlSet>*/<ControlSet>();
         temps.push(new ControlSet(p0, p1, p2, p3));
 
         while (!temps.empty()) {
-            ControlSet control = (ControlSet) temps.pop();
+            ControlSet control = temps.pop();
             if (control.breadth() > resolution) {
                 temps.push(control);
                 temps.push(control.bisect());
@@ -68,7 +68,7 @@ public abstract class CubicToLinePathConstructor extends
         // write out control sets
         // System.out.println(k);
         while (!controls.empty()) {
-            Point2D p = ((ControlSet)controls.pop()).getPoint();
+            Point2D p = controls.pop().getPoint();
             line(p.getX(), p.getY());
             // System.out.println(control2.getPoint());
         }

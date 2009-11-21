@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 import org.freehep.graphicsio.CubicToQuadPathConstructor;
+import org.freehep.graphicsio.swf.SWFShape.Record;
 
 /**
  * @author Mark Donszelmann
@@ -12,7 +13,7 @@ import org.freehep.graphicsio.CubicToQuadPathConstructor;
  */
 public class SWFPathConstructor extends CubicToQuadPathConstructor implements
         SWFConstants {
-    private Vector path;
+    private Vector<Record> path;
 
     // to avoid rounding errors we keep all values in TWIPS.
     private int x0, y0;
@@ -21,12 +22,12 @@ public class SWFPathConstructor extends CubicToQuadPathConstructor implements
 
     private int stroke, fill0, fill1;
 
-    public SWFPathConstructor(Vector path, int stroke, int fill0, int fill1) {
+    public SWFPathConstructor(Vector<Record> path, int stroke, int fill0, int fill1) {
         // resolution equals .5 twips
         this(path, stroke, fill0, fill1, 0.5 / TWIPS);
     }
 
-    public SWFPathConstructor(Vector path, int stroke, int fill0, int fill1,
+    public SWFPathConstructor(Vector<Record> path, int stroke, int fill0, int fill1,
             double resolution) {
         super(resolution);
         this.path = path;

@@ -1,4 +1,4 @@
-// Copyright 2001, FreeHEP.
+// Copyright 2001-2009, FreeHEP.
 package org.freehep.graphicsio.font.truetype;
 
 import java.io.IOException;
@@ -10,14 +10,13 @@ import java.io.IOException;
  * arrays).
  * 
  * @author Simon Fischer
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/font/truetype/TTFTable.java 5641ca92a537 2005/11/26 00:15:35 duns $
  */
 public abstract class TTFTable {
 
     public static final String[] TT_TAGS = new String[] { "cmap", "glyf",
             "head", "hhea", "hmtx", "loca", "maxp", "name", "OS/2", "post" };
 
-    public static final Class[] TABLE_CLASSES = new Class[] {
+    public static final Class<?>[] TABLE_CLASSES = new Class<?>[] {
             TTFCMapTable.class, TTFGlyfTable.class, TTFHeadTable.class,
             TTFHHeaTable.class, TTFHMtxTable.class, TTFLocaTable.class,
             TTFMaxPTable.class, TTFNameTable.class, TTFOS_2Table.class,

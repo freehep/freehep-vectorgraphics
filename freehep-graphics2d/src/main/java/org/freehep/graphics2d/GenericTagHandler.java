@@ -40,7 +40,7 @@ public class GenericTagHandler extends TagHandler {
     /**
      * stores AttributeEntries created by {@link #closeTag(String)}
      */
-    private Vector/*<AttributeEntry>*/ attributes;
+    private Vector/*<AttributeEntry>*/<AttributeEntry> attributes;
 
     /**
      * stores all open tags, e.g. "<sub>" an the position
@@ -48,12 +48,12 @@ public class GenericTagHandler extends TagHandler {
      * emptied and translated into <code>attributes</code> by
      * {@link #closeTag(String)}
      */
-    private Hashtable tags;
+    private Hashtable<String, Integer> tags;
 
     /**
      * store the names of font families before they are changed by openTag()
      */
-    private Stack/*<String>*/ fontFamilyStack;
+    private Stack/*<String>*/<?> fontFamilyStack;
 
     /**
      * if we aplly TextAttribute.SUPERSCRIPT with correction of
@@ -70,7 +70,7 @@ public class GenericTagHandler extends TagHandler {
         super();
         this.graphics = graphics;
         this.clearedText = new StringBuffer();
-        this.tags = new Hashtable();
+        this.tags = new Hashtable<String, Integer>();
     }
 
     /**
@@ -83,10 +83,10 @@ public class GenericTagHandler extends TagHandler {
      */
     public void print(TagString s, double x, double y, double superscriptCorrection) {
 
-        fontFamilyStack = new Stack();
+        fontFamilyStack = new Stack<Object>();
 
         this.clearedText = new StringBuffer();
-        this.attributes = new Vector();
+        this.attributes = new Vector<AttributeEntry>();
         this.superscriptCorrection = superscriptCorrection;
 
         parse(s);
@@ -94,7 +94,7 @@ public class GenericTagHandler extends TagHandler {
         // close all open tags to ensure all
         // open attributes are applied
         while (tags.size() > 0) {
-            closeTag((String) tags.keys().nextElement());
+            closeTag(tags.keys().nextElement());
         }
 
         // create attributed string to print
@@ -105,7 +105,7 @@ public class GenericTagHandler extends TagHandler {
 
         // aplly attributes
         for (int i = 0; i < attributes.size(); i++) {
-            ((AttributeEntry)attributes.elementAt(i)).apply(attributedString);
+            attributes.elementAt(i).apply(attributedString);
         }
 
         graphics.drawString(attributedString.getIterator(), (float)x, (float)y);
@@ -119,10 +119,10 @@ public class GenericTagHandler extends TagHandler {
      */
     public TextLayout createTextLayout(TagString s, double superscriptCorrection) {
 
-        fontFamilyStack = new Stack();
+        fontFamilyStack = new Stack<Object>();
 
         this.clearedText = new StringBuffer();
-        this.attributes = new Vector();
+        this.attributes = new Vector<AttributeEntry>();
         this.superscriptCorrection = superscriptCorrection;
 
         parse(s);
@@ -130,7 +130,7 @@ public class GenericTagHandler extends TagHandler {
         // close all open tags to ensure all
         // open attributes are applied
         while (tags.size() > 0) {
-            closeTag((String) tags.keys().nextElement());
+            closeTag(tags.keys().nextElement());
         }
 
         // create attributed string to print
@@ -141,7 +141,7 @@ public class GenericTagHandler extends TagHandler {
 
         // aplly attributes
         for (int i = 0; i < attributes.size(); i++) {
-            ((AttributeEntry)attributes.elementAt(i)).apply(attributedString);
+            attributes.elementAt(i).apply(attributedString);
         }
 
         // create the layout
@@ -184,7 +184,7 @@ public class GenericTagHandler extends TagHandler {
         if (!tags.containsKey(tag)) {
             return super.closeTag(tag);
         } else {
-            begin = ((Integer)tags.get(tag)).intValue();
+            begin = tags.get(tag).intValue();
             tags.remove(tag);
         }
 

@@ -23,9 +23,9 @@ public class SWFShape {
 
     protected LineStyleArray lineStyles;
 
-    private Vector records;
+    private Vector<Record> records;
 
-    public SWFShape(Vector records) {
+    public SWFShape(Vector<Record> records) {
         this.records = records;
     }
 
@@ -45,7 +45,7 @@ public class SWFShape {
         numFillBits = (int) input.readUBits(4);
         numLineBits = (int) input.readUBits(4);
 
-        records = new Vector();
+        records = new Vector<Record>();
 
         boolean endOfShape = false;
         do {
@@ -77,7 +77,7 @@ public class SWFShape {
         int numLineBits = 0;
 
         for (int i = 0; i < records.size(); i++) {
-            Record r = (Record) records.get(i);
+            Record r = records.get(i);
             if (r instanceof ShapeRecord) {
                 ShapeRecord s = (ShapeRecord) r;
                 numFillBits = Math.max(numFillBits, s.getNumFillBits());
@@ -88,7 +88,7 @@ public class SWFShape {
         swf.writeUBits(numLineBits, 4);
 
         for (int i = 0; i < records.size(); i++) {
-            Record r = (Record) records.get(i);
+            Record r = records.get(i);
             r.write(swf, numFillBits, numLineBits, isMorphStyle, hasAlpha, hasStyles);
         }
         swf.writeUBits(0, 6); // End of Shape

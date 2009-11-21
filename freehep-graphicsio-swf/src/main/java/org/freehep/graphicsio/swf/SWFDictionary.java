@@ -11,7 +11,7 @@ import java.util.Hashtable;
  * @author Charles Loomis
  * @version $Id: freehep-graphicsio-swf/src/main/java/org/freehep/graphicsio/swf/SWFDictionary.java db861da05344 2005/12/05 00:59:43 duns $
  */
-public class SWFDictionary extends Hashtable {
+public class SWFDictionary extends Hashtable<Integer, DefinitionTag> {
 
     public void put(int id, DefinitionTag tag) {
         put(new Integer(id), tag);
@@ -27,7 +27,7 @@ public class SWFDictionary extends Hashtable {
 
     public String toString() {
         StringBuffer s = new StringBuffer("SWF Dictionary\n");
-        for (Enumeration e = keys(); e.hasMoreElements();) {
+        for (Enumeration<?> e = keys(); e.hasMoreElements();) {
             Integer key = (Integer) e.nextElement();
             s.append("  [" + key.intValue() + "] ");
             s.append(get(key));

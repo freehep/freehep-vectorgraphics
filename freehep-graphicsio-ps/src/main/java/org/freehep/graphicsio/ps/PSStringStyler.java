@@ -1,6 +1,7 @@
 package org.freehep.graphicsio.ps;
 
 import java.awt.font.TextAttribute;
+import java.text.AttributedCharacterIterator.Attribute;
 import java.util.Map;
 
 import org.freehep.graphics2d.GenericTagHandler;
@@ -60,7 +61,7 @@ public class PSStringStyler {
      * Must override the parse method because the PostScript string must be
      * initialized and terminated.
      */
-    public static String getStyledString(Map /*<TextAttribute,?>*/ attributes, String string) {
+    public static String getStyledString(Map /*<TextAttribute,?>*/<Attribute, Object> attributes, String string) {
         StringBuffer result = new StringBuffer();
 
         Float size = (Float) attributes.get(TextAttribute.SIZE);
@@ -203,7 +204,7 @@ public class PSStringStyler {
      *
      * @param attributes font to translate in PS tags
      */
-    private static String getOpenTag(Map/* Map<TextAttribute,?>*/ attributes, Value open) {
+    private static String getOpenTag(Map/* Map<TextAttribute,?>*/<Attribute, Object> attributes, Value open) {
 
         int openGroups = open.getInt();
 

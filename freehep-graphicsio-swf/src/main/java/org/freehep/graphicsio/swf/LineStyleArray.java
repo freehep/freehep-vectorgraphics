@@ -15,10 +15,10 @@ import java.util.List;
  */
 public class LineStyleArray {
 
-    protected List /* LineStyle */lineStyles;
+    protected List /* LineStyle */<LineStyle>lineStyles;
 
     public LineStyleArray() {
-        this.lineStyles = new ArrayList();
+        this.lineStyles = new ArrayList<LineStyle>();
     }
 
     public LineStyleArray(SWFInputStream swf, boolean isMorphStyle,
@@ -40,7 +40,7 @@ public class LineStyleArray {
     }
 
     public LineStyle get(int index) {
-        return (LineStyle) lineStyles.get(index);
+        return lineStyles.get(index);
     }
 
     public void write(SWFOutputStream swf, boolean isMorphStyle, boolean hasAlpha, boolean hasStyles) throws IOException {
@@ -51,8 +51,8 @@ public class LineStyleArray {
         } else {
             swf.writeUnsignedByte(lineStyles.size());
         }
-        for (Iterator i = lineStyles.iterator(); i.hasNext();) {
-            ((LineStyle) i.next()).write(swf, isMorphStyle, hasAlpha, hasStyles);
+        for (Iterator<LineStyle> i = lineStyles.iterator(); i.hasNext();) {
+            i.next().write(swf, isMorphStyle, hasAlpha, hasStyles);
         }
     }
 
@@ -60,7 +60,7 @@ public class LineStyleArray {
         StringBuffer s = new StringBuffer();
         s.append("  lineStyles: " + lineStyles.size() + "\n");
         int n = 0;
-        for (Iterator i = lineStyles.iterator(); i.hasNext();) {
+        for (Iterator<LineStyle> i = lineStyles.iterator(); i.hasNext();) {
             s.append("    " + (n + 1) + " " + (i.next()) + "\n");
             n++;
         }

@@ -30,6 +30,7 @@ import java.io.StringWriter;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.AttributedCharacterIterator.Attribute;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Enumeration;
@@ -157,12 +158,12 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
     private PrintWriter os;
 
     // table for gradients
-    Hashtable gradients = new Hashtable();
+    Hashtable<GradientPaint, String> gradients = new Hashtable<GradientPaint, String>();
 
     // table for textures
-    Hashtable textures = new Hashtable();
+    Hashtable<?, ?> textures = new Hashtable<Object, Object>();
 
-    private Stack closeTags = new Stack();
+    private Stack<String> closeTags = new Stack<String>();
 
     private int imageNumber = 0;
 
@@ -705,7 +706,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         Properties result = new Properties();
 
         // attribute for font properties
-        Map /*<TextAttribute, ?>*/ attributes = FontUtilities.getAttributes(font);
+        Map /*<TextAttribute, ?>*/<Attribute, Object> attributes = FontUtilities.getAttributes(font);
 
         // dialog.bold -> Helvetica with TextAttribute.WEIGHT_BOLD
         SVGFontTable.normalize(attributes);
@@ -1214,7 +1215,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             result.append("style=\"");
         }
 
-        Enumeration keys = style.keys();
+        Enumeration<?> keys = style.keys();
         while (keys.hasMoreElements()) {
             String key = (String) keys.nextElement();
             String value = style.getProperty(key);

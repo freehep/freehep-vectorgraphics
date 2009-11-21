@@ -32,7 +32,7 @@ public class PlaceObject2 extends ControlTag {
 
     private ClipEventFlags allEventFlags = null;
 
-    private Vector clipActionRecords = null;
+    private Vector<ClipActionRecord> clipActionRecords = null;
 
     public PlaceObject2(int id, int depth, AffineTransform matrix) {
         this(false, depth, id, matrix, null, 0, null, 0);
@@ -91,7 +91,7 @@ public class PlaceObject2 extends ControlTag {
             swf.readUnsignedShort(); // always 0
             tag.allEventFlags = new ClipEventFlags(swf);
 
-            tag.clipActionRecords = new Vector();
+            tag.clipActionRecords = new Vector<ClipActionRecord>();
             ClipActionRecord clipActionRecord = new ClipActionRecord(swf);
             while (clipActionRecord.isEndRecord()) {
                 tag.clipActionRecords.add(clipActionRecord);
@@ -131,7 +131,7 @@ public class PlaceObject2 extends ControlTag {
             allEventFlags.write(swf);
 
             for (int i = 0; i < clipActionRecords.size(); i++) {
-                ClipActionRecord clipActionRecord = (ClipActionRecord) clipActionRecords
+                ClipActionRecord clipActionRecord = clipActionRecords
                         .get(i);
                 clipActionRecord.write(swf);
             }

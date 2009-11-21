@@ -17,9 +17,9 @@ public class ButtonCondAction {
 
     private int condition;
 
-    private Vector actions;
+    private Vector<Action> actions;
 
-    public ButtonCondAction(int condition, Vector actions) {
+    public ButtonCondAction(int condition, Vector<Action> actions) {
         this.condition = condition;
         this.actions = actions;
     }
@@ -28,7 +28,7 @@ public class ButtonCondAction {
 
         condition = input.readUnsignedShort();
 
-        actions = new Vector();
+        actions = new Vector<Action>();
         Action action = input.readAction();
         while (action != null) {
             actions.add(action);
@@ -40,7 +40,7 @@ public class ButtonCondAction {
         swf.writeUnsignedShort(condition);
 
         for (int i = 0; i < actions.size(); i++) {
-            Action a = (Action) actions.get(i);
+            Action a = actions.get(i);
             swf.writeAction(a);
         }
         swf.writeAction(null);

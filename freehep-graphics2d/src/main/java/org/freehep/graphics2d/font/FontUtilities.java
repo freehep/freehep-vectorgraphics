@@ -5,10 +5,11 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.font.TextAttribute;
 import java.io.IOException;
+import java.text.AttributedCharacterIterator.Attribute;
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Properties;
-import java.util.Hashtable;
 
 /**
  * 
@@ -20,7 +21,7 @@ public class FontUtilities {
     private FontUtilities() {
     }
 
-    public static List getAllAvailableFonts() {
+    public static List<String> getAllAvailableFonts() {
         return Arrays.asList(GraphicsEnvironment.getLocalGraphicsEnvironment()
                 .getAvailableFontFamilyNames());
     }
@@ -144,14 +145,14 @@ public class FontUtilities {
     /**
      * there is a bug in the jdk 1.6 which makes
      * Font.getAttributes() not work correctly. The
-     * method does not return all values. What we dow here
+     * method does not return all values. What we do here
      * is using the old JDK 1.5 method.
      *
      * @param font font
      * @return Attributes of font
      */
-    public static Hashtable getAttributes(Font font) {
-        Hashtable result = new Hashtable(7, (float)0.9);
+    public static Hashtable<Attribute, Object> getAttributes(Font font) {
+        Hashtable<Attribute, Object> result = new Hashtable<Attribute, Object>(7, (float)0.9);
         result.put(
             TextAttribute.TRANSFORM,
             font.getTransform());

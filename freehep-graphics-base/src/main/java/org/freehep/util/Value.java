@@ -35,18 +35,18 @@ public class Value {
     private byte    byteValue;
     private char    charValue;
     private Object  obj;
-    private Class   type;
+    private Class<?>   type;
 
-    public final static Class TYPE_INTEGER = Integer.TYPE;
-    public final static Class TYPE_SHORT   = Short.TYPE;
-    public final static Class TYPE_LONG    = Long.TYPE;
-    public final static Class TYPE_FLOAT   = Float.TYPE;
-    public final static Class TYPE_DOUBLE  = Double.TYPE;
-    public final static Class TYPE_BOOLEAN = Boolean.TYPE;
-    public final static Class TYPE_BYTE    = Byte.TYPE;
-    public final static Class TYPE_CHAR    = Character.TYPE;
-    public final static Class TYPE_STRING  = String.class;
-    public final static Class TYPE_DATE    = Date.class;
+    public final static Class<?> TYPE_INTEGER = Integer.TYPE;
+    public final static Class<?> TYPE_SHORT   = Short.TYPE;
+    public final static Class<?> TYPE_LONG    = Long.TYPE;
+    public final static Class<?> TYPE_FLOAT   = Float.TYPE;
+    public final static Class<?> TYPE_DOUBLE  = Double.TYPE;
+    public final static Class<?> TYPE_BOOLEAN = Boolean.TYPE;
+    public final static Class<?> TYPE_BYTE    = Byte.TYPE;
+    public final static Class<?> TYPE_CHAR    = Character.TYPE;
+    public final static Class<?> TYPE_STRING  = String.class;
+    public final static Class<?> TYPE_DATE    = Date.class;
 
     public Value() {}
     
@@ -73,7 +73,7 @@ public class Value {
      * @return The Class of this Value.
      *
      */
-    public Class getType() {
+    public Class<?> getType() {
         return type;
     }
 
@@ -372,8 +372,8 @@ public class Value {
         } else {
             // FIXME will not work for arrays, which are encoded as "[Lpackagename.classname;"
             try {
-                Class cls = Class.forName(part[0]);
-                Constructor ctor = cls.getDeclaredConstructor(new Class[] { String.class });
+                Class<?> cls = Class.forName(part[0]);
+                Constructor<?> ctor = cls.getDeclaredConstructor(new Class[] { String.class });
                 ctor.setAccessible(true);
                 return set(ctor.newInstance(new Object[] { part[1] }));
             } catch (Exception e) {

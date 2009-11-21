@@ -22,6 +22,7 @@ import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.TexturePaint;
 import java.awt.Toolkit;
+import java.awt.RenderingHints.Key;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.font.ImageGraphicAttribute;
@@ -92,9 +93,9 @@ public class JAVAGraphics2D extends VectorGraphics implements
 
     private static final int MAX_LINES_PER_METHOD = 200;
 
-    private Map /* <VectorGraphics, Value> */vg = new HashMap();
+    private Map /* <VectorGraphics, Value> */<JAVAGraphics2D, Integer>vg = new HashMap<JAVAGraphics2D, Integer>();
 
-    private SortedSet /*<String>*/ imports = new TreeSet();
+    private SortedSet /*<String>*/<String> imports = new TreeSet<String>();
     
     private Value vgIndex = new Value().set(0);
 
@@ -679,9 +680,9 @@ public class JAVAGraphics2D extends VectorGraphics implements
         out.println(vg() + ".translate(" + x + ", " + y + ");");
     }
 
-    public void addRenderingHints(Map hints) {
+    public void addRenderingHints(Map<?, ?> hints) {
         // store hints
-        hints.putAll(hints);
+        this.hints.putAll(hints);
 
         // write hints out
         out.print(vg() + ".addRenderingHints(");
@@ -761,7 +762,7 @@ public class JAVAGraphics2D extends VectorGraphics implements
         out.print(")");
     }
 
-    private void writeHintMap(Map hints) {
+    private void writeHintMap(Map<?, ?> hints) {
         if (hints == null) {
             out.print("null");
             return;
@@ -770,16 +771,16 @@ public class JAVAGraphics2D extends VectorGraphics implements
         imports.add("org.freehep.graphicsio.java.JAVAArrayMap");
         out.print("new JAVAArrayMap(new Object[] {");
 
-        Iterator keys = hints.keySet().iterator();
+        Iterator<?> keys = hints.keySet().iterator();
         while(keys.hasNext()) {
             Object key = keys.next();
-            String keyString = (String) JAVAArrayMap.HINTS.get(key);
+            String keyString = JAVAArrayMap.HINTS.get(key);
             if (keyString == null) {
                 continue;
             }
 
             Object value = hints.get(key);
-            String valueString = (String) JAVAArrayMap.HINTS.get(value);
+            String valueString = JAVAArrayMap.HINTS.get(value);
             if (valueString == null) {
                 continue;
             }
@@ -854,13 +855,13 @@ public class JAVAGraphics2D extends VectorGraphics implements
      * @param text will be filled with chars from the iterator
      * @return HashSet with entries like "addAttribute(TextAttribute.FONT, new Font("Arial", 11f), 10, 20)"
      */
-    private HashSet getAttributes(
+    private HashSet<String> getAttributes(
         AttributedCharacterIterator iterator,
-        HashSet imports,
+        HashSet<String> imports,
         StringBuffer text) {
 
         // return this later
-        HashSet result = new HashSet(0);
+        HashSet<String> result = new HashSet<String>(0);
 
         // iterate the Characters
         for (
@@ -871,8 +872,8 @@ public class JAVAGraphics2D extends VectorGraphics implements
             // append the char
             text.append(c);
 
-            Map /*<Attribute, Object>*/ attributes = iterator.getAttributes();
-            Iterator /*<Attribute>*/ keys = attributes.keySet().iterator();
+            Map /*<Attribute, Object>*/<?, ?> attributes = iterator.getAttributes();
+            Iterator /*<Attribute>*/<?> keys = attributes.keySet().iterator();
             while (keys.hasNext()) {
                 StringBuffer attribute = new StringBuffer();
 
@@ -981,10 +982,10 @@ public class JAVAGraphics2D extends VectorGraphics implements
 
         // filled by {@link #getAttributes()}
         StringBuffer attributeName = new StringBuffer();
-        HashSet attributeImports = new HashSet(0);
+        HashSet<String> attributeImports = new HashSet<String>(0);
 
         // get Attributes and fill attributeName and attributeImports
-        Iterator attributes = getAttributes(
+        Iterator<String> attributes = getAttributes(
             iterator,
             attributeImports,
             attributeName).iterator();
@@ -1204,7 +1205,7 @@ public class JAVAGraphics2D extends VectorGraphics implements
         }
 
         // RenderingHints --> String
-        String key = (String) JAVAArrayMap.HINTS.get(hintKey);
+        String key = JAVAArrayMap.HINTS.get(hintKey);
         if (key == null) {
              out.println("System.err.println(\"" + getClass()
                     + ": setRenderingHint(RenderingHints.Key, Object) key not supported '"
@@ -1212,7 +1213,7 @@ public class JAVAGraphics2D extends VectorGraphics implements
             return;
         }
 
-        String value = (String) JAVAArrayMap.HINTS.get(hintValue);
+        String value = JAVAArrayMap.HINTS.get(hintValue);
         if (value == null) {
              out.println("System.err.println(\"" + getClass()
                     + ": setRenderingHint(RenderingHints.Key, Object) key not supported '"
@@ -1229,8 +1230,9 @@ public class JAVAGraphics2D extends VectorGraphics implements
         out.println(");");
     }
 
-    public void setRenderingHints(Map hints) {
-        this.hints = new RenderingHints(hints);
+    @SuppressWarnings( "unchecked" )
+    public void setRenderingHints(Map<?, ?> hints) {
+        this.hints = new RenderingHints((Map<Key, ?>) hints);
 
         // write them out
         out.print(vg() + ".setRenderingHints(");
@@ -1599,7 +1601,7 @@ public class JAVAGraphics2D extends VectorGraphics implements
             writer.println("package " + getProperty(PACKAGE_NAME) + ";");
             writer.println();
         }
-        for (Iterator i=imports.iterator(); i.hasNext(); ) {
+        for (Iterator<String> i=imports.iterator(); i.hasNext(); ) {
             writer.println("import "+i.next()+";");
         }
         writer.println();    
@@ -2122,7 +2124,7 @@ public class JAVAGraphics2D extends VectorGraphics implements
     }
 
     private String vg() {
-        Integer index = (Integer) vg.get(this);
+        Integer index = vg.get(this);
         return "vg["
                 + ((index != null) ? String.valueOf(index.intValue()) : "null")
                 + "]";

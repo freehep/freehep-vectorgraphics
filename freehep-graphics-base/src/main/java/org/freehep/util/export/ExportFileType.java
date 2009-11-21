@@ -1,4 +1,4 @@
-// Copyright 2003-2006, FreeHEP.
+// Copyright 2003-2009, FreeHEP.
 package org.freehep.util.export;
 
 import java.awt.Component;
@@ -18,9 +18,8 @@ import org.freehep.swing.ExtensionFileFilter;
  *
  * @author Charles Loomis
  * @author Mark Donszelmann
- * @version $Id: src/main/java/org/freehep/util/export/ExportFileType.java e26a31b64eb2 2007/06/12 22:18:45 duns $
  */
-public abstract class ExportFileType implements Comparable {
+public abstract class ExportFileType implements Comparable<Object> {
 
     private static ClassLoader loader;
 
@@ -169,7 +168,7 @@ public abstract class ExportFileType implements Comparable {
     /**
      * Return all registered ExportFileTypes
      */
-    public static List getExportFileTypes() {
+    public static List<ExportFileType> getExportFileTypes() {
         return getExportFileTypes(null);
     }
 
@@ -177,7 +176,7 @@ public abstract class ExportFileType implements Comparable {
      * Return all registered ExportFileTypes for a certain format. Format may be null,
      * in which case all ExportFileTypes are returned.
      */
-    public static List getExportFileTypes(String format) {
+    public static List<ExportFileType> getExportFileTypes(String format) {
         return ExportFileTypeRegistry.getDefaultInstance(loader).get(format);
     }
     

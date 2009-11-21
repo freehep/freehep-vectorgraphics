@@ -47,20 +47,20 @@ public class PDFImageDelayQueue {
         }
     }
 
-    private Map/* <RenderedImage,Entry> */imageMap;
+    private Map/* <RenderedImage,Entry> */<RenderedImage, Entry>imageMap;
 
-    private List/* <entry> */imageList;
+    private List/* <entry> */<Entry>imageList;
 
     private PDFWriter pdf;
 
     public PDFImageDelayQueue(PDFWriter pdf) {
         this.pdf = pdf;
-        this.imageMap = new HashMap();
-        this.imageList = new LinkedList();
+        this.imageMap = new HashMap<RenderedImage, Entry>();
+        this.imageList = new LinkedList<Entry>();
     }
 
     public PDFName delayImage(RenderedImage image, Color bkg, String writeAs) {
-        Entry entry = (Entry) imageMap.get(image);
+        Entry entry = imageMap.get(image);
         if (entry == null) {
             entry = new Entry(image, bkg, writeAs);
             imageMap.put(image, entry);
@@ -72,8 +72,8 @@ public class PDFImageDelayQueue {
 
     /** Creates a stream for every delayed image that is not written yet. */
     public void processAll() throws IOException {
-        for (Iterator i = imageList.iterator(); i.hasNext();) {
-            Entry entry = (Entry) i.next();
+        for (Iterator<Entry> i = imageList.iterator(); i.hasNext();) {
+            Entry entry = i.next();
 
             if (!entry.written) {
                 entry.written = true;
@@ -102,8 +102,8 @@ public class PDFImageDelayQueue {
     public int addXObjects() throws IOException {
         if (imageList.size() > 0) {
             PDFDictionary xobj = pdf.openDictionary("XObjects");
-            for (Iterator i = imageList.iterator(); i.hasNext();) {
-                Entry entry = (Entry) i.next();
+            for (Iterator<Entry> i = imageList.iterator(); i.hasNext();) {
+                Entry entry = i.next();
                 xobj.entry(entry.name, pdf.ref(entry.name));
                 if (entry.maskName != null)
                     xobj.entry(entry.maskName, pdf.ref(entry.maskName));

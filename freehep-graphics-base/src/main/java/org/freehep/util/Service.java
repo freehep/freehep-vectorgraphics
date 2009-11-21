@@ -1,4 +1,4 @@
-// Copyright 2003, FreeHEP.
+// Copyright 2003-2009, FreeHEP.
 package org.freehep.util;
 
 import java.io.*;
@@ -10,18 +10,17 @@ import java.util.*;
  * in some java or javax package at some point. See Sun BUG# 4640520.
  *
  * @author Mark Donszelmann
- * @version $Id: Service.java 8584 2006-08-10 23:06:37Z duns $
  */
 public class Service {
 
     private Service() {
     }
 
-    public static Collection providers(Class service, ClassLoader loader) {
-        List classList = new ArrayList();
-        List nameSet = new ArrayList();
+    public static Collection<Object> providers(Class<?> service, ClassLoader loader) {
+        List<Object> classList = new ArrayList<Object>();
+        List<String> nameSet = new ArrayList<String>();
 	    String name = "META-INF/services/" + service.getName();
-	    Enumeration services;
+	    Enumeration<URL> services;
 	    try {
     	    services = (loader == null) ?
     	                           ClassLoader.getSystemResources(name) :
@@ -32,7 +31,7 @@ public class Service {
         }
 
         while (services.hasMoreElements()) {
-            URL url = (URL)services.nextElement();
+            URL url = services.nextElement();
 //            System.out.println(url);
             InputStream input = null;
             BufferedReader reader = null;
@@ -64,9 +63,9 @@ public class Service {
             }
         }
 
-        Iterator names = nameSet.iterator();
+        Iterator<String> names = nameSet.iterator();
         while (names.hasNext()) {
-            String className = (String)names.next();
+            String className = names.next();
             try {
                 classList.add(Class.forName(className, true, loader).newInstance());
             } catch (ClassNotFoundException e) {
@@ -84,12 +83,12 @@ public class Service {
 	    return classList;
     }
 
-    public static Collection providers(Class service) {
+    public static Collection<Object> providers(Class<?> service) {
 	    ClassLoader loader = Thread.currentThread().getContextClassLoader();
 	    return Service.providers(service, loader);
     }
 
-    public static Collection installedProviders(Class service) {
+    public static Collection<Object> installedProviders(Class<Object> service) {
 	    ClassLoader loader = ClassLoader.getSystemClassLoader();
 	    ClassLoader previous = null;
 	    while (loader != null) {

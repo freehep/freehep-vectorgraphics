@@ -1,4 +1,4 @@
-// Copyright 2003-2007 FreeHEP
+// Copyright 2003-2009 FreeHEP
 package org.freehep.graphicsio.exportchooser;
 
 import java.util.Iterator;
@@ -24,7 +24,6 @@ import org.freehep.util.export.ExportFileTypeRegistry;
  * overwrites the first one with the second and so on. Sun Bug #Submitted.
  * 
  * @author Mark Donszelmann
- * @version $Id: freehep-graphicsio/src/main/java/org/freehep/graphicsio/exportchooser/ImageIOExportFileType.java 59372df5e0d9 2007/02/06 21:11:19 duns $
  */
 public class ImageIOExportFileType implements RegisterableService {
 
@@ -37,10 +36,11 @@ public class ImageIOExportFileType implements RegisterableService {
         // empty, registry is not valid yet
     }
 
-    public void onRegistration(ServiceRegistry registry, Class category) {
+    @SuppressWarnings("unchecked")
+	public void onRegistration(ServiceRegistry registry, Class<?> category) {
         // run over all ImageWriterSpis and store their formats Alphabetically
         IIORegistry imageRegistry = IIORegistry.getDefaultInstance();
-        Iterator providers = imageRegistry.getServiceProviders(
+        Iterator<?> providers = imageRegistry.getServiceProviders(
                 ImageWriterSpi.class, false);
     	ExportFileTypeRegistry exportRegistry = ExportFileTypeRegistry.getDefaultInstance(null);
         while (providers.hasNext()) {
@@ -85,17 +85,17 @@ public class ImageIOExportFileType implements RegisterableService {
             }
         }
 */
-        registry.deregisterServiceProvider(this, category);
+        registry.deregisterServiceProvider(this, (Class<ImageIOExportFileType>)category);
     }
 
-    public void onDeregistration(ServiceRegistry registry, Class category) {
+    public void onDeregistration(ServiceRegistry registry, Class<?> category) {
     }
 
     public static void main(String[] args) throws Exception {
 
         System.out.println("WRITERS");
         IIORegistry imageRegistry = IIORegistry.getDefaultInstance();
-        Iterator providers = imageRegistry.getServiceProviders(
+        Iterator<?> providers = imageRegistry.getServiceProviders(
                 ImageWriterSpi.class, false);
         while (providers.hasNext()) {
             ImageWriterSpi writerSpi = (ImageWriterSpi) providers.next();
@@ -137,8 +137,8 @@ public class ImageIOExportFileType implements RegisterableService {
         System.out.println();
 
         System.out.println("All ExportFileTypes");
-        List exportFileTypes = ExportFileType.getExportFileTypes();
-        Iterator iterator = exportFileTypes.iterator();
+        List<?> exportFileTypes = ExportFileType.getExportFileTypes();
+        Iterator<?> iterator = exportFileTypes.iterator();
         while (iterator.hasNext()) {
         	ExportFileType type = (ExportFileType)iterator.next();
             System.out.println("   " + type);
