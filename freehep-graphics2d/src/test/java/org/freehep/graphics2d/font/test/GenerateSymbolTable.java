@@ -21,6 +21,7 @@ package org.freehep.graphics2d.font.test;
 
 import org.freehep.graphics2d.font.CharTable;
 import org.freehep.graphics2d.font.Symbol;
+import org.freehep.graphics2d.font.Zapfdingbats;
 
 /**
  *
@@ -33,7 +34,7 @@ public class GenerateSymbolTable {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		CharTable table = new Symbol();
+		CharTable table = new Zapfdingbats();
 		
 		for (int i=0; i<256; i++) {
 			String name = table.toName(i);
