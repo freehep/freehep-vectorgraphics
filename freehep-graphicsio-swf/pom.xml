@@ -26,29 +26,14 @@
       <groupId>org.freehep</groupId>
       <artifactId>freehep-graphicsio-tests</artifactId>
     </dependency>
+        <dependency>
+          <groupId>org.freehep</groupId>
+          <artifactId>freehep-graphics-base</artifactId>
+        </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
     </dependency>    
   </dependencies>
-  
-    <profiles>
-    <profile>
-      <id>default</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.freehep</groupId>
-          <artifactId>freehep-graphics-base</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>freehep</id>
-    </profile>
-  </profiles>
   
 </project>

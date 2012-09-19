@@ -24,7 +24,6 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>1.0.2</version>
         <executions>
           <execution>
             <goals>
@@ -48,28 +47,14 @@
       <groupId>org.freehep</groupId>
       <artifactId>freehep-graphicsio</artifactId>
     </dependency>
+        <dependency>
+          <groupId>org.freehep</groupId>
+          <artifactId>freehep-graphics-base</artifactId>
+        </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
     </dependency>
   </dependencies>
 
-  <profiles>
-    <profile>
-      <id>default</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.freehep</groupId>
-          <artifactId>freehep-graphics-base</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>freehep</id>
-    </profile>
-  </profiles>
 </project>
