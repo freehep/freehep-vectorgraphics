@@ -9,10 +9,10 @@ Publications and Talks
 
 * Publications
 
-	* Mark Donszelmann, Simon Fischer and Sami Kama, {{{publications/SummerStudentReport/report.pdf}"Improvements
+	* Mark Donszelmann, Simon Fischer and Sami Kama, {{{./publications/SummerStudentReport/report.pdf}"Improvements
 to the graphics2d package of the freehep Java library"}}, 2001.
 
 * Talks
 
-	* Simon Fischer (University of Dortmund) and Sami Kama (METU, Ankara), {{{talks/graphics2d.ppt}"The
+	* Simon Fischer (University of Dortmund) and Sami Kama (METU, Ankara), {{{./talks/graphics2d.ppt}"The
 graphics2d package of the FreeHEP library"}}, 2001.

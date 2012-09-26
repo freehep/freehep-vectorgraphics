@@ -27,26 +27,26 @@ all the formats mentioned above and set specific parameters for them.
 
 * Contents
 
-  * {{{#Major changes in VectorGraphics 1.2.2}Major changes in VectorGraphics 1.2.2}}
+  * {{{Major_changes_in_VectorGraphics_1.2.2}Major changes in VectorGraphics 1.2.2}}
   
-  * {{{#Documentation}Documentation}}
+  * {{{Documentation}Documentation}}
   
-  * {{{#License}License}}
+  * {{{License}License}}
   
-  * {{{#Installing the VectorGraphics package}Installing the VectorGraphics package}}
+  * {{{Installing_the_VectorGraphics_package}Installing the VectorGraphics package}}
   
-  * {{{#Compiling the VectorGraphics package}Compiling the VectorGraphics package}}
+  * {{{Compiling_the_VectorGraphics_package}Compiling the VectorGraphics package}}
   
-  * {{{#Building an Application with the VectorGraphics package}Building an Application with the VectorGraphics 
+  * {{{Building_an_Application_with_the_VectorGraphics_package}Building an Application with the VectorGraphics 
   package}}
   
-  * {{{#Running the VectorGraphics package}Running the VectorGraphics package}}
+  * {{{Running_the_VectorGraphics_package}Running the VectorGraphics package}}
   
-  * {{{#Features/Limitations of the Current Release}Features/Limitations of the Current Release}}
+  * {{{FeaturesLimitations_of_the_Current_Release}Features/Limitations of the Current Release}}
   
-  * {{{#Reporting Bugs}Reporting Bugs}}
+  * {{{Reporting_Bugs}Reporting Bugs}}
   
-  * {{{#Examples}Examples}}
+  * {{{Examples}Examples}}
   
   
 * {Major changes in VectorGraphics 1.2.2}

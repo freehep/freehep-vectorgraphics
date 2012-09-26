@@ -10,52 +10,52 @@ Screenshots
     All screenshots are in PNG Image Format since it is one of the formats that shows on the web.
 The titles are linked to their PDF outputs.
 
-* {{{images/TestAll.ref.pdf}TestAll}}
+* {{{./images/TestAll.ref.pdf}TestAll}}
 
 [images/TestAll.ref.png] 
 
 
-* {{{images/TestClip.ref.pdf}TestClip}}
+* {{{./images/TestClip.ref.pdf}TestClip}}
 
 [images/TestClip.ref.png]
 
 
-* {{{images/TestFonts.ref.pdf}TestFonts}}
+* {{{./images/TestFonts.ref.pdf}TestFonts}}
 
 [images/TestFonts.ref.png]
 
 
-* {{{images/TestImages.ref.pdf}TesImages}}
+* {{{./images/TestImages.ref.pdf}TesImages}}
 
 [images/TestImages.ref.png]
 
 
-* {{{images/TestLineStyles.ref.pdf}TestLineStyles}}
+* {{{./images/TestLineStyles.ref.pdf}TestLineStyles}}
 
 [images/TestLineStyles.ref.png]
 
 
-* {{{images/TestPaint.ref.pdf}TestPaint}}
+* {{{./images/TestPaint.ref.pdf}TestPaint}}
 
 [images/TestPaint.ref.png]
 
 
-* {{{images/TestShapes.ref.pdf}TestShapes}}
+* {{{./images/TestShapes.ref.pdf}TestShapes}}
 
 [images/TestShapes.ref.png]
 
 
-* {{{images/TestSymbols2D.ref.pdf}TestSymbols2D}}
+* {{{./images/TestSymbols2D.ref.pdf}TestSymbols2D}}
 
 [images/TestSymbols2D.ref.png]
 
 
-* {{{images/TestTaggedString.ref.pdf}TestTaggedString}}
+* {{{./images/TestTaggedString.ref.pdf}TestTaggedString}}
 
 [images/TestTaggedString.ref.png]
 
 
-* {{{images/TestTransforms.ref.pdf}TestTransforms}}
+* {{{./images/TestTransforms.ref.pdf}TestTransforms}}
 
 [images/TestTransforms.ref.png]
 

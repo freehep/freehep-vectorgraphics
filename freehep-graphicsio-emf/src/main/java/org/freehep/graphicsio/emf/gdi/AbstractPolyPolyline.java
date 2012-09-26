@@ -11,7 +11,7 @@ import java.awt.Rectangle;
  * rendered as not closed polygons.
  *
  * @author Steffen Greiffenberg
- * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AbstractPolyPolyline.java 9c0688d78e6b 2007/01/30 23:58:16 duns $§
+ * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/gdi/AbstractPolyPolyline.java 9c0688d78e6b 2007/01/30 23:58:16 duns $
  */
 public abstract class AbstractPolyPolyline extends AbstractPolyPolygon {
 

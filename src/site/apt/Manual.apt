@@ -10,8 +10,8 @@ Manual
     The
 {{{http://java.freehep.org/lib/freehep/api/org/freehep/graphics2d/package-summary.html"}VectorGraphics}} package of
 {{{http://java.freehep.org}FreeHEP}} is an extension of the java graphics system for users to save their
-graphical output in a number of {{{#Vector Formats (Alphabetical)}Vector Formats}} or
-{{{#Image Formats (Alphabetical)}Image (bitmap) Formats}}. The package also contains a set of base
+graphical output in a number of {{{Vector_Formats_Alphabetical}Vector Formats}} or
+{{{Image_Formats_Alphabetical}Image (bitmap) Formats}}. The package also contains a set of base
 classes which can easily be extended to allow for any new formats that may become available over time. A standard
 {{{http://java.freehep.org/lib/freehep/api/org/freehep/util/export/ExportDialog.html}
 ExportDialog}} is provided to allow users to select the required output format.

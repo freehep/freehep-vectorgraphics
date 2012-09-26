@@ -34,28 +34,28 @@ all the formats mentioned above and set specific parameters for them.
 
 * Contents
 
-  * {{{#Major Changes}Major Changes}}
+  * {{{Major_Changes}Major Changes}}
   
-  * {{{#Documentation}Documentation}}
+  * {{{Documentation}Documentation}}
   
-  * {{{#Test Output}Test Output}}
+  * {{{Test_Output}Test Output}}
   
-  * {{{#License}License}}
+  * {{{License}License}}
   
-  * {{{#Installation}Installation}}
+  * {{{Installation}Installation}}
   
-  * {{{#Compilation}Compilation}}
+  * {{{Compilation}Compilation}}
   
-  * {{{#Building an Application with the VectorGraphics package}Building an Application with the VectorGraphics 
+  * {{{Building_an_Application_with_the_VectorGraphics_package}Building an Application with the VectorGraphics 
   package}}
   
-  * {{{#Running the VectorGraphics package}Running the VectorGraphics package}}
+  * {{{Running_the_VectorGraphics_package}Running the VectorGraphics package}}
   
-  * {{{#Features/Limitations of the Current Release}Features/Limitations of the Current Release}}
+  * {{{FeaturesLimitations_of_the_Current_Release}Features/Limitations of the Current Release}}
   
-  * {{{#Reporting Bugs}Reporting Bugs}}
+  * {{{Reporting_Bugs}Reporting Bugs}}
   
-  * {{{#Examples}Examples}}
+  * {{{Examples}Examples}}
 
 
 * {Major Changes}

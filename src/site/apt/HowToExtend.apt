@@ -117,7 +117,7 @@ methods:
   to the stream.
   
 	To actually allow the user to select the new Image Format you still need to 
-add {{{"#exportclass}Export Class}}.
+add {{{exportclass}Export Class}}.
 
 * Adding a new Vector Format
 
@@ -128,7 +128,7 @@ add {{{"#exportclass}Export Class}}.
 	write methods
 
 	To actually allow the user to select the new Image Format you still need to 
-add {{{#exportclass}Export Class}}.
+add {{{exportclass}Export Class}}.
 
 * {exportclass} Adding a new ExportClass
 

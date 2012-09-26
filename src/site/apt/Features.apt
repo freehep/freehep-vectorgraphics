@@ -9,9 +9,9 @@ Features
 
     The VectorGraphics package comes with the following features:
 
-    * {{{Manual.html#Image Formats (Alphabetical)}Image (bitmap) Formats}} available: GIF, JPEG, PNG and PPM.
+    * {{{./Manual.html#Image_Formats_Alphabetical}Image (bitmap) Formats}} available: GIF, JPEG, PNG and PPM.
 
-    * {{{Manual.html#Vector Formats (Alphabetical)}Vector Graphics Formats}} available: EMF, PDF, PostScript, EPS, SVG
+    * {{{./Manual.html#Vector_Formats_Alphabetical}Vector Graphics Formats}} available: EMF, PDF, PostScript, EPS, SVG
     and SWF.
 
     * Simple ExportDialog provided which can be added to application and allows user to choose from any of the
