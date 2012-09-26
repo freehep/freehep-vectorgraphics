@@ -1,6 +1,6 @@
 <project>
   <parent>
-    <artifactId>vectorgraphics</artifactId>
+    <artifactId>freehep-vectorgraphics</artifactId>
     <groupId>org.freehep</groupId>
     <version>2.1-SNAPSHOT</version>
   </parent>
