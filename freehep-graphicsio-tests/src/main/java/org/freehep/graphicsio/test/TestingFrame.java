@@ -20,8 +20,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 
-import org.freehep.util.export.ExportDialog;
-import org.freehep.util.export.VectorGraphicsTransferable;
+import org.freehep.graphicsbase.util.export.ExportDialog;
+import org.freehep.graphicsbase.util.export.VectorGraphicsTransferable;
 
 /**
  * @author Charles Loomis

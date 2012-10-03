@@ -9,9 +9,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.freehep.graphicsbase.util.images.ImageUtilities;
 import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.graphicsio.ImageConstants;
-import org.freehep.util.images.ImageUtilities;
 
 /**
  * DefineBitsJPEG2 TAG.

@@ -22,7 +22,7 @@ import java.text.AttributedString;
 import org.freehep.graphics2d.TagString;
 import org.freehep.graphics2d.VectorGraphics;
 import org.freehep.graphics2d.VectorGraphicsConstants;
-import org.freehep.util.images.ImageHandler;
+import org.freehep.graphicsbase.util.images.ImageHandler;
 
 /**
  * @author Simon Fischer

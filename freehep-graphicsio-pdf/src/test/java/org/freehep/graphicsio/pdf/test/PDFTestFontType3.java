@@ -3,10 +3,10 @@ package org.freehep.graphicsio.pdf.test;
 
 import java.util.Properties;
 
+import org.freehep.graphicsbase.util.UserProperties;
 import org.freehep.graphicsio.FontConstants;
 import org.freehep.graphicsio.pdf.PDFGraphics2D;
 import org.freehep.graphicsio.test.TestFontType3;
-import org.freehep.util.UserProperties;
 
 /**
  * @author Mark Donszelmann

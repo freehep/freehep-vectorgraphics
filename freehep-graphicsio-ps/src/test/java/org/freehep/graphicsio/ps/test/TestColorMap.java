@@ -24,8 +24,8 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 
+import org.freehep.graphicsbase.util.export.ExportDialog;
 import org.freehep.graphicsio.ps.ColorMap;
-import org.freehep.util.export.ExportDialog;
 
 /**
  * 

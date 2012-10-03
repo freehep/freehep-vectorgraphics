@@ -24,7 +24,7 @@ import java.text.AttributedCharacterIterator;
 import java.util.Properties;
 
 import org.freehep.graphics2d.font.FontUtilities;
-import org.freehep.util.UserProperties;
+import org.freehep.graphicsbase.util.UserProperties;
 
 /**
  * This class implements all conversions from integer to double as well as a few

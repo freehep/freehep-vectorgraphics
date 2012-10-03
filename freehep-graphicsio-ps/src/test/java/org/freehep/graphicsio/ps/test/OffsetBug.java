@@ -13,8 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.freehep.graphicsbase.util.export.ExportFileType;
 import org.freehep.graphicsio.ps.EPSExportFileType;
-import org.freehep.util.export.ExportFileType;
 
 public class OffsetBug {
 

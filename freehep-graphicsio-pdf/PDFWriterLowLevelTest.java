@@ -28,7 +28,7 @@ public class PDFWriterLowLevelTest {
         info.entry("Author", "Mark Donszelmann");
         info.entry("Subject", "LowLevel Test File of the PDFWriter of the FreeHEP library");
         info.entry("Keywords", "PDFWriter; FreeHEP");
-        info.entry("Creator", "org.freehep.util.pdf.PDFWriter");
+        info.entry("Creator", "org.freehep.graphicsio-pdf.PDFWriter");
         info.entry("CreationDate", Calendar.getInstance());
         pdf.close(info);
         

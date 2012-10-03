@@ -11,13 +11,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsbase.swing.layout.TableLayout;
+import org.freehep.graphicsbase.util.UserProperties;
 import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.exportchooser.AbstractExportFileType;
 import org.freehep.graphicsio.exportchooser.BackgroundPanel;
 import org.freehep.graphicsio.exportchooser.ImageTypePanel;
 import org.freehep.graphicsio.exportchooser.OptionPanel;
-import org.freehep.swing.layout.TableLayout;
-import org.freehep.util.UserProperties;
 
 /**
  * // FIXME, check all options

@@ -5,8 +5,8 @@ import java.util.Properties;
 
 import javax.swing.JLabel;
 
+import org.freehep.graphicsbase.swing.layout.TableLayout;
 import org.freehep.graphicsio.PageConstants;
-import org.freehep.swing.layout.TableLayout;
 
 /**
  * 

@@ -24,7 +24,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 
 import org.freehep.graphics2d.VectorGraphics;
-import org.freehep.util.export.ExportDialog;
+import org.freehep.graphicsbase.util.export.ExportDialog;
 
 /**
  * 

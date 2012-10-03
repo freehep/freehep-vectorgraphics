@@ -1,7 +1,7 @@
 // Copyright 2003-2005, FreeHEP.
 package org.freehep.graphicsio.test;
 
-import org.freehep.util.UserProperties;
+import org.freehep.graphicsbase.util.UserProperties;
 
 /**
  * 

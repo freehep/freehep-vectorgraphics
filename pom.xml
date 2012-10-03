@@ -302,9 +302,15 @@
 
 	<dependencyManagement>
 		<dependencies>
+					<dependency>
+						<groupId>org.freehep</groupId>
+						<artifactId>freehep-io</artifactId>
+						<version>${freehep-io-version}</version>
+					</dependency>
+
 			<dependency>
 				<groupId>org.freehep</groupId>
-				<artifactId>freehep-graphics-base</artifactId>
+				<artifactId>freehep-graphicsbase</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
@@ -338,6 +344,7 @@
 	</dependencyManagement>
 
 	<modules>
+				<module>freehep-graphicsbase</module>
 		<module>freehep-graphics2d</module>
 		<module>freehep-graphicsio</module>
 		<module>freehep-graphicsio-emf</module>
@@ -351,27 +358,6 @@
 
 	<profiles>
 		<profile>
-			<id>default</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-
-			<dependencyManagement>
-				<dependencies>
-					<dependency>
-						<groupId>org.freehep</groupId>
-						<artifactId>freehep-io</artifactId>
-						<version>${freehep-io-version}</version>
-					</dependency>
-				</dependencies>
-			</dependencyManagement>
-
-			<modules>
-				<module>freehep-graphics-base</module>
-			</modules>
-		</profile>
-
-		<profile>
 			<id>release-sign-artifacts</id>
 			<activation>
 				<property>
@@ -379,20 +365,6 @@
 					<value>true</value>
 				</property>
 			</activation>
-
-			<dependencyManagement>
-				<dependencies>
-					<dependency>
-						<groupId>org.freehep</groupId>
-						<artifactId>freehep-io</artifactId>
-						<version>${freehep-io-version}</version>
-					</dependency>
-				</dependencies>
-			</dependencyManagement>
-
-			<modules>
-				<module>freehep-graphics-base</module>
-			</modules>
 
 			<build>
 				<plugins>

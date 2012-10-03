@@ -13,8 +13,8 @@ import java.util.Properties;
 import javax.swing.JPanel;
 
 import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsbase.util.export.ExportFileType;
 import org.freehep.graphicsio.MultiPageDocument;
-import org.freehep.util.export.ExportFileType;
 
 /**
  * 

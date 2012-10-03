@@ -11,7 +11,7 @@ import javax.imageio.ImageWriter;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.stream.ImageOutputStream;
 
-import org.freehep.util.images.ImageUtilities;
+import org.freehep.graphicsbase.util.images.ImageUtilities;
 
 /**
  * 

@@ -4,8 +4,8 @@ package org.freehep.graphicsio.ps;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import org.freehep.graphicsbase.util.ScientificFormat;
 import org.freehep.graphicsio.QuadToCubicPathConstructor;
-import org.freehep.util.ScientificFormat;
 
 /**
  * @author Mark Donszelmann

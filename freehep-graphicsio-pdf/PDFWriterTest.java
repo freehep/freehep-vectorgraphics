@@ -6,7 +6,7 @@ import java.util.*;
 
 import org.freehep.graphicsio.pdf.*;
 import org.freehep.graphicsio.ImageConstants;
-import org.freehep.util.images.*;
+import org.freehep.graphicsbase.util.images.*;
 
 /**
  * This class tests the user-level PDF Writer interfaces.
@@ -31,7 +31,7 @@ public class PDFWriterTest {
         info.setAuthor("Mark Donszelmann");
         info.setSubject("Test File of the PDFWriter of the FreeHEP library");
         info.setKeywords("PDFWriter; FreeHEP");
-        info.setCreator("org.freehep.util.pdf.PDFWriter");
+        info.setCreator("org.freehep.graphicsio-pdf.PDFWriter");
         info.setCreationDate(Calendar.getInstance());
         pdf.close(info);
 

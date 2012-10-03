@@ -36,9 +36,9 @@ import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
 
 import org.freehep.graphics2d.PixelGraphics2D;
+import org.freehep.graphicsbase.util.UserProperties;
+import org.freehep.graphicsbase.util.images.ImageUtilities;
 import org.freehep.graphicsio.raw.RawImageWriteParam;
-import org.freehep.util.UserProperties;
-import org.freehep.util.images.ImageUtilities;
 import org.freehep.util.io.ASCII85OutputStream;
 import org.freehep.util.io.FlateOutputStream;
 

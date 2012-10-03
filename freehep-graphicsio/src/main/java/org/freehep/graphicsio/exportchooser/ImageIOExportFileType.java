@@ -13,9 +13,9 @@ import javax.imageio.spi.ImageWriterSpi;
 import javax.imageio.spi.RegisterableService;
 import javax.imageio.spi.ServiceRegistry;
 
+import org.freehep.graphicsbase.util.export.ExportFileType;
+import org.freehep.graphicsbase.util.export.ExportFileTypeRegistry;
 import org.freehep.graphicsio.ImageGraphics2D;
-import org.freehep.util.export.ExportFileType;
-import org.freehep.util.export.ExportFileTypeRegistry;
 
 /**
  * This class does not work, since the ExportFileTypeRegistry stores Objects by

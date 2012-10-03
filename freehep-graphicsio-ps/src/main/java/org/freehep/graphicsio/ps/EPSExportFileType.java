@@ -10,7 +10,7 @@ import java.util.Properties;
 import javax.swing.JPanel;
 
 import org.freehep.graphics2d.VectorGraphics;
-import org.freehep.util.UserProperties;
+import org.freehep.graphicsbase.util.UserProperties;
 
 /**
  * 

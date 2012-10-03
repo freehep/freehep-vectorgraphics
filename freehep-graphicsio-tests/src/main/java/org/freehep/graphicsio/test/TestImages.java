@@ -7,7 +7,7 @@ import java.awt.Image;
 import java.awt.MediaTracker;
 
 import org.freehep.graphics2d.VectorGraphics;
-import org.freehep.util.images.ImageHandler;
+import org.freehep.graphicsbase.util.images.ImageHandler;
 
 /**
  * 

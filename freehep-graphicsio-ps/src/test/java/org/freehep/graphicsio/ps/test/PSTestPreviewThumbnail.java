@@ -3,9 +3,9 @@ package org.freehep.graphicsio.ps.test;
 
 import java.util.Properties;
 
+import org.freehep.graphicsbase.util.UserProperties;
 import org.freehep.graphicsio.ps.PSGraphics2D;
 import org.freehep.graphicsio.test.TestPreviewThumbnail;
-import org.freehep.util.UserProperties;
 
 /**
  * @author Mark Donszelmann

@@ -6,6 +6,8 @@ import java.util.Properties;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.freehep.graphicsbase.swing.layout.TableLayout;
+import org.freehep.graphicsbase.util.UserProperties;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.InfoConstants;
@@ -19,8 +21,6 @@ import org.freehep.graphicsio.exportchooser.OptionComboBox;
 import org.freehep.graphicsio.exportchooser.OptionPanel;
 import org.freehep.graphicsio.exportchooser.PageLayoutPanel;
 import org.freehep.graphicsio.exportchooser.PageMarginPanel;
-import org.freehep.swing.layout.TableLayout;
-import org.freehep.util.UserProperties;
 
 /**
  * 

@@ -14,9 +14,9 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsbase.swing.Headless;
+import org.freehep.graphicsbase.util.UserProperties;
 import org.freehep.graphicsio.ImageGraphics2D;
-import org.freehep.swing.Headless;
-import org.freehep.util.UserProperties;
 
 /**
  * @author Mark Donszelmann

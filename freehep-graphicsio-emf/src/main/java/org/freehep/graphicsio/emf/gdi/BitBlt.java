@@ -8,6 +8,7 @@ import java.awt.image.RenderedImage;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import org.freehep.graphicsbase.util.UserProperties;
 import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFInputStream;
@@ -16,7 +17,6 @@ import org.freehep.graphicsio.emf.EMFTag;
 import org.freehep.graphicsio.emf.EMFImageLoader;
 import org.freehep.graphicsio.emf.EMFRenderer;
 import org.freehep.graphicsio.raw.RawImageWriteParam;
-import org.freehep.util.UserProperties;
 import org.freehep.util.io.NoCloseOutputStream;
 
 /**

@@ -7,7 +7,7 @@ import java.util.Properties;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import org.freehep.swing.layout.TableLayout;
+import org.freehep.graphicsbase.swing.layout.TableLayout;
 
 /**
  * 

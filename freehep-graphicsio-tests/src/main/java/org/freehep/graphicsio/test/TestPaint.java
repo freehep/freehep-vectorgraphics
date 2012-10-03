@@ -12,8 +12,8 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import org.freehep.graphics2d.VectorGraphics;
-import org.freehep.util.UserProperties;
-import org.freehep.util.images.ImageHandler;
+import org.freehep.graphicsbase.util.UserProperties;
+import org.freehep.graphicsbase.util.images.ImageHandler;
 
 public class TestPaint extends TestingPanel {
 

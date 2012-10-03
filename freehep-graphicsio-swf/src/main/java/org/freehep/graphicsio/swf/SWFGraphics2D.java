@@ -32,12 +32,12 @@ import java.util.Vector;
 import org.freehep.graphics2d.PrintColor;
 import org.freehep.graphics2d.VectorGraphics;
 import org.freehep.graphics2d.font.FontEncoder;
+import org.freehep.graphicsbase.util.UserProperties;
+import org.freehep.graphicsbase.util.Value;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.PageConstants;
 import org.freehep.graphicsio.swf.DefineText.Record;
-import org.freehep.util.UserProperties;
-import org.freehep.util.Value;
 
 /**
  * SWF Graphics 2D driver.

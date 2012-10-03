@@ -61,9 +61,9 @@ import java.util.HashSet;
 
 import org.freehep.graphics2d.TagString;
 import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsbase.util.UserProperties;
+import org.freehep.graphicsbase.util.Value;
 import org.freehep.graphicsio.png.PNGEncoder;
-import org.freehep.util.UserProperties;
-import org.freehep.util.Value;
 import org.freehep.util.io.IndentPrintWriter;
 import org.freehep.util.io.LineNumberWriter;
 

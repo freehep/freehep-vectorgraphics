@@ -12,6 +12,8 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import org.freehep.graphicsbase.util.images.ImageHandler;
+import org.freehep.graphicsbase.util.images.ImageUtilities;
 import org.freehep.graphicsio.emf.EMFConstants;
 import org.freehep.graphicsio.emf.EMFHandleManager;
 import org.freehep.graphicsio.emf.EMFOutputStream;
@@ -26,8 +28,6 @@ import org.freehep.graphicsio.emf.gdi.SetViewportOrgEx;
 import org.freehep.graphicsio.emf.gdi.SetWindowExtEx;
 import org.freehep.graphicsio.emf.gdi.SetWindowOrgEx;
 import org.freehep.graphicsio.emf.gdi.StretchDIBits;
-import org.freehep.util.images.ImageHandler;
-import org.freehep.util.images.ImageUtilities;
 
 public class EMFTest extends JPanel {
 

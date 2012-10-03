@@ -37,6 +37,7 @@ import java.util.Properties;
 import org.freehep.graphics2d.TagString;
 import org.freehep.graphics2d.font.FontUtilities;
 import org.freehep.graphics2d.font.Lookup;
+import org.freehep.graphicsbase.util.UserProperties;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.FontConstants;
 import org.freehep.graphicsio.ImageConstants;
@@ -44,7 +45,6 @@ import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.graphicsio.InfoConstants;
 import org.freehep.graphicsio.MultiPageDocument;
 import org.freehep.graphicsio.PageConstants;
-import org.freehep.util.UserProperties;
 
 /**
  * Implementation of <tt>VectorGraphics</tt> that writes the output to a PDF

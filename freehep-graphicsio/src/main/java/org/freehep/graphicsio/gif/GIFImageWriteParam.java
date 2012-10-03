@@ -6,8 +6,8 @@ import java.util.Properties;
 
 import javax.imageio.ImageWriteParam;
 
+import org.freehep.graphicsbase.util.UserProperties;
 import org.freehep.graphicsio.ImageParamConverter;
-import org.freehep.util.UserProperties;
 
 /**
  * 

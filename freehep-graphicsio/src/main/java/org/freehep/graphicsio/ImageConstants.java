@@ -88,18 +88,18 @@ public class ImageConstants {
     public static final String PS = "PS";
 
     /**
-     * key for {@link org.freehep.util.UserProperties} that stores image format
+     * key for {@link org.freehep.graphicsbase.util.UserProperties} that stores image format
      */
     public static final String WRITE_IMAGES_AS = "WriteImagesAs";
 
     /**
-     * key for {@link org.freehep.util.UserProperties} that
+     * key for {@link org.freehep.graphicsbase.util.UserProperties} that
      * stores a {@link java.awt.Dimension} for image size
      */
     public static final String IMAGE_SIZE = "ImageSize";
 
     /**
-     * value for {@link org.freehep.util.UserProperties} with key
+     * value for {@link org.freehep.graphicsbase.util.UserProperties} with key
      * IMAGE_SIZE (alternative for a certain dimension to choose
      * cmallest image size)
      */

@@ -5,8 +5,8 @@ import java.text.AttributedCharacterIterator.Attribute;
 import java.util.Map;
 
 import org.freehep.graphics2d.GenericTagHandler;
-import org.freehep.util.ScientificFormat;
-import org.freehep.util.Value;
+import org.freehep.graphicsbase.util.ScientificFormat;
+import org.freehep.graphicsbase.util.Value;
 
 /**
  * Class to create a "cfont" tag in PS. Use {@link PSStringStyler#getStyledString(java.util.Map, String)}

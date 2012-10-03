@@ -1,7 +1,7 @@
 // Copyright FreeHEP 2007.
 package org.freehep.graphicsio.emf;
 
-import org.freehep.util.export.ExportFileType;
+import org.freehep.graphicsbase.util.export.ExportFileType;
 
 import java.util.List;
 import java.io.FileInputStream;

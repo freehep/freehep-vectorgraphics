@@ -9,11 +9,11 @@ import java.io.OutputStream;
 import java.util.Properties;
 
 import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsbase.swing.layout.TableLayout;
+import org.freehep.graphicsbase.util.UserProperties;
 import org.freehep.graphicsio.exportchooser.AbstractExportFileType;
 import org.freehep.graphicsio.exportchooser.OptionPanel;
 import org.freehep.graphicsio.exportchooser.OptionCheckBox;
-import org.freehep.util.UserProperties;
-import org.freehep.swing.layout.TableLayout;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;

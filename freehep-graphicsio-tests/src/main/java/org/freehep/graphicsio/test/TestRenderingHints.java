@@ -14,8 +14,8 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 import org.freehep.graphics2d.VectorGraphics;
-import org.freehep.util.UserProperties;
-import org.freehep.util.images.ImageHandler;
+import org.freehep.graphicsbase.util.UserProperties;
+import org.freehep.graphicsbase.util.images.ImageHandler;
 
 /**
  * tests the ability to handle different rendering hints

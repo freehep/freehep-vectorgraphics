@@ -4,8 +4,8 @@ package org.freehep.graphicsio.exportchooser;
 import java.awt.Component;
 import java.util.Properties;
 
+import org.freehep.graphicsbase.swing.layout.TableLayout;
 import org.freehep.graphicsio.FontConstants;
-import org.freehep.swing.layout.TableLayout;
 
 /**
  * 

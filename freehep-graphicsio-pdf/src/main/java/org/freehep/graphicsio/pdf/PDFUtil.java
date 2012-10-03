@@ -4,7 +4,7 @@ package org.freehep.graphicsio.pdf;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
-import org.freehep.util.ScientificFormat;
+import org.freehep.graphicsbase.util.ScientificFormat;
 
 /**
  * Utility functions for the PDFWriter. This class handles escaping of strings,

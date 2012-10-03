@@ -49,7 +49,7 @@
     </dependency>
         <dependency>
           <groupId>org.freehep</groupId>
-          <artifactId>freehep-graphics-base</artifactId>
+          <artifactId>freehep-graphicsbase</artifactId>
         </dependency>
     <dependency>
       <groupId>junit</groupId>

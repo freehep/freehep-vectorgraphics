@@ -6,8 +6,8 @@ import java.util.Properties;
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 
+import org.freehep.graphicsbase.swing.layout.TableLayout;
 import org.freehep.graphicsio.ImageConstants;
-import org.freehep.swing.layout.TableLayout;
 
 /**
  * 

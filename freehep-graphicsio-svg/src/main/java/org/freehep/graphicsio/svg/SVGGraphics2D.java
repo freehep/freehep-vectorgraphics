@@ -42,17 +42,17 @@ import java.util.Stack;
 import java.util.zip.GZIPOutputStream;
 
 import org.freehep.graphics2d.font.FontUtilities;
+import org.freehep.graphicsbase.util.UserProperties;
+import org.freehep.graphicsbase.util.Value;
+import org.freehep.graphicsbase.xml.util.XMLWriter;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.FontConstants;
 import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.graphicsio.InfoConstants;
 import org.freehep.graphicsio.PageConstants;
-import org.freehep.util.UserProperties;
-import org.freehep.util.Value;
 import org.freehep.util.io.Base64OutputStream;
 import org.freehep.util.io.WriterOutputStream;
-import org.freehep.xml.util.XMLWriter;
 
 /**
  * This class implements the Scalable Vector Graphics output. SVG specifications

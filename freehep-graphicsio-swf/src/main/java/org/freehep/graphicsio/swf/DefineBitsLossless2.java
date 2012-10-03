@@ -7,7 +7,7 @@ import java.awt.image.ImageObserver;
 import java.awt.image.RenderedImage;
 import java.io.IOException;
 
-import org.freehep.util.images.ImageUtilities;
+import org.freehep.graphicsbase.util.images.ImageUtilities;
 
 /**
  * DefineBitsLossless2 TAG.

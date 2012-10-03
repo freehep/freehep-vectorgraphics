@@ -35,6 +35,8 @@ import org.freehep.graphics2d.PrintColor;
 import org.freehep.graphics2d.VectorGraphics;
 import org.freehep.graphics2d.font.FontEncoder;
 import org.freehep.graphics2d.font.FontUtilities;
+import org.freehep.graphicsbase.util.UserProperties;
+import org.freehep.graphicsbase.util.images.ImageUtilities;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.PageConstants;
 import org.freehep.graphicsio.emf.gdi.AlphaBlend;
@@ -70,8 +72,6 @@ import org.freehep.graphicsio.emf.gdi.StrokeAndFillPath;
 import org.freehep.graphicsio.emf.gdi.StrokePath;
 import org.freehep.graphicsio.emf.gdi.TextW;
 import org.freehep.graphicsio.font.FontTable;
-import org.freehep.util.UserProperties;
-import org.freehep.util.images.ImageUtilities;
 
 /**
  * Enhanced Metafile Format Graphics 2D driver.

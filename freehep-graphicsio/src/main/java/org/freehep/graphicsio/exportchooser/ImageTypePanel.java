@@ -6,9 +6,9 @@ import java.util.Properties;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
+import org.freehep.graphicsbase.swing.layout.TableLayout;
+import org.freehep.graphicsbase.util.UserProperties;
 import org.freehep.graphicsio.ImageConstants;
-import org.freehep.swing.layout.TableLayout;
-import org.freehep.util.UserProperties;
 
 /**
  * 

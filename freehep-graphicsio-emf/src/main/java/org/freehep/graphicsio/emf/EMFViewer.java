@@ -1,7 +1,7 @@
 // Copyright 2007 FreeHEP
 package org.freehep.graphicsio.emf;
 
-import org.freehep.swing.ExtensionFileFilter;
+import org.freehep.graphicsbase.swing.ExtensionFileFilter;
 
 import javax.swing.JFrame;
 import javax.swing.JFileChooser;

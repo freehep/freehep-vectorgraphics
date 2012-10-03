@@ -19,9 +19,9 @@ import java.util.TreeMap;
 
 import junit.framework.AssertionFailedError;
 
+import org.freehep.graphicsbase.util.export.ExportFileType;
 import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.graphicsio.ImageConstants;
-import org.freehep.util.export.ExportFileType;
 import org.freehep.util.io.UniquePrintStream;
 
 /**

@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import org.freehep.graphics2d.VectorGraphics;
 import org.freehep.graphicsio.pdf.PDFGraphics2D;
-import org.freehep.swing.Headless;
+import org.freehep.graphicsbase.swing.Headless;
 
 /**
  * This example shows how to export what you draw

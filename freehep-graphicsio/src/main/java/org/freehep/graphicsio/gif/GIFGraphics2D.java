@@ -13,8 +13,8 @@ import java.util.Properties;
 import javax.imageio.spi.IIORegistry;
 import javax.imageio.spi.ImageWriterSpi;
 
+import org.freehep.graphicsbase.util.UserProperties;
 import org.freehep.graphicsio.ImageGraphics2D;
-import org.freehep.util.UserProperties;
 
 /**
  * 

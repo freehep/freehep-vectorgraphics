@@ -16,8 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
+import org.freehep.graphicsbase.util.export.ExportFileType;
 import org.freehep.graphicsio.ps.EPSExportFileType;
-import org.freehep.util.export.ExportFileType;
 
 public class ScrollTest {
 

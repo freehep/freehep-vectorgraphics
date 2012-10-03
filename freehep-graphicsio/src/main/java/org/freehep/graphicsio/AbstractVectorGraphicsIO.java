@@ -46,7 +46,7 @@ import java.util.Map;
 
 import org.freehep.graphics2d.font.FontEncoder;
 import org.freehep.graphics2d.font.FontUtilities;
-import org.freehep.util.images.ImageUtilities;
+import org.freehep.graphicsbase.util.images.ImageUtilities;
 
 /**
  * This class provides an abstract VectorGraphicsIO class for specific output

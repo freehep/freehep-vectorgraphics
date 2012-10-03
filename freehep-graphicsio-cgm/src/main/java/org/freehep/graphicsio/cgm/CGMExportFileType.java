@@ -16,8 +16,8 @@ import org.freehep.graphicsio.exportchooser.BackgroundPanel;
 import org.freehep.graphicsio.exportchooser.InfoPanel;
 import org.freehep.graphicsio.exportchooser.OptionCheckBox;
 import org.freehep.graphicsio.exportchooser.OptionPanel;
-import org.freehep.swing.layout.TableLayout;
-import org.freehep.util.UserProperties;
+import org.freehep.graphicsbase.swing.layout.TableLayout;
+import org.freehep.graphicsbase.util.UserProperties;
 
 /**
  * // FIXME, check all options

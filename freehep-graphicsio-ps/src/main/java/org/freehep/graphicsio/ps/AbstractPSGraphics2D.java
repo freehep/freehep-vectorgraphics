@@ -31,15 +31,15 @@ import java.util.Properties;
 
 import org.freehep.graphics2d.TagString;
 import org.freehep.graphics2d.font.FontUtilities;
+import org.freehep.graphicsbase.util.ScientificFormat;
+import org.freehep.graphicsbase.util.UserProperties;
+import org.freehep.graphicsbase.util.images.ImageUtilities;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
 import org.freehep.graphicsio.FontConstants;
 import org.freehep.graphicsio.ImageConstants;
 import org.freehep.graphicsio.ImageGraphics2D;
 import org.freehep.graphicsio.InfoConstants;
 import org.freehep.graphicsio.PageConstants;
-import org.freehep.util.ScientificFormat;
-import org.freehep.util.UserProperties;
-import org.freehep.util.images.ImageUtilities;
 
 /**
  * 

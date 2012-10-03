@@ -10,7 +10,7 @@ import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 
 import org.freehep.graphics2d.VectorGraphics;
-import org.freehep.util.images.ImageHandler;
+import org.freehep.graphicsbase.util.images.ImageHandler;
 
 /**
  * @author Mark Donszelmann
