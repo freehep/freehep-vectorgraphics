@@ -10,6 +10,7 @@ import javax.swing.JInternalFrame;
  * @author Tony Johnson
  * @author Mark Donszelmann
  */
+@SuppressWarnings("serial")
 public class Headless extends JInternalFrame {
 
     public Headless(JComponent component) {
@@ -22,6 +23,8 @@ public class Headless extends JInternalFrame {
         // For some reason frame.validate simply delegates to Container.validate(), which does nothing
         // if there is no peer defined.
         addNotify();
-        super.validateTree();
+        synchronized(super.getTreeLock()) {
+            super.validateTree();
+        }
     }
 }
