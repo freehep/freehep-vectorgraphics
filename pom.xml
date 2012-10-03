@@ -64,7 +64,7 @@
 	<properties>
 		<github.global.server>github</github.global.server>
 		<mavenVersion>3.0.0</mavenVersion>
-		<freehep-io-version>2.2.1</freehep-io-version>
+		<freehep-io-version>2.2.2</freehep-io-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
