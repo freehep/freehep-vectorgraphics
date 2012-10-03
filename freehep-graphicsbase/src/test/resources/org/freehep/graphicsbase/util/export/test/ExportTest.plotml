@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE plotML SYSTEM "plotML.dtd">
+<plotML>
+  <plot>
+    <title>
+      <border type="None"/>
+      <label text="Export Test! &#956;">
+        <font style="BOLD" points="14" face="SansSerif"/>
+      </label>
+    </title>
+    <legend visible="automatic">
+      <border type="Etched"/>
+      <bounds height="60" x="311" width="102" y="187"/>
+      <colorScheme backgroundColor="(255,204,204)"/>
+      <font style="PLAIN" points="12" face="Dialog"/>
+    </legend>
+    <stats showTitles="automatic" alignment="right">
+      <border color="Black" type="Line"/>
+      <font style="PLAIN" points="10" face="SansSerif"/>
+      <format maximumWidth="8" significantDigits="5"/>
+    </stats>
+    <dataArea>
+      <border type="Bevel Out"/>
+      <colorScheme backgroundColor="Pink"/>
+      <data1d axis="y0">
+        <bins1d title="Gaussian 1">
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+5.0,2.23606797749979,2.23606797749979
+15.0,3.872983346207417,3.872983346207417
+32.0,5.656854249492381,5.656854249492381
+52.0,7.211102550927978,7.211102550927978
+145.0,12.041594578792296,12.041594578792296
+184.0,13.564659966250536,13.564659966250536
+315.0,17.74823934929885,17.74823934929885
+392.0,19.79898987322333,19.79898987322333
+503.0,22.427661492005804,22.427661492005804
+607.0,24.63736998950984,24.63736998950984
+620.0,24.899799195977465,24.899799195977465
+605.0,24.596747752497688,24.596747752497688
+581.0,24.1039415863879,24.1039415863879
+421.0,20.518284528683193,20.518284528683193
+321.0,17.916472867168917,17.916472867168917
+214.0,14.628738838327793,14.628738838327793
+131.0,11.445523142259598,11.445523142259598
+74.0,8.602325267042627,8.602325267042627
+38.0,6.164414002968976,6.164414002968976
+11.0,3.3166247903554,3.3166247903554
+1.0,1.0,1.0
+2.0,1.4142135623730951,1.4142135623730951
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+0.0,0.0,0.0
+        </bins1d>
+        <binnedDataAxisAttributes max="1.8378839590443685"
+          numberOfBins="50" min="0.0" type="double" axis="x"/>
+        <statistics>
+          <statistic name="Entries" value="5269.0"/>
+          <statistic name="Mean" value="0.5"/>
+          <statistic name="RMS" value="1.0"/>
+          <statistic name="10Entries" value="52690.0"/>
+        </statistics>
+        <style1d dataPointSize="6" showErrorBars="true"
+          histogramBarsFilled="true" showLinesBetweenPoints="false"
+          errorBarColor="Black" dataPointStyle="box" showHistogramBars="true"
+          lineColor="Red" dataPointColor="Red" showDataPoints="false"
+          histogramBarColor="Red"/>
+      </data1d>
+      <data1d axis="y0">
+        <bins1d title="Gaussian 2">
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-99.0,9.9498743710662,9.9498743710662
+-92.0,9.591663046625438,9.591663046625438
+-84.0,9.16515138991168,9.16515138991168
+-52.0,7.211102550927978,7.211102550927978
+-21.0,4.58257569495584,4.58257569495584
+46.0,6.782329983125268,6.782329983125268
+137.0,11.704699910719626,11.704699910719626
+256.0,16.0,16.0
+372.0,19.28730152198591,19.28730152198591
+485.0,22.02271554554524,22.02271554554524
+535.0,23.130067012440755,23.130067012440755
+497.0,22.293496809607955,22.293496809607955
+460.0,21.447610589527216,21.447610589527216
+396.0,19.8997487421324,19.8997487421324
+275.0,16.583123951777,16.583123951777
+186.0,13.638181696985855,13.638181696985855
+81.0,9.0,9.0
+1.0,1.0,1.0
+-48.0,6.928203230275509,6.928203230275509
+-74.0,8.602325267042627,8.602325267042627
+-91.0,9.539392014169456,9.539392014169456
+-97.0,9.848857801796104,9.848857801796104
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+-100.0,10.0,10.0
+        </bins1d>
+        <binnedDataAxisAttributes axis="x" numberOfBins="50"
+          min="0.0" type="double" max="1.8378839590443685"/>
+        <statistics>
+          <statistic name="Entries" value="5269.0"/>
+          <statistic name="Mean" value="1.0"/>
+          <statistic name="RMS" value="1.0"/>
+        </statistics>
+        <style1d dataPointSize="6" showErrorBars="true"
+          histogramBarsFilled="true" showLinesBetweenPoints="true" dataPointStyle="dot"
+          errorBarColor="Black" showHistogramBars="false" lineColor="Blue"
+          dataPointColor="Blue" showDataPoints="true" histogramBarColor="Blue"/>
+      </data1d>
+      <axis logarithmic="false" showOverflows="false"
+        numberOfBins="50" min="0.0" allowSuppressedZero="true" type="double"
+        max="1.8378839590443685" location="x0">
+        <font style="PLAIN" face="Dialog" points="12"/>
+      </axis>
+      <axis logarithmic="false" showOverflows="false"
+        allowSuppressedZero="true" type="double" location="y0">
+        <font style="BOLD" face="Serif" points="12"/>
+      </axis>
+    </dataArea>
+    <bounds width="427" height="318"/>
+  </plot>
+</plotML>
