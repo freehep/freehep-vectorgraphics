@@ -20,7 +20,8 @@ import org.freehep.graphicsbase.xml.util.XMLWriter;
 public class TestXMLWriter extends TestCase {
 
     private File testFile = new File("TestXMLWriter.xml");
-    private File refFile = new File("src/test/resources/org/freehep/graphicsbase/util/export/test/TestXMLWriter.xml");
+// FIXME, should be relative
+    private File refFile = new File("../freehep-graphicsbase/src/test/resources/org/freehep/graphicsbase/util/export/test/TestXMLWriter.xml");
     
     // FIXME, rewrite in JUnit 4 in separate parts
     public void testXML() throws IOException {
