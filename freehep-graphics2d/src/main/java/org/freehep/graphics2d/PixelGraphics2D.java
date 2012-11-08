@@ -30,6 +30,7 @@ import java.awt.image.renderable.RenderableImage;
 import java.awt.print.PrinterGraphics;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.text.AttributedCharacterIterator;
 import java.util.HashMap;
 import java.util.Map;
@@ -99,13 +100,18 @@ public class PixelGraphics2D extends AbstractVectorGraphics {
 		try {
 			Class<?> clazz = Class.forName("sun.awt.X11GraphicsEnvironment");
 			displayX11 = true;
-			Method method = clazz.getMethod("isDisplayLocal", null);
-			try {
-				// since JDK 1.7
-				displayLocal = (Boolean) method.invoke(clazz.newInstance());
-			} catch (InstantiationException x) {
-				displayLocal = (Boolean) method.invoke(null);
-			}
+
+			Method method = clazz.getMethod("isDisplayLocal");
+              		if (Modifier.isStatic(method.getModifiers())) {
+				// JDK 1.6
+                        	displayLocal = (Boolean) method.invoke(null);
+              		} else {
+                         	try {
+					// since JDK 1.7
+					displayLocal = (Boolean)method.invoke(clazz.newInstance());
+				} catch (InstantiationException  e) {
+				}
+              		}
 		} catch (ClassNotFoundException e) {
 			// Windows case...
 			displayLocal = true;
