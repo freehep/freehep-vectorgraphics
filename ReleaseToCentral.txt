@@ -1,0 +1,14 @@
+- to release a snapshot to central do:
+
+mvn clean deploy
+
+- to release a version to central do:
+
+mvn release:prepare
+mvn release:perform (will fail...)
+cd target/checkout
+mvn -DperformRelease=true clean deploy
+
+log in to website and promote.
+
+ 
