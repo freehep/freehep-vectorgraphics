@@ -34,6 +34,12 @@ public class PageConstants {
     }
 
     // Page Sizes
+    /** 
+     * Property named PAGE_SIZE contains the name of the page standard 
+     * (like A4, LETTER).
+     * If the property is set to CUSTOM_PAGE_SIZE, then the dimensions of 
+     * the paper should be taken from the property CUSTOM_PAGE_SIZE.
+     */
     public static final String PAGE_SIZE = "PageSize";
 
     public static final String INTERNATIONAL = "International";
@@ -46,12 +52,6 @@ public class PageConstants {
 
     public static final String A6 = "A6";
 
-    /**
-     * Value for CUSTOM_PAGE_SIZE and Key for a Dimension
-     * object if custom size is used
-     */
-    public static final String CUSTOM_PAGE_SIZE = "Custom PageSize";
-
     public static final String LETTER = "Letter";
 
     public static final String LEGAL = "Legal";
@@ -59,10 +59,15 @@ public class PageConstants {
     public static final String EXECUTIVE = "Executive";
 
     public static final String LEDGER = "Ledger";
+    /**
+     * Value for CUSTOM_PAGE_SIZE and Key for a Dimension
+     * object if custom size is used
+     */
+    public static final String CUSTOM_PAGE_SIZE = "Custom PageSize";
 
     public static final String[] getSizeList() {
         return new String[] { INTERNATIONAL, A4, LETTER, A3, LEGAL, A5, A6,
-                EXECUTIVE, LEDGER };
+			      EXECUTIVE, LEDGER, CUSTOM_PAGE_SIZE };
     }
 
     public static final Dimension getSize(String size) {
@@ -71,6 +76,7 @@ public class PageConstants {
 
     public static final Dimension getSize(String size, String orientation) {
         Dimension d = sizeTable.get(size);
+        if (d == null) return null;
         if (orientation.equals(PORTRAIT)) {
             return d;
         } else {
@@ -89,10 +95,13 @@ public class PageConstants {
         sizeTable.put(LEGAL, new Dimension(612, 1009));
         sizeTable.put(EXECUTIVE, new Dimension(539, 720));
         sizeTable.put(LEDGER, new Dimension(791, 1225));
+        sizeTable.put(CUSTOM_PAGE_SIZE, null);
     }
 
     // Margins
     public static final String PAGE_MARGINS = "PageMargins";
+
+    public static final String NONE = "None";
 
     public static final String SMALL = "Small";
 
@@ -102,6 +111,7 @@ public class PageConstants {
 
     private static final Map<String, Insets> marginTable = new HashMap<String, Insets>();
     static {
+        marginTable.put(NONE, new Insets(0, 0, 0, 0));
         marginTable.put(SMALL, new Insets(20, 20, 20, 20));
         marginTable.put(MEDIUM, new Insets(30, 30, 30, 30));
         marginTable.put(LARGE, new Insets(40, 40, 40, 40));

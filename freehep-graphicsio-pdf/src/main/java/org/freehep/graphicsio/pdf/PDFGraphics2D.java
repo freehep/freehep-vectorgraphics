@@ -95,6 +95,9 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 	public static final String PAGE_SIZE = rootKey + "."
 			+ PageConstants.PAGE_SIZE;
 
+	public static final String CUSTOM_PAGE_SIZE = rootKey + "."
+			+ PageConstants.CUSTOM_PAGE_SIZE;
+
 	public static final String PAGE_MARGINS = rootKey + "."
 			+ PageConstants.PAGE_MARGINS;
 
@@ -384,6 +387,24 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 		}
 	}
 
+	public Dimension getPageSize() {
+		Dimension pageSize = PageConstants.getSize(getProperty(PAGE_SIZE),
+						   getProperty(ORIENTATION));
+		if (pageSize == null) {
+			pageSize = getPropertyDimension(CUSTOM_PAGE_SIZE);
+		}
+		if (pageSize == null) {
+			Insets margins = PageConstants.getMargins(
+			getPropertyInsets(PAGE_MARGINS), getProperty(ORIENTATION));
+			pageSize = getSize();
+			if (margins != null) {
+				pageSize.width += margins.left + margins.right;
+				pageSize.height += margins.top + margins.bottom;
+			}
+		}
+		return pageSize;
+	}
+
 	public void writeTrailer() throws IOException {
 		if (!isMultiPage())
 			closePage();
@@ -393,8 +414,8 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 		for (int i = 1; i <= currentPage; i++) {
 			pages.addPage("Page" + i);
 		}
-		Dimension pageSize = PageConstants.getSize(getProperty(PAGE_SIZE),
-				getProperty(ORIENTATION));
+		Dimension pageSize = getPageSize();
+
 		pages.setMediaBox(0, 0, pageSize.getWidth(), pageSize.getHeight());
 		pages.setResources("Resources");
 		os.close(pages);
@@ -530,8 +551,7 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 		// so that the origin is the upper left corner of the page.
 		AffineTransform pageTrafo = new AffineTransform();
 		pageTrafo.scale(1, -1);
-		Dimension pageSize = PageConstants.getSize(getProperty(PAGE_SIZE),
-				getProperty(ORIENTATION));
+		Dimension pageSize = getPageSize();
 		Insets margins = PageConstants.getMargins(
 				getPropertyInsets(PAGE_MARGINS), getProperty(ORIENTATION));
 		pageTrafo
@@ -973,16 +993,14 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 	}
 
 	private double getWidth() {
-		Dimension pageSize = PageConstants.getSize(getProperty(PAGE_SIZE),
-				getProperty(ORIENTATION));
+		Dimension pageSize = getPageSize();
 		Insets margins = PageConstants.getMargins(
 				getPropertyInsets(PAGE_MARGINS), getProperty(ORIENTATION));
 		return pageSize.getWidth() - margins.left - margins.right;
 	}
 
 	private double getHeight() {
-		Dimension pageSize = PageConstants.getSize(getProperty(PAGE_SIZE),
-				getProperty(ORIENTATION));
+		Dimension pageSize = getPageSize();
 		Insets margins = PageConstants.getMargins(
 				getPropertyInsets(PAGE_MARGINS), getProperty(ORIENTATION));
 		return pageSize.getHeight() - margins.top - margins.bottom;
