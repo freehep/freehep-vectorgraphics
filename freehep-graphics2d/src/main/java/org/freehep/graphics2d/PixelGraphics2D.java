@@ -115,16 +115,8 @@ public class PixelGraphics2D extends AbstractVectorGraphics {
 		} catch (ClassNotFoundException e) {
 			// Windows case...
 			displayLocal = true;
-		} catch (IllegalAccessException e) {
-			// ignored
-		} catch (NoSuchMethodException e) {
-			// ignored
-		} catch (InvocationTargetException e) {
-			// ignored
-		} catch (ClassCastException e) {
-			// ignored
-		} catch (SecurityException e) {
-			// ignored
+		} catch (Exception e) {
+			// Sun api may change, so we don't know what errors are possible. Ignore them all.
 		}
 	}
 
