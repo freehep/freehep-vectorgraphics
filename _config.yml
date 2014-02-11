@@ -6,6 +6,7 @@ markdown:     rdiscount
 #permalink:    pretty
 
 # Server
+baseurl:      /freehep-vectorgraphics
 source:       ./docs
 destination:  ./_site
 exclude:      []
