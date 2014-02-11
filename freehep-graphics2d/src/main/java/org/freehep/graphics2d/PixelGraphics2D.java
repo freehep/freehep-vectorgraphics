@@ -125,6 +125,10 @@ public class PixelGraphics2D extends AbstractVectorGraphics {
 			// ignored
 		} catch (SecurityException e) {
 			// ignored
+		} catch (LinkageError e) {
+			// ignored
+		} catch (NullPointerException e) {
+			// ignored
 		}
 	}
 
