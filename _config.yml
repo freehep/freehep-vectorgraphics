@@ -7,7 +7,7 @@ markdown:     rdiscount
 
 # Server
 baseurl:      /freehep-vectorgraphics
-source:       ./docs
+source:       .
 destination:  ./_site
 exclude:      []
 keep_files:   ['.git', '.svn']
