@@ -1,0 +1,15 @@
+# Dependencies
+markdown:     rdiscount
+#pygments:     true
+
+# Permalinks
+#permalink:    pretty
+
+# Server
+source:       ./docs
+destination:  ./_site
+exclude:      []
+keep_files:   ['.git', '.svn']
+
+port:         9001
+url:          http://localhost:9001
