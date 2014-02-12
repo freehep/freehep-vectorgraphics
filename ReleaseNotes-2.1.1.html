@@ -1,0 +1,181 @@
+---
+layout: default
+title: FreeHEP - Vector Graphics
+lead: Release Notes 2.1.1
+slug: user
+dir: .
+---
+        <div class="section">
+<p>Release Notes Version: $Revision: 10163 $.</p>
+<p>The most recent version of this file is available at <a class="externalLink" href="http://java.freehep.org/vectorgraphics/ReleaseNotes-2.1.1.html">http://java.freehep.org/vectorgraphics/ReleaseNotes-2.1.1.html</a>.</p>
+<p>Release notes for all versions of the VectorGraphics package are available at <a class="externalLink" href="http://java.freehep.org/vectorgraphics/ReleaseNotes.html">http://java.freehep.org/vectorgraphics/ReleaseNotes.html</a>.</p>
+<p>The VectorGraphics package of <a class="externalLink" href="http://java.freehep.org"> FreeHEP Java Library</a> enables any Java program to export to a variety of vector graphics formats as well as bitmap image formats. Among the vector formats are PostScript, PDF, EMF, SVF, and (Flash) SWF. The image formats include GIF, PNG, JPG, BMP, WBPM and PPM. All image formats included in the Java runtime, as well as any in the Java Advanced Imaging package (if installed) are also be available. A special JAVA export format will write a java file with all the calls your application makes to Graphics2D. This java file can help us debug any potential problems.</p>
+<p>The formats CGM and LaTeX have not been released in version 2.1.1. They may be released at a later date/version. </p>
+<p>The package uses the standard java.awt.Graphics2D class as its interface to the user program. Using this package from any Java GUI program is therefore quite easy. It also comes with a dialog box which allows you to choose between all the formats mentioned above and set specific parameters for them.</p>
+<div class="section">
+<h3>Contents<a name="Contents"></a></h3>
+<ul>
+<li><a href="#Major_Changes">Major Changes</a></li>
+<li><a href="#Documentation">Documentation</a></li>
+<li><a href="#Test_Output">Test Output</a></li>
+<li><a href="#License">License</a></li>
+<li><a href="#Installation">Installation</a></li>
+<li><a href="#Compilation">Compilation</a></li>
+<li><a href="#Building_an_Application_with_the_VectorGraphics_package">Building an Application with the VectorGraphics package</a></li>
+<li><a href="#Running_the_VectorGraphics_package">Running the VectorGraphics package</a></li>
+<li><a href="#FeaturesLimitations_of_the_Current_Release">Features/Limitations of the Current Release</a></li>
+<li><a href="#Reporting_Bugs">Reporting Bugs</a></li>
+<li><a href="#Examples">Examples</a></li></ul></div>
+<div class="section">
+<h3><a name="Major_Changes">Major Changes</a></h3>
+<p>This version is binary compatible at the java.awt.Graphics2d level with version 2.0. However if you used classes/methods from the low-level format drivers or have used methods of the VectorGraphics class or its descendants you may have to adjust your code and recompile.</p>
+<p>This version runs on Java 1.4.2 and up, but has only been tested mildly in Java 1.6.0.</p>
+<p>Below the major changes in general and by format: </p>
+<div class="section">
+<h4>General <a name="General"></a></h4>
+<ul>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-314">FVG-314</a>] - bin tar and zip file contains multiple versions of freehep-io and freehep-util</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-315">FVG-315</a>] - Update dep of jas-plotter to 2.2</li></ul></div></div>
+<div class="section">
+<h3><a name="Documentation">Documentation</a></h3>
+<p>The following documentation is currently available:</p>
+<ul>
+<li><a class="externalLink" href="http://java.freehep.org/vectorgraphics">The VectorGraphics website</a></li>
+<li><a class="externalLink" href="http://java.freehep.org/vectorgraphics/Manual.html">The VectorGraphics User Manual</a></li></ul></div>
+<div class="section">
+<h3><a name="Test_Output">Test Output</a></h3>
+<p>To better understand the behaviour of the VectorGraphics package for different usage on different Operating Systems and with different JDK's we publish the test results (and a PNG reference) on our website: <a class="externalLink" href="http://java.freehep.org/vectorgraphics">http://java.freehep.org/vectorgraphics</a>.</p></div>
+<div class="section">
+<h3><a name="License">License</a></h3>
+<p>The VectorGraphics package is part of the <a class="externalLink" href="http://java.freehep.org/">FreeHEP Java Library</a>, an &quot;Open Source&quot; library distributed under the terms of the <a class="externalLink" href="http://www.gnu.org/copyleft/lesser.html">LGPL</a>. If you have questions about the licensing please send a mail to: <a class="externalLink" href="mailto:developers@freehep.org">developers@freehep.org</a>.</p></div>
+<div class="section">
+<h3><a name="Installation">Installation</a></h3>
+<p>All distributions for the VectorGraphics package can be donwloaded from <a class="externalLink" href="ftp://ftp.slac.stanford.edu/software/freehep/VectorGraphics/v2.1.1">ftp://ftp.slac.stanford.edu/software/freehep/VectorGraphics/v2.1.1</a>.</p>
+<p>Download the binary distribution vectorgraphics-2.1.1-bin.tar.gz or the .zip file and unpack. It creates the following directory structure:</p>
+<div class="source">
+<pre>vectorgraphics-2.1.1            containing license and release notes
+vectorgraphics-2.1.1/bin        empty
+vectorgraphics-2.1.1/examples   containing examples
+vectorgraphics-2.1.1/lib        containing jar files</pre></div>
+<p>You may optionally download the documentation distribution vectorgraphics-2.1.1-doc.tar.gz or the .zip file and unpack. It creates the following directory structure:</p>
+<div class="source">
+<pre>vectorgraphics-2.1.1/doc        empty
+vectorgraphics-2.1.1/site       containing a copy of the website, including these release notes.</pre></div></div>
+<div class="section">
+<h3><a name="Compilation">Compilation</a></h3>
+<p>The source distribution contain all source files and can be used for recompilation. Unless you wish to make modifications, you can just use the binary distribution.</p>
+<p>To (re-)build the VectorGraphics package you need:</p>
+<ul>
+<li>The Java Development Kit (JDK), version 1.4.2 or up.</li>
+<li>Maven, version 2.0.4 or up, see <a class="externalLink" href="http://maven.apache.org">http://maven.apache.org</a>.</li>
+<li>Subversion, version 1.3 or up, see <a class="externalLink" href="http://subversion.tigris.org">http://subversion.tigris.org</a>. You only need subversion if you want to build from our source repository.</li></ul>
+<p>Get the source code in one of the following ways:</p>
+<ul>
+<li>Download the source distribution vectorgraphics-2.1.1-src.tar.gz or .zip file and unpack.</li>
+<li>Check out a copy of the source code either from a tagged version:
+<div class="source">
+<pre>cd vectorgraphics-2.1.1
+svn co svn://svn.freehep.org/svn/freehep/tags/vectorgraphics-2.1.1 src</pre></div></li>
+<li>If you like to live on the edge from the HEAD of svn:
+<div class="source">
+<pre>cd vectorgraphics-2.1.1
+svn co svn://svn.freehep.org/svn/freehep/trunk/vectorgraphics src</pre></div></li></ul>
+<p>All of these will create a directory in which you will find all VectorGraphics modules:</p>
+<div class="source">
+<pre>vectorgraphics-2.1.1/src/freehep-graphics2d
+vectorgraphics-2.1.1/src/freehep-graphics3d        (to be ignored)
+vectorgraphics-2.1.1/src/freehep-graphicsio
+vectorgraphics-2.1.1/src/freehep-graphicsio-cgm    (not included in this release, but available for compilation)
+vectorgraphics-2.1.1/src/freehep-graphicsio-emf
+vectorgraphics-2.1.1/src/freehep-graphicsio-java   
+vectorgraphics-2.1.1/src/freehep-graphicsio-latex  (not included in this release, but available for compilation)
+vectorgraphics-2.1.1/src/freehep-graphicsio-pdf
+vectorgraphics-2.1.1/src/freehep-graphicsio-ps
+vectorgraphics-2.1.1/src/freehep-graphicsio-svg
+vectorgraphics-2.1.1/src/freehep-graphicsio-swf
+vectorgraphics-2.1.1/src/freehep-graphicsio-tests
+vectorgraphics-2.1.1/src/pom.xml
+vectorgraphics-2.1.1/src/site/...                  (the website and files for building the distributions)
+vectorgraphics-2.1.1/src/..                        (other files)</pre></div>
+<p>To compile and run the tests type the following:</p>
+<div class="source">
+<pre>cd vectorgraphics-2.1.1/src
+mvn</pre></div>
+<p>To recreate the full distribution</p>
+<div class="source">
+<pre>cd vectorgraphics-2.1.1/src
+mvn javadoc:javadoc             (creates aggregated apidoc)
+mvn site:site                   (creates top-level site, module-sites and module-apidoc)
+mvn install assembly:attached   (compiles, runs tests and creates -bin, -doc and -src distributions) </pre></div>
+<p>For further instructions see the <a class="externalLink" href="http://java.freehep.org/">FreeHEP WebSite</a>.</p></div>
+<div class="section">
+<h3><a name="Building_an_Application_with_the_VectorGraphics_package">Building an Application with the VectorGraphics package</a></h3>
+<p>Add the following libraries to your CLASSPATH:</p>
+<div class="source">
+<pre>freehep-graphics2d-2.1.1.jar
+freehep-export-2.1.1.jar
+openide-lookup-1.9-patched-1.0.jar
+freehep-swing-2.0.3.jar
+freehep-util-2.0.2.jar</pre></div></div>
+<div class="section">
+<h3><a name="Running_an_Application_with_the_VectorGraphics_package">Running an Application with the VectorGraphics package</a></h3>
+<p>Add the following libraries to your CLASSPATH:</p>
+<div class="source">
+<pre>freehep-graphicsio-2.1.1.jar
+freehep-io-2.0.2.jar
+
+freehep-graphics2d-2.1.1.jar
+freehep-export-2.1.1.jar
+openide-lookup-1.9-patched-1.0.jar
+freehep-swing-2.0.3.jar
+freehep-util-2.0.2.jar</pre></div>
+<p>Then add any or all of the following jar files to your CLASSPATH to enable these vector format as output:</p>
+<div class="source">
+<pre>freehep-graphicsio-emf-2.1.1.jar
+    jdom-1.0.jar                            (needed by freehep-graphicsio-emf for the EMF2SVG converter)
+freehep-graphicsio-pdf-2.1.1.jar
+freehep-graphicsio-ps-2.1.1.jar
+freehep-graphicsio-svg-2.1.1.jar
+    freehep-xml-2.1.1.jar                   (needed by freehep-graphicsio-svg)
+freehep-graphicsio-swf-2.1.1.jar</pre></div>
+<p>To run any of the tests you must also add:</p>
+<div class="source">
+<pre>freehep-graphicsio-tests-2.1.1.jar
+jas-plotter-2.2.jar
+junit-3.8.2.jar</pre></div>
+<p>To debug and write out a java file add:</p>
+<div class="source">
+<pre>freehep-graphicsio-java-2.1.1.jar</pre></div></div>
+<div class="section">
+<h3>Usage with Maven<a name="Usage_with_Maven"></a></h3>
+<p>All of the jar files listed above, including the -javadoc and -source jar attachements are available from our maven servers:</p>
+<dl>
+<dt>Maven 1 URL</dt>
+<dd>http://java.freehep.org/maven</dd>
+<dt>Maven 2 URL</dt>
+<dd>http://java.freehep.org/maven2</dd>
+<dt>GroupId</dt>
+<dd>org.freehep</dd>
+<dt>ArtifactId</dt>
+<dd>as listed above</dd>
+<dt>Version</dt>
+<dd>as listed above </dd></dl></div>
+<div class="section">
+<h3><a name="FeaturesLimitations_of_the_Current_Release">Features/Limitations of the Current Release</a></h3>
+<p>The following limitations exist:</p>
+<ul>
+<li>Some <a class="externalLink" href="http://bugs.freehep.org/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;sorter/order=DESC&amp;sorter/field=priority&amp;resolutionIds=-1&amp;pid=10170&amp;fixfor=10651">Operating System Limitations</a>.</li>
+<li>Some <a class="externalLink" href="http://bugs.freehep.org/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;sorter/order=DESC&amp;sorter/field=priority&amp;resolutionIds=-1&amp;pid=10170&amp;fixfor=10650">Format Limitations</a>.</li>
+<li>All outstanding issues in the <a class="externalLink" href="http://bugs.freehep.org/browse/FVG">Bug Database</a>.</li>
+<li>The vectorgraphics-2.1.1-src.tar.gz and .zip distribution may contain some files which are not needed to build the VectorGraphics package. </li></ul></div>
+<div class="section">
+<h3><a name="Reporting_Bugs">Reporting Bugs</a></h3>
+<p>To report bugs or request enhancements you may use the <a class="externalLink" href="http://bugs.freehep.org/browse/FVG">FreeHEP Bug Database</a> and the <a class="externalLink" href="http://forum.freehep.org/index.php?t=thread&amp;frm_id=8&amp;rid=0">FreeHEP VectorGraphics Forum</a>.</p></div>
+<div class="section">
+<h3><a name="Examples">Examples</a></h3>
+<p>The VectorGraphics-version/examples directory contains: </p>
+<ul>
+<li>ExportDialogExample.java to show how to use the default ExportDialog that comes with the VectorGraphics package.</li>
+<li>HeadlessExample.java to show how you can write out any format while not actually displaying anything on the screen.</li>
+<li>pom.xml to compile the example files.</li></ul></div></div>
+      </div>

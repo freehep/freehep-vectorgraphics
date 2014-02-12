@@ -1,0 +1,346 @@
+---
+layout: default
+title: FreeHEP - Vector Graphics
+lead: Release Notes 2.0
+slug: user
+dir: .
+---
+        <div class="section">
+<p>Release Notes Version: $Revision$.</p>
+<p>The most recent version of this file is available at <a class="externalLink" href="http://java.freehep.org/vectorgraphics/ReleaseNotes-2.0.html">http://java.freehep.org/vectorgraphics/ReleaseNotes-2.0.html</a>.</p>
+<p>Release notes for all versions of the VectorGraphics package are available at <a class="externalLink" href="http://java.freehep.org/vectorgraphics/AllReleaseNotes.html">http://java.freehep.org/vectorgraphics/AllReleaseNotes.html</a>.</p>
+<p>The VectorGraphics package of <a class="externalLink" href="http://java.freehep.org"> FreeHEP Java Library</a> enables any Java program to export to a variety of vector graphics formats as well as bitmap image formats. Among the vector formats are PostScript, PDF, EMF, SVF, and (Flash) SWF. The image formats include GIF, PNG, JPG, BMP, WBPM and PPM. All image formats included in the Java runtime, as well as any in the Java Advanced Imaging package (if installed) are also be available.</p>
+<p>The formats CGM, LaTeX and JAVA (for debugging) have not been released in version 2.0. They may be released at a later date/version. </p>
+<p>The package uses the standard java.awt.Graphics2D class as its interface to the user program. Using this package from any Java GUI program is therefore quite easy. It also comes with a dialog box which allows you to choose between all the formats mentioned above and set specific parameters for them.</p>
+<div class="section">
+<h3>Contents<a name="Contents"></a></h3>
+<ul>
+<li><a href="#Major_Changes">Major Changes</a></li>
+<li><a href="#Documentation">Documentation</a></li>
+<li><a href="#Test_Output">Test Output</a></li>
+<li><a href="#License">License</a></li>
+<li><a href="#Installation">Installation</a></li>
+<li><a href="#Compilation">Compilation</a></li>
+<li><a href="#Building_an_Application_with_the_VectorGraphics_package">Building an Application with the VectorGraphics package</a></li>
+<li><a href="#Running_the_VectorGraphics_package">Running the VectorGraphics package</a></li>
+<li><a href="#FeaturesLimitations_of_the_Current_Release">Features/Limitations of the Current Release</a></li>
+<li><a href="#Reporting_Bugs">Reporting Bugs</a></li>
+<li><a href="#Examples">Examples</a></li></ul></div>
+<div class="section">
+<h3><a name="Major_Changes">Major Changes</a></h3>
+<p>This version is binary compatible at the java.awt.Graphics2d level with version 1.2.2. However if you used classes/methods from the low-level format drivers or have used methods of the VectorGraphics class or its descendants you may have to adjust your code and recompile.</p>
+<p>All changes previously declared fixed for version 1.2.3 are included in version 2.0 of VectorGraphics. Version 1.2.3 will not be released.</p>
+<p>This version runs on Java 1.4.2 and up, but has only been tested mildly in the release candidate of Java 1.6.0.</p>
+<p>Below the major changes in general and by format: </p>
+<div class="section">
+<h4>General <a name="General"></a></h4>
+<ul>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-2">FVG-2</a>] - add text as shapes</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-13">FVG-13</a>] - Unicode symbols don't appear in output</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-17">FVG-17</a>] - The size of symbols, drawn and filled seems not always equal</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-21">FVG-21</a>] - TagString doesn't handle Nested Tags</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-23">FVG-23</a>] - PixelGraphics has offset in several tests on MacOS X</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-39">FVG-39</a>] - Write DashedLinePathConstructor</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-40">FVG-40</a>] - Reorganize PathConstructors so that they can Cascade</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-44">FVG-44</a>] - Compile time error due to ambigous reference to method drawString</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-82">FVG-82</a>] - drawString(attributedCharIter) is unimplemented by all formats</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-104">FVG-104</a>] - PixelGraphics2D: createShape could be faster and less memory consumptive</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-109">FVG-109</a>] - drawImage does not save/restore transform.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-110">FVG-110</a>] - ArrayPath has a problem with empty closed paths.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-111">FVG-111</a>] - getDefaultInstance(ClassLoader loader) in ExportFileTypeRegistry can only be called once for the same loader.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-113">FVG-113</a>] - VectorGraphics: some drawString(...) and drawGlyphVector(...) unimplemented</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-114">FVG-114</a>] - copy and paste into Word 97 doesn't support EMF</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-116">FVG-116</a>] - Export Dialog does not report errors to user</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-121">FVG-121</a>] - BufferedPanel should not build a clipped bufferedimage since the blit of it is much slower on Linux.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-122">FVG-122</a>] - ClassCastException in makeImage of BuffredPanel when sun.java2d.ddoffscreen set to true.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-123">FVG-123</a>] - Negative coordinates seem clipped.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-124">FVG-124</a>] - Add test for resolution</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-132">FVG-132</a>] - Move org.freehep.graphicsio.font.encoding to org.freehep.graphics2d.font</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-134">FVG-134</a>] - getGraphics() in BufferedPanel does not return correct VG.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-136">FVG-136</a>] - AbstractVectorGraphicsIO.setTranform(AffineTransform) is incorrectly doing &quot;pass by reference&quot;.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-139">FVG-139</a>] - Exporting array of components produces bad file</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-141">FVG-141</a>] - Switching exportFileTypes should properly update extensions</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-142">FVG-142</a>] - BufferedPanel will now limit clipped copy to bounds of panel, avoiding a RasterException.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-143">FVG-143</a>] - Change PathConstructor method closePath to have coordinates</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-145">FVG-145</a>] - createShape should return Shape rather than GeneralPath</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-146">FVG-146</a>] - Export Type selection case sensitive</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-147">FVG-147</a>] - ExportDemo: Security Exception for GIF, PNG, JPG and RAW formats in WebStart</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-149">FVG-149</a>] - Font derivation does not work for arbitrary transforms</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-159">FVG-159</a>] - Buggfix for TTFGlyphTable.SimpleGlyph.getShape()</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-162">FVG-162</a>] - Custom Strokes should work in all formats supporting shapes. Currently only in PDF.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-165">FVG-165</a>] - modify writeDash to use float as parameters rather than doubles.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-166">FVG-166</a>] - Handle the writing of fonts better.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-167">FVG-167</a>] - setRenderingHints with null value should remove hint</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-168">FVG-168</a>] - draw methods using integer need a bias of 0.5 to be correctly displayed.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-170">FVG-170</a>] - Underline, StrikeThrough ... lost for TEXT_AS_SHAPE</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-211">FVG-211</a>] - ArrayIndexOutOfBoundsException for CubicCurve</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-212">FVG-212</a>] - Wrong Mapping of DialogInput</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-215">FVG-215</a>] - Add ExportFileType for WBMP and BMP</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-216">FVG-216</a>] - ExportFileTypes for Bitmap formats should failover to real class rather than ZZZclass.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-217">FVG-217</a>] - ZZZExportFileType works on Windows but fails on MacOS X (and maybe others).</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-245">FVG-245</a>] - Disabled tests should end up in report list without link, and be skipped with next/previous</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-246">FVG-246</a>] - Test reports should be written in different dirs for JDK version and OS</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-247">FVG-247</a>] - Add a link back to vectorgraphics page</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-248">FVG-248</a>] - FreeHEP image is missing..</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-249">FVG-249</a>] - Add link to test matrix from vectorgraphics web.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-250">FVG-250</a>] - CubicToQuadPatrhConstructor is not protected for parallel lines</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-258">FVG-258</a>] - Add a way to skip certain formats in tests and reports</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-259">FVG-259</a>] - Deploy test results for all platforms.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-260">FVG-260</a>] - Add format-wide test of normal and scatter plot</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-261">FVG-261</a>] - Add gray cloudy background to table so we can see tarsnparency.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-273">FVG-273</a>] - Add missing tests to TestApplication</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-274">FVG-274</a>] - All formats should just declare their extensions in lowercase only.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-275">FVG-275</a>] - Handle setColor, setFont and setPaint with null argument to mean NOP.</li></ul></div>
+<div class="section">
+<h4>EMF<a name="EMF"></a></h4>
+<ul>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-1">FVG-1</a>] - Bad polygon export for EMF</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-5">FVG-5</a>] - EMFGraphics2D thows NPE on Ilog component </li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-18">FVG-18</a>] - EMF: change output of EMF test ref files into EMZ</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-29">FVG-29</a>] - EMF: Export to EMF under MacOS X shows only one quadrant</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-48">FVG-48</a>] - Export to EMF messes up screen under Windows 98</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-107">FVG-107</a>] - EMFGraphics2D.writeImage should not call writeGraphics* directly</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-112">FVG-112</a>] - EMF: problem in writeImage</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-148">FVG-148</a>] - EMF: Add option to write gzipped EMF as EMZ file.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-236">FVG-236</a>] - EMF: TestImage2D no background and no red</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-237">FVG-237</a>] - EMF: TestImages no background (or wrong) and no red.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-240">FVG-240</a>] - EMF: TestTransparency no transparency, no red and wrong background</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-271">FVG-271</a>] - Remove EMZ extension</li></ul></div>
+<div class="section">
+<h4>GIF<a name="GIF"></a></h4>
+<ul>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-115">FVG-115</a>] - Exceptions, such as GIF &gt; 256 colors, end up on WebStart Console, rather than on DialogBox.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-119">FVG-119</a>] - GIF: can only handle 256 colors</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-158">FVG-158</a>] - GIFGraphics2D should disallow anti-aliasing</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-202">FVG-202</a>] - GIF: TestColors background incorrect</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-204">FVG-204</a>] - GIF: TestImage2D background incorrect</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-205">FVG-205</a>] - GIF: TestSymbols2D seems not nicely drawn.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-206">FVG-206</a>] - GIF: TestTransparency incorrect</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-254">FVG-254</a>] - GIF: TestCustomStrokes is all black.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-263">FVG-263</a>] - GIF: TestColors bottom bar is not transparent</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-265">FVG-265</a>] - GIF: TestHistogram wrong background.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-266">FVG-266</a>] - GIF: TestHTML wrong background</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-267">FVG-267</a>] - New Quantizer for GIF improves on color selection.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-270">FVG-270</a>] - Exception when clicking option box in exportdialog for GIF format</li></ul></div>
+<div class="section">
+<h4>PDF <a name="PDF"></a></h4>
+<ul>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-66">FVG-66</a>] - PDF: TestFonts no MonoType Corsiva.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-67">FVG-67</a>] - PDF, PS: TestAll no impact font</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-105">FVG-105</a>] - Write images once each to pdf file</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-144">FVG-144</a>] - tiny typo in PDFGraphics.openPage()</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-157">FVG-157</a>] - drawGlyphVector(GlyphVector g, float x, float y) not implemented in PDFGraphics2D</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-199">FVG-199</a>] - PDF, PS, SVG and SWF: TestFonts and TestShapes has wrong symbol and dingbats</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-200">FVG-200</a>] - PDF: TestTransform misses one figure.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-219">FVG-219</a>] - PDF: TestTaggedString has no bold or italic.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-221">FVG-221</a>] - PDF: TestShapes no bold or italic</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-222">FVG-222</a>] - PDF: TestHTML has no bold or italic</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-224">FVG-224</a>] - PDF: TestFonts, no monotype corsiva</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-225">FVG-225</a>] - PDF: TestFonts, no smiley character</li></ul></div>
+<div class="section">
+<h4>PS<a name="PS"></a></h4>
+<ul>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-67">FVG-67</a>] - PDF, PS: TestAll no impact font</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-68">FVG-68</a>] - PS: TestAll fails to show sky.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-102">FVG-102</a>] - PS: FrameColor in drawString is ignored</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-103">FVG-103</a>] - PS: TestFonts no monotype corsiva</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-125">FVG-125</a>] - PDF: write out floats in higher precision, but do not use E.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-126">FVG-126</a>] - PS: write out floating points in scientific format (E if necessary)</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-140">FVG-140</a>] - PS: different default orientation</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-174">FVG-174</a>] - PostScript output eats memory in GhostView</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-198">FVG-198</a>] - PS: TestPaint has the wrong image encoding</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-199">FVG-199</a>] - PDF, PS, SVG and SWF: TestFonts and TestShapes has wrong symbol and dingbats</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-213">FVG-213</a>] - Transparency in PS does not work</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-226">FVG-226</a>] - PS: TestFonts , no smiley and no heart</li></ul></div>
+<div class="section">
+<h4>SVG<a name="SVG"></a></h4>
+<ul>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-92">FVG-92</a>] - SVG: Use predefined symbol set in output</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-127">FVG-127</a>] - SVG: write out floating points in scientific format (E if necessary)</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-137">FVG-137</a>] - SVG: xlink namespace is not bound.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-138">FVG-138</a>] - SVG: Dtd and SVG namespace not correct.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-151">FVG-151</a>] - SVG: avoid style attribute</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-152">FVG-152</a>] - SVG: make stylable false the default and do not compress, since Firefox reads non-compressed files.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-156">FVG-156</a>] - Ref and test files in svg test area are of type svgz with extension svg</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-155">FVG-155</a>] - Some constructors in the SVGGraphics2D should not throw IOException</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-163">FVG-163</a>] - Cleaner and more correct SVG Output</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-164">FVG-164</a>] - Embed fonts into SVG</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-191">FVG-191</a>] - SVG: TestAll, sky image missing</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-192">FVG-192</a>] - SVG: TestFonts symbol and dingbats do not show correctly</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-194">FVG-194</a>] - SVG: TestLineStyles has missing dotted lines.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-195">FVG-195</a>] - SVG: TestPaint has missing images</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-196">FVG-196</a>] - SVG: TestShapes has wrong symbol and dingbats font</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-199">FVG-199</a>] - PDF, PS, SVG and SWF: TestFonts and TestShapes has wrong symbol and dingbats</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-220">FVG-220</a>] - SVG: TestTaggedString has no fonts, bold or italic and no super/subscripts</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-223">FVG-223</a>] - SVG: TestHTML has no bold</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-227">FVG-227</a>] - SVG: TestFonts serif font is not plain but italic</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-229">FVG-229</a>] - SVG: TestAll text is in italic rather than plain</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-230">FVG-230</a>] - SVG: TestAll Impact text is missing</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-231">FVG-231</a>] - SVG: TestAll no bold text</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-257">FVG-257</a>] - SVG: Symbol and Dingbats are not correct</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-272">FVG-272</a>] - SVG: default extension should be svg and not svgz</li></ul></div>
+<div class="section">
+<h4>SWF<a name="SWF"></a></h4>
+<ul>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-106">FVG-106</a>] - SWF: DrawString(&quot;&quot;, ...) creates an unreadable file.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-120">FVG-120</a>] - SWF: Parsing Header should re-set the TagSets depending on the version number.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-130">FVG-130</a>] - SWF: Adjust resolution for PathConstructor</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-133">FVG-133</a>] - SWF: ButtonRecord needs extra 0 byte when no colorXForm is written</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-135">FVG-135</a>] - SWF: version 7 reads and write DefineText in a different way than version 6.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-150">FVG-150</a>] - SWF: color xform should be byte-aligned </li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-176">FVG-176</a>] - SWF: TestClip draws thick green lines in JavaClip part.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-177">FVG-177</a>] - SWF: TestColors bottom background incorrect</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-178">FVG-178</a>] - SWF TestCustomStrokes wrong background and green line.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-179">FVG-179</a>] - SWF: TestFonts no characters written.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-183">FVG-183</a>] - SWF: TestImages has green line on top and left.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-184">FVG-184</a>] - SWF: TestLabels green lines on label 1 and 4.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-185">FVG-185</a>] - SWF: TestLineStyles has missing 0 with (thinnest) line.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-186">FVG-186</a>] - SWF: TestPrintColors, has green line.</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-188">FVG-188</a>] - SWF: TestTaggedString has no underline, overline etc...</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-189">FVG-189</a>] - SWF: TestTransforms has incorrect line thickness</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-199">FVG-199</a>] - PDF, PS, SVG and SWF: TestFonts and TestShapes has wrong symbol and dingbats</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-244">FVG-244</a>] - SWF TestFonts produces NPE</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-262">FVG-262</a>] - SWF: TestColors bottom bar not transparent</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-268">FVG-268</a>] - SWF: upgrade to version 8 of the SWF format</li>
+<li>[<a class="externalLink" href="http://bugs.freehep.org/browse/FVG-269">FVG-269</a>] - SWF: TestPaint, no support for cyclic gradients</li></ul></div></div>
+<div class="section">
+<h3><a name="Documentation">Documentation</a></h3>
+<p>The following documentation is currently available:</p>
+<ul>
+<li><a class="externalLink" href="http://java.freehep.org/vectorgraphics">The VectorGraphics website</a></li>
+<li><a class="externalLink" href="http://java.freehep.org/vectorgraphics/Manual.html">The VectorGraphics User Manual</a></li></ul></div>
+<div class="section">
+<h3><a name="Test_Output">Test Output</a></h3>
+<p>To better understand the behaviour of the VectorGraphics package for different usage on different Operating Systems and with different JDK's we publish the test results (and a PNG reference) on our website: <a class="externalLink" href="http://java.freehep.org/vectorgraphics">http://java.freehep.org/vectorgraphics</a>.</p></div>
+<div class="section">
+<h3><a name="License">License</a></h3>
+<p>The VectorGraphics package is part of the <a class="externalLink" href="http://java.freehep.org/">FreeHEP Java Library</a>, an &quot;Open Source&quot; library distributed under the terms of the <a class="externalLink" href="http://www.gnu.org/copyleft/lesser.html">LGPL</a>. If you have questions about the licensing please send a mail to: <a class="externalLink" href="mailto:developers@freehep.org">developers@freehep.org</a>.</p></div>
+<div class="section">
+<h3><a name="Installation">Installation</a></h3>
+<p>All distributions for the VectorGraphics package can be donwloaded from <a class="externalLink" href="ftp://ftp.slac.stanford.edu/software/freehep/VectorGraphics/v2.0">ftp://ftp.slac.stanford.edu/software/freehep/VectorGraphics/v2.0</a>.</p>
+<p>Download the binary distribution vectorgraphics-2.0-bin.tar.gz or the .zip file and unpack. It creates the following directory structure:</p>
+<div class="source">
+<pre>vectorgraphics-2.0            containing license and release notes
+vectorgraphics-2.0/bin        empty
+vectorgraphics-2.0/examples   containing examples
+vectorgraphics-2.0/lib        containing jar files</pre></div>
+<p>You may optionally download the documentation distribution vectorgraphics-2.0-doc.tar.gz or the .zip file and unpack. It creates the following directory structure:</p>
+<div class="source">
+<pre>vectorgraphics-2.0/doc        empty
+vectorgraphics-2.0/site       containing a copy of the website, including these release notes.</pre></div></div>
+<div class="section">
+<h3><a name="Compilation">Compilation</a></h3>
+<p>The source distribution contain all source files and can be used for recompilation. Unless you wish to make modifications, you can just use the binary distribution.</p>
+<p>To (re-)build the VectorGraphics package you need:</p>
+<ul>
+<li>The Java Development Kit (JDK), version 1.4.2 or up.</li>
+<li>Maven, version 2.0.4 or up, see <a class="externalLink" href="http://maven.apache.org">http://maven.apache.org</a>.</li>
+<li>Subversion, version 1.3 or up, see <a class="externalLink" href="http://subversion.tigris.org">http://subversion.tigris.org</a>. You only need subversion if you want to build from our source repository.</li></ul>
+<p>Get the source code in one of the following ways:</p>
+<ul>
+<li>Download the source distribution vectorgraphics-2.0-src.tar.gz or .zip file and unpack.</li>
+<li>Check out a copy of the source code either from a tagged version:
+<div class="source">
+<pre>cd vectorgraphics-2.0
+svn co svn://svn.freehep.org/svn/freehep/tags/vectorgraphics-2.0 src</pre></div></li>
+<li>If you like to live on the edge from the HEAD of svn:
+<div class="source">
+<pre>cd vectorgraphics-2.0
+svn co svn://svn.freehep.org/svn/freehep/trunk/vectorgraphics src</pre></div></li></ul>
+<p>All of these will create a directory in which you will find all VectorGraphics modules:</p>
+<div class="source">
+<pre>vectorgraphics-2.0/src/freehep-graphics2d
+vectorgraphics-2.0/src/freehep-graphics3d        (to be ignored)
+vectorgraphics-2.0/src/freehep-graphicsio
+vectorgraphics-2.0/src/freehep-graphicsio-cgm    (not included in this release, but available for compilation)
+vectorgraphics-2.0/src/freehep-graphicsio-emf
+vectorgraphics-2.0/src/freehep-graphicsio-java   (not included in this release, but available for compilation)
+vectorgraphics-2.0/src/freehep-graphicsio-latex        (not included in this release, but available for compilation)
+vectorgraphics-2.0/src/freehep-graphicsio-pdf
+vectorgraphics-2.0/src/freehep-graphicsio-ps
+vectorgraphics-2.0/src/freehep-graphicsio-svg
+vectorgraphics-2.0/src/freehep-graphicsio-swf
+vectorgraphics-2.0/src/freehep-graphicsio-tests
+vectorgraphics-2.0/src/pom.xml
+vectorgraphics-2.0/src/src/...                   (the website and files for building the distributions)
+vectorgraphics-2.0/src/..                        (other files)</pre></div>
+<p>To compile and run the tests type the following:</p>
+<div class="source">
+<pre>cd vectorgraphics-2.0/src
+mvn</pre></div>
+<p>To recreate the full distribution</p>
+<div class="source">
+<pre>cd vectorgraphics-2.0/src
+mvn javadoc:javadoc             (creates aggregated apidoc)
+mvn site:site                   (creates top-level site, module-sites and module-apidoc)
+mvn install assembly:attached   (compiles, runs tests and creates -bin, -doc and -src distributions) </pre></div>
+<p>For further instructions see the <a class="externalLink" href="http://java.freehep.org/">FreeHEP WebSite</a>.</p></div>
+<div class="section">
+<h3><a name="Building_an_Application_with_the_VectorGraphics_package">Building an Application with the VectorGraphics package</a></h3>
+<p>Add the following libraries to your CLASSPATH:</p>
+<div class="source">
+<pre>freehep-graphics2d-2.0.jar
+freehep-export-2.0.3.jar
+openide-lookup-1.9-patched-1.0.jar
+freehep-swing-2.0.2.jar
+freehep-util-2.0.1.jar</pre></div></div>
+<div class="section">
+<h3><a name="Running_an_Application_with_the_VectorGraphics_package">Running an Application with the VectorGraphics package</a></h3>
+<p>Add the following libraries to your CLASSPATH:</p>
+<div class="source">
+<pre>freehep-graphicsio-2.0.jar
+freehep-io-2.0.1.jar
+
+freehep-graphics2d-2.0.jar
+freehep-export-2.0.3.jar
+openide-lookup-1.9-patched-1.0.jar
+freehep-swing-2.0.2.jar
+freehep-util-2.0.1.jar</pre></div>
+<p>Then add any or all of the following jar files to your CLASSPATH to enable these vector format as output:</p>
+<div class="source">
+<pre>freehep-graphicsio-emf-2.0.jar
+    jdom-1.0.jar                            (needed by freehep-graphicsio-emf for the EMF2SVG converter)
+freehep-graphicsio-pdf-2.0.jar
+freehep-graphicsio-ps-2.0.jar
+freehep-graphicsio-svg-2.0.jar
+    freehep-xml-2.0.1.jar                   (needed by freehep-graphicsio-svg)
+freehep-graphicsio-swf-2.0.jar</pre></div>
+<p>To run any of the tests you must also add:</p>
+<div class="source">
+<pre>freehep-graphicsio-tests-2.0.jar
+jas-plotter-2.0.jar
+junit-3.8.2.jar</pre></div></div>
+<div class="section">
+<h3>Usage with Maven<a name="Usage_with_Maven"></a></h3>
+<p>All of the jar files listed above, including the -javadoc and -source jar attachements are available from our maven servers:</p>
+<dl>
+<dt>Maven 1 URL</dt>
+<dd>http://java.freehep.org/maven</dd>
+<dt>Maven 2 URL</dt>
+<dd>http://java.freehep.org/maven2</dd>
+<dt>GroupId</dt>
+<dd>org.freehep</dd>
+<dt>ArtifactId</dt>
+<dd>as listed above</dd>
+<dt>Version</dt>
+<dd>as listed above </dd></dl></div>
+<div class="section">
+<h3><a name="FeaturesLimitations_of_the_Current_Release">Features/Limitations of the Current Release</a></h3>
+<p>The following limitations exist:</p>
+<ul>
+<li>Some <a class="externalLink" href="http://bugs.freehep.org/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;sorter/order=DESC&amp;sorter/field=priority&amp;resolutionIds=-1&amp;pid=10170&amp;fixfor=10651">Operating System Limitations</a>.</li>
+<li>Some <a class="externalLink" href="http://bugs.freehep.org/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;sorter/order=DESC&amp;sorter/field=priority&amp;resolutionIds=-1&amp;pid=10170&amp;fixfor=10650">Format Limitations</a>.</li>
+<li>All outstanding issues in the <a class="externalLink" href="http://bugs.freehep.org/browse/FVG">Bug Database</a>.</li>
+<li>The vectorgraphics-2.0-src.tar.gz and .zip distribution may contain some files which are not needed to build the VectorGraphics package. </li></ul></div>
+<div class="section">
+<h3><a name="Reporting_Bugs">Reporting Bugs</a></h3>
+<p>To report bugs or request enhancements you may use the <a class="externalLink" href="http://bugs.freehep.org/browse/FVG">FreeHEP Bug Database</a> and the <a class="externalLink" href="http://forum.freehep.org/index.php?t=thread&amp;frm_id=8&amp;rid=0">FreeHEP VectorGraphics Forum</a>.</p></div>
+<div class="section">
+<h3><a name="Examples">Examples</a></h3>
+<p>The VectorGraphics-version/examples directory contains: </p>
+<ul>
+<li>ExportDialogExample.java to show how to use the default ExportDialog that comes with the VectorGraphics package.</li>
+<li>HeadlessExample.java to show how you can write out any format while not actually displaying anything on the screen.</li>
+<li>pom.xml to compile the example files.</li></ul></div></div>
+      </div>
+    </div>
