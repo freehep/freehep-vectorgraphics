@@ -28,7 +28,7 @@ example shows how to do this:
 
 ```java
 import org.freehep.graphics2d.VectorGraphics;
-import org.freehep.util.export.ExportDialog;
+import org.freehep.graphicsbase.util.export.ExportDialog;
 
 public class X {
     ...
@@ -56,7 +56,7 @@ import java.awt.Dimension;
 import java.io.File;
 import java.util.Properties;
 import org.freehep.graphics2d.VectorGraphics;
-import org.freehep.util.export.ExportDialog;
+import org.freehep.graphicsbase.util.export.ExportDialog;
 
 public class X {
     ...
@@ -79,9 +79,7 @@ double buffering and therefore paint an image, rather than vectorgraphics.*
 To run code using the Vector Graphics package you need to add the following jar files to your CLASSPATH:
     
 ```
-freehep-export-x.x.jar;freehep-swing-x.x.jar;freehep-util-x.x.jar;freehep-xml-x.x.jar;
-freehep-graphics2d-x.x.jar;freehep-graphicsio-x.x.jar;
-jdom-x.x.jar;openide-lookup-x.x.jar
+freehep-graphics2d-x.x.jar;freehep-graphicsio-x.x.jar;freehep-graphicsbase-x.x.jar;freehep-io-x.x.jar
 ```
 
 *this includes some of the Image Formats (GIF, JPG, PNG and PPM)*
@@ -93,7 +91,7 @@ freehep-graphicsio-emf-x.x.jar;freehep-graphicsio-pdf-x.x.jar;
 freehep-graphicsio.ps-x.x.jar;freehep-graphicsio-svg-x.x.jar;freehep-graphicsio-swf-x.x.jar;
 ```
 
-*where x.x is the version umber of the file found in the distribution, see lib directory.*
+*where x.x are the version numbers*
 
 Then run your program as usual. The ExportDialog will now allow you to select any of the output formats for which
 you included jar files in the CLASSPATH.
