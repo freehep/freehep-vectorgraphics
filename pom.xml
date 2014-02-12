@@ -37,11 +37,6 @@
 			<name>FreeHEP Snapshot Repository</name>
 			<url>http://oss.sonatype.org/content/repositories/freehep-snapshots/</url>
 		</snapshotRepository>
-		<!-- temporarily until we have a fixed site -->
-		<site>
-			<id>local</id>
-			<url>file:///Users/duns/freehep/git/freehep-vectorgraphics-site</url>
-		</site>
 	</distributionManagement>
 
 	<prerequisites>
@@ -225,28 +220,6 @@
 				<artifactId>maven-project-info-reports-plugin</artifactId>
 				<version>2.7</version>
 			</plugin>
-<!--  
-			<plugin>
-				<groupId>com.github.github</groupId>
-				<artifactId>site-maven-plugin</artifactId>
-				<version>0.7</version>
-				<configuration>
-					<message>Creating site for ${project.version}</message>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>site</goal>
-						</goals>
--->
-						<!-- should be site-deploy, but this tries to upload the site to distributionManagement 
-							site -->
-<!--
-						<phase>site</phase>
-					</execution>
-				</executions>
-			</plugin>
--->
 			<plugin>
 				<groupId>com.github.github</groupId>
 				<artifactId>downloads-maven-plugin</artifactId>
@@ -266,10 +239,6 @@
 				</executions>
 			</plugin>
 
-		</plugins>
-	</build>
-	<reporting>
-		<plugins>
 			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-jxr-plugin</artifactId> 
 				<configuration> <aggregate>true</aggregate> </configuration> </plugin> -->
 			<plugin>
@@ -277,9 +246,12 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.9.1</version>
 				<configuration>
-					<!-- fixme, use javadoc:aggregate -->
 					<aggregate>true</aggregate>
-					<!-- bug in javadoc plugin 2.0, maybe next version will work <overview>overview.html</overview> -->
+					<overview>overview.html</overview>
+					<nohelp>true</nohelp>
+					<header>Vector Graphics, ${project.version}</header>
+					<footer>Vector Graphics, ${project.version}</footer>
+					<doctitle>Vector Graphics, ${project.version}</doctitle>
 					<groups>
 						<group>
 							<title>VectorGraphics</title>
@@ -296,8 +268,27 @@
 					</groups>
 				</configuration>
 			</plugin>
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-scm-publish-plugin</artifactId>
+    <version>1.0</version>
+    <configuration>
+        <checkoutDirectory>${project.build.directory}/scmpublish</checkoutDirectory>
+        <checkinComment>Publishing javadoc for ${project.artifactId}:${project.version}</checkinComment>
+        <content>${project.reporting.outputDirectory}</content>
+        <skipDeletedFiles>true</skipDeletedFiles>
+        <pubScmUrl>scm:git:git@github.com:freehep/freehep-vectorgraphics.git</pubScmUrl>
+        <scmBranch>gh-pages</scmBranch> 
+<!-- 1.0 seems to ignore scmBranch and use master
+        <tryUpdate>true</tryUpdate>
+-->
+<!-- to debug, see target/scmpublish
+	<skipCheckin>true</skipCheckin>
+-->
+    </configuration>
+</plugin>
 		</plugins>
-	</reporting>
+	</build>
 
 	<dependencyManagement>
 		<dependencies>
