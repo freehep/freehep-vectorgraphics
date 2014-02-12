@@ -23,40 +23,309 @@ examples:
 
 ### Vector Graphics Methods
 
-| **Methods**                     | **CGM** | **EMF** | **PDF** | **PS**  | **SVG** | **SWF** |
-| ------------------------------- |:---:|:---:|:---:|:---:|:---:|:---:|
-| writeHeader / Trailer           | X   | X   | X   | X   | X   | X   |
-| closeStream                     | X   | X   | X   | X   | X   | X
-| implements MultipPageDocument   | -   | -   | X   | X   | -   | -
-| create                          | X   | X   | X   | X   | X   | X
-| writeGraphicsSave / Restore     | -   | X   | X   | X   | X   | -
-| draw / fill / drawAndFill       | X   | X   | X   | X   | X   | X
-| drawRect, drawArc, etc          | -   | -   | -   | X   | X   | -
-| drawSymbol / fillSymbol         | -   | -   | -   | X   | -   | -
-| copyArea                        | -   | -   | -   | -   | -   | -
-| drawRenderedImage               | -   | -   | -   | -   | -   | -
-| writeImage                      | -   | X   | X   | X   | X   | X
-| drawString                      | X   | X   | X   | X   | X   | -
-| drawGlyphFactor                 | -   | -   | -   | -   | -   | -
-| setTransform                    | -   | -   | -   | X   | -   | -
-| writeTransform                  | -   | X   | X   | -   | X   | -
-| rotate / translate / ...        | -   | -   | -   | X   | -   | -
-| setClip                         | -   | -   | X   | X   | -   | -
-| writeClip                       | X   | X   | X   | X   | X   | -
-| writeSetClip                    | -   | -   | -   | -   | -   | -
-| writeStroke                     | -   | X   | -   | -   | -   | X
-| writeWidth                      | X   | -   | X   | X   | X   | -
-| writeCap                        | X   | -   | X   | X   | X   | -
-| writeJoin                       | X   | -   | X   | X   | X   | -
-| writeMiterLimit                 | X   | -   | X   | X   | X   | -
-| writeDash                       | X   | -   | X   | X   | X   | -
-| setPaintMode                    | -   | -   | -   | -   | -   | -
-| setXORMode                      | -   | -   | -   | -   | -   | -
-| writePaint                      | X   | X   | X   | X   | X   | X
-| setFont                         | X   | X   | -   | X   | X   | -
-| getDeviceConfiguration          | -   | -   | -   | -   | -   | -
-| hit                             | -   | -   | -   | -   | -   | -
-| writeComment                    | -   | -   | X   | X   | X   | -
+<table class="table">
+<thead>
+<tr>
+<th> <strong>Methods</strong>                     </th>
+<th style="text-align:center;"> <strong>CGM</strong> </th>
+<th style="text-align:center;"> <strong>EMF</strong> </th>
+<th style="text-align:center;"> <strong>PDF</strong> </th>
+<th style="text-align:center;"> <strong>PS</strong>  </th>
+<th style="text-align:center;"> <strong>SVG</strong> </th>
+<th style="text-align:center;"> <strong>SWF</strong> </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> writeHeader / Trailer           </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+</tr>
+<tr>
+<td> closeStream                     </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X</td>
+</tr>
+<tr>
+<td> implements MultipPageDocument   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> create                          </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X</td>
+</tr>
+<tr>
+<td> writeGraphicsSave / Restore     </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> draw / fill / drawAndFill       </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X</td>
+</tr>
+<tr>
+<td> drawRect, drawArc, etc          </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> drawSymbol / fillSymbol         </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> copyArea                        </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> drawRenderedImage               </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> writeImage                      </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X</td>
+</tr>
+<tr>
+<td> drawString                      </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> drawGlyphFactor                 </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> setTransform                    </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> writeTransform                  </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> rotate / translate / ...        </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> setClip                         </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> writeClip                       </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> writeSetClip                    </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> writeStroke                     </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X</td>
+</tr>
+<tr>
+<td> writeWidth                      </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> writeCap                        </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> writeJoin                       </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> writeMiterLimit                 </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> writeDash                       </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> setPaintMode                    </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> setXORMode                      </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> writePaint                      </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X</td>
+</tr>
+<tr>
+<td> setFont                         </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> getDeviceConfiguration          </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> hit                             </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+<tr>
+<td> writeComment                    </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> -   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> X   </td>
+<td style="text-align:center;"> -</td>
+</tr>
+</tbody>
+</table>
 
 ## Adding a new Image Format
 

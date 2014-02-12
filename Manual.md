@@ -169,15 +169,60 @@ table below:
 
 Table with tags that are allowed in a TagString
 
-| *Start Tag* | *End Tag* | *Description* | *Look*
-|:-------:|:--:|:-- |:-- 
-| <B\>    | </B\>    | Bold Face   | **Bold** Face
-| <I\>    | </I\>    | Italic Face | *Italic* Face
-| <OVER\> | </OVER\> | OverLine    | <span style="text-decoration: overline;">overlined</span>
-| <SUB\>  | </SUB\>  | SubScript   | <sub>sub</sub> Script
-| <SUP\>  | </SUP\>  | SuperScript | <sup>super</sup> Script
-| <TT\>   | </TT\>   | Monospaced  | ```Monospaced```
-| <U\>    | </U\>    | Underline   | <u>underlined</u>
+<table class="table">
+<thead>
+<tr>
+<th style="text-align:center;"> <em>Start Tag</em> </th>
+<th style="text-align:center;"> <em>End Tag</em> </th>
+<th style="text-align:left;"> <em>Description</em> </th>
+<th style="text-align:left;"> <em>Look</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;"> &lt;B>    </td>
+<td style="text-align:center;"> &lt;/B>    </td>
+<td style="text-align:left;"> Bold Face   </td>
+<td style="text-align:left;"> <strong>Bold</strong> Face</td>
+</tr>
+<tr>
+<td style="text-align:center;"> &lt;I>    </td>
+<td style="text-align:center;"> &lt;/I>    </td>
+<td style="text-align:left;"> Italic Face </td>
+<td style="text-align:left;"> <em>Italic</em> Face</td>
+</tr>
+<tr>
+<td style="text-align:center;"> &lt;OVER> </td>
+<td style="text-align:center;"> &lt;/OVER> </td>
+<td style="text-align:left;"> OverLine    </td>
+<td style="text-align:left;"> <span style="text-decoration: overline;">overlined</span></td>
+</tr>
+<tr>
+<td style="text-align:center;"> &lt;SUB>  </td>
+<td style="text-align:center;"> &lt;/SUB>  </td>
+<td style="text-align:left;"> SubScript   </td>
+<td style="text-align:left;"> <sub>sub</sub> Script</td>
+</tr>
+<tr>
+<td style="text-align:center;"> &lt;SUP>  </td>
+<td style="text-align:center;"> &lt;/SUP>  </td>
+<td style="text-align:left;"> SuperScript </td>
+<td style="text-align:left;"> <sup>super</sup> Script</td>
+</tr>
+<tr>
+<td style="text-align:center;"> &lt;TT>   </td>
+<td style="text-align:center;"> &lt;/TT>   </td>
+<td style="text-align:left;"> Monospaced  </td>
+<td style="text-align:left;"> <code>Monospaced</code></td>
+</tr>
+<tr>
+<td style="text-align:center;"> &lt;U>    </td>
+<td style="text-align:center;"> &lt;/U>    </td>
+<td style="text-align:left;"> Underline   </td>
+<td style="text-align:left;"> <u>underlined</u></td>
+</tr>
+</tbody>
+</table>
 
 The writing of & \< \> " and ' can be done using the entities: ```&amp; &lt; &gt; &quot
 and &apos;```.
