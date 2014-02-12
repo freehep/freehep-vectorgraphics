@@ -1,10 +1,12 @@
 For information on the FreeHEP VectorGraphics package see:
 
-	http://java.freehep.org/vectorgraphics
+	http://freehep.github.io/freehep-vectorgraphics
 
-or, if you installed the documentation distribution, the local website
+or, checkout the gh-pages branch and run 
 
-	site/index.html
+	jekyll build
+
+	look into _site/index.html
 
 Mark Donszelmann,
 The FreeHEP Team.
