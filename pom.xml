@@ -182,6 +182,9 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.3</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
@@ -216,10 +219,12 @@
 				<!-- <configuration> <forkMode>pertest</forkMode> <includes> <include>**/*TestSuite.java</include> 
 					</includes> <excludes> <exclude>**/TestSuite.java</exclude> </excludes> </configuration> -->
 			</plugin>
+<!-- disabled as site is in gh-pages, and only created for apidocs
 			<plugin>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
 				<version>2.7</version>
 			</plugin>
+-->
 			<plugin>
 				<groupId>com.github.github</groupId>
 				<artifactId>downloads-maven-plugin</artifactId>
