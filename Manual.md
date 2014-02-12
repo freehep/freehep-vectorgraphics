@@ -1,0 +1,279 @@
+---
+layout: default
+title: FreeHEP - Vector Graphics
+lead: Manual
+slug: user
+dir: .
+---
+The
+[Vector Graphics](http://freehep.github.io/freehep-vectorgraphics/apidocs/org/freehep/graphics2d/package-summary.html) package of
+[FreeHEP](http://java.freehep.org) is an extension of the java graphics system for users to save their
+graphical output in a number of [Vector Formats](#vector) or
+[Image (bitmap) Formats](#image). The package also contains a set of base
+classes which can easily be extended to allow for any new formats that may become available over time. A standard
+[ExportDialog](http://freehep.github.io/freehep-vectorgraphics/apidocs/org/freehep/graphicsbase/util/export/ExportDialog.html) is provided to allow users to select the required output format.
+
+## How to use the Vector Graphics package?
+
+Drawing in java takes place in the `paint(Graphics g)` method of a component in which the user calls methods of a
+`java.awt.Graphics` or `java.awt.Graphics2D` context to do the actual drawing. The Vector Graphics package extends the
+Graphics2D class to allow users to keep drawing to the same old and familiar Graphics2D context, while adding the
+functionality of the new output formats. The user code for drawing the picture therefore stays the same for both
+displaying on the screen as for writing it to some format.
+
+To use the VectorGraphics package the programmer needs to add code to display the
+[ExportDialog](http://freehep.github.io/freehep-vectorgraphics/apidocs/org/freehep/graphicsbase/util/export/ExportDialog.html) 
+and have the user select a format. This can be added as a MenuItem in either a PopupMenu or in the File menu somewhere. The following
+example shows how to do this:
+
+```java
+import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.util.export.ExportDialog;
+
+public class X {
+    ...
+    JMenuItem exportItem = new JMenuItem( "Export..." );
+    exportItem.addActionListener( new ActionListener() {
+        public void actionPerformed( ActionEvent e ) {
+            ExportDialog export = new ExportDialog();
+            export.showExportDialog( panel1, "Export view as ...", panel2, "export" );
+        }
+    });
+    ...
+}
+```
+
+*where "panel1" is the parent for the export dialog (to center the dialog box),
+and where "panel2" specifies the target to be exported.
+These can be the same.*
+
+As an alternative if you know you just want to write PostScript for 
+instance, and you wish not to use the ExportDialog class, you can use the 
+following code:
+
+```java
+import java.awt.Dimension;
+import java.io.File;
+import java.util.Properties;
+import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.util.export.ExportDialog;
+
+public class X {
+    ...
+    Properties p = new Properties();
+    p.setProperty("PageSize","A5");
+    VectorGraphics g = new PSGraphics2D(new File("Output.eps", new Dimension(400,300)); 
+    g.setProperties(p); 
+    g.startExport(); 
+    panel2.print(g); 
+    g.endExport();
+    ...
+}
+```
+
+*where "panel2" specifies the target to be exported.*
+*Note that you have to call `g.startExport()` to open the file and `g.endExport()` to close the file.
+Also note that you should call `print(g)` rather than `paint(g)` since the latter may use 
+double buffering and therefore paint an image, rather than vectorgraphics.*
+
+To run code using the Vector Graphics package you need to add the following jar files to your CLASSPATH:
+    
+```
+freehep-export-x.x.jar;freehep-swing-x.x.jar;freehep-util-x.x.jar;freehep-xml-x.x.jar;
+freehep-graphics2d-x.x.jar;freehep-graphicsio-x.x.jar;
+jdom-x.x.jar;openide-lookup-x.x.jar
+```
+
+*this includes some of the Image Formats (GIF, JPG, PNG and PPM)*
+
+followed by one or more output format specific jar file for any of the Vector Formats:
+
+```
+freehep-graphicsio-emf-x.x.jar;freehep-graphicsio-pdf-x.x.jar;
+freehep-graphicsio.ps-x.x.jar;freehep-graphicsio-svg-x.x.jar;freehep-graphicsio-swf-x.x.jar;
+```
+
+*where x.x is the version umber of the file found in the distribution, see lib directory.*
+
+Then run your program as usual. The ExportDialog will now allow you to select any of the output formats for which
+you included jar files in the CLASSPATH.
+
+
+## How to paint into a VectorGraphics context?
+
+To make use of the extensions, described below, in the
+[VectorGraphics](http://freehep.github.io/freehep-vectorgraphics/apidocs/org/freehep/graphics2d/VectorGraphics.html) class 
+you need to convert the standard
+java.awt.Graphics context to a VectorGraphics context. To do so one uses the static method
+`VectorGraphics.create(Graphics g)`, which will either return g if it is already an instance of VectorGraphics or wrap
+g in an implementation of VectorGraphics. See the example below on how to do this:
+
+```java
+...
+import org.freehep.graphics2d.VectorGraphics;
+...
+
+public class X extends Component {
+    public void paint(Graphics g) {
+        VectorGraphics vg = VectorGraphics.create(g);
+        vg.drawLine(100.0,100.0,200.0,200.0);
+    }
+}
+```
+
+You can use any of the methods available in Graphics2D, plus the extra methods from VectorGraphics, but you need
+to properly nest calls to the `create()` and `dispose()` methods to allow the different output formats to
+have their graphics states *stored* and *restored* correctly. All swing components do this.
+
+
+## Additional Functionality in Vector Graphics
+
+The VectorGraphics class extends Graphics2D with a number of features to write better output formats. These
+features are described below:
+
+### Draw, Fill, Clear and Clip methods
+
+All draw, fill, clear and clip methods (drawLine(), fillOval(), clearRect, clipRect, ...) which normally take
+integer parameters have been overloaded with methods with equal names which take double parameters. This allows for
+high precision drawing using these easy methods, which was only available using the draw(Shape) or fill(Shape)
+methods in `java.awt.Graphics2D`. The higher precision is necessary for Vector Formats on higher than screen resolution
+targets, such as printers.
+
+The methods setLineWidth() and getLineWidth() allow you to change the linewidth without explicitly creating a
+Stroke object.
+
+### PrintColors
+
+The PrintColor extends java.awt.Color to allow for colors which are visible both on the screen and a printer. The
+printer may be either color, black and white or grayscale. PrintColors can be created with the correct mappings, and
+behave differently on the screen than they do in any of the output formats. The PrintColor class can be used anywhere
+a normal java.awt.Color class would be used. The default java colors are also defined, with correct mappings for
+printers. PrintColor will only be handled specially if a VectorGraphics context is used.
+
+The methods setColorMode() and getColorMode() can be used to switch the output between COLOR, BLACK_AND_WHITE and
+GRAYSCALE.
+
+### Symbols
+
+To draw a large number of similar symbols (small squares, triangles, etc...) one could use a the drawSymbol() or
+fillSymbol() methods in the VectorGraphics context. A number of predefined symbols are available in
+VectorGraphicsConstants (and in VectorGraphics). Advantage of using these symbols, rather than coding them yourself
+in terms of lines and other primitives, is that the output format can translate these calls to procedures. This can
+be done in some output formats which allow procedures to be defined. Among thos formats are PostScript and SVG. This
+way the output file gets shortened considerably.
+
+### TagStrings
+
+The class TagString allows you to display strings which can be marked up with the HTML like tags described in the
+table below:
+
+Table with tags that are allowed in a TagString
+
+| *Start Tag* | *End Tag* | *Description* | *Look*
+|:-------:|:--:|:-- |:-- 
+| <B\>    | </B\>    | Bold Face   | **Bold** Face
+| <I\>    | </I\>    | Italic Face | *Italic* Face
+| <OVER\> | </OVER\> | OverLine    | <span style="text-decoration: overline;">overlined</span>
+| <SUB\>  | </SUB\>  | SubScript   | <sub>sub</sub> Script
+| <SUP\>  | </SUP\>  | SuperScript | <sup>super</sup> Script
+| <TT\>   | </TT\>   | Monospaced  | ```Monospaced```
+| <U\>    | </U\>    | Underline   | <u>underlined</u>
+
+The writing of & \< \> " and ' can be done using the entities: ```&amp; &lt; &gt; &quot
+and &apos;```.
+
+The drawString() methods have been overridden to take a TagString as a parameter and handle the tags
+accordingly.
+
+### Other Methods
+
+The startExport() and endExport() methods are available, and called when outputting to a file, to allow the
+implementation of a VectorGraphics output format to write some header and footer, and properly close the file. These
+methods do not have to be called explicitly by the user, they are called by the ExportDialog.
+
+The setCreator() and getCreator() methods are available to document the creator of the output format in the file.
+These calls do nothing when displaying on the screen.
+
+The printComment() method, available in the VectorGraphicsIO subclass of VectorGraphics, allows users to add
+comments to their output formats, if permitted.
+
+The setDeviceIndependent() and isDeviceIndependent() methods allow the specific VectorGraphics output format to
+omit device dependent information in its output, such as dates. This allows us to do testing on the output
+formats.
+
+
+## Supported Formats and their Limitations
+
+The VectorGraphics package, contrary to its name, supports both Vector Formats and Image Formats. Reason to add
+the latter was to unify the way the output is produced using the `java.awt.Graphics2D` API. All supported formats and
+their current limitations are described below:
+
+### <a id="vector"></a>Vector Formats (Alphabetical)
+
+Vector Graphics Formats store the drawing as you make it. No rasterization takes place while outputting the
+format. Unlike Image formats, which do rasterize at the time of output, rasterization for vector formats happens in
+the viewer of the format. The output can be scaled, rotated and manipulated in many ways, without losing its
+precision. For most drawings Vector Formats should be preferred.
+
+#### EMF (Enhanced Meta Format)
+
+The EMF format is a Windows specific format and can be used to import into Office applications (e.g. Word,
+PowerPoint, etc...). Some limitations exists for EMF, especially on Windows 95/98, see
+[apidocs](http://freehep.github.io/freehep-vectorgraphics/apidocs/org/freehep/graphicsio/emf/package-summary.html) for more details.
+
+#### PDF (Portable Document Format)
+
+The Portable Document Format from Adobe is a multi-page format for electronic interchange as well as printing. To
+view PDF one can use the [PDFViewer](http://www.adobe.com/products/acrobat/). PDF support is at version
+1.4, some limitations exist, see
+[apidocs](http://freehep.github.io/freehep-vectorgraphics/apidocs/org/freehep/graphicsio/pdf/package-summary.html) for more details.
+
+#### PostScript and Encapsulated PostScript
+
+The PostScript format from Adobe is a multi-page format for printing. Encapsulated PostScript is a single page of
+PostScript which can be used for inclusion in another document (such as a LaTeX document). To view Postscript one can
+use for instance [GhostScript and GhostView](http://www.cs.wisc.edu/~ghost/). PostScript and EPS support
+is at Level 2, but some limitations exist, see
+[apidocs](http://freehep.github.io/freehep-vectorgraphics/apidocs/org/freehep/graphicsio/ps/package-summary.html) for more details.
+
+#### SVG (Scalable Vector Graphics)
+
+Scalable Vector Graphics is an XML based format for vector graphics on the Web. Current browsers need a plugin,
+for instance Adobe's [SVGViewer](http://www.adobe.com/svg/viewer/install/main.html) plugin. SVG support is
+based on REC-SVG-20010904, several limitations exist, see
+[apidocs](http://freehep.github.io/freehep-vectorgraphics/apidocs/org/freehep/graphicsio/svg/package-summary.html) for more details.
+
+#### SWF (Shock Wave Format)
+
+MacroMedia's Flash format (now Adobe) is a format for animation, based on frames. Outputing to SWF produces one such frame and
+can be viewed with the [ShockWave FlashPlayer](http://www.macromedia.com/software/flashplayer/). SWF
+support is currently limited to version 3 and a number of things are unimplemented, see
+[apidocs](http://freehep.github.io/freehep-vectorgraphics/apidocs/org/freehep/graphicsio/swf/package-summary.html) for more details.
+
+
+### <a id="image"></a>Image Formats (Alphabetical)
+
+VectorGraphics formats are preferred for most drawings, unless a lot of imaging is involved. Resizing of an image
+normally results in a degradation of the image. Resizing a VectorGraphics output will use all of the resolution
+available.
+
+#### GIF (Graphics Interchange Format)
+
+GIF is a popular image format for line drawings on the web. It is limited to 256 colors and only has one
+transparency level available. The FreeHEP GIF writer will reduce the number of colors
+to 255 if more colors are used. All known browsers support GIF. PNG is preferred over GIF if more colors are needed or
+more transparency levels.
+
+#### JPEG (Joint Photographic Engineering Group)
+
+JPEG is a popular image format for continuous tone pictures (e.g. photographs). The JPG driver currently does not
+work.
+
+#### PNG (Portable Network Graphics)
+
+Portable Network Graphics is an image format for drawings on the web. It uses 24 bit colors and can display up to
+256 transparency levels. Most browsers support it.
+
+#### PPM (Portable Pix Map)
+
+Portable Pix Map is a format which allows you to convert your image to a variety of other image formats.

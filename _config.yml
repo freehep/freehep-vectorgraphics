@@ -1,13 +1,17 @@
+#Github
+safe:	      true
+lsi:          false
+pygments:     true
+source:       .
+
 # Dependencies
 markdown:     rdiscount
-#pygments:     true
 
 # Permalinks
 #permalink:    pretty
 
 # Server
 baseurl:      /freehep-vectorgraphics
-source:       .
 destination:  ./_site
 exclude:      []
 keep_files:   ['.git', '.svn']
