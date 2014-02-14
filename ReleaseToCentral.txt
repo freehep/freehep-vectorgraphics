@@ -3,7 +3,12 @@
 git tag freehep-vectorgraphics-x.y-SNAPSHOT
 git push --tags
 
-- to release a snapshot to central do:
+- to re-release the same snapshot to github do:
+
+git tag -f freehep-vectorgraphics-x.y-SNAPSHOT
+git push --tags -f
+
+- to (re-)release a snapshot to central do:
 
 mvn clean deploy
 
