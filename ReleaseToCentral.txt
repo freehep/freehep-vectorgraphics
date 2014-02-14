@@ -1,8 +1,17 @@
+- to release a snapshot to github do:
+
+git tag freehep-vectorgraphics-x.y-SNAPSHOT
+git push --tags
+
 - to release a snapshot to central do:
 
 mvn clean deploy
 
-- to release a version to central do:
+- to remove a snapshot release from github
+git push --delete origin freehep-vectorgraphics-x.y-SNAPSHOT
+git pull
+
+- to release a version to central and github do:
 
 mvn release:prepare
 mvn release:perform (will fail...)
