@@ -28,7 +28,6 @@ import java.awt.image.ImageObserver;
 import java.awt.image.RenderedImage;
 import java.awt.image.renderable.RenderableImage;
 import java.awt.print.PrinterGraphics;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.text.AttributedCharacterIterator;
@@ -97,9 +96,9 @@ public class PixelGraphics2D extends AbstractVectorGraphics {
 
 		displayX11 = false;
 		try {
-			Class<?> clazz = Class.forName("sun.awt.X11GraphicsEnvironment");
+			Class.forName("sun.awt.X11GraphicsEnvironment");
 			displayX11 = true;
-		} catch (Exception e) {
+		} catch (Throwable t) {
 			// Sun api may change, so we don't know what errors are possible.
 			// Ignore them all.
 		}
@@ -122,7 +121,7 @@ public class PixelGraphics2D extends AbstractVectorGraphics {
 		} catch (ClassNotFoundException e) {
 			// Windows case...
 			displayLocal = true;
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			// Sun api may change, so we don't know what errors are possible.
 			// Ignore them all.
 		}
