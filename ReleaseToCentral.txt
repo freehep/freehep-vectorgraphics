@@ -9,7 +9,7 @@ mvn clean deploy
 
 - to remove a snapshot release from github
 git push --delete origin freehep-vectorgraphics-x.y-SNAPSHOT
-git pull
+git tag -d freehep-vectorgraphics-x.y-SNAPSHOT
 
 - to release a version to central and github do:
 
