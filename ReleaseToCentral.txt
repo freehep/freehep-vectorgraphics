@@ -9,6 +9,9 @@ mvn release:perform (will fail...)
 cd target/checkout
 mvn -DperformRelease=true clean deploy
 
-log in to website and promote.
+log in to website oss.sonatype.org
+search for freehep-vectorgraphics
+select version
+and promote
 
  
