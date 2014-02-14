@@ -1,4 +1,4 @@
-// Copyright 2000-2006, FreeHEP.
+// Copyright 2000-2014, FreeHEP.
 package org.freehep.graphics2d;
 
 import java.awt.AlphaComposite;
@@ -28,7 +28,6 @@ import java.awt.image.ImageObserver;
 import java.awt.image.RenderedImage;
 import java.awt.image.renderable.RenderableImage;
 import java.awt.print.PrinterGraphics;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.text.AttributedCharacterIterator;
@@ -96,39 +95,35 @@ public class PixelGraphics2D extends AbstractVectorGraphics {
 		symbols = new HashMap<WebColor, Image[][][]>();
 
 		displayX11 = false;
+		try {
+			Class.forName("sun.awt.X11GraphicsEnvironment");
+			displayX11 = true;
+		} catch (Throwable t) {
+			// Sun api may change, so we don't know what errors are possible.
+			// Ignore them all.
+		}
+
 		displayLocal = false;
 		try {
-			Class<?> clazz = Class.forName("sun.awt.X11GraphicsEnvironment");
-			displayX11 = true;
-
+			String className = System.getProperty("java.awt.graphicsenv", "sun.awt.X11GraphicsEnvironment");
+			Class<?> clazz = Class.forName(className);
 			Method method = clazz.getMethod("isDisplayLocal");
-              		if (Modifier.isStatic(method.getModifiers())) {
+			if (Modifier.isStatic(method.getModifiers())) {
 				// JDK 1.6
-                        	displayLocal = (Boolean) method.invoke(null);
-              		} else {
-                         	try {
+				displayLocal = (Boolean) method.invoke(null);
+			} else {
+				try {
 					// since JDK 1.7
-					displayLocal = (Boolean)method.invoke(clazz.newInstance());
-				} catch (InstantiationException  e) {
+					displayLocal = (Boolean) method.invoke(clazz.newInstance());
+				} catch (InstantiationException e) {
 				}
-              		}
+			}
 		} catch (ClassNotFoundException e) {
 			// Windows case...
 			displayLocal = true;
-		} catch (IllegalAccessException e) {
-			// ignored
-		} catch (NoSuchMethodException e) {
-			// ignored
-		} catch (InvocationTargetException e) {
-			// ignored
-		} catch (ClassCastException e) {
-			// ignored
-		} catch (SecurityException e) {
-			// ignored
-		} catch (LinkageError e) {
-			// ignored
-		} catch (NullPointerException e) {
-			// ignored
+		} catch (Throwable e) {
+			// Sun api may change, so we don't know what errors are possible.
+			// Ignore them all.
 		}
 	}
 

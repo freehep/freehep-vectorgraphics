@@ -349,7 +349,8 @@ public class ImageGraphics2D extends PixelGraphics2D {
         }
 
         // NOTE: special case for JPEG which has no Alpha
-        if (ImageConstants.JPG.equalsIgnoreCase(format)) {
+        if (ImageConstants.JPG.equalsIgnoreCase(format)
+		|| ImageConstants.JPEG.equalsIgnoreCase(format)) {
             return new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         }
         if (ImageConstants.JPEG.equalsIgnoreCase(format)) {
