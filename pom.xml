@@ -189,13 +189,6 @@
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.4</version>
-				<configuration>
-					<descriptors>
-						<descriptor>src/main/assembly/bin.xml</descriptor>
-						<descriptor>src/main/assembly/doc.xml</descriptor>
-						<descriptor>src/main/assembly/src.xml</descriptor>
-					</descriptors>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -340,8 +333,10 @@
 	</dependencyManagement>
 
 	<modules>
-				<module>freehep-graphicsbase</module>
+		<module>freehep-graphicsbase</module>
 		<module>freehep-graphics2d</module>
+		<module>freehep-graphics2d-export-example</module>
+		<module>freehep-graphics2d-headless-example</module>
 		<module>freehep-graphicsio</module>
 		<module>freehep-graphicsio-emf</module>
 		<module>freehep-graphicsio-java</module>

@@ -1,3 +1,5 @@
+package org.freehep.graphics2d.example;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -6,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -13,8 +16,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import org.freehep.graphicsbase.util.export.ExportDialog;
 import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsbase.util.export.ExportDialog;
+import org.freehep.graphicsio.emf.EMFExportFileType;
+import org.freehep.graphicsio.java.JAVAExportFileType;
+import org.freehep.graphicsio.pdf.PDFExportFileType;
+import org.freehep.graphicsio.ps.PSExportFileType;
+import org.freehep.graphicsio.svg.SVGExportFileType;
+import org.freehep.graphicsio.swf.SWFExportFileType;
 
 /**
  * This example shows how to add a standard ExportDialog
@@ -32,7 +41,6 @@ import org.freehep.graphics2d.VectorGraphics;
  * methods from this class in the paint methods).
  *
  * @author Mark Donszelmann
- * @version $Id: src/main/examples/ExportDialogExample.java e31519a485cd 2006/12/07 15:42:14 duns $
  */
 public class ExportDialogExample {
 
@@ -58,6 +66,16 @@ public class ExportDialogExample {
         exportItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ExportDialog export = new ExportDialog();
+                
+                // add extra file types not picked up from the CLASSPATH as we cannot change 
+                // META-INF/services/org.freehep.graphicsbase.util.export.ExportFileType here
+                export.addExportFileType(new EMFExportFileType());
+                export.addExportFileType(new JAVAExportFileType());
+                export.addExportFileType(new PDFExportFileType());
+                export.addExportFileType(new PSExportFileType());
+                export.addExportFileType(new SVGExportFileType());
+                export.addExportFileType(new SWFExportFileType());
+                               
                 export.showExportDialog(panel, "Export view as ...", panel, "export");
             }
         });

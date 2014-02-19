@@ -4,4 +4,5 @@
 target
 pom.xml.releaseBackup
 release.properties
+/freehep-graphics2d-headless-example/YourPanel.pdf
 
