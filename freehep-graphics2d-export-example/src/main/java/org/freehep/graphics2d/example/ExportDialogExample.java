@@ -1,3 +1,4 @@
+// Copyright FreeHEP, 2014
 package org.freehep.graphics2d.example;
 
 import java.awt.Color;
@@ -18,12 +19,6 @@ import javax.swing.WindowConstants;
 
 import org.freehep.graphics2d.VectorGraphics;
 import org.freehep.graphicsbase.util.export.ExportDialog;
-import org.freehep.graphicsio.emf.EMFExportFileType;
-import org.freehep.graphicsio.java.JAVAExportFileType;
-import org.freehep.graphicsio.pdf.PDFExportFileType;
-import org.freehep.graphicsio.ps.PSExportFileType;
-import org.freehep.graphicsio.svg.SVGExportFileType;
-import org.freehep.graphicsio.swf.SWFExportFileType;
 
 /**
  * This example shows how to add a standard ExportDialog
@@ -66,16 +61,6 @@ public class ExportDialogExample {
         exportItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ExportDialog export = new ExportDialog();
-                
-                // add extra file types not picked up from the CLASSPATH as we cannot change 
-                // META-INF/services/org.freehep.graphicsbase.util.export.ExportFileType here
-                export.addExportFileType(new EMFExportFileType());
-                export.addExportFileType(new JAVAExportFileType());
-                export.addExportFileType(new PDFExportFileType());
-                export.addExportFileType(new PSExportFileType());
-                export.addExportFileType(new SVGExportFileType());
-                export.addExportFileType(new SWFExportFileType());
-                               
                 export.showExportDialog(panel, "Export view as ...", panel, "export");
             }
         });
@@ -95,6 +80,8 @@ public class ExportDialogExample {
 }
 
 class MyPanel extends JPanel {
+	private static final long serialVersionUID = 1317455379981344343L;
+
 	public MyPanel() {
         setPreferredSize(new Dimension(600,400));		
 	}

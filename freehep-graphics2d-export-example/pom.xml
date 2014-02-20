@@ -17,23 +17,27 @@
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.2</version>
 				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
-						<manifest>
+          			     	<transformers>
+                				<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 							<mainClass>org.freehep.graphics2d.example.ExportDialogExample</mainClass>
-						</manifest>
-					</archive>
+                				</transformer>
+				                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+              				</transformers>
+			                <artifactSet>
+                				<excludes>
+					        	<exclude>junit:junit</exclude>
+    				            	</excludes>
+              				</artifactSet>
 				</configuration>
 				<executions>
 					<execution>
-						<id>make-assembly</id>
+						<id>make-uber-jar</id>
 						<phase>package</phase>
 						<goals>
-							<goal>single</goal>
+							<goal>shade</goal>
 						</goals>
 					</execution>
 				</executions>
