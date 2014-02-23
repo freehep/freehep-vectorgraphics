@@ -19,13 +19,14 @@ git tag -d freehep-vectorgraphics-x.y-SNAPSHOT
 - to release a version to central and github do:
 
 mvn release:prepare
-mvn release:perform (will fail...)
+mvn release:perform (may fail...)
 cd target/checkout
 mvn -DperformRelease=true clean deploy
 
-log in to website oss.sonatype.org
-search for freehep-vectorgraphics
-select version
-and promote
+log in as "duns" to website oss.sonatype.org
+search for orgfreehep-xxxx (xxx=number) under "Staging Repositories"
+select open repo, click close, add comment
+check...
+when everything is ok, select the closed repo, click release (or drop).
 
  
