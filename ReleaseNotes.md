@@ -7,6 +7,8 @@ dir: .
 ---
 Below the Release Notes in reverse chronological order:
 	
+* [Version 2.3 Release Notes](./ReleaseNotes-2.3.html)
+
 * [Version 2.1.1 Release Notes](./ReleaseNotes-2.1.1.html)
 
 * [Version 2.1 Release Notes](./ReleaseNotes-2.1.html)
