@@ -47,20 +47,9 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.freehep</groupId>
-			<artifactId>freehep-io</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.freehep</groupId>
-			<artifactId>freehep-graphicsbase</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.freehep</groupId>
-			<artifactId>freehep-graphics2d</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.freehep</groupId>
 			<artifactId>freehep-graphicsio</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.freehep</groupId>
 			<artifactId>freehep-graphicsio-emf</artifactId>
