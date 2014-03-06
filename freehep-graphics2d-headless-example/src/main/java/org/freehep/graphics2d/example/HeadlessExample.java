@@ -1,3 +1,5 @@
+package org.freehep.graphics2d.example;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;

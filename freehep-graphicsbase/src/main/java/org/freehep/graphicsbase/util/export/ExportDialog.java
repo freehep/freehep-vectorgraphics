@@ -1,4 +1,4 @@
-// Copyrigh 2003-2007, FreeHEP.
+// Copyrigh 2003-2014, FreeHEP.
 package org.freehep.graphicsbase.util.export;
 
 import java.awt.Component;
@@ -36,7 +36,8 @@ import org.freehep.graphicsbase.swing.layout.TableLayout;
  */
 public class ExportDialog extends JOptionPane
 {
-    private static final String rootKey = ExportDialog.class.getName();
+ 	private static final long serialVersionUID = -6297626389977751810L;
+	private static final String rootKey = ExportDialog.class.getName();
     private static final String SAVE_AS_TYPE = rootKey +".SaveAsType";
     private static final String SAVE_AS_FILE = rootKey +".SaveAsFile";
 

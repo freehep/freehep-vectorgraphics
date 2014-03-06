@@ -1,4 +1,4 @@
-// Copyright 2003-2009, FreeHEP.
+// Copyright 2003-2014, FreeHEP.
 package org.freehep.graphicsbase.util.export;
 
 import java.util.ArrayList;
@@ -115,6 +115,7 @@ public class ExportFileTypeRegistry {
         Iterator<Class<?>> iterator = categories.iterator();
         while (iterator.hasNext()) {
             Class<?> category = iterator.next();
+                        
             Iterator<Object> providers = Service.providers(category, classLoader).iterator();
             Object previous = null;
             while (providers.hasNext()) {

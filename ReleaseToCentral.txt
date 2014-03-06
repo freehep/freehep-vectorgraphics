@@ -1,14 +1,32 @@
-- to release a snapshot to central do:
+- to release a snapshot to github do:
+
+git tag freehep-vectorgraphics-x.y-SNAPSHOT
+git push --tags
+
+- to re-release the same snapshot to github do:
+
+git tag -f freehep-vectorgraphics-x.y-SNAPSHOT
+git push --tags -f
+
+- to (re-)release a snapshot to central do:
 
 mvn clean deploy
 
-- to release a version to central do:
+- to remove a snapshot release from github
+git push --delete origin freehep-vectorgraphics-x.y-SNAPSHOT
+git tag -d freehep-vectorgraphics-x.y-SNAPSHOT
+
+- to release a version to central and github do:
 
 mvn release:prepare
-mvn release:perform (will fail...)
+mvn release:perform (may fail...)
 cd target/checkout
 mvn -DperformRelease=true clean deploy
 
-log in to website and promote.
+log in as "duns" to website oss.sonatype.org
+search for orgfreehep-xxxx (xxx=number) under "Staging Repositories"
+select open repo, click close, add comment
+check...
+when everything is ok, select the closed repo, click release (or drop).
 
  
