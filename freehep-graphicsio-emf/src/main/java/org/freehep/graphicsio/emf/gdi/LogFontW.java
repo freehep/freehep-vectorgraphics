@@ -82,7 +82,7 @@ public class LogFontW implements EMFConstants, GDIObject {
         this.charSet = 0; // ANSI_CHARSET;
         this.outPrecision = 0; // OUT_DEFAULT_PRECIS;
         this.clipPrecision = 0; // CLIP_DEFAULT_PRECIS;
-        this.quality = 4; // ANTIALIASED_QUALITY;
+        this.quality = 5; // CLEARTYPE_QUALITY;
         this.pitchAndFamily = 0;
         this.faceFamily = font.getName();
     }
