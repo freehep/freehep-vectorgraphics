@@ -12,7 +12,7 @@ import java.io.IOException;
  * @version $Id: freehep-graphicsio-emf/src/main/java/org/freehep/graphicsio/emf/EMFHeader.java 39340faa2114 2007/02/12 08:14:31 duns $
  */
 public class EMFHeader implements EMFConstants {
-    private static final Dimension screenMM = new Dimension(320, 240);
+    public static final Dimension screenMM = new Dimension(320, 240);
 
     private Rectangle bounds;
 
