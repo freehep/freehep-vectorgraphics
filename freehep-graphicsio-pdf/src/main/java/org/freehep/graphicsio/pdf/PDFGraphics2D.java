@@ -92,9 +92,28 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 	public static final String BACKGROUND_COLOR = rootKey + "."
 			+ PageConstants.BACKGROUND_COLOR;
 
+	/**
+	 * Property name for setting the size of the pages output by this {@code PDFGraphics2D}.
+	 * <p>
+	 * To set a pre-defined page size, set this property to one of the page size constants defined
+	 * in {@link PageConstants} - for instance, {@linkplain PageConstants#A4},
+	 * {@linkplain PageConstants#LETTER}.
+	 * <p>
+	 * To set a custom page size, set this property to the value {@link CUSTOM_PAGE_SIZE}.  Then,
+	 * set the {@link CUSTOM_PAGE_SIZE} property to a {@link Dimension} object.
+	 * @see UserProperties
+	 */
 	public static final String PAGE_SIZE = rootKey + "."
 			+ PageConstants.PAGE_SIZE;
 
+	/**
+	 * Property name (and value!) for setting a custom page size.
+	 * <p>
+	 * If the {@link PAGE_SIZE} property is set to THIS VALUE, then the properties are consulted
+	 * for the value of THIS KEY.  The value of this key should be a {@link Dimension} object,
+	 * in the "user coordinates" of Java2D.
+	 *
+	 */
 	public static final String CUSTOM_PAGE_SIZE = rootKey + "."
 			+ PageConstants.CUSTOM_PAGE_SIZE;
 
@@ -415,7 +434,6 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 			pages.addPage("Page" + i);
 		}
 		Dimension pageSize = getPageSize();
-
 		pages.setMediaBox(0, 0, pageSize.getWidth(), pageSize.getHeight());
 		pages.setResources("Resources");
 		os.close(pages);
@@ -990,6 +1008,37 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 	private void showCharacterCodes(String str) throws IOException {
 		FontUtilities.showString(getFont(), str, Lookup.getInstance().getTable(
 				"PDFLatin"), this);
+	}
+
+	/**
+	 * Reads the PAGE_SIZE Property. If A4 .. A0 is found,
+	 * PageConstants will determine the size. If CUSTOM_PAGE_SIZE
+	 * is found, CUSTOM_PAGE_SIZE is used as a Property key for
+	 * a dimension object.
+	 *
+	 * @return Size of page
+	 */
+	protected Dimension getPageSize() {
+		// A4 ... A0 or PageConstants.CUSTOM_PAGE_SIZE expected
+		// if PageConstants.CUSTOM_PAGE_SIZE is found,
+		// PageConstants.CUSTOM_PAGE_SIZE is used as Key too
+		String pageSizeProperty = getProperty(PAGE_SIZE);
+
+		// determine page size
+		Dimension result;
+		if (CUSTOM_PAGE_SIZE.equals(pageSizeProperty)) {
+			result = getPropertyDimension(CUSTOM_PAGE_SIZE);
+		} else {
+			result = PageConstants.getSize(getProperty(PAGE_SIZE),
+				getProperty(ORIENTATION));
+		}
+
+		// set a default value
+		if (result == null) {
+			result = PageConstants.getSize(PageConstants.INTERNATIONAL);
+		}
+
+		return result;
 	}
 
 	private double getWidth() {
