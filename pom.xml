@@ -4,7 +4,7 @@
 
 	<groupId>org.freehep</groupId>
 	<artifactId>freehep-vectorgraphics</artifactId>
-	<version>2.3.1-SNAPSHOT</version>
+	<version>2.4</version>
 	<packaging>pom</packaging>
 
 	<name>FreeHEP Vector Graphics</name>
@@ -47,7 +47,7 @@
 		<connection>scm:git:git://github.com/freehep/freehep-vectorgraphics.git</connection>
 		<developerConnection>scm:git:git@github.com:freehep/freehep-vectorgraphics.git</developerConnection>
 		<url>http://github.com/freehep/freehep-vectorgraphics</url>
-		<tag>HEAD</tag>
+		<tag>freehep-vectorgraphics-2.4</tag>
 	</scm>
 
 	<issueManagement>
@@ -171,7 +171,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.4.2</version>
+				<version>2.5</version>
 				<configuration>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 					<preparationGoals>clean install</preparationGoals>
@@ -183,14 +183,14 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.3</version>
+				<version>3.4</version>
 				<configuration>
 					<skip>true</skip>
 				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.4</version>
+				<version>2.4.1</version>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -210,7 +210,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.16</version>
+				<version>2.17</version>
 				<!-- <configuration> <forkMode>pertest</forkMode> <includes> <include>**/*TestSuite.java</include> 
 					</includes> <excludes> <exclude>**/TestSuite.java</exclude> </excludes> </configuration> -->
 			</plugin>
@@ -272,7 +272,7 @@
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-scm-publish-plugin</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <configuration>
         <checkoutDirectory>${project.build.directory}/scmpublish</checkoutDirectory>
         <checkinComment>Publishing javadoc for ${project.artifactId}:${project.version}</checkinComment>
@@ -379,7 +379,7 @@
 						<inherited>true</inherited>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
-						<version>2.2.1</version>
+						<version>2.3</version>
 						<executions>
 							<execution>
 								<id>attach-sources</id>
@@ -407,7 +407,7 @@
 						<inherited>true</inherited>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-deploy-plugin</artifactId>
-						<version>2.8.1</version>
+						<version>2.8.2</version>
 						<configuration>
 							<updateReleaseInfo>true</updateReleaseInfo>
 						</configuration>

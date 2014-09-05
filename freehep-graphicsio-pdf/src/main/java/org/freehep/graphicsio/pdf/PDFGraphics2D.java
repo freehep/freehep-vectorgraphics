@@ -406,24 +406,6 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 		}
 	}
 
-	public Dimension getPageSize() {
-		Dimension pageSize = PageConstants.getSize(getProperty(PAGE_SIZE),
-						   getProperty(ORIENTATION));
-		if (pageSize == null) {
-			pageSize = getPropertyDimension(CUSTOM_PAGE_SIZE);
-		}
-		if (pageSize == null) {
-			Insets margins = PageConstants.getMargins(
-			getPropertyInsets(PAGE_MARGINS), getProperty(ORIENTATION));
-			pageSize = getSize();
-			if (margins != null) {
-				pageSize.width += margins.left + margins.right;
-				pageSize.height += margins.top + margins.bottom;
-			}
-		}
-		return pageSize;
-	}
-
 	public void writeTrailer() throws IOException {
 		if (!isMultiPage())
 			closePage();
