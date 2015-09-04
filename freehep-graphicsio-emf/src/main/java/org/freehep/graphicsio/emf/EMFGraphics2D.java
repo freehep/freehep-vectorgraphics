@@ -27,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.AttributedCharacterIterator.Attribute;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -81,6 +82,33 @@ import org.freehep.graphicsio.font.FontTable;
  */
 public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         EMFConstants {
+
+
+    /**
+     * The dash array definition used in the {@link #setStroke(Stroke)} and {@link #writeStroke(Stroke)} for a {@link EMFConstants#PS_DASH} pen.
+     * Define it if you want to use {@link EMFConstants#PS_DASH} instead of {@link EMFConstants#PS_USERSTYLE}.
+     */
+    public static float[] dashArrayForDashStroke = null;
+
+    /**
+     * The dash array definition used in the {@link #setStroke(Stroke)} and {@link #writeStroke(Stroke)} for a {@link EMFConstants#PS_DOT} pen.
+     * Define it if you want to use {@link EMFConstants#PS_DOT} instead of {@link EMFConstants#PS_USERSTYLE}.
+     */
+    public static float[] dashArrayForDotStroke = null;
+
+    /**
+     * The dash array definition used in the {@link #setStroke(Stroke)} and {@link #writeStroke(Stroke)} for a {@link EMFConstants#PS_DASHDOT} pen.
+     * Define it if you want to use {@link EMFConstants#PS_DASHDOT} instead of {@link EMFConstants#PS_USERSTYLE}.
+     */
+    public static float[] dashArrayForDashDotStroke = null;
+
+    /**
+     * The dash array definition used in the {@link #setStroke(Stroke)} and {@link #writeStroke(Stroke)} for a {@link EMFConstants#PS_DASHDOTDOT} pen.
+     * Define it if you want to use {@link EMFConstants#PS_DASHDOTDOT} instead of {@link EMFConstants#PS_USERSTYLE}.
+     */
+    public static float[] dashArrayForDashDotDotStroke = null;
+
+
     public static final String version = "$Revision$";
 
     private EMFHandleManager handleManager;
@@ -711,11 +739,25 @@ public class EMFGraphics2D extends AbstractVectorGraphicsIO implements
         // FIXME phase ignored
         float[] dashArray = stroke.getDashArray();
         int[] dash = new int[(dashArray != null) ? dashArray.length : 0];
-        style |= (dash.length == 0) ? EMFConstants.PS_SOLID
-                : EMFConstants.PS_USERSTYLE;
-        for (int i = 0; i < dash.length; i++) {
-            dash[i] = toUnit(dashArray[i]);
+        if (dashArrayForDashStroke != null && Arrays.equals(dashArray, dashArrayForDashStroke)) {
+            dash = new int[0];
+            style |= EMFConstants.PS_DASH;
+        } else if (dashArrayForDotStroke != null && Arrays.equals(dashArray, dashArrayForDotStroke)) {
+            dash = new int[0];
+            style |= EMFConstants.PS_DOT;
+        } else if (dashArrayForDashDotStroke != null && Arrays.equals(dashArray, dashArrayForDashDotStroke)) {
+            dash = new int[0];
+            style |= EMFConstants.PS_DASHDOT;
+        }  else if (dashArrayForDashDotDotStroke != null && Arrays.equals(dashArray, dashArrayForDashDotDotStroke)) {
+            dash = new int[0];
+            style |= EMFConstants.PS_DASHDOTDOT;
+        } else {
+            style |= (dash.length == 0) ? EMFConstants.PS_SOLID : EMFConstants.PS_USERSTYLE;
+            for (int i = 0; i < dash.length; i++) {
+                dash[i] = toUnit(dashArray[i]);
+            }
         }
+        
 
         int brushStyle = (color.getAlpha() == 0) ? EMFConstants.BS_NULL
                 : EMFConstants.BS_SOLID;
