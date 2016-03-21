@@ -98,7 +98,7 @@ public class TestClip extends TestingPanel {
         vg.fillRect(0, 0, dim.width, dim.height);
 
         int nx = 6;
-        int ny = 6;
+        int ny = 7;
 
         int dw = dim.width / (nx + 1);
         int dh = dim.height / ny;
@@ -216,8 +216,27 @@ public class TestClip extends TestingPanel {
             svg2.fill(clippedPath);
             svg2.dispose();
         }
-
         svg.dispose();
+
+        // Java setClip and Draw
+        svg = (VectorGraphics) vg.create();
+        svg.drawString("JavaSetClip", 10, 10 + 10 + 6 * dh);
+        svg.scale(factor, factor);
+        svg.translate(10 / factor, 10 / factor + 6 * dh / factor);
+        for (int i = 0; i < nx; i++) {
+            svg.translate(dw / factor, 0);
+            VectorGraphics svg2 = (VectorGraphics) svg.create();
+            svg2.setColor(Color.red);
+            svg2.setLineWidth(1.0 / factor);
+            svg2.draw(clip[i]);
+            svg2.setColor(Color.blue); // color is set before setClip to check that it is taken over
+            svg2.setClip(clip[i]);
+            svg2.setLineWidth(3.0 / factor);
+            svg2.draw(path[i]);
+            svg2.dispose();
+        }
+        svg.dispose();
+
     }
 
     public static void main(String[] args) throws Exception {
