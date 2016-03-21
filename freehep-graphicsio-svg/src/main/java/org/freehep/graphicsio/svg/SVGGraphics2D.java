@@ -446,7 +446,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             style.put("fill", "none");
             style.putAll(getStrokeProperties(getStroke(), false));
 
-            writePathIterator(path, style);
+            writePathIterator(shape, style);
         } else if (getStroke() != null) {
             // fill the shape created by stroke
             fill(getStroke().createStrokedShape(shape));
@@ -486,18 +486,18 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             // no border
             style.put("stroke", "none");
 
-            writePathIterator(path, style);
+            writePathIterator(shape, style);
         }
     }
 
     /**
-     * writes a path using {@link #getPath(java.awt.geom.PathIterator)}
+     * writes a shape's path using {@link #getPath(java.awt.geom.PathIterator)}
      * and the given style
      *
-     * @param pi PathIterator
+     * @param shape The shape to get a PathIterator from
      * @param style Properties for <g> tag
      */
-    private void writePathIterator(PathIterator pi, Properties style) {
+    private void writePathIterator(Shape shape, Properties style) {
         StringBuffer result = new StringBuffer();
 
         // write style
@@ -506,6 +506,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         result.append(">\n  ");
 
         // draw shape
+        PathIterator pi = shape.getPathIterator(null);
         result.append(getPath(pi));
 
         // close style
@@ -516,6 +517,8 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         // test if clip intersects pi
         if (getClip() != null) {
             GeneralPath gp = new GeneralPath();
+
+            pi = shape.getPathIterator(null);
             gp.append(pi, true);
             // create the stroked shape
             Stroke stroke = getStroke() == null? defaultStroke : getStroke();
