@@ -199,8 +199,10 @@ public abstract class AbstractPSGraphics2D extends AbstractVectorGraphicsIO impl
 
     /**
      * Write out the header of this EPS file.
+     * @param prolog name of the resource containing the 
+     * prolog. Must be reachable by the ClassLoader.
      */
-    public void writeHeader() throws IOException {
+    public void writeHeader(String prolog) throws IOException {
         String producer = getClass().getName();
         if (!isDeviceIndependent()) {
             producer += " " + version.substring(1, version.length() - 1);
@@ -235,9 +237,17 @@ public abstract class AbstractPSGraphics2D extends AbstractVectorGraphicsIO impl
         // as this class definition. It is simply copied into the
         // output file.
         os.println("%%BeginProlog");
-        copyResourceTo(this, "PSProlog.txt", os);
+        copyResourceTo(this, prolog, os);
         os.println("%%EndProlog");
         os.println();
+    }
+
+    /**
+     * Write out the header of this EPS file. Use standard 
+     * PSProlog.txt file.
+     */
+    public void writeHeader() throws IOException {
+        writeHeader("PSProlog.txt");
     }
 
     public void writeBackground() throws IOException {
