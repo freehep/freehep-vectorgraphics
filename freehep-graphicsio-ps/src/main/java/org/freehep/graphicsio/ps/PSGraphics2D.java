@@ -101,6 +101,10 @@ public class PSGraphics2D extends AbstractPSGraphics2D implements
     }
     
     public void writeHeader() throws IOException {
+        writeHeader(null);
+    }
+
+    public void writeHeader(String prolog) throws IOException {
         if (!isMultiPage()) {
             Dimension size = getSize();
             // moved to openPage for multiPage
@@ -110,7 +114,11 @@ public class PSGraphics2D extends AbstractPSGraphics2D implements
         os = new PrintStream(ros, true);
         os.println("%!PS-Adobe-3.0");
 
-        super.writeHeader();
+        if(prolog != null) {
+            super.writeHeader(prolog);
+        } else {
+            super.writeHeader();
+        }
 
         if (!isMultiPage())
             openPage(getSize(), null, getComponent());
