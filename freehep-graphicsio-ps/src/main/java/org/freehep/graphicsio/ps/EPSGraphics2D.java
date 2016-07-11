@@ -93,6 +93,10 @@ public class EPSGraphics2D extends AbstractPSGraphics2D {
     }
 
     public void writeHeader() throws IOException {
+        writeHeader(null);
+    }
+
+    public void writeHeader(String prolog) throws IOException {
         Dimension size = getSize();
         // moved to openPage for multiPage
         resetClip(new Rectangle(0, 0, size.width, size.height));
@@ -103,7 +107,11 @@ public class EPSGraphics2D extends AbstractPSGraphics2D {
         os.println("%%BoundingBox: " + bbox.x + " " + bbox.y + " "
                     + (bbox.x + bbox.width) + " " + (bbox.y + bbox.height));
 
-        super.writeHeader();
+        if(prolog != null) {
+            super.writeHeader(prolog);
+        } else {
+            super.writeHeader();
+	}
 
         os.println("%%BeginSetup");
 
