@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.DateFormat;
@@ -260,14 +261,14 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             ros = new GZIPOutputStream(ros);
         }
 
-        os = new PrintWriter(ros, true);
+        os = new PrintWriter(new OutputStreamWriter(ros, "UTF-8"), true);
         fontTable = new SVGFontTable();
 
         // Do the bounding box calculation.
         setBoundingBox();
         imageNumber = 0;
 
-        os.println("<?xml version=\"1.0\" standalone=\"no\"?>");
+        os.println("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>");
         if (getProperty(VERSION).equals(VERSION_1_1)) {
             // no DTD anymore
         } else {
@@ -318,7 +319,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         if (!isDeviceIndependent()) {
             os.print(" Date: "
                     + DateFormat.getDateTimeInstance(DateFormat.FULL,
-                            DateFormat.FULL).format(new Date()));
+                    DateFormat.FULL).format(new Date()));
         }
         os.println("</desc>");
 
