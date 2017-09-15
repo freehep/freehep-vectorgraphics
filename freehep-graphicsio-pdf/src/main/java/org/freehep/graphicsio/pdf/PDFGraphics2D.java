@@ -798,16 +798,25 @@ public class PDFGraphics2D extends AbstractVectorGraphicsIO implements
 	 * ================================================================================
 	 */
 	protected void writeSetClip(Shape s) throws IOException {
+		
 		// clear old clip
+		// FIXME this code only clears the clip if the PDF graphics state stack has been
+		// kept so shallow that a single "pop" removes the clip. However, when using
+		// Graphics.create states are being pushed on the stack and this method doesn't
+		// successfully clear the clip any more. A solution requires clearing the whole
+		// stack, setting a new clip and reconstructing the stack when the state with the
+		// new clip gets popped some time later.
 		try {
 			AffineTransform at = getTransform();
 			Stroke stroke = getStroke();
+			Color color = getColor();
 
 			writeGraphicsRestore();
 			writeGraphicsSave();
 
 			writeStroke(stroke);
 			writeTransform(at);
+			writePaint(color);
 		} catch (IOException e) {
 			handleException(e);
 		}

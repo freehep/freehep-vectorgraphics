@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.DateFormat;
@@ -260,14 +261,14 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             ros = new GZIPOutputStream(ros);
         }
 
-        os = new PrintWriter(ros, true);
+        os = new PrintWriter(new OutputStreamWriter(ros, "UTF-8"), true);
         fontTable = new SVGFontTable();
 
         // Do the bounding box calculation.
         setBoundingBox();
         imageNumber = 0;
 
-        os.println("<?xml version=\"1.0\" standalone=\"no\"?>");
+        os.println("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>");
         if (getProperty(VERSION).equals(VERSION_1_1)) {
             // no DTD anymore
         } else {
@@ -318,7 +319,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         if (!isDeviceIndependent()) {
             os.print(" Date: "
                     + DateFormat.getDateTimeInstance(DateFormat.FULL,
-                            DateFormat.FULL).format(new Date()));
+                    DateFormat.FULL).format(new Date()));
         }
         os.println("</desc>");
 
@@ -446,7 +447,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             style.put("fill", "none");
             style.putAll(getStrokeProperties(getStroke(), false));
 
-            writePathIterator(path, style);
+            writePathIterator(shape, style);
         } else if (getStroke() != null) {
             // fill the shape created by stroke
             fill(getStroke().createStrokedShape(shape));
@@ -486,18 +487,18 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
             // no border
             style.put("stroke", "none");
 
-            writePathIterator(path, style);
+            writePathIterator(shape, style);
         }
     }
 
     /**
-     * writes a path using {@link #getPath(java.awt.geom.PathIterator)}
+     * writes a shape's path using {@link #getPath(java.awt.geom.PathIterator)}
      * and the given style
      *
-     * @param pi PathIterator
+     * @param shape The shape to get a PathIterator from
      * @param style Properties for <g> tag
      */
-    private void writePathIterator(PathIterator pi, Properties style) {
+    private void writePathIterator(Shape shape, Properties style) {
         StringBuffer result = new StringBuffer();
 
         // write style
@@ -506,6 +507,7 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         result.append(">\n  ");
 
         // draw shape
+        PathIterator pi = shape.getPathIterator(null);
         result.append(getPath(pi));
 
         // close style
@@ -516,6 +518,8 @@ public class SVGGraphics2D extends AbstractVectorGraphicsIO {
         // test if clip intersects pi
         if (getClip() != null) {
             GeneralPath gp = new GeneralPath();
+
+            pi = shape.getPathIterator(null);
             gp.append(pi, true);
             // create the stroked shape
             Stroke stroke = getStroke() == null? defaultStroke : getStroke();
