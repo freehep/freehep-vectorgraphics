@@ -239,6 +239,51 @@ public class EMFImageLoader {
 
             return result;
         }
+        else if ((bmi.getBitCount() == 24) && (bmi.getCompression() == EMFConstants.BI_RGB)) {
+            // Each 3 bytes in the bitmap array represents a single pixel. The
+            // relative intensities of red, green, and blue are represented with
+            // five bits for each color component. The value for red is in the first byte,
+            // the value for blue in the last.
+            // Each row of the bitmap is padded to contain a whole-number of DWORDs.
+
+            int rowSize = 4 * ((bmi.getBitCount() * width + 31) / 32);
+            int[] data = emf.readUnsignedByte( len );
+
+            // create a non transparent image
+            BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+            int counter = 0;
+            for (int y = 0; y < height; y++)
+            {
+                for(int x = 0; x < width; x++)
+                {
+                    result.setRGB(x, height - y - 1,
+                        new Color(data[ counter++ ], data[ counter++ ], data[ counter++ ] ).getRGB());
+
+                    if (counter >= data.length)
+                        break;
+                }
+
+                counter = (y * rowSize) + 1;
+
+                if (counter >= data.length)
+                    break;
+            }
+
+            /* for debugging: shows every loaded image
+            javax.swing.JFrame f = new javax.swing.JFrame("test");
+            f.getContentPane().setBackground(Color.green);
+            f.getContentPane().setLayout(
+                new java.awt.BorderLayout(0, 0));
+            f.getContentPane().add(
+                java.awt.BorderLayout.CENTER,
+                new javax.swing.JLabel(
+                    new javax.swing.ImageIcon(result)));
+            f.pack();
+            f.setVisible(true);*/
+
+            return result;
+        }
         // The bitmap has a maximum of 2^32 colors. If the biCompression member of the
         // BITMAPINFOHEADER is BI_RGB, the bmiColors member of BITMAPINFO is NULL.
         else if ((bmi.getBitCount() == 32) &&
