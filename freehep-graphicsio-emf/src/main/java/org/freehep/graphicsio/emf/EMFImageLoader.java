@@ -366,16 +366,19 @@ public class EMFImageLoader {
       int off = 0;
       int pixel;
       int alpha;
-
+      int sourceConstantAlpha = 0xFF; // assume default value
+      
       // The SourceConstantaAlpha member of BLENDFUNCTION specifies an alpha transparency
       // value to be used on the entire source bitmap. The SourceConstantAlpha value is
       // combined with any per-pixel alpha values. If SourceConstantAlpha is 0, it is
       // assumed that the image is transparent. Set the SourceConstantAlpha value to 255
       // (which indicates that the image is opaque) when you only want to use per-pixel
       // alpha values.
-      int sourceConstantAlpha = blendFunction.getSourceConstantAlpha();
+		if( null != blendFunction ) {
+			sourceConstantAlpha = blendFunction.getSourceConstantAlpha();
+		}
 
-      if( blendFunction.getAlphaFormat() != EMFConstants.AC_SRC_ALPHA )
+      if( null != blendFunction && blendFunction.getAlphaFormat() != EMFConstants.AC_SRC_ALPHA )
       {
          // If the source bitmap has no per-pixel alpha value (that is, AC_SRC_ALPHA is not
          // set), the SourceConstantAlpha value determines the blend of the source and
