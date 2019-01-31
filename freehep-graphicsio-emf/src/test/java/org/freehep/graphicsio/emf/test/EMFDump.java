@@ -15,24 +15,41 @@ import org.freehep.util.io.Tag;
 public class EMFDump {
 
     public static void main(String[] args) {
+		FileInputStream fis = null;
+		EMFInputStream emf = null;
 
-        try {
-            FileInputStream fis = new FileInputStream(args[0]);
-            EMFInputStream emf = new EMFInputStream(fis);
+		try {
+			fis = new FileInputStream(args[0]);
+			emf = new EMFInputStream(fis);
 
-            long start = System.currentTimeMillis();
-            EMFHeader header = emf.readHeader();
-            System.out.println(header);
+			long start = System.currentTimeMillis();
+			EMFHeader header = emf.readHeader();
+			System.out.println(header);
 
-            Tag tag = emf.readTag();
-            while (tag != null) {
-                System.out.println(tag);
-                tag = emf.readTag();
-            }
-            System.out.println("Parsed file in: "
-                    + (System.currentTimeMillis() - start) + " ms.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+			Tag tag = null;
+			do {
+				tag = emf.readTag();
+				System.out.println(tag);
+
+				if (tag instanceof EOF) {
+					// stop on End Of File tag
+					break;
+				}
+			} while (tag != null);
+
+			System.out.println("Parsed file in: " + (System.currentTimeMillis() - start) + " ms.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (null != emf) {
+					emf.close();
+				} else if (null != fis) {
+					fis.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
     }
 }
