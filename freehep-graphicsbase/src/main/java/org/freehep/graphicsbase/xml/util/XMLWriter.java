@@ -136,7 +136,7 @@ public class XMLWriter implements XMLTagWriter
 	}
 
 	/**
-	 * Prints character data, while escaping < and >
+	 * Prints character data, while escaping &lt; and &gt;
 	 */
 	public void print(String text)
 	{
@@ -145,7 +145,7 @@ public class XMLWriter implements XMLTagWriter
 
 
 	/**
-	 * Prints character data, while escaping < and >
+	 * Prints character data, while escaping &lt; and &gt;
 	 */
 	public void println(String text)
 	{

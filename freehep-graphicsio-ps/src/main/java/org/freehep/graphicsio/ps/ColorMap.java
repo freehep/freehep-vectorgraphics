@@ -648,7 +648,7 @@ public class ColorMap {
     }
 
     /**
-     * Change to the black&white color map.
+     * Change to the black&amp;white color map.
      */
     public void useBlackAndWhiteColorMap() {
         currentColorMap = bwMap;

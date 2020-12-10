@@ -15,7 +15,7 @@ import java.util.Locale;
  * significant digits (sigDig) parameter and always specify a Base 10 Exponential(E).
  * Standard formated numbers have the number of digits specified by the significant
  * digits (sigDig) parameter but will not have a Base 10 Exponential(E) if the number of digits
- * in the mantissa <= maxWidth.
+ * in the mantissa &lt;= maxWidth.
  *
  * @author Paul Spence
  * @author Mark Donszelmann
@@ -42,6 +42,9 @@ public class ScientificFormat extends Format
    /**
     * Sets the significant digits, maximum allowable width and number formatting style
     * (SciNote == true for Pure formatting).
+    * @param sigDigit number of significant digits
+    * @param maxWidth maximum allowed width
+    * @param SciNote whether to use scientific notation
     */
    public ScientificFormat(int sigDigit, int maxWidth, boolean SciNote)
    {
@@ -95,7 +98,8 @@ public class ScientificFormat extends Format
    }
    
    /**
-    * Returns the number of significant digits
+    * Number of significant digits.
+    * @return the number of significant digits
     */
    public int getSigDigits()
    {
@@ -103,7 +107,8 @@ public class ScientificFormat extends Format
    }
    
    /**
-    * Returns the maximum allowable width of formatted number excluding any exponentials
+    * The maximum allowable width of formatted number excluding any exponentials
+    * @return maximum allowable width
     */
    public int getMaxWidth()
    {
@@ -111,7 +116,8 @@ public class ScientificFormat extends Format
    }
    
    /**
-    * Returns the formatting style: True means Pure scientific formatting, False means standard.
+    * The formatting style: True means Pure scientific formatting, False means standard.
+    * @return true for pure scientific formatting, false for standard.
     */
    public boolean getScientificNotationStyle()
    {
@@ -120,6 +126,7 @@ public class ScientificFormat extends Format
    
    /**
     * Sets the number of significant digits for the formatted number
+    * @param SigDigit number of significant digits.
     */
    public void setSigDigits(int SigDigit)
    {
@@ -131,6 +138,7 @@ public class ScientificFormat extends Format
    /**
     * Sets the maximum allowable length of the formattted number mantissa before exponential notation
     * is used.
+    * @param mWidth maximum allowable length before exponent
     */
    public void setMaxWidth(int mWidth)
    {
@@ -144,7 +152,8 @@ public class ScientificFormat extends Format
     * significant digits (sigDig) parameter and always specify a Base 10 Exponential(E).
     * Standard formated numbers have the number of digits specified by the significant
     * digits (sigDig) parameter but will not have a Base 10 Exponential(E) if the number of digits
-    * in the mantissa <= maxWidth.
+    * in the mantissa &lt;= maxWidth.
+    * @param sciNote whether to use scientific notation.
     */
    public void setScientificNotationStyle(boolean sciNote)
    {
@@ -188,6 +197,8 @@ public class ScientificFormat extends Format
    }
    /**
     * Format the number using scientific notation
+    * @param d the number
+    * @return the formatted string representation
     */
    public String format(double d)
    {

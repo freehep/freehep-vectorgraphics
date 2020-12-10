@@ -20,9 +20,9 @@ import org.freehep.graphicsio.font.FontTable;
 /**
  * A table to remember which glyphs were used while writing a svg file.
  * Entries are added by calling {@link #addGlyphs(String, java.awt.Font)}.
- * The final SVG tag for the <defs> section is generated using {@link #toString()}.
+ * The final SVG tag for the &lt;defs&gt; section is generated using {@link #toString()}.
  * Use {@link #normalize(java.util.Map)} for referencing embedded glyphs
- * in <text> tags.
+ * in &lt;text&gt; tags.
  *
  * @author Steffen Greiffenberg
  * @version $Id: freehep-graphicsio-svg/src/main/java/org/freehep/graphicsio/svg/SVGFontTable.java 4c4708a97391 2007/06/12 22:32:31 duns $
@@ -113,12 +113,12 @@ public class SVGFontTable {
 
     /**
      * creates the font entry:
-     * <PRE>
-     * <font>
-     * <glyph ... />
+     * &lt;PRE&gt;
+     * &lt;font&gt;
+     * &lt;glyph ... /&gt;
      * ...
-     * </font>
-     * </PRE>
+     * &lt;/font&gt;
+     * &lt;/PRE&gt;
      *
      * @return string representing the entry
      */

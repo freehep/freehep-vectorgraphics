@@ -168,7 +168,7 @@ public class Value {
     /**
      * Get the integer value.
      * @return The int value.
-     * @exception A ClassCastException is thrown if this Value has incompatible type.
+     * @exception ClassCastException is thrown if this Value has incompatible type.
      *
      */
     public int getInt() {
@@ -181,7 +181,7 @@ public class Value {
     /**
      * Get the short value.
      * @return The short value.
-     * @exception A ClassCastException is thrown if this Value has incompatible type.
+     * @exception ClassCastException is thrown if this Value has incompatible type.
      *
      */
     public short getShort() {
@@ -193,7 +193,7 @@ public class Value {
     /**
      * Get the long value.
      * @return The long value.
-     * @exception A ClassCastException is thrown if this Value has incompatible type.
+     * @exception ClassCastException is thrown if this Value has incompatible type.
      *
      */
     public long getLong() {
@@ -207,7 +207,7 @@ public class Value {
     /**
      * Get the float value.
      * @return The float value.
-     * @exception A ClassCastException is thrown if this Value has incompatible type.
+     * @exception ClassCastException is thrown if this Value has incompatible type.
      *
      */
     public float getFloat() {
@@ -222,7 +222,7 @@ public class Value {
     /**
      * Get the double value.
      * @return The double value.
-     * @exception A ClassCastException is thrown if this Value has incompatible type.
+     * @exception ClassCastException is thrown if this Value has incompatible type.
      *
      */
     public double getDouble() {
@@ -239,7 +239,7 @@ public class Value {
     /**
      * Get the boolean value.
      * @return The boolean value.
-     * @exception A ClassCastException is thrown if this Value has incompatible type.
+     * @exception ClassCastException is thrown if this Value has incompatible type.
      *
      */
     public boolean getBoolean() {
@@ -250,7 +250,7 @@ public class Value {
     /**
      * Get the byte value.
      * @return The byte value.
-     * @exception A ClassCastException is thrown if this Value has incompatible type.
+     * @exception ClassCastException is thrown if this Value has incompatible type.
      *
      */
     public byte getByte() {
@@ -261,7 +261,7 @@ public class Value {
     /**
      * Get the char value.
      * @return The char value.
-     * @exception A ClassCastException is thrown if this Value has incompatible type.
+     * @exception ClassCastException is thrown if this Value has incompatible type.
      *
      */
     public char getChar() {
@@ -291,7 +291,7 @@ public class Value {
     /**
      * Get the Date value.
      * @return The Date value.
-     * @exception A ClassCastException is thrown if this Value has incompatible type.
+     * @exception ClassCastException is thrown if this Value has incompatible type.
      *
      */
     public Date getDate() {

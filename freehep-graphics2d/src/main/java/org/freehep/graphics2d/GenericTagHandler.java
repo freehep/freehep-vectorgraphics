@@ -13,7 +13,7 @@ import java.util.Vector;
 import org.freehep.graphics2d.font.FontUtilities;
 
 /**
- * The class converts HTML tags like <u> in instances of {@link TextAttribute}.
+ * The class converts HTML tags like &lt;u&gt; in instances of {@link TextAttribute}.
  *
  * @author Mark Donszelmann
  * @author Steffen Greiffenberg
@@ -32,7 +32,7 @@ public class GenericTagHandler extends TagHandler {
     private Graphics2D graphics;
 
     /**
-     * text without any tags, e.g. "<sub>text</sub>" would become "text".
+     * text without any tags, e.g. "&lt;sub&gt;text&lt;/sub&gt;" would become "text".
      * filled by {@link #text(String)}
      */
     private StringBuffer clearedText;
@@ -43,7 +43,7 @@ public class GenericTagHandler extends TagHandler {
     private Vector/*<AttributeEntry>*/<AttributeEntry> attributes;
 
     /**
-     * stores all open tags, e.g. "<sub>" an the position
+     * stores all open tags, e.g. "&lt;sub&gt;" an the position
      * on which it placed in text. Filled by {@link #openTag(String)},
      * emptied and translated into <code>attributes</code> by
      * {@link #closeTag(String)}
@@ -151,9 +151,9 @@ public class GenericTagHandler extends TagHandler {
     }
 
     /**
-     * handles bold <b>, italic <i>, superscript <sup>, subscript <sub>,
-     * vertical <v>, overline <over>, underline <u>, strikethrough <s>,
-     * underline dashed <udash>, underline dotted <udot> and typewriter <tt>
+     * handles bold &lt;b&gt;, italic &lt;i&gt;, superscript &lt;sup&gt;, subscript &lt;sub&gt;,
+     * vertical &lt;v&gt;, overline &lt;over&gt;, underline &lt;u&gt;, strikethrough &lt;s&gt;,
+     * underline dashed &lt;udash&gt;, underline dotted &lt;udot&gt; and typewriter &lt;tt&gt;
      *
      * @param tag one of the known tags, otherwise the overloaded methode is called
      * @return empty string or the result of the overloaded method
@@ -170,8 +170,8 @@ public class GenericTagHandler extends TagHandler {
     }
 
     /**
-     * closes the given html tag. It doesn't matter, if that one was opened, so </udot>
-     * closes a <udash> too, because the use the same TextAttribute.UNDERLINE.
+     * closes the given html tag. It doesn't matter, if that one was opened, so &lt;/udot&gt;
+     * closes a &lt;udash&gt; too, because the use the same TextAttribute.UNDERLINE.
      *
      * @param tag to close
      * @return empty string or the result of the overloaded method
