@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.imageio.spi.RegisterableService;
-import javax.imageio.spi.ServiceRegistry;
 
 import org.freehep.graphicsbase.util.Service;
 

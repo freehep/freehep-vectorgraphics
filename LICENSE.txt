@@ -6,10 +6,9 @@ CERN, Geneva, Switzerland
 SLAC, Stanford, California, U.S.A.
 University of California Santa Cruz, U.S.A.
 
-This software is dual licensed under:
+Originally this software has been licensed under LGPL (see LGPL.txt),
+but has been changed to GPL2 with classpath exception license, because:
+a) GPL2 with classpath exception captures the same intentions as LGPL and the wording is more suitable for Java projects.
+b) The project now includes four files from OpenJDK8 which allow FreeHEP library to function under Java environments. The files are licensed under GPL2 with classpath exception.
 
-- The LGPL license, see the file LGPL.txt
-- The Apache license, see the file APACHE-LICENSE-2.0.txt
-
-
-
+See the file GPLv2-classpath.txt.
